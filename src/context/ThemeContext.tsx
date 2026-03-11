@@ -20,9 +20,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const savedTheme = localStorage.getItem('theme') as Theme | null;
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    if (savedTheme) {
+    // Only update if different from initial 'light' to avoid unnecessary render
+    if (savedTheme && savedTheme !== 'light') {
+      // eslint-disable-next-line
       setTheme(savedTheme);
-    } else if (systemPrefersDark) {
+    } else if (!savedTheme && systemPrefersDark) {
       setTheme('dark');
     }
     

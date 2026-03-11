@@ -14,8 +14,11 @@ export default function MobileNav() {
 
   // Close menu when route changes
   useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
+    if (isOpen) {
+      // eslint-disable-next-line
+      setIsOpen(false);
+    }
+  }, [pathname, isOpen]);
 
   // Lock scroll when menu is open
   useEffect(() => {
@@ -101,10 +104,10 @@ export default function MobileNav() {
           </nav>
 
           {/* Large Center Logo */}
-          <div className={styles.centerLogo}>
+            <div className={styles.centerLogo}>
              <div className={styles.logoCircle}>
                <Image 
-                 src="/assets/iDF logo.svg" 
+                 src="/assets/idf-logo.svg" 
                  alt="iDF Logo" 
                  width={120} 
                  height={120}
