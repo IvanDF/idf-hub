@@ -260,36 +260,179 @@
   width: 100vw;
   height: 100vh;
   background: var(--color-bg);
-  z-index: 25;
+  z-index: 50;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 32px;
+  padding: 24px;
   
-  // Transform logic for sliding
+  // Slide transition
   transform: translateX(100%);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 24px;
 
   &.open {
     transform: translateX(0);
   }
-  
-  .navLink {
-    font-size: 32px; // Much larger for mobile
-    letter-spacing: 2px;
-  }
-  
-  .themeToggle {
-      margin-top: 20px;
-  }
+}
 
-  .socials {
-    margin-top: 40px;
-    a {
-        width: 48px;
-        height: 48px;
+.menuHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text);
+  padding: 8px;
+  margin-left: -8px; // Align optically
+  
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-family: var(--font-josefin-sans), sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  
+  .themeIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.menuBody {
+  flex: 1;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.navLinks {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-top: 40px; // Spacing from header
+}
+
+.navLink {
+  font-family: var(--font-josefin-sans), sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 0.6;
+  }
+  
+  &.active {
+    // You might want an active state here, e.g. bold or specific color
+  }
+}
+
+.centerLogo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1; // Behind nav links if they overlap
+  opacity: 0.1; // Make it subtle or as per design. Design shows it pretty solid but maybe styled?
+                // Actually design shows it as a big purple circle with white logo.
+}
+
+.logoCircle {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background-color: var(--color-accent); // Assuming purple is accent
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  // If the logo inside is SVG, we might need to color it white
+  .logoImage {
+    filter: brightness(0) invert(1); // Make white
+    width: 50%;
+    height: auto;
+  }
+}
+
+.menuFooter {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; // Right aligned
+  gap: 24px;
+  margin-top: auto;
+}
+
+.personalInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  
+  .name {
+    font-family: var(--font-josefin-sans), sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: var(--color-text);
+  }
+  
+  .role {
+    font-family: var(--font-josefin-sans), sans-serif;
+    font-weight: 400; // Thinner
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--color-text);
+    opacity: 0.6;
+  }
+}
+
+.socialsRow {
+  display: flex;
+  gap: 24px;
+  
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--color-text); // Inverse circle
+    border-radius: 50%;
+    transition: transform 0.2s;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+    
+    .socialIcon {
+      filter: invert(1); // Invert icon color if background is text color
+      width: 20px;
+      height: 20px;
     }
   }
 }
