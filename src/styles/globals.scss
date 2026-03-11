@@ -26,6 +26,18 @@ html, body {
   color: var(--color-text);
   overflow: hidden; // For the immersive feel
   transition: background-color 0.3s ease, color 0.3s ease;
+
+  /* Custom Cursor Logic */
+  @media (hover: hover) and (pointer: fine) {
+    cursor: none !important;
+  }
+}
+
+/* Ensure interactive elements don't show default cursor on desktop */
+@media (hover: hover) and (pointer: fine) {
+  a, button, [role="button"], input, select, textarea {
+    cursor: none !important;
+  }
 }
 
 *, *::before, *::after {

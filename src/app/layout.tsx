@@ -1,8 +1,9 @@
+import MainLayout from "@/components/layout";
+import CustomCursor from "@/components/ui/CustomCursor";
+import { ThemeProvider } from "@/context/ThemeContext";
+import "@/styles/globals.scss";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Josefin_Sans } from "next/font/google";
-import { ThemeProvider } from "@/context/ThemeContext";
-import MainLayout from "@/components/layout";
-import "@/styles/globals.scss";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,11 +33,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${josefinSans.variable}`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${josefinSans.variable}`}
+      >
         <ThemeProvider>
-          <MainLayout>
-            {children}
-          </MainLayout>
+          {/* Custom Cursor (visible on desktop only) */}
+          <CustomCursor />
+          <MainLayout>{children}</MainLayout>
         </ThemeProvider>
       </body>
     </html>

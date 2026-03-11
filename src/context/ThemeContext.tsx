@@ -1,5 +1,16 @@
 'use client';
 
+/**
+ * Theme Context
+ * 
+ * Provides global theme management (light/dark mode) for the application.
+ * Handles persistence via localStorage and system preference detection.
+ * 
+ * Includes:
+ * - ThemeProvider: Wrapper component to provide theme context
+ * - useTheme: Hook to consume theme context
+ */
+
 import { createContext, useContext, useEffect, useState } from 'react';
 
 type Theme = 'light' | 'dark';
@@ -11,6 +22,15 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+/**
+ * ThemeProvider Component
+ * 
+ * Wraps the application to provide theme state and toggle functionality.
+ * Prevents hydration mismatch by handling initial render state.
+ * 
+ * @param {Object} props - Component props
+ * @param {React.ReactNode} props.children - Child components
+ */
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);

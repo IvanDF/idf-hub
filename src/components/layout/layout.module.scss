@@ -1,4 +1,4 @@
-@use '@/styles/variables' as *;
+@use "@/styles/variables" as *;
 
 .container {
   display: flex;
@@ -7,7 +7,7 @@
   position: relative;
   overflow: hidden;
   background-color: var(--color-bg);
-  background-image: url('/assets/base-pattern.svg');
+  background-image: url("/assets/base-pattern.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -74,7 +74,7 @@
   color: var(--color-text);
   text-decoration: none;
   transition: color 0.3s;
-  
+
   &:hover {
     color: var(--color-accent);
   }
@@ -96,7 +96,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  
+
   .name {
     font-family: var(--font-josefin-sans), sans-serif;
     font-weight: 700;
@@ -104,7 +104,7 @@
     text-transform: uppercase;
     color: var(--color-accent);
   }
-  
+
   .role {
     font-family: var(--font-josefin-sans), sans-serif;
     font-weight: 700;
@@ -124,12 +124,11 @@
   font-size: 16px;
   text-transform: uppercase;
   color: var(--color-text);
-  cursor: pointer;
-  
+
   span {
     transition: color 0.3s ease;
   }
-  
+
   &:hover span {
     color: var(--color-accent);
   }
@@ -145,11 +144,11 @@
   justify-content: flex-start;
   padding: 2px;
   transition: all 0.3s ease;
-  
+
   &.active {
     justify-content: flex-end;
   }
-  
+
   div {
     width: 10px;
     height: 10px;
@@ -162,7 +161,7 @@
 .socials {
   display: flex;
   gap: 24px;
-  
+
   a {
     display: flex;
     align-items: center;
@@ -174,7 +173,7 @@
     color: var(--color-text);
     text-decoration: none;
     transition: all 0.3s ease;
-    
+
     img {
       filter: grayscale(1); // Optional: make icons monochrome to fit design
       transition: filter 0.3s ease;
@@ -182,7 +181,7 @@
 
     &:hover {
       border-color: var(--color-accent);
-      
+
       img {
         filter: none;
       }
@@ -190,7 +189,7 @@
   }
 }
 
-// Mobile Styles
+// Mobile Styles Refactored
 .mobileHeader {
   display: none; // Hidden on desktop
   position: fixed;
@@ -198,11 +197,12 @@
   left: 0;
   width: 100%;
   height: 80px;
-  z-index: 30; // Above everything
+  z-index: 9999; // Above EVERYTHING
   padding: 0 24px;
   justify-content: space-between;
   align-items: center;
-  
+  pointer-events: none; // Let clicks pass through except for children
+
   // Only show on mobile
   @media (max-width: 768px) {
     display: flex;
@@ -210,51 +210,191 @@
 }
 
 .logo {
-    font-family: var(--font-josefin-sans), sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    color: var(--color-text);
-    text-decoration: none;
-    z-index: 31; // Above menu bg
+  pointer-events: auto; // Make logo clickable
+  font-family: var(--font-josefin-sans), sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--color-text);
+  text-decoration: none;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+}
+
+.logoInvert {
+  filter: invert(1);
 }
 
 .burger {
+  pointer-events: auto; // Make burger clickable
+  width: 32px;
+  height: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 10000;
+
+  span {
+    display: block;
+    height: 2px;
+    background: var(--color-text);
+    transition: all 0.3s ease;
+  }
+
+  span:nth-child(1) {
     width: 32px;
-    height: 32px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 6px;
-    cursor: pointer;
-    z-index: 31; // Above menu bg
+  }
+  span:nth-child(2) {
+    width: 24px;
+  }
+  span:nth-child(3) {
+    width: 16px;
+  }
 
-    span {
-      display: block;
-      height: 2px;
-      background: var(--color-text);
-      transition: all 0.3s ease;
+  &.open {
+    align-items: center;
+    span:nth-child(1) {
+      width: 32px;
+      transform: rotate(45deg) translate(5px, 6px);
     }
-    
-    span:nth-child(1) { width: 32px; }
-    span:nth-child(2) { width: 24px; }
-    span:nth-child(3) { width: 16px; }
+    span:nth-child(2) {
+      opacity: 0;
+      width: 0;
+    }
+    span:nth-child(3) {
+      width: 32px;
+      transform: rotate(-45deg) translate(5px, -6px);
+    }
+  }
+}
 
-    &.open {
-      align-items: center;
-      span:nth-child(1) {
-        width: 32px;
-        transform: rotate(45deg) translate(5px, 6px);
-      }
-      span:nth-child(2) {
-        opacity: 0;
-        width: 0;
-      }
-      span:nth-child(3) {
-        width: 32px;
-        transform: rotate(-45deg) translate(5px, -6px);
-      }
+.mobileMenuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--color-bg); // Use solid background
+  z-index: 9990; // Just below header buttons
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 80px 24px 24px 24px; // Top padding accounts for header
+}
+
+.mobileMenuContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.mobileNavSection {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+
+  .navLink {
+    font-size: 32px; // Large for mobile
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: color 0.3s ease;
+
+    &.active {
+      color: var(--color-accent);
+      // Underline or dot indicator could go here
     }
+  }
+}
+
+.mobileCenterLogo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.1; // Watermark style
+  pointer-events: none;
+}
+
+.mobileFooterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+// Reuse existing styles where possible
+.footerInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.logo {
+  font-family: var(--font-josefin-sans), sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--color-text);
+  text-decoration: none;
+  z-index: 31; // Above menu bg
+  display: flex;
+  align-items: center;
+}
+
+.logoInvert {
+  filter: invert(1);
+}
+
+.burger {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 31; // Above menu bg
+
+  span {
+    display: block;
+    height: 2px;
+    background: var(--color-text);
+    transition: all 0.3s ease;
+  }
+
+  span:nth-child(1) {
+    width: 32px;
+  }
+  span:nth-child(2) {
+    width: 24px;
+  }
+  span:nth-child(3) {
+    width: 16px;
+  }
+
+  &.open {
+    align-items: center;
+    span:nth-child(1) {
+      width: 32px;
+      transform: rotate(45deg) translate(5px, 6px);
+    }
+    span:nth-child(2) {
+      opacity: 0;
+      width: 0;
+    }
+    span:nth-child(3) {
+      width: 32px;
+      transform: rotate(-45deg) translate(5px, -6px);
+    }
+  }
 }
 
 .mobileMenu {
@@ -268,7 +408,7 @@
   display: flex;
   flex-direction: column;
   padding: 24px;
-  
+
   // Slide transition
   transform: translateX(100%);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -293,7 +433,7 @@
   color: var(--color-text);
   padding: 8px;
   margin-left: -8px; // Align optically
-  
+
   svg {
     width: 32px;
     height: 32px;
@@ -310,7 +450,7 @@
   font-size: 14px;
   text-transform: uppercase;
   color: var(--color-text);
-  
+
   .themeIcon {
     display: flex;
     align-items: center;
@@ -349,7 +489,7 @@
   &:hover {
     opacity: 0.6;
   }
-  
+
   &.active {
     // You might want an active state here, e.g. bold or specific color
   }
@@ -362,7 +502,7 @@
   align-items: center;
   z-index: -1; // Behind nav links if they overlap
   opacity: 0.1; // Make it subtle or as per design. Design shows it pretty solid but maybe styled?
-                // Actually design shows it as a big purple circle with white logo.
+  // Actually design shows it as a big purple circle with white logo.
 }
 
 .logoCircle {
@@ -373,7 +513,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   // If the logo inside is SVG, we might need to color it white
   .logoImage {
     filter: brightness(0) invert(1); // Make white
@@ -396,7 +536,7 @@
   flex-direction: column;
   align-items: flex-end;
   text-align: right;
-  
+
   .name {
     font-family: var(--font-josefin-sans), sans-serif;
     font-weight: 700;
@@ -404,7 +544,7 @@
     text-transform: uppercase;
     color: var(--color-text);
   }
-  
+
   .role {
     font-family: var(--font-josefin-sans), sans-serif;
     font-weight: 400; // Thinner
@@ -418,7 +558,7 @@
 .socialsRow {
   display: flex;
   gap: 24px;
-  
+
   a {
     display: flex;
     align-items: center;
@@ -428,11 +568,11 @@
     background: var(--color-text); // Inverse circle
     border-radius: 50%;
     transition: transform 0.2s;
-    
+
     &:hover {
       transform: scale(1.1);
     }
-    
+
     .socialIcon {
       filter: invert(1); // Invert icon color if background is text color
       width: 20px;
