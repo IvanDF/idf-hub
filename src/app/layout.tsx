@@ -1,4 +1,6 @@
+import GlobalBackground from "@/components/background/GlobalBackground";
 import MainLayout from "@/components/layout";
+import SecretGateway from "@/components/layout/SecretGateway";
 import CustomCursor from "@/components/ui/CustomCursor";
 import { ThemeProvider } from "@/context/ThemeContext";
 import "@/styles/globals.scss";
@@ -39,7 +41,10 @@ export default function RootLayout({
         <ThemeProvider>
           {/* Custom Cursor (visible on desktop only) */}
           <CustomCursor />
+          <SecretGateway />
+
           <MainLayout>{children}</MainLayout>
+          <GlobalBackground />
         </ThemeProvider>
       </body>
     </html>

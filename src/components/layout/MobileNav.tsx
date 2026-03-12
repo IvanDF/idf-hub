@@ -188,7 +188,7 @@ export default function MobileNav() {
 
                   <div className={styles.socialsRow}>
                     <a
-                      href="https://instagram.com"
+                      href="https://www.instagram.com/idf.me/"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -201,7 +201,7 @@ export default function MobileNav() {
                       />
                     </a>
                     <a
-                      href="https://linkedin.com"
+                      href="https://www.linkedin.com/in/ivandf/"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -214,7 +214,7 @@ export default function MobileNav() {
                       />
                     </a>
                     <a
-                      href="https://github.com"
+                      href="https://github.com/IvanDF"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -227,7 +227,7 @@ export default function MobileNav() {
                       />
                     </a>
                     <a
-                      href="https://figma.com"
+                      href="https://www.figma.com/@ivandf"
                       target="_blank"
                       rel="noopener noreferrer"
                     >

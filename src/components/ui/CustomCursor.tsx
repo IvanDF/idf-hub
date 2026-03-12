@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { usePathname } from 'next/navigation';
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 /**
  * CustomCursor Component
- * 
+ *
  * Replaces the default system cursor with an interactive, animated cursor.
  * Features:
  * - Central dot that follows mouse instantly
@@ -19,7 +19,7 @@ export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
-  
+
   const pathname = usePathname();
 
   // Mouse position state
@@ -33,7 +33,9 @@ export default function CustomCursor() {
 
   useEffect(() => {
     // Only enable on desktop devices
-    const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    const isTouchDevice = window.matchMedia(
+      "(hover: none) and (pointer: coarse)",
+    ).matches;
     if (isTouchDevice) return;
 
     // eslint-disable-next-line
@@ -51,12 +53,12 @@ export default function CustomCursor() {
       const target = e.target as HTMLElement;
       // Check for interactive elements
       if (
-        target.tagName === 'A' || 
-        target.tagName === 'BUTTON' || 
-        target.closest('a') || 
-        target.closest('button') ||
-        target.getAttribute('role') === 'button' ||
-        getComputedStyle(target).cursor === 'pointer'
+        target.tagName === "A" ||
+        target.tagName === "BUTTON" ||
+        target.closest("a") ||
+        target.closest("button") ||
+        target.getAttribute("role") === "button" ||
+        getComputedStyle(target).cursor === "pointer"
       ) {
         setIsHovering(true);
       } else {
@@ -64,24 +66,23 @@ export default function CustomCursor() {
       }
     };
 
-    window.addEventListener('mousemove', moveCursor);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("mouseover", handleMouseOver);
 
     return () => {
-      window.removeEventListener('mousemove', moveCursor);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('mouseover', handleMouseOver);
+      window.removeEventListener("mousemove", moveCursor);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("mouseover", handleMouseOver);
     };
   }, [mouseX, mouseY]);
 
   // Reset hover state on navigation
   useEffect(() => {
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsHovering(false);
-    // eslint-disable-next-line
     setIsClicking(false);
   }, [pathname]);
 
@@ -94,18 +95,18 @@ export default function CustomCursor() {
         style={{
           translateX: mouseX,
           translateY: mouseY,
-          x: '-50%',
-          y: '-50%',
-          position: 'fixed',
+          x: "-50%",
+          y: "-50%",
+          position: "fixed",
           top: 0,
           left: 0,
           width: 8,
           height: 8,
-          backgroundColor: '#FFFFFF', // Force white for difference mode
-          borderRadius: '50%',
-          pointerEvents: 'none',
+          backgroundColor: "#FFFFFF", // Force white for difference mode
+          borderRadius: "50%",
+          pointerEvents: "none",
           zIndex: 10000,
-          mixBlendMode: 'difference', // Ensure visibility on all backgrounds
+          mixBlendMode: "difference", // Ensure visibility on all backgrounds
         }}
         animate={{
           scale: isClicking ? 0.8 : isHovering ? 0.5 : 1, // Shrink slightly on hover/click
@@ -118,28 +119,28 @@ export default function CustomCursor() {
         style={{
           translateX: ringX,
           translateY: ringY,
-          x: '-50%',
-          y: '-50%',
-          position: 'fixed',
+          x: "-50%",
+          y: "-50%",
+          position: "fixed",
           top: 0,
           left: 0,
           width: 40,
           height: 40,
-          border: '1px solid #FFFFFF', // Force white for difference mode
-          borderRadius: '50%',
-          pointerEvents: 'none',
+          border: "1px solid #FFFFFF", // Force white for difference mode
+          borderRadius: "50%",
+          pointerEvents: "none",
           zIndex: 9999,
-          mixBlendMode: 'difference',
-          backgroundColor: 'transparent',
+          mixBlendMode: "difference",
+          backgroundColor: "transparent",
         }}
         animate={{
           scale: isClicking ? 0.8 : isHovering ? 1.5 : 1, // Expand on hover
           opacity: isHovering ? 0.8 : 0.4,
-          borderWidth: isHovering ? '2px' : '1px',
+          borderWidth: isHovering ? "2px" : "1px",
         }}
         transition={{
           scale: { duration: 0.2 },
-          opacity: { duration: 0.2 }
+          opacity: { duration: 0.2 },
         }}
       />
     </>
