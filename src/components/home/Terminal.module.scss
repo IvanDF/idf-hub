@@ -1,0 +1,118 @@
+@use "@/styles/variables" as *;
+
+.terminalContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  min-height: 400px;
+  max-height: 80vh;
+  z-index: 100;
+  font-family: 'Courier New', Courier, monospace;
+  color: var(--color-text);
+  padding: 40px;
+  background: rgba(var(--color-bg-rgb), 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-divider);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  
+  // Custom scrollbar for terminal look
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-divider);
+    border-radius: 4px;
+  }
+}
+
+.outputArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.line {
+  display: flex;
+  gap: 12px;
+  line-height: 1.5;
+  font-size: 16px;
+  word-break: break-word;
+
+  &.error {
+    color: #ff4d4d;
+  }
+  
+  &.success {
+    color: #4ade80;
+  }
+  
+  &.system {
+    color: var(--color-accent);
+    font-weight: bold;
+  }
+}
+
+.prompt {
+  color: var(--color-accent);
+  font-weight: bold;
+  user-select: none;
+}
+
+.inputArea {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+}
+
+.input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: inherit;
+  flex: 1;
+  caret-color: var(--color-accent);
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 20px;
+  background-color: var(--color-accent);
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+// Mobile responsive adjustments
+@media (max-width: 768px) {
+  .terminalContainer {
+    width: 90%;
+    padding: 20px;
+    font-size: 14px;
+  }
+  
+  .input, .line {
+    font-size: 14px;
+  }
+}
