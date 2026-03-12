@@ -1,0 +1,111 @@
+// src/app/portfolio/page.module.scss
+
+.container {
+  min-height: 100vh;
+  padding: 8rem 2rem 4rem; // Top padding for header
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10; // Above background
+}
+
+.header {
+  margin-bottom: 4rem;
+  text-align: center;
+  position: relative;
+  
+  h1 {
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    margin: 0 0 1rem;
+    color: var(--color-text);
+    mix-blend-mode: difference; // Cool effect over background
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: var(--color-text);
+    opacity: 0.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+
+  .filterBtn {
+    background: transparent;
+    border: none;
+    color: var(--color-text);
+    opacity: 0.5;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--color-accent);
+      transition: width 0.3s ease;
+    }
+
+    &:hover, &.active {
+      opacity: 1;
+      
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  grid-auto-flow: dense; // Packs items tightly
+}
+
+.gridItem {
+  // Base grid item styles if needed
+  min-height: 300px;
+}
+
+/* Specific masonry-like spans */
+.featured {
+  grid-column: span 2;
+  grid-row: span 2;
+
+  @media (max-width: 768px) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+
+.tall {
+  grid-row: span 2;
+}
+
+.wide {
+  grid-column: span 2;
+  
+  @media (max-width: 768px) {
+    grid-column: span 1;
+  }
+}
