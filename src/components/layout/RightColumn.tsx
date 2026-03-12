@@ -9,7 +9,7 @@ import styles from "./layout.module.scss";
 
 export default function RightColumn() {
   const pathname = usePathname();
-  const isPortfolio = pathname === '/portfolio';
+  const isLab = pathname === '/lab';
   const { theme, toggleTheme, superDarkMode, clickHint } = useTheme();
 
   // Randomize the exit text when entering Super Dark Mode
@@ -34,7 +34,7 @@ export default function RightColumn() {
   }
 
   return (
-    <aside className={`${styles.rightColumn} ${isPortfolio ? styles.autoHide : ''}`}>
+    <aside className={`${styles.rightColumn} ${isLab ? styles.autoHide : ''}`}>
       {/* 1. Theme Toggle */}
       <Magnetic>
         <div

@@ -1,4 +1,4 @@
-// src/app/portfolio/page.tsx
+// src/app/lab/page.tsx
 
 'use client';
 
@@ -11,7 +11,7 @@ import styles from './page.module.scss';
 
 const FILTERS: (ProjectCategory | 'ALL')[] = ['ALL', 'DEV', 'MAKER', 'DESIGN', 'EXPERIMENT'];
 
-export default function Portfolio() {
+export default function Lab() {
   const [filter, setFilter] = useState<ProjectCategory | 'ALL'>('ALL');
 
   const filteredProjects = PROJECTS.filter((project) => {
@@ -28,14 +28,14 @@ export default function Portfolio() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          PROJECTS
+          THE LAB
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
         >
-          Selected works, experiments, and digital toys.
+          Experimental playground. Concepts, prototypes, and failures.
         </motion.p>
       </header>
 

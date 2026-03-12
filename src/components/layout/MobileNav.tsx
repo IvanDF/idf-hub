@@ -97,10 +97,10 @@ export default function MobileNav() {
                     HOME
                   </Link>
                   <Link
-                    href="/portfolio"
-                    className={`${styles.navLink} ${pathname === "/portfolio" ? styles.active : ""}`}
+                    href="/lab"
+                    className={`${styles.navLink} ${pathname === "/lab" ? styles.active : ""}`}
                   >
-                    PORTFOLIO
+                    LAB
                   </Link>
                   <Link
                     href="/about"

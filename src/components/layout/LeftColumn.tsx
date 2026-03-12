@@ -8,10 +8,10 @@ import RotatingTitle from '@/components/ui/RotatingTitle';
 
 export default function LeftColumn() {
   const pathname = usePathname();
-  const isPortfolio = pathname === '/portfolio';
+  const isLab = pathname === '/lab';
 
   return (
-    <aside className={`${styles.leftColumn} ${isPortfolio ? styles.autoHide : ''}`}>
+    <aside className={`${styles.leftColumn} ${isLab ? styles.autoHide : ''}`}>
       {/* 1. Navbar: HOME, PORTFOLIO, ABOUT */}
       <nav className={styles.navbar}>
         <Magnetic>
@@ -24,10 +24,10 @@ export default function LeftColumn() {
         </Magnetic>
         <Magnetic>
           <Link 
-            href="/portfolio" 
-            className={`${styles.navLink} ${pathname === '/portfolio' ? styles.active : ''}`}
+            href="/lab" 
+            className={`${styles.navLink} ${pathname === '/lab' ? styles.active : ''}`}
           >
-            PORTFOLIO
+            LAB
           </Link>
         </Magnetic>
         <Magnetic>

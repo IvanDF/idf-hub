@@ -84,5 +84,73 @@ export const PROJECTS: Project[] = [
     },
     interaction: 'glitch',
     layout: 'wide'
+  },
+  {
+    id: 'gravity-well',
+    title: 'Gravity Well',
+    description: 'Particle simulation where cursor creates a black hole, distorting nearby elements and light.',
+    category: 'EXPERIMENT',
+    tags: ['Physics', 'Three.js', 'Shader'],
+    year: '2024',
+    media: {
+      thumbnail: '/assets/placeholder-experiment.jpg'
+    },
+    interaction: 'glitch',
+    layout: 'featured'
+  },
+  {
+    id: 'data-stream',
+    title: 'Data Stream',
+    description: 'Infinite tunnel navigation visualizing data flow in a cyberpunk aesthetic.',
+    category: 'EXPERIMENT',
+    tags: ['WebGL', 'Audio-Reactive', 'Glitch'],
+    year: '2024',
+    media: {
+      thumbnail: '/assets/placeholder-experiment.jpg'
+    },
+    interaction: 'glitch'
+  },
+  {
+    id: 'neural-map',
+    title: 'Neural Map',
+    description: 'Explore the connection between skills and concepts in a 3D graph (live in /about).',
+    category: 'EXPERIMENT',
+    tags: ['Data Viz', 'R3F', 'Graph'],
+    year: '2024',
+    media: {
+      thumbnail: '/assets/placeholder-experiment.jpg'
+    },
+    interaction: 'tilt',
+    links: {
+      repo: '',
+      demo: '/about'
+    }
+  },
+  {
+    id: 'liquid-surface',
+    title: 'Liquid Surface',
+    description: 'Interactive fluid simulation responding to mouse movement and scroll velocity.',
+    category: 'EXPERIMENT',
+    tags: ['Fluid Sim', 'Shader', 'Interaction'],
+    year: '2024',
+    media: {
+      thumbnail: '/assets/placeholder-experiment.jpg'
+    },
+    interaction: 'spotlight'
+  },
+  {
+    id: 'terminal-os',
+    title: 'Terminal OS',
+    description: 'The command line interface powering this portfolio. Type "help" to explore.',
+    category: 'EXPERIMENT',
+    tags: ['CLI', 'React', 'System'],
+    year: '2024',
+    media: {
+      thumbnail: '/assets/placeholder-experiment.jpg'
+    },
+    interaction: 'glitch',
+    links: {
+      demo: '/'
+    }
   }
 ];
