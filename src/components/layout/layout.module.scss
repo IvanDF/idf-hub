@@ -20,12 +20,39 @@
   top: 0;
   bottom: 0;
   width: 328px;
-  z-index: 10;
-  padding: 80px;
+  z-index: 50; // High z-index to be above content
+  padding: 80px 40px; // Adjusted padding to fit content better when visible
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  
+  // Interaction Logic
+  transform: translateX(0); // Default visible
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s, backdrop-filter 0.5s;
+  background-color: transparent;
+
+  &.autoHide {
+    transform: translateX(calc(-100% + 20px)); // Hide mostly, leave 20px trigger
+    
+    // Visual hint on the edge (optional, currently just invisible trigger area)
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 100%;
+      background: transparent; // Invisible trigger zone
+    }
+
+    &:hover {
+      transform: translateX(0);
+      background-color: rgba(0, 0, 0, 0.3); // More transparent background
+      backdrop-filter: blur(8px);
+      box-shadow: 20px 0 40px rgba(0,0,0,0.1);
+    }
+  }
 
   @media (max-width: 768px) {
     display: none;
@@ -37,13 +64,39 @@
   right: 0;
   top: 0;
   bottom: 0;
-  width: 448px;
-  z-index: 10;
-  padding: 80px;
+  width: 328px; // Reduced width slightly to match left
+  z-index: 50;
+  padding: 80px 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
+
+  // Interaction Logic
+  transform: translateX(0); // Default visible
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s, backdrop-filter 0.5s;
+  background-color: transparent;
+
+  &.autoHide {
+    transform: translateX(calc(100% - 20px)); // Hide mostly
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px; // Trigger zone on the left edge of this column
+      height: 100%;
+      background: transparent; 
+    }
+
+    &:hover {
+      transform: translateX(0);
+      background-color: rgba(0, 0, 0, 0.3); // More transparent background
+      backdrop-filter: blur(8px);
+      box-shadow: -20px 0 40px rgba(0,0,0,0.1);
+    }
+  }
 
   @media (max-width: 768px) {
     display: none;
@@ -57,7 +110,13 @@
   width: 100%;
   height: 100%;
   z-index: 1;
-  overflow: hidden;
+  overflow-y: auto; // Enable vertical scrolling
+  overflow-x: hidden;
+  scrollbar-width: none; // Firefox
+  
+  &::-webkit-scrollbar {
+    display: none; // Chrome/Safari
+  }
 }
 
 .navbar {

@@ -8,9 +8,10 @@ import RotatingTitle from '@/components/ui/RotatingTitle';
 
 export default function LeftColumn() {
   const pathname = usePathname();
+  const isPortfolio = pathname === '/portfolio';
 
   return (
-    <aside className={styles.leftColumn}>
+    <aside className={`${styles.leftColumn} ${isPortfolio ? styles.autoHide : ''}`}>
       {/* 1. Navbar: HOME, PORTFOLIO, ABOUT */}
       <nav className={styles.navbar}>
         <Magnetic>

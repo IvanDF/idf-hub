@@ -3,10 +3,13 @@
 import Magnetic from "@/components/ui/Magnetic";
 import { useTheme } from "@/context/ThemeContext";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import styles from "./layout.module.scss";
 
 export default function RightColumn() {
+  const pathname = usePathname();
+  const isPortfolio = pathname === '/portfolio';
   const { theme, toggleTheme, superDarkMode, clickHint } = useTheme();
 
   // Randomize the exit text when entering Super Dark Mode
@@ -31,7 +34,7 @@ export default function RightColumn() {
   }
 
   return (
-    <aside className={styles.rightColumn}>
+    <aside className={`${styles.rightColumn} ${isPortfolio ? styles.autoHide : ''}`}>
       {/* 1. Theme Toggle */}
       <Magnetic>
         <div
