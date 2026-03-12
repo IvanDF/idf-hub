@@ -96,7 +96,10 @@ export const PROJECTS: Project[] = [
       thumbnail: '/assets/placeholder-experiment.jpg'
     },
     interaction: 'glitch',
-    layout: 'featured'
+    layout: 'featured',
+    links: {
+      caseStudy: '/lab/gravity-well'
+    }
   },
   {
     id: 'data-stream',
@@ -136,7 +139,10 @@ export const PROJECTS: Project[] = [
     media: {
       thumbnail: '/assets/placeholder-experiment.jpg'
     },
-    interaction: 'spotlight'
+    interaction: 'spotlight',
+    links: {
+      caseStudy: '/lab/liquid-surface'
+    }
   },
   {
     id: 'terminal-os',

@@ -9,7 +9,7 @@ import styles from "./layout.module.scss";
 
 export default function RightColumn() {
   const pathname = usePathname();
-  const isLab = pathname === '/lab';
+  const isLab = pathname.startsWith('/lab');
   const { theme, toggleTheme, superDarkMode, clickHint } = useTheme();
 
   // Randomize the exit text when entering Super Dark Mode

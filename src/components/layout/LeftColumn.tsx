@@ -8,7 +8,7 @@ import RotatingTitle from '@/components/ui/RotatingTitle';
 
 export default function LeftColumn() {
   const pathname = usePathname();
-  const isLab = pathname === '/lab';
+  const isLab = pathname.startsWith('/lab');
 
   return (
     <aside className={`${styles.leftColumn} ${isLab ? styles.autoHide : ''}`}>

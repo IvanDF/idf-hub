@@ -1,9 +1,8 @@
-// src/app/lab/page.tsx
-
 'use client';
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { PROJECTS } from '@/data/projects';
 import { ProjectCategory } from '@/types/project';
 import ProjectCard from '@/components/portfolio/ProjectCard';
@@ -12,6 +11,7 @@ import styles from './page.module.scss';
 const FILTERS: (ProjectCategory | 'ALL')[] = ['ALL', 'DEV', 'MAKER', 'DESIGN', 'EXPERIMENT'];
 
 export default function Lab() {
+  const router = useRouter();
   const [filter, setFilter] = useState<ProjectCategory | 'ALL'>('ALL');
 
   const filteredProjects = PROJECTS.filter((project) => {
@@ -77,8 +77,7 @@ export default function Lab() {
                 project={project} 
                 onClick={() => {
                   if (project.links?.caseStudy) {
-                    // Navigate to internal case study
-                    // router.push(project.links.caseStudy);
+                    router.push(project.links.caseStudy);
                   } else if (project.links?.repo) {
                     window.open(project.links.repo, '_blank');
                   } else if (project.links?.demo) {
