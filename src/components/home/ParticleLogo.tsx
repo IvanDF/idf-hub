@@ -103,23 +103,21 @@ function InteractiveParticles() {
       // 1. Mouse Repulsion (The "Break" effect)
       const dx = mx - cx;
       const dy = my - cy;
-      // We assume mouse Z is 0, but particles are 3D. 
-      // Let's use a cylinder interaction or just XY distance for stronger effect?
-      // Use 3D distance assuming mouse is projected at Z=0 plane (or slightly in front)
-      const distSq = dx*dx + dy*dy + (cz * cz * 0.1); // Flatten Z impact
+      const distSq = dx*dx + dy*dy + (cz * cz * 0.1); 
       const dist = Math.sqrt(distSq);
       
       let fx = 0, fy = 0, fz = 0;
 
-      const repulsionRadius = 2.5;
+      const repulsionRadius = 1.2; // Reduced further from 1.5
       if (dist < repulsionRadius) {
         const force = (repulsionRadius - dist) / repulsionRadius; // 0 to 1
-        const power = 0.5; // Strength
+        // Drastically reduced power for a "subtle ripple" instead of an explosion
+        const power = 0.05; 
         
         // Push away from mouse
         fx -= (dx / dist) * force * power;
         fy -= (dy / dist) * force * power;
-        fz += (Math.random() - 0.5) * force * power; // Scatter Z randomly
+        fz += (Math.random() - 0.5) * force * power; 
       }
 
       // 2. Return to Target (Spring force)
@@ -189,16 +187,24 @@ function InteractiveParticles() {
             <div style={{
                 pointerEvents: 'none',
                 userSelect: 'none',
-                color: theme === 'dark' ? '#fff' : '#111',
-                fontFamily: 'var(--font-josefin-sans)',
-                fontWeight: 700,
-                fontSize: '4rem',
-                letterSpacing: '-0.05em',
-                textAlign: 'center',
-                textShadow: theme === 'dark' ? '0 0 20px rgba(167, 139, 250, 0.5)' : 'none',
-                opacity: 0.9
+                width: '180px',
+                height: '180px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                opacity: 0.9,
+                filter: theme === 'dark' ? 'drop-shadow(0 0 20px rgba(167, 139, 250, 0.4))' : 'invert(1) drop-shadow(0 0 20px rgba(59, 130, 246, 0.4))',
+                transition: 'filter 0.3s ease, opacity 0.3s ease'
             }}>
-                iDF
+                <img 
+                  src="/assets/idf-logo.svg" 
+                  alt="iDF Logo" 
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain'
+                  }} 
+                />
             </div>
         </Html>
     </>

@@ -73,7 +73,7 @@ export default function MobileNav() {
             alt="iDF"
             width={28}
             height={28}
-            className={theme === 'dark' ? styles.logoInvert : ''}
+            className={theme === 'light' ? styles.logoInvert : ''}
           />
         </Link>
         
