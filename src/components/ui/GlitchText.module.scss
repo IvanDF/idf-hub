@@ -1,0 +1,10 @@
+.glitchText {
+  display: inline-block;
+  font-family: var(--font-geist-mono);
+  cursor: default;
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--color-accent);
+  }
+}

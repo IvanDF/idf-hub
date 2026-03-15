@@ -1,109 +1,135 @@
 "use client";
 
 import { useTheme } from "@/context/ThemeContext";
-import { OrbitControls, RoundedBox } from "@react-three/drei";
-import { Canvas, ThreeElements, useFrame } from "@react-three/fiber";
-import { Suspense, useEffect, useRef } from "react";
-import { Group, Mesh } from "three";
+import { Float, RoundedBox, useTexture, Decal, Environment } from "@react-three/drei";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Suspense, useRef, useState } from "react";
+import * as THREE from "three";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
-function Shapes(props: ThreeElements["group"]) {
-  const mesh = useRef<Mesh>(null!);
-  const group = useRef<Group>(null!);
+// =============================================================================
+// HERO ARTIFACT: "LARIO & VOLTA" EDITION
+// =============================================================================
+
+function HeroArtifact() {
   const { theme } = useTheme();
+  // Using the SVG texture for the logo
+  const texture = useTexture('/assets/idf-logo.svg');
+  
+  const groupRef = useRef<THREE.Group>(null!);
+  const [hovered, setHovered] = useState(false);
+  
+  // Theme-aware Material Logic
+  // Light Mode: "Lario Mist" (Soft Blue-Grey Ceramic)
+  // Dark Mode: "Voltaic Violet" (Deep Matte Charcoal with Neon Accents)
+  
+  // Light Mode: #F3F4F6 (Soft White)
+  // Dark Mode: #111111 (Matte Black)
+  const materialColor = theme === 'dark' ? '#111111' : '#F3F4F6';
+  
+  // Logo Color Logic: Ensure high contrast
+  // Dark Mode -> White Logo
+  // Light Mode -> Dark Logo
+  const logoColor = theme === 'dark' ? '#FFFFFF' : '#111827';
+  
+  // Material Properties for "Ceramic" vs "Tech" feel
+  const roughness = theme === 'dark' ? 0.3 : 0.4;
+  const metalness = theme === 'dark' ? 0.8 : 0.1;
+  const clearcoat = theme === 'dark' ? 0.5 : 1.0;
 
-  // Gyroscope / Mouse Parallax State
-  const mouse = useRef({ x: 0, y: 0 });
+  useFrame((state) => {
+    if (!groupRef.current) return;
+    const t = state.clock.getElapsedTime();
+    
+    // Smooth interaction rotation with heavy damping for "premium weight" feel
+    const targetX = hovered ? state.mouse.y * 0.2 : Math.cos(t * 0.2) * 0.05;
+    const targetY = hovered ? state.mouse.x * 0.2 : Math.sin(t * 0.2) * 0.05;
 
-  useEffect(() => {
-    // Mouse movement handler for desktop parallax
-    const handleMouseMove = (event: MouseEvent) => {
-      mouse.current.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    };
-
-    // Device orientation handler for mobile gyroscope
-    const handleOrientation = (event: DeviceOrientationEvent) => {
-      if (event.beta === null || event.gamma === null) return;
-      // Beta: Front to back tilt [-180, 180]
-      // Gamma: Left to right tilt [-90, 90]
-      // Normalize to stronger range [-1, 1] for more impact
-      mouse.current.x = event.gamma / 25;
-      mouse.current.y = event.beta / 25;
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    if (window.DeviceOrientationEvent) {
-      window.addEventListener("deviceorientation", handleOrientation);
-    }
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("deviceorientation", handleOrientation);
-    };
-  }, []);
-
-  useFrame((state, delta) => {
-    if (mesh.current) {
-      // Continuous rotation of the shape itself
-      mesh.current.rotation.x += delta * 0.2;
-      mesh.current.rotation.y += delta * 0.1;
-    }
-
-    if (group.current) {
-      // Parallax effect on the group container
-      // Smoothly interpolate current rotation to target mouse/gyro rotation
-      const targetRotationX = mouse.current.y * 0.5;
-      const targetRotationY = mouse.current.x * 0.5;
-
-      group.current.rotation.x +=
-        (targetRotationX - group.current.rotation.x) * delta * 2;
-      group.current.rotation.y +=
-        (targetRotationY - group.current.rotation.y) * delta * 2;
-    }
+    // Use lower lerp factor for smoother, less jittery movement
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, targetX, 0.02);
+    groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetY, 0.02);
   });
 
-  const materialColor = theme === "dark" ? "#9099FA" : "#5D6BF8";
-
   return (
-    <group ref={group} {...props}>
-      <mesh
-        ref={mesh}
-        scale={1}
-        onClick={() => console.log("Clicked box")}
-        onPointerOver={() => (document.body.style.cursor = "pointer")}
-        onPointerOut={() => (document.body.style.cursor = "auto")}
+    <Float 
+      speed={2} 
+      rotationIntensity={0.2} 
+      floatIntensity={0.5} 
+      floatingRange={[-0.1, 0.1]}
+    >
+      <group 
+        ref={groupRef}
+        onPointerOver={() => {
+            setHovered(true);
+            document.body.style.cursor = 'pointer';
+        }}
+        onPointerOut={() => {
+            setHovered(false);
+            document.body.style.cursor = 'auto';
+        }}
       >
-        <RoundedBox args={[2, 2, 2]} radius={0.6} smoothness={4}>
-          <meshStandardMaterial
-            color={materialColor}
-            roughness={0.2}
-            metalness={0.8}
-          />
+          {/* Main Squircle Container */}
+          {/* OPTIMIZATION: smoothness=4 reduces polygon count significantly */}
+          <RoundedBox 
+            args={[3.0, 3.0, 0.4]} 
+            radius={0.6} 
+            smoothness={4} 
+            bevelSegments={2} 
+            creaseAngle={0.4}
+        >
+            <meshPhysicalMaterial 
+                color={materialColor}
+                roughness={roughness}
+                metalness={metalness}
+                clearcoat={clearcoat}
+                clearcoatRoughness={0.1}
+            />
+            
+            {/* Logo Decal */}
+            <Decal 
+                position={[0, 0, 0.21]} 
+                rotation={[0, 0, 0]} 
+                scale={[1.8, 1.8, 1]}
+            >
+                <meshBasicMaterial 
+                    map={texture}
+                    transparent
+                    polygonOffset
+                    polygonOffsetFactor={-1}
+                    color={logoColor}
+                />
+            </Decal>
         </RoundedBox>
-      </mesh>
-    </group>
+      </group>
+    </Float>
   );
 }
 
 export default function HomeScene() {
   return (
-    <div
-      style={{ width: "100%", height: "100vh", background: "transparent" }}
-      role="img"
-      aria-label="Interactive 3D scene showing a floating geometric shape"
-    >
-      <Canvas>
-        <ambientLight intensity={Math.PI / 2} />
-        <spotLight
-          position={[10, 10, 10]}
-          angle={0.15}
-          penumbra={1}
-          decay={0}
-          intensity={Math.PI}
-        />
-        <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-        <Shapes position={[0, 0, 0]} />
-        <OrbitControls enableZoom={false} />
+    <div style={{ width: "100%", height: "100vh" }}>
+      {/* OPTIMIZATION: Cap Pixel Ratio at 1.5 to prevent 4K lag */}
+      <Canvas 
+        camera={{ position: [0, 0, 8], fov: 40 }} 
+        dpr={[1, 1.5]}
+        performance={{ min: 0.5 }}
+      >
+        {/* Environment Map: Crucial for "Ceramic/Metal" look */}
+        <Environment preset="city" />
+
+        <Suspense fallback={null}>
+          <HeroArtifact />
+        </Suspense>
+
+        {/* Post Processing: Optimized */}
+        <EffectComposer disableNormalPass>
+            <Bloom 
+                luminanceThreshold={0.9} 
+                mipmapBlur 
+                intensity={0.2} 
+                radius={0.4}
+            />
+        </EffectComposer>
       </Canvas>
     </div>
   );

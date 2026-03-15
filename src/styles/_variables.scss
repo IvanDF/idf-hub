@@ -1,22 +1,49 @@
-// Colors (Variables)
-$color-bg-light: #e2e2e2;
-$color-text-light: #1B1C1E;
-$color-accent-light: #9099FA;
-$color-divider-light: #1B1C1E;
-$color-icon-light: #1B1C1E;
+// Colors (Variables) - The "Lario & Volta" Palette
+// =============================================================================
+// Inspired by Como (Lario) and Alessandro Volta.
+// Balances soft pastel aesthetics with high-contrast readability.
 
-$color-bg-dark: #121212;
-$color-text-dark: #f5f5f5;
-$color-accent-dark: #9099FA;
-$color-divider-dark: #f5f5f5;
-$color-icon-dark: #f5f5f5;
+// 1. "Voltaic Violet" (Primary Accent)
+// Dedicated to Alessandro Volta. Represents innovation, electricity, and the spark of creativity.
+$color-volta-light: #8B5CF6; // Vivid Purple
+$color-volta-dark: #A78BFA;  // Soft Pastel Purple
+
+// 2. "Lario Mist" (Secondary Accent)
+// Inspired by Lake Como (Lario) on a misty morning. A calm, intellectual blue-grey.
+$color-lario-light: #3B82F6; // Deep Lake Blue
+$color-lario-dark: #60A5FA;  // Sky Reflection Blue
+
+// 3. "Silk" (Backgrounds)
+// Tribute to Como's history as the City of Silk.
+$color-silk-light: #FAFAFA; // Pure, clean white
+$color-silk-dark: #0A0A0A;  // Deep, rich black (Obsidian)
+
+// 4. "Slate" (Text & Structure)
+// Grounded, legible, high-contrast.
+$color-slate-light: #111827; // Ink Black
+$color-slate-dark: #F3F4F6;  // Off-White
+
+// Theme Mapping
+// =============================================================================
+
+$color-bg-light: $color-silk-light;
+$color-text-light: $color-slate-light;
+$color-accent-light: $color-volta-light;
+$color-secondary-light: $color-lario-light;
+$color-divider-light: rgba(17, 24, 39, 0.1);
+
+$color-bg-dark: $color-silk-dark;
+$color-text-dark: $color-slate-dark;
+$color-accent-dark: $color-volta-dark;
+$color-secondary-dark: $color-lario-dark;
+$color-divider-dark: rgba(243, 244, 246, 0.1);
 
 // Variables applied via CSS Custom Properties
 $color-bg: var(--color-bg);
 $color-text: var(--color-text);
 $color-accent: var(--color-accent);
+$color-secondary: var(--color-secondary);
 $color-divider: var(--color-divider);
-$color-icon: var(--color-icon);
 
 // Typography
 $font-family-primary: var(--font-josefin-sans), sans-serif;

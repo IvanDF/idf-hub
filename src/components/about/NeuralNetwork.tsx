@@ -80,8 +80,11 @@ const NebulaBackground = () => {
       // Vignette
       float dist = distance(vUv, vec2(0.5));
       color *= 1.0 - dist * 0.6;
+      
+      // Make it circular/fade edges to avoid hard square
+      float alpha = smoothstep(0.5, 0.2, dist); 
 
-      gl_FragColor = vec4(color, 1.0);
+      gl_FragColor = vec4(color, alpha);
     }
   `;
 
@@ -93,6 +96,7 @@ const NebulaBackground = () => {
         fragmentShader={fragmentShader}
         uniforms={uniforms}
         depthWrite={false}
+        transparent={true} // Enable transparency for the alpha fade
       />
     </mesh>
   );
@@ -160,7 +164,7 @@ function Connections({ data }: { data: MindNode[] }) {
   const lineColor = theme === 'dark' ? '#88ccff' : '#4466aa';
 
   const lines = useMemo(() => {
-    const segments: JSX.Element[] = [];
+    const segments: React.ReactNode[] = [];
     data.forEach(node => {
       node.connections.forEach(targetId => {
         const target = data.find(n => n.id === targetId);

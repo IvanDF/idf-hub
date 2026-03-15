@@ -1,44 +1,59 @@
 'use client';
 
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Plane } from '@react-three/drei';
-import { useMemo, useRef } from 'react';
+import { Canvas, useFrame, ThreeEvent } from '@react-three/fiber';
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
+import { useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 const LiquidShader = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mesh = useRef<THREE.Mesh>(null!);
-  const { viewport } = useThree();
+  const [hovered, setHovered] = useState(false);
 
   const uniforms = useMemo(() => ({
     uTime: { value: 0 },
-    uMouse: { value: new THREE.Vector2(0, 0) },
-    uResolution: { value: new THREE.Vector2(viewport.width, viewport.height) },
-    uColor1: { value: new THREE.Color('#002244') }, // Deep Blue
-    uColor2: { value: new THREE.Color('#0088ff') }, // Bright Blue
-    uSpeed: { value: 0.2 },
-    uDensity: { value: 1.5 },
-    uStrength: { value: 0.2 },
-  }), [viewport]);
+    uMouse: { value: new THREE.Vector3(0, 0, 0) }, // World space mouse
+    uColor1: { value: new THREE.Color('#000510') }, // Deep Void Blue
+    uColor2: { value: new THREE.Color('#00ffff') }, // Cyan Neon
+    uStrength: { value: 0.0 }, // Ripple strength (0 when not hovering)
+  }), []);
 
   useFrame((state) => {
     if (mesh.current) {
-      mesh.current.material.uniforms.uTime.value = state.clock.getElapsedTime();
-      mesh.current.material.uniforms.uMouse.value.set(
-        state.pointer.x * 0.5 + 0.5,
-        state.pointer.y * 0.5 + 0.5
+      // Access uniforms safely
+      const material = mesh.current.material as THREE.ShaderMaterial;
+      material.uniforms.uTime.value = state.clock.getElapsedTime();
+      
+      // Decay ripple strength when not hovering
+      const targetStrength = hovered ? 1.0 : 0.0;
+      material.uniforms.uStrength.value = THREE.MathUtils.lerp(
+        material.uniforms.uStrength.value,
+        targetStrength,
+        0.05
       );
     }
   });
+
+  const handlePointerMove = (e: ThreeEvent<PointerEvent>) => {
+    setHovered(true);
+    if (mesh.current) {
+      const material = mesh.current.material as THREE.ShaderMaterial;
+      // Update mouse position in local space
+      // We clone e.point because worldToLocal mutates the vector
+      const localPoint = mesh.current.worldToLocal(e.point.clone());
+      material.uniforms.uMouse.value.copy(localPoint);
+    }
+  };
 
   const vertexShader = `
     varying vec2 vUv;
     varying vec3 vPosition;
     uniform float uTime;
-    uniform vec2 uMouse;
+    uniform vec3 uMouse;
     uniform float uStrength;
 
     // Simplex 3D Noise 
-    // (Credits: https://github.com/stegu/webgl-noise/blob/master/src/noise3D.glsl)
+    // (Standard implementation)
     vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
     vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
     vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
@@ -53,18 +68,18 @@ const LiquidShader = () => {
       vec3 i1 = min( g.xyz, l.zxy );
       vec3 i2 = max( g.xyz, l.zxy );
       vec3 x1 = x0 - i1 + C.xxx;
-      vec3 x2 = x0 - i2 + C.yyy; // 2.0*C.x = 1/3 = C.y
-      vec3 x3 = x0 - D.yyy;      // -1.0+3.0*C.x = -0.5 = -D.y
+      vec3 x2 = x0 - i2 + C.yyy;
+      vec3 x3 = x0 - D.yyy;
       i = mod289(i);
       vec4 p = permute( permute( permute(
                 i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
               + i.y + vec4(0.0, i1.y, i2.y, 1.0 ))
               + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
-      float n_ = 0.142857142857; // 1.0/7.0
+      float n_ = 0.142857142857;
       vec3  ns = n_ * D.wyz - D.xzx;
-      vec4 j = p - 49.0 * floor(p * ns.z * ns.z);  //  mod(p,7*7)
+      vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
       vec4 x_ = floor(j * ns.z);
-      vec4 y_ = floor(j - 7.0 * x_ );    // mod(j,N)
+      vec4 y_ = floor(j - 7.0 * x_ );
       vec4 x = x_ *ns.x + ns.yyyy;
       vec4 y = y_ *ns.x + ns.yyyy;
       vec4 h = 1.0 - abs(x) - abs(y);
@@ -94,16 +109,26 @@ const LiquidShader = () => {
       vUv = uv;
       vec3 pos = position;
       
-      // Basic wave movement
-      float noise = snoise(vec3(pos.x * 2.0, pos.y * 2.0, uTime * 0.5));
-      pos.z += noise * 0.5;
+      // 1. Base Rolling Waves (Slow, large scale)
+      float baseWave = snoise(vec3(pos.x * 0.15, pos.y * 0.15, uTime * 0.15));
+      pos.z += baseWave * 1.5;
 
-      // Mouse interaction (ripple effect)
-      // Map mouse (0..1) to pos (-5..5 roughly)
-      // vec2 mouseWorld = (uMouse - 0.5) * 10.0;
-      // float dist = distance(pos.xy, mouseWorld);
-      // float ripple = sin(dist * 5.0 - uTime * 2.0) * exp(-dist * 2.0);
-      // pos.z += ripple * uStrength;
+      // 2. Detail Waves (Faster, smaller scale)
+      float detailWave = snoise(vec3(pos.x * 0.5 + 10.0, pos.y * 0.5 + 10.0, uTime * 0.4));
+      pos.z += detailWave * 0.5;
+
+      // 3. Mouse Interaction (Ripple)
+      // Calculate distance to mouse in world space (xy plane)
+      float dist = distance(pos.xy, uMouse.xy);
+      
+      // Ripple decay based on distance
+      float rippleArea = smoothstep(12.0, 0.0, dist); 
+      
+      // Sine wave expanding from center
+      float ripple = sin(dist * 4.0 - uTime * 8.0) * exp(-dist * 0.8);
+      
+      // Apply ripple strength
+      pos.z += ripple * rippleArea * uStrength * 2.0;
 
       vPosition = pos;
       gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
@@ -114,30 +139,55 @@ const LiquidShader = () => {
     varying vec2 vUv;
     varying vec3 vPosition;
     uniform float uTime;
-    uniform vec3 uColor1;
-    uniform vec3 uColor2;
+    uniform vec3 uColor1; // Deep Blue/Black
+    uniform vec3 uColor2; // Neon Cyan
 
     void main() {
-      // Simple gradient based on height (z)
-      float mixFactor = (vPosition.z + 0.5) * 0.5;
-      vec3 color = mix(uColor1, uColor2, clamp(mixFactor, 0.0, 1.0));
+      // 1. Grid Pattern
+      // Create a grid in UV space
+      vec2 gridUV = vUv * 40.0;
+      vec2 grid = step(0.95, fract(gridUV));
+      float gridLine = max(grid.x, grid.y);
+
+      // 2. Height-based Coloring
+      // Map z-height (-3 to 3 roughly) to 0-1
+      float heightFactor = smoothstep(-2.0, 2.5, vPosition.z);
       
-      // Add "highlights"
-      float highlight = step(0.8, mixFactor);
-      color += highlight * 0.5;
+      // Base gradient
+      vec3 color = mix(uColor1, uColor2, heightFactor);
+
+      // 3. Grid Glow
+      // Grid lines are brighter at peaks
+      float gridBrightness = gridLine * (0.2 + heightFactor * 0.8);
+      color += vec3(0.0, 0.8, 1.0) * gridBrightness;
+
+      // 4. Fresnel / Rim Light (approximate)
+      // Use the height gradient to fake a rim light at the very top
+      float rim = smoothstep(0.8, 1.0, heightFactor);
+      color += vec3(1.0) * rim * 0.5;
+
+      // 5. Deep fade (optional vignette-like effect for depth)
+      // float depth = smoothstep(-3.0, -1.0, vPosition.z);
+      // color *= (0.5 + 0.5 * depth);
 
       gl_FragColor = vec4(color, 1.0);
     }
   `;
 
   return (
-    <mesh ref={mesh} rotation={[-Math.PI / 2, 0, 0]}>
-      <planeGeometry args={[20, 20, 128, 128]} />
+    <mesh 
+      ref={mesh} 
+      rotation={[-Math.PI / 2, 0, 0]} 
+      onPointerMove={handlePointerMove}
+      onPointerLeave={() => setHovered(false)}
+    >
+      <planeGeometry args={[40, 40, 128, 128]} />
       <shaderMaterial
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         uniforms={uniforms}
-        wireframe={true}
+        wireframe={false}
+        transparent={true}
       />
     </mesh>
   );
@@ -145,11 +195,22 @@ const LiquidShader = () => {
 
 export default function LiquidSurface() {
   return (
-    <div style={{ width: '100vw', height: '100vh', background: '#000' }}>
+    <div className="w-full h-screen bg-black overflow-hidden relative">
+      <div className="absolute top-8 left-8 z-10 text-white font-mono pointer-events-none mix-blend-difference">
+        <h1 className="text-4xl font-bold tracking-tighter mb-2">LIQUID_MATRIX</h1>
+        <p className="opacity-70 text-sm">Interactive Vertex Displacement // Hover to Interact</p>
+      </div>
+      
       <Canvas>
-        <PerspectiveCamera makeDefault position={[0, 10, 10]} fov={50} />
+        <PerspectiveCamera makeDefault position={[0, 15, 15]} fov={45} />
         <LiquidShader />
-        <OrbitControls enableZoom={true} maxPolarAngle={Math.PI / 2} />
+        <OrbitControls 
+          enableZoom={true} 
+          maxPolarAngle={Math.PI / 2.2} // Prevent going below surface
+          minDistance={5}
+          maxDistance={50}
+        />
+        <ambientLight intensity={0.5} />
       </Canvas>
     </div>
   );

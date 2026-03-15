@@ -7,7 +7,7 @@ import styles from './Terminal.module.scss';
 
 type CommandOutput = {
   type: 'text' | 'error' | 'success' | 'system' | 'link';
-  content: string | JSX.Element;
+  content: string | React.ReactNode;
 };
 
 type HistoryItem = {
@@ -139,6 +139,19 @@ export default function Terminal() {
       case 'close':
          setIsOpen(false);
          return;
+
+      // Access Time Machine
+      case 'time':
+      case 'time machine':
+      case 'archive':
+      case 'timeline':
+      case 'back to the future':
+         outputs = [{ type: 'success', content: 'Initiating Temporal Displacement Sequence...' }];
+         setTimeout(() => {
+             router.push('/time-machine');
+             setIsOpen(false);
+         }, 800);
+         break;
 
       // Easter Eggs - HIMYM
       case 'suit up':

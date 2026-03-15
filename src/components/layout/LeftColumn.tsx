@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Magnetic from '@/components/ui/Magnetic';
 import RotatingTitle from '@/components/ui/RotatingTitle';
+import GlitchText from '@/components/ui/GlitchText';
 
 export default function LeftColumn() {
   const pathname = usePathname();
@@ -45,7 +46,9 @@ export default function LeftColumn() {
 
       {/* 3. Footer: Name + Role */}
       <footer className={styles.footer}>
-        <div className={styles.name}>IVAN DEL FATTI</div>
+        <div className={styles.name}>
+          <GlitchText text="IVAN DEL FATTI" />
+        </div>
         <RotatingTitle className={styles.role} />
       </footer>
     </aside>

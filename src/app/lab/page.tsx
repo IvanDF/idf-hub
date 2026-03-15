@@ -24,16 +24,16 @@ export default function Lab() {
       {/* Header */}
       <header className={styles.header}>
         <motion.h1
-          initial={{ y: -50, opacity: 0 }}
+          initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          THE LAB
+          Research Lab
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
         >
           Experimental playground. Concepts, prototypes, and failures.
         </motion.p>
@@ -62,10 +62,10 @@ export default function Lab() {
             <motion.div
               key={project.id}
               layout
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
               className={`
                 ${styles.gridItem} 
                 ${project.layout === 'featured' ? styles.featured : ''}
@@ -76,13 +76,9 @@ export default function Lab() {
               <ProjectCard 
                 project={project} 
                 onClick={() => {
-                  if (project.links?.caseStudy) {
-                    router.push(project.links.caseStudy);
-                  } else if (project.links?.repo) {
-                    window.open(project.links.repo, '_blank');
-                  } else if (project.links?.demo) {
-                    window.open(project.links.demo, '_blank');
-                  }
+                  // Default to the dynamic project page for all items
+                  // This ensures a consistent "Case Study" experience
+                  router.push(`/lab/${project.id}`);
                 }}
               />
             </motion.div>

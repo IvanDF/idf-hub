@@ -7,6 +7,22 @@ export const PROJECTS: Project[] = [
   // DEV PROJECTS
   // ----------------------------------------------------------------------
   {
+    id: 'gabberg-icard',
+    title: 'GabberG iCard',
+    description: 'Interactive digital business card for a cosplay/gaming personality. Features custom UI and contact integration.',
+    category: 'DEV',
+    tags: ['React', 'Vite', 'Digital Identity'],
+    year: '2024',
+    links: {
+      repo: 'https://github.com/IvanDF/proj-gabberg-icard',
+      live: 'https://gabberg.netlify.app/?card_type=dp-ygh-001-01'
+    },
+    media: {
+      thumbnail: '/assets/placeholder.svg'
+    },
+    interaction: 'tilt'
+  },
+  {
     id: 'rick-and-morty-theme',
     title: 'Rick and Morty Theme',
     description: 'A scientifically accurate VS Code theme. Features "Portal Gun Dark" & "Citadel Light".',
@@ -93,12 +109,13 @@ export const PROJECTS: Project[] = [
     tags: ['Physics', 'Three.js', 'Shader'],
     year: '2024',
     media: {
-      thumbnail: '/assets/placeholder-experiment.jpg'
+      thumbnail: '/assets/placeholder.svg'
     },
     interaction: 'glitch',
     layout: 'featured',
     links: {
-      caseStudy: '/lab/gravity-well'
+      caseStudy: '/lab/gravity-well',
+      demo: '/lab/demo/gravity-well'
     }
   },
   {
@@ -109,7 +126,7 @@ export const PROJECTS: Project[] = [
     tags: ['WebGL', 'Audio-Reactive', 'Glitch'],
     year: '2024',
     media: {
-      thumbnail: '/assets/placeholder-experiment.jpg'
+      thumbnail: '/assets/placeholder.svg'
     },
     interaction: 'glitch'
   },
@@ -121,7 +138,7 @@ export const PROJECTS: Project[] = [
     tags: ['Data Viz', 'R3F', 'Graph'],
     year: '2024',
     media: {
-      thumbnail: '/assets/placeholder-experiment.jpg'
+      thumbnail: '/assets/placeholder.svg'
     },
     interaction: 'tilt',
     links: {
@@ -137,11 +154,12 @@ export const PROJECTS: Project[] = [
     tags: ['Fluid Sim', 'Shader', 'Interaction'],
     year: '2024',
     media: {
-      thumbnail: '/assets/placeholder-experiment.jpg'
+      thumbnail: '/assets/placeholder.svg'
     },
     interaction: 'spotlight',
     links: {
-      caseStudy: '/lab/liquid-surface'
+      caseStudy: '/lab/liquid-surface',
+      demo: '/lab/demo/liquid-surface'
     }
   },
   {
@@ -152,7 +170,7 @@ export const PROJECTS: Project[] = [
     tags: ['CLI', 'React', 'System'],
     year: '2024',
     media: {
-      thumbnail: '/assets/placeholder-experiment.jpg'
+      thumbnail: '/assets/placeholder.svg'
     },
     interaction: 'glitch',
     links: {

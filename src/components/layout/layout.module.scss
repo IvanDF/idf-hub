@@ -1,5 +1,8 @@
-@use "@/styles/variables" as *;
+// src/components/layout/layout.module.scss
 
+@use '@/styles/variables' as *;
+
+// --- Desktop Layout (Unchanged) ---
 .container {
   display: flex;
   width: 100vw;
@@ -11,94 +14,52 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.4s ease;
 }
 
-.leftColumn {
+.leftColumn, .rightColumn {
   position: fixed;
-  left: 0;
   top: 0;
   bottom: 0;
   width: 328px;
-  z-index: 50; // High z-index to be above content
-  padding: 80px 40px; // Adjusted padding to fit content better when visible
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  
-  // Interaction Logic
-  transform: translateX(0); // Default visible
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s, backdrop-filter 0.5s;
-  background-color: transparent;
-
-  &.autoHide {
-    transform: translateX(calc(-100% + 20px)); // Hide mostly, leave 20px trigger
-    
-    // Visual hint on the edge (optional, currently just invisible trigger area)
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 20px;
-      height: 100%;
-      background: transparent; // Invisible trigger zone
-    }
-
-    &:hover {
-      transform: translateX(0);
-      background-color: rgba(0, 0, 0, 0.3); // More transparent background
-      backdrop-filter: blur(8px);
-      box-shadow: 20px 0 40px rgba(0,0,0,0.1);
-    }
-  }
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-}
-
-.rightColumn {
-  position: fixed;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 328px; // Reduced width slightly to match left
   z-index: 50;
   padding: 80px 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-end;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none; // Allow clicks through empty space
 
-  // Interaction Logic
-  transform: translateX(0); // Default visible
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s, backdrop-filter 0.5s;
-  background-color: transparent;
+  // Re-enable pointer events for children
+  & > * {
+    pointer-events: auto;
+  }
+}
 
+.leftColumn {
+  left: 0;
+  align-items: flex-start;
+  
   &.autoHide {
-    transform: translateX(calc(100% - 20px)); // Hide mostly
-    
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 20px; // Trigger zone on the left edge of this column
-      height: 100%;
-      background: transparent; 
-    }
+    transform: translateX(calc(-100% + 20px));
+    pointer-events: auto; // Needs to be interactive to hover back
 
     &:hover {
       transform: translateX(0);
-      background-color: rgba(0, 0, 0, 0.3); // More transparent background
-      backdrop-filter: blur(8px);
-      box-shadow: -20px 0 40px rgba(0,0,0,0.1);
+      background: rgba(var(--color-bg-rgb), 0.8); // Needs RGB var or solid color
+      backdrop-filter: blur(12px);
     }
   }
+}
 
-  @media (max-width: 768px) {
+.rightColumn {
+  right: 0;
+  align-items: flex-end;
+}
+
+// Hide columns on mobile
+@media (max-width: 768px) {
+  .leftColumn, .rightColumn {
     display: none;
   }
 }
@@ -110,12 +71,22 @@
   width: 100%;
   height: 100%;
   z-index: 1;
-  overflow-y: auto; // Enable vertical scrolling
+  overflow-y: auto;
   overflow-x: hidden;
-  scrollbar-width: none; // Firefox
+  -webkit-overflow-scrolling: touch;
   
+  // Custom Scrollbar
   &::-webkit-scrollbar {
-    display: none; // Chrome/Safari
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(150, 150, 150, 0.2);
+    border-radius: 3px;
   }
 }
 
@@ -126,19 +97,18 @@
 }
 
 .navLink {
-  font-family: var(--font-josefin-sans), sans-serif;
+  font-family: $font-family-primary;
   font-weight: 700;
   font-size: 12px;
   text-transform: uppercase;
   color: var(--color-text);
   text-decoration: none;
-  transition: color 0.3s;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  transition: opacity 0.3s, color 0.3s;
 
-  &:hover {
-    color: var(--color-accent);
-  }
-
-  &.active {
+  &:hover, &.active {
+    opacity: 1;
     color: var(--color-accent);
   }
 }
@@ -148,494 +118,186 @@
   background-color: var(--color-divider);
   flex-grow: 1;
   margin: 32px 0;
-  transition: background-color 0.3s ease;
+  opacity: 0.2;
 }
 
 .footer {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-
+  gap: 4px;
+  
   .name {
-    font-family: var(--font-josefin-sans), sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    text-transform: uppercase;
-    color: var(--color-accent);
-  }
-
-  .role {
-    font-family: var(--font-josefin-sans), sans-serif;
     font-weight: 700;
     font-size: 14px;
-    text-transform: uppercase;
-    color: var(--color-text);
-    opacity: 0.5;
+    letter-spacing: 0.05em;
+  }
+  
+  .role {
+    font-size: 12px;
+    opacity: 0.6;
   }
 }
 
-.themeToggle {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-family: var(--font-josefin-sans), sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  text-transform: uppercase;
-  color: var(--color-text);
+// --- Mobile Navigation (Sidebar Variant) ---
 
-  span {
-    transition: color 0.3s ease;
-  }
-
-  &:hover span {
-    color: var(--color-accent);
-  }
-}
-
-.toggleSwitch {
-  width: 32px;
-  height: 16px;
-  border-radius: 16px;
-  border: 1px solid var(--color-divider);
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 2px;
-  transition: all 0.3s ease;
-
-  &.active {
-    justify-content: flex-end;
-  }
-
-  div {
-    width: 10px;
-    height: 10px;
-    background: var(--color-text);
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-  }
-}
-
-.socials {
-  display: flex;
-  gap: 24px;
-
-  a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--color-divider);
-    border-radius: 50%;
-    color: var(--color-text);
-    text-decoration: none;
-    transition: all 0.3s ease;
-
-    img {
-      filter: grayscale(1); // Optional: make icons monochrome to fit design
-      transition: filter 0.3s ease;
-    }
-
-    &:hover {
-      border-color: var(--color-accent);
-
-      img {
-        filter: none;
-      }
-    }
-  }
-}
-
-// Mobile Styles Refactored
 .mobileHeader {
-  display: none; // Hidden on desktop
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 80px;
-  z-index: 9999; // Above EVERYTHING
-  padding: 0 24px;
+  height: 64px;
+  z-index: 100;
   justify-content: space-between;
   align-items: center;
-  pointer-events: none; // Let clicks pass through except for children
+  padding: 0 24px;
+  mix-blend-mode: difference;
+  color: #fff;
 
-  // Only show on mobile
   @media (max-width: 768px) {
     display: flex;
   }
 }
 
-.logo {
-  pointer-events: auto; // Make logo clickable
-  font-family: var(--font-josefin-sans), sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  color: var(--color-text);
-  text-decoration: none;
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-}
-
-.logoInvert {
-  filter: invert(1);
-}
-
 .burger {
-  pointer-events: auto; // Make burger clickable
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 6px;
-  cursor: pointer;
-  z-index: 10000;
-
-  span {
-    display: block;
-    height: 2px;
-    background: var(--color-text);
-    transition: all 0.3s ease;
-  }
-
-  span:nth-child(1) {
-    width: 32px;
-  }
-  span:nth-child(2) {
-    width: 24px;
-  }
-  span:nth-child(3) {
-    width: 16px;
-  }
-
-  &.open {
-    align-items: center;
-    span:nth-child(1) {
-      width: 32px;
-      transform: rotate(45deg) translate(5px, 6px);
-    }
-    span:nth-child(2) {
-      opacity: 0;
-      width: 0;
-    }
-    span:nth-child(3) {
-      width: 32px;
-      transform: rotate(-45deg) translate(5px, -6px);
-    }
-  }
-}
-
-.mobileMenuOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: var(--color-bg); // Use solid background
-  z-index: 9990; // Just below header buttons
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  padding: 80px 24px 24px 24px; // Top padding accounts for header
-}
-
-.mobileMenuContent {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: space-between;
-}
-
-.mobileNavSection {
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 24px;
-
-  .navLink {
-    font-size: 32px; // Large for mobile
-    font-weight: 700;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--color-text);
-    transition: color 0.3s ease;
-
-    &.active {
-      color: var(--color-accent);
-      // Underline or dot indicator could go here
-    }
-  }
-}
-
-.mobileCenterLogo {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0.1; // Watermark style
-  pointer-events: none;
-}
-
-.mobileFooterSection {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-bottom: 24px;
-}
-
-// Reuse existing styles where possible
-.footerInfo {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.logo {
-  font-family: var(--font-josefin-sans), sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  color: var(--color-text);
-  text-decoration: none;
-  z-index: 31; // Above menu bg
-  display: flex;
-  align-items: center;
-}
-
-.logoInvert {
-  filter: invert(1);
-}
-
-.burger {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 6px;
-  cursor: pointer;
-  z-index: 31; // Above menu bg
-
-  span {
-    display: block;
-    height: 2px;
-    background: var(--color-text);
-    transition: all 0.3s ease;
-  }
-
-  span:nth-child(1) {
-    width: 32px;
-  }
-  span:nth-child(2) {
-    width: 24px;
-  }
-  span:nth-child(3) {
-    width: 16px;
-  }
-
-  &.open {
-    align-items: center;
-    span:nth-child(1) {
-      width: 32px;
-      transform: rotate(45deg) translate(5px, 6px);
-    }
-    span:nth-child(2) {
-      opacity: 0;
-      width: 0;
-    }
-    span:nth-child(3) {
-      width: 32px;
-      transform: rotate(-45deg) translate(5px, -6px);
-    }
-  }
-}
-
-.mobileMenu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: var(--color-bg);
-  z-index: 50;
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-
-  // Slide transition
-  transform: translateX(100%);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-
-  &.open {
-    transform: translateX(0);
-  }
-}
-
-.menuHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 40px;
-}
-
-.closeButton {
+  justify-content: space-around;
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--color-text);
-  padding: 8px;
-  margin-left: -8px; // Align optically
+  z-index: 101;
+  padding: 0;
+  margin-left: auto; // Push to the right shoulder
 
-  svg {
-    width: 32px;
-    height: 32px;
+  span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transform-origin: center;
+  }
+
+  &.open {
+    span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    span:nth-child(2) {
+      opacity: 0;
+    }
+    span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
   }
 }
 
-.themeToggle {
+.mobileBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 90;
   display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  font-family: var(--font-josefin-sans), sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  text-transform: uppercase;
-  color: var(--color-text);
-
-  .themeIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  justify-content: flex-end; // Align sidebar to the right
 }
 
-.menuBody {
-  flex: 1;
-  display: flex;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-}
-
-.navLinks {
-  position: absolute;
-  left: 0;
-  top: 0;
+.mobileSidebar {
+  width: 280px; // Standard sidebar width
+  height: 100%;
+  background: rgba(var(--color-bg-rgb), 0.95); // High opacity for readability
+  border-left: 1px solid var(--color-divider);
+  padding: 80px 32px 40px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  padding-top: 40px; // Spacing from header
+  box-shadow: -10px 0 30px rgba(0,0,0,0.5);
 }
 
-.navLink {
-  font-family: var(--font-josefin-sans), sans-serif;
+.sidebarContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sidebarNavLink {
+  font-family: $font-family-primary;
+  font-size: 1.5rem;
   font-weight: 700;
-  font-size: 14px;
   text-transform: uppercase;
   color: var(--color-text);
   text-decoration: none;
-  letter-spacing: 1px;
+  letter-spacing: 0.05em;
+  opacity: 0.5;
   transition: opacity 0.3s;
+  
+  &:hover, &.active {
+    opacity: 1;
+    color: var(--color-accent);
+  }
+}
 
+.sidebarFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sidebarFooter .divider {
+  width: 100%;
+  height: 1px;
+  background: var(--color-divider);
+  opacity: 0.3;
+}
+
+.themeToggle {
+  background: none;
+  border: 1px solid var(--color-divider);
+  padding: 10px;
+  color: var(--color-text);
+  font-family: $font-family-mono;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: center;
+  
   &:hover {
-    opacity: 0.6;
-  }
-
-  &.active {
-    // You might want an active state here, e.g. bold or specific color
+    border-color: var(--color-accent);
+    color: var(--color-accent);
   }
 }
 
-.centerLogo {
-  width: 100%;
+.socials {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: -1; // Behind nav links if they overlap
-  opacity: 0.1; // Make it subtle or as per design. Design shows it pretty solid but maybe styled?
-  // Actually design shows it as a big purple circle with white logo.
-}
-
-.logoCircle {
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  background-color: var(--color-accent); // Assuming purple is accent
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  // If the logo inside is SVG, we might need to color it white
-  .logoImage {
-    filter: brightness(0) invert(1); // Make white
-    width: 50%;
-    height: auto;
-  }
-}
-
-.menuFooter {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end; // Right aligned
-  gap: 24px;
-  margin-top: auto;
-}
-
-.personalInfo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-
-  .name {
-    font-family: var(--font-josefin-sans), sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    text-transform: uppercase;
-    color: var(--color-text);
-  }
-
-  .role {
-    font-family: var(--font-josefin-sans), sans-serif;
-    font-weight: 400; // Thinner
-    font-size: 14px;
-    text-transform: uppercase;
-    color: var(--color-text);
-    opacity: 0.6;
-  }
-}
-
-.socialsRow {
-  display: flex;
-  gap: 24px;
-
+  justify-content: space-between;
+  
   a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: var(--color-text); // Inverse circle
-    border-radius: 50%;
-    transition: transform 0.2s;
-
+    font-family: $font-family-mono;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    text-decoration: none;
+    opacity: 0.6;
+    
     &:hover {
-      transform: scale(1.1);
-    }
-
-    .socialIcon {
-      filter: invert(1); // Invert icon color if background is text color
-      width: 20px;
-      height: 20px;
+      opacity: 1;
+      color: var(--color-accent);
     }
   }
+}
+
+.copyright {
+    font-family: $font-family-mono;
+    font-size: 0.6rem;
+    color: var(--color-text);
+    opacity: 0.3;
+    text-align: center;
 }

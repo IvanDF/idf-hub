@@ -1,9 +1,9 @@
-import HomeScene from "@/components/home/HomeScene";
+import ParticleLogo from "@/components/home/ParticleLogo";
 
 export default function Home() {
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <HomeScene />
+      <ParticleLogo />
       
       {/* Hint Overlay */}
       <div style={{
@@ -13,7 +13,8 @@ export default function Home() {
         transform: 'translateX(-50%)',
         textAlign: 'center',
         opacity: 0.6,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        zIndex: 10
       }}>
         <p style={{
           fontFamily: 'var(--font-josefin-sans)',

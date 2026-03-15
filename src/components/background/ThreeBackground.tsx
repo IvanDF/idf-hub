@@ -2,7 +2,7 @@
 
 import React, { useMemo, useRef, useEffect } from 'react';
 import { useLoader, useFrame, extend } from '@react-three/fiber';
-import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader';
+import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
 import * as THREE from 'three';
 import { shaderMaterial } from '@react-three/drei';
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
