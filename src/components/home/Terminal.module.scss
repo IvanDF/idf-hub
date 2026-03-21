@@ -6,64 +6,102 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.4); // Darken the rest of the app
-  backdrop-filter: blur(2px); // Subtle blur
-  z-index: 100000; // Above EVERYTHING (even mobile nav)
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 100000;
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .terminalContainer {
-  width: 80%;
-  max-width: 800px;
-  height: 60vh;
-  min-height: 400px;
+  width: 85%;
+  max-width: 720px;
+  height: 70vh;
+  max-height: 600px;
   
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
   color: var(--color-text);
-  padding: 40px;
+  padding: 24px 28px;
   
-  background: rgba(var(--color-bg-rgb), 0.95);
-  backdrop-filter: blur(12px);
+  background: rgba(var(--color-bg-rgb), 0.98);
+  backdrop-filter: blur(20px);
   border: 1px solid var(--color-divider);
-  border-radius: 12px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 100px rgba(var(--color-accent-rgb, 167, 139, 250), 0.1);
   
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow: hidden;
   
-  // Custom scrollbar for terminal look
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.terminalBody {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+  
   &::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   &::-webkit-scrollbar-track {
     background: transparent;
   }
   &::-webkit-scrollbar-thumb {
     background: var(--color-divider);
-    border-radius: 4px;
+    border-radius: 3px;
+    
+    &:hover {
+      background: var(--color-text);
+      opacity: 0.3;
+    }
   }
 }
 
 .outputArea {
-  flex: 0 0 auto; // Don't stretch
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 4px;
+  margin-bottom: 12px;
 }
 
 .line {
   display: flex;
   gap: 12px;
-  line-height: 1.5;
-  font-size: 16px;
+  line-height: 1.6;
+  font-size: 14px;
   word-break: break-word;
+  opacity: 0;
+  animation: typeIn 0.3s ease forwards;
 
   &.error {
-    color: #ff4d4d;
+    color: #ff6b6b;
   }
   
   &.success {
@@ -72,23 +110,36 @@
   
   &.system {
     color: var(--color-accent);
-    font-weight: bold;
+    font-weight: 600;
+  }
+}
+
+@keyframes typeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .prompt {
   color: var(--color-accent);
-  font-weight: bold;
+  font-weight: 600;
   user-select: none;
+  opacity: 0.8;
 }
 
 .inputArea {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 16px;
-  margin-top: auto; // Push to bottom if content is short, but scroll with it if long
+  font-size: 14px;
   padding-top: 16px;
+  border-top: 1px solid var(--color-divider);
+  margin-top: 8px;
 }
 
 .input {
@@ -100,6 +151,11 @@
   font-size: inherit;
   flex: 1;
   caret-color: var(--color-accent);
+  
+  &::placeholder {
+    color: var(--color-text);
+    opacity: 0.3;
+  }
 }
 
 // Mobile responsive adjustments
@@ -113,18 +169,18 @@
     width: 100%;
     max-width: 100%;
     height: 85vh;
-    border-radius: 20px 20px 0 0;
-    padding: 24px;
-    font-size: 16px;
+    border-radius: 24px 24px 0 0;
+    padding: 20px 24px;
+    font-size: 15px;
     position: relative;
     
     &::before {
       content: '';
       position: absolute;
-      top: 10px;
+      top: 12px;
       left: 50%;
       transform: translateX(-50%);
-      width: 40px;
+      width: 36px;
       height: 4px;
       background: var(--color-divider);
       border-radius: 2px;
@@ -132,6 +188,6 @@
   }
   
   .input, .line {
-    font-size: 16px;
+    font-size: 15px;
   }
 }

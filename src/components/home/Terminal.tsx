@@ -16,7 +16,88 @@ type HistoryItem = {
   output?: CommandOutput[];
 };
 
-// Easter eggs with cryptic hints as aliases
+// ASCII art for easter eggs
+const ASCII_ART: Record<string, string[][]> = {
+  suit_up: [
+    [
+      "    ╔═══╗    ",
+      "    ║   ║    ",
+      "    ║ S ║    ",
+      "    ╚═══╝    ",
+    ],
+    [
+      "    ╔═══╗    ",
+      "    ║   ║    ",
+      "    ║ U ║    ",
+      "    ╚═══╝    ",
+    ],
+    [
+      "    ╔═══╗    ",
+      "    ║   ║    ",
+      "    ║ P ║    ",
+      "    ╚═══╝    ",
+    ],
+  ],
+  pickle_rick: [
+    [
+      "      ●      ",
+      "    ╭───╮    ",
+      "    │   │    ",
+      "    ╰───╯    ",
+    ],
+    [
+      "     \\●/     ",
+      "    ╭─────╮  ",
+      "    │     │  ",
+      "    ╰──┬──╯  ",
+    ],
+  ],
+  skol: [
+    [
+      "      ▲      ",
+      "     ╱ ╲     ",
+      "    ╱   ╲    ",
+      "   ╱  ▼  ╲   ",
+    ],
+    [
+      "      │      ",
+      "     ╱ │     ",
+      "    ╱  │     ",
+      "   ╱   ▼     ",
+    ],
+  ],
+  legendary: [
+    [
+      "   ┌─────────┐   ",
+      "   │ LEGEN.. │   ",
+      "   │ WAIT..  │   ",
+      "   │ DARY!   │   ",
+      "   └─────────┘   ",
+    ],
+    [
+      "   ┌─────────┐   ",
+      "   │  DARY!  │   ",
+      "   └─────────┘   ",
+    ],
+  ],
+  konami: [
+    [
+      "    ↑ ↑ ↓ ↓    ",
+      "    ← → ← →    ",
+      "      B A       ",
+    ],
+  ],
+  valhalla: [
+    [
+      "  ╔═══════════╗  ",
+      "  ║  ╭─────╮  ║  ",
+      "  ║  │VALHA│  ║  ",
+      "  ║  │LLA  │  ║  ",
+      "  ║  ╰─────╯  ║  ",
+      "  ╚═══════════╝  ",
+    ],
+  ],
+};
 type EasterEgg = {
   id: string;
   aliases: string[];
@@ -27,55 +108,37 @@ type EasterEgg = {
 
 const EASTER_EGGS: EasterEgg[] = [
   // HIMYM
-  { id: 'suit_up', aliases: ['suit up'], hint: '"Suit up!" - Barney\'s classic', category: 'HIMYM', name: 'Suit Up' },
-  { id: 'playbook', aliases: ['playbook'], hint: '"Have you met..." - Ted\'s legendary line', category: 'HIMYM', name: 'The Playbook' },
-  { id: 'legendary', aliases: ['legendary'], hint: '"This is gonna be legen... wait for it... dary!"', category: 'HIMYM', name: 'Legendary' },
-  { id: 'umbrella', aliases: ['umbrella'], hint: 'Yellow umbrella, the symbol of love', category: 'HIMYM', name: 'Yellow Umbrella' },
+  { id: 'suit_up', aliases: ['suit up'], hint: "Barney's famous catchphrase", category: 'HIMYM', name: 'Suit Up' },
+  { id: 'playbook', aliases: ['playbook'], hint: "Ted's legendary pickup line", category: 'HIMYM', name: 'The Playbook' },
+  { id: 'legendary', aliases: ['legendary'], hint: "The catchphrase before 'dary'", category: 'HIMYM', name: 'Legendary' },
+  { id: 'umbrella', aliases: ['umbrella'], hint: "Something yellow that shelters from rain", category: 'HIMYM', name: 'Yellow Umbrella' },
   
   // Rick and Morty
-  { id: 'pickle_rick', aliases: ['pickle rick'], hint: '"I turned myself into a pickle!"', category: 'R&M', name: 'Pickle Rick' },
-  { id: 'wubba', aliases: ['wubba lubba dub dub'], hint: '"I am in great pain, please help me"', category: 'R&M', name: 'Wubba Lubba Dub Dub' },
-  { id: 'burp', aliases: ['burp'], hint: '"And that\'s the wicky wicky words"', category: 'R&M', name: 'Burp' },
-  { id: 'science', aliases: ['science'], hint: 'Rick\'s answer to everything', category: 'R&M', name: 'Science' },
+  { id: 'pickle_rick', aliases: ['pickle rick'], hint: "Rick's most absurd invention", category: 'R&M', name: 'Pickle Rick' },
+  { id: 'wubba', aliases: ['wubba lubba dub dub'], hint: "Rick's cry for help", category: 'R&M', name: 'Wubba Lubba Dub Dub' },
+  { id: 'burp', aliases: ['burp'], hint: "Rick's signature sound", category: 'R&M', name: 'Burp' },
+  { id: 'science', aliases: ['science'], hint: "Rick's answer to everything", category: 'R&M', name: 'Science' },
   
   // Vikings
-  { id: 'ragnar', aliases: ['ragnar'], hint: '"Who wants to be King?"', category: 'Vikings', name: 'Who Wants to be King' },
-  { id: 'aesir', aliases: ['aesir'], hint: '"The Aesir will welcome me home"', category: 'Vikings', name: 'The Aesir' },
-  { id: 'skol', aliases: ['skol'], hint: '"Skol!" - Viking cheers', category: 'Vikings', name: 'Skål' },
-  { id: 'valhalla', aliases: ['valhalla'], hint: 'The Viking paradise awaits', category: 'Vikings', name: 'Valhalla' },
+  { id: 'ragnar', aliases: ['ragnar'], hint: "The question every king must answer", category: 'Vikings', name: 'Who Wants to be King' },
+  { id: 'aesir', aliases: ['aesir'], hint: "Ragnar's final words", category: 'Vikings', name: 'The Aesir' },
+  { id: 'skol', aliases: ['skol'], hint: "Viking way to say cheers", category: 'Vikings', name: 'Skål' },
+  { id: 'valhalla', aliases: ['valhalla'], hint: "Where warriors go after death", category: 'Vikings', name: 'Valhalla' },
   
   // Secret Features
-  { id: 'future_mode', aliases: ['zen'], hint: 'Focus mode. Nothing else matters.', category: 'Secret', name: 'Future Mode' },
-  { id: 'theme_toggle', aliases: ['yoda'], hint: '"The force has two sides..."', category: 'Secret', name: 'Theme Master' },
-  { id: 'time_machine', aliases: ['flux'], hint: '"Where we\'re going we don\'t need roads"', category: 'Secret', name: 'Time Traveler' },
-  { id: 'konami', aliases: ['konami'], hint: '↑ ↑ ↓ ↓ ← → ← → B A', category: 'Secret', name: 'Konami Code' },
+  { id: 'future_mode', aliases: ['zen'], hint: "Focus. Nothing else.", category: 'Secret', name: 'Future Mode' },
+  { id: 'theme_toggle', aliases: ['yoda'], hint: "The force has two of these", category: 'Secret', name: 'Theme Master' },
+  { id: 'time_machine', aliases: ['flux'], hint: "Marty's 1.21 of these", category: 'Secret', name: 'Time Traveler' },
+  { id: 'konami', aliases: ['konami'], hint: "The cheat code to end all cheat codes", category: 'Secret', name: 'Konami Code' },
 ];
 
 const TOTAL_EASTER_EGGS = EASTER_EGGS.length;
 
-// Playbook articles for variety
-const PLAYBOOK_ARTICLES = [
-  'Article 1: The Lorenzo Von Matterhorn',
-  'Article 2: The Wedding Rachel',
-  'Article 3: The Naked Man',
-  'Article 4: The Platinum Rule',
-  'Article 5: The Yips',
-];
-
 export default function Terminal() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
-  const [history, setHistory] = useState<HistoryItem[]>([
-    {
-      command: '',
-      output: [
-        { type: 'system', content: 'IDF OS [Version 3.0.0]' },
-        { type: 'text', content: '(c) 2024 Ivan Del Fatti. All rights reserved.' },
-        { type: 'text', content: 'Welcome to the Digital Lab.' },
-        { type: 'text', content: "Type 'help' or '?' to see available commands." },
-      ]
-    }
-  ]);
+  const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [isFirstOpen, setIsFirstOpen] = useState(true);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [discoveredEggs, setDiscoveredEggs] = useState<Set<string>>(new Set());
@@ -159,17 +222,34 @@ export default function Terminal() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, router, toggleTheme]);
 
+  // Welcome message
+  const WELCOME_MESSAGE: HistoryItem = {
+    command: '',
+    output: [
+      { type: 'system', content: 'IDF OS v3.0' },
+      { type: 'text', content: 'Welcome.' },
+      { type: 'text', content: "Type 'help' for commands." },
+    ]
+  };
+
   // Focus input when opened
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
         inputRef.current?.focus();
+        if (isFirstOpen) {
+          setHistory([WELCOME_MESSAGE]);
+          setIsFirstOpen(false);
+        }
         if (terminalBodyRef.current) {
             terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
         }
       }, 100);
+    } else {
+      // Reset when closed
+      setIsFirstOpen(true);
     }
-  }, [isOpen]);
+  }, [isOpen, isFirstOpen]);
 
   // Auto-scroll
   useEffect(() => {
@@ -178,90 +258,110 @@ export default function Terminal() {
     }
   }, [history]);
 
+  // State for ASCII animation frame
+  const [asciiFrame, setAsciiFrame] = useState(0);
+  const [lastEasterEgg, setLastEasterEgg] = useState<string | null>(null);
+
+  // Animate ASCII art for easter eggs
+  useEffect(() => {
+    if (lastEasterEgg && ASCII_ART[lastEasterEgg]) {
+      const interval = setInterval(() => {
+        setAsciiFrame(prev => prev + 1);
+      }, 500);
+      return () => clearInterval(interval);
+    }
+  }, [lastEasterEgg]);
+
+  // Helper to get ASCII art for an egg (with animation frames)
+  const getAsciiArt = (eggId: string): string[] => {
+    const art = ASCII_ART[eggId];
+    if (!art || art.length === 0) return [];
+    const frameIndex = asciiFrame % art.length;
+    return art[frameIndex].map(line => `   ${line}`);
+  };
+
   const executeCommand = useCallback((cmdRaw: string) => {
     const cmd = cmdRaw.trim().toLowerCase();
     const args = cmdRaw.trim().split(' ').slice(1);
     
     let outputs: CommandOutput[] = [];
 
-    // Check for easter eggs first
+      // Check for easter eggs first
     const foundEgg = EASTER_EGGS.find(egg => egg.aliases.includes(cmd));
     if (foundEgg) {
       discoverEgg(foundEgg.id);
+      setLastEasterEgg(foundEgg.id);
+      setAsciiFrame(0);
       
-      switch (foundEgg.id) {
-        case 'suit_up':
-          outputs = [{ type: 'system', content: '🏆 SUIT UP! That\'s Barney\'s motto!' }];
-          break;
-        case 'playbook':
-          const article = PLAYBOOK_ARTICLES[Math.floor(Math.random() * PLAYBOOK_ARTICLES.length)];
-          outputs = [{ type: 'text', content: `📖 The Playbook. ${article}` }];
-          break;
-        case 'robin':
-          outputs = [{ type: 'text', content: '💔 NOBODY ASKED YOU PATRICE!' }];
-          break;
-        case 'ted':
-          outputs = [{ type: 'text', content: '💜 Haaaaave you met Ted? The architect with a yellow umbrella...' }];
-          break;
-        case 'legendary':
-          outputs = [{ type: 'success', content: '⚡ Legend... wait for it... DARY!' }];
-          break;
-        case 'wubba':
-          outputs = [{ type: 'error', content: '😭 I am in great pain, please help me.' }];
-          break;
-        case 'portal':
-          outputs = [{ type: 'success', content: '🌀 Opening portal to Dimension C-137... Wubba Lubba Dub Dub!' }];
-          break;
-        case 'pickle_rick':
-          outputs = [{ type: 'success', content: '🥒 I turned myself into a pickle, Morty! I\'m Pickle Riiiiick!' }];
-          break;
-        case 'skol':
-          outputs = [{ type: 'success', content: '🍺 SKÅL! ' + (discoveredEggs.has('skol') ? 'Discovered: Skål' : 'To the North!') }];
-          break;
-        case 'ragnar':
-          outputs = [{ type: 'text', content: '👑 Who wants to be King?' }];
-          break;
-        case 'aesir':
-          outputs = [{ type: 'text', content: '⚔️ The Aesir will welcome me home...' }];
-          break;
-        case 'valhalla':
-          outputs = [{ type: 'system', content: '⚔️ Valhalla awaits the brave!' }];
-          break;
-        case 'umbrella':
-          outputs = [{ type: 'text', content: '☂️ Yellow umbrella, a symbol of love' }];
-          break;
-        case 'future_mode':
-          toggleFutureMode();
-          outputs = [{ type: 'success', content: '🌌 ' + (isFutureMode ? 'Deactivated...' : 'Future Mode activated. Focus.') }];
-          break;
-        case 'theme_toggle':
-        case 'yoda':
-          toggleTheme();
-          const themeMsg = [
-            '🎨 Theme switched.',
-            '🌙 Darker than my soul.',
-            '☀️ Light mode.',
-            '🖤 Black or white?',
-          ];
-          outputs = [{ type: 'success', content: themeMsg[Math.floor(Math.random() * themeMsg.length)] }];
-          break;
-        case 'time_machine':
-        case 'flux':
-          outputs = [{ type: 'success', content: '⏰ Flux Capacitor engaged!' }];
-          setTimeout(() => {
-            router.push('/time-machine');
-            setIsOpen(false);
-          }, 800);
-          break;
-        case 'konami':
-          outputs = [
-            { type: 'system', content: '🔐 Konami Code!' },
-            { type: 'text', content: '↑ ↑ ↓ ↓ ← → ← → B A' },
-          ];
-          break;
-        default:
-          outputs = [{ type: 'text', content: `🎮 You found: ${foundEgg.name}` }];
-      }
+      // Fun responses for each easter egg
+      const responses: Record<string, CommandOutput[]> = {
+        suit_up: [
+          { type: 'system', content: 'Suit Up' },
+          { type: 'text', content: '"Every time you suit up, you\'re at your best."' },
+          { type: 'text', content: '- Barney Stinson' },
+        ],
+        playbook: [
+          { type: 'system', content: 'The Playbook' },
+          { type: 'text', content: '"There is no such thing as bad ideas.' },
+          { type: 'text', content: '"Only really good ones that get ruined later."' },
+        ],
+        legendary: [
+          { type: 'success', content: 'LEGENDARY!' },
+          { type: 'text', content: '"This is gonna be legend... wait for it... dary!"' },
+        ],
+        umbrella: [
+          { type: 'system', content: 'Yellow Umbrella' },
+          { type: 'text', content: 'Something yellow that shelters from rain.' },
+        ],
+        pickle_rick: [
+          { type: 'success', content: 'I turned myself into a pickle!' },
+          { type: 'text', content: '"Morty, I\'m a pickle!"' },
+        ],
+        wubba: [
+          { type: 'error', content: '"I am in great pain, please help me."' },
+          { type: 'text', content: 'Rick\'s cry echoes through dimensions.' },
+        ],
+        burp: [
+          { type: 'success', content: '*BURRRRRP*' },
+          { type: 'text', content: '"Wubba lubba dub dub, Morty!"' },
+        ],
+        science: [
+          { type: 'success', content: 'Science!' },
+          { type: 'text', content: '"Rick Sanchez - The smartest man in the universe."' },
+        ],
+        ragnar: [
+          { type: 'system', content: 'Who Wants to be King?' },
+          { type: 'text', content: '"The temptation to leave everything behind."' },
+          { type: 'text', content: '- Ragnar Lothbrok' },
+        ],
+        aesir: [
+          { type: 'system', content: '"The Aesir will welcome me home."' },
+          { type: 'text', content: 'Ragnar\'s final words before death.' },
+        ],
+        skol: [
+          { type: 'success', content: 'SKÅL!' },
+          { type: 'text', content: '"To the North, to the Viking gods!"' },
+        ],
+        valhalla: [
+          { type: 'system', content: 'Valhalla awaits the brave.' },
+          { type: 'text', content: '"A warrior\'s paradise, an eternity of glory."' },
+        ],
+        future_mode: [
+          { type: 'success', content: 'Future Mode activated.' },
+          { type: 'text', content: 'Nothing else matters.' },
+        ],
+        yoda: [
+          { type: 'success', content: 'The Force has two sides.' },
+          { type: 'text', content: '"Luminous beings are we." - Yoda' },
+        ],
+        konami: [
+          { type: 'system', content: 'Konami Code' },
+          { type: 'success', content: '↑ ↑ ↓ ↓ ← → ← → B A' },
+          { type: 'text', content: '"The cheat code to end all cheat codes."' },
+        ],
+      };
+      
+      outputs = responses[foundEgg.id] || [{ type: 'success', content: foundEgg.name }];
     } else {
       // Standard commands
       switch (cmd) {
@@ -358,6 +458,38 @@ export default function Terminal() {
         case 'clear':
           setHistory([]);
           return; 
+        
+        case 'future':
+        case 'zen':
+          toggleFutureMode();
+          outputs = [{ type: 'success', content: isFutureMode ? 'Deactivated.' : 'Future Mode.' }];
+          break;
+        
+        case 'yoda':
+        case 'dark side':
+        case 'light side':
+          toggleTheme();
+          const themeMsg = ['Dark.', 'Light.', 'Switched.'];
+          outputs = [{ type: 'success', content: themeMsg[Math.floor(Math.random() * themeMsg.length)] }];
+          break;
+        
+        case 'time':
+        case 'flux':
+          outputs = [{ type: 'success', content: 'Time Machine...' }];
+          setTimeout(() => {
+            router.push('/time-machine');
+            setIsOpen(false);
+          }, 800);
+          break;
+        
+        case 'konami':
+          setLastEasterEgg('konami');
+          setAsciiFrame(0);
+          outputs = [
+            { type: 'system', content: 'Konami Code' },
+            ...getAsciiArt('konami').map(line => ({ type: 'success' as const, content: line })),
+          ];
+          break;
           
         case 'whoami':
           outputs = [
@@ -392,7 +524,7 @@ export default function Terminal() {
         setCommandHistory(prev => [...prev, cmdRaw]);
         setHistoryIndex(-1); 
     }
-  }, [router, theme, toggleTheme, toggleFutureMode, isFutureMode, SHORTCUTS_INFO, discoverEgg, discoveredEggs.size, PLAYBOOK_ARTICLES.length]);
+  }, [router, theme, toggleTheme, toggleFutureMode, isFutureMode, SHORTCUTS_INFO, discoverEgg, discoveredEggs.size, getAsciiArt, setLastEasterEgg, setAsciiFrame]);
 
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
