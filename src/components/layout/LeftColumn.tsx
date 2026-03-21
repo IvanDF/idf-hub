@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import styles from './layout.module.scss';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -13,31 +14,19 @@ export default function LeftColumn() {
 
   return (
     <aside className={`${styles.leftColumn} ${isLab ? styles.autoHide : ''}`}>
-      {/* 1. Navbar: HOME, PORTFOLIO, ABOUT */}
+      {/* Command Palette Trigger */}
       <nav className={styles.navbar}>
         <Magnetic>
-          <Link 
-            href="/" 
-            className={`${styles.navLink} ${pathname === '/' ? styles.active : ''}`}
+          <button 
+            className={styles.terminalLink}
+            onClick={() => {
+              const event = new KeyboardEvent('keydown', { key: 'k', metaKey: true });
+              window.dispatchEvent(event);
+            }}
           >
-            HOME
-          </Link>
-        </Magnetic>
-        <Magnetic>
-          <Link 
-            href="/lab" 
-            className={`${styles.navLink} ${pathname === '/lab' ? styles.active : ''}`}
-          >
-            LAB
-          </Link>
-        </Magnetic>
-        <Magnetic>
-          <Link 
-            href="/about" 
-            className={`${styles.navLink} ${pathname === '/about' ? styles.active : ''}`}
-          >
-            ABOUT
-          </Link>
+            <span className={styles.prompt}>&lt;_</span>
+            <span className={styles.label}>cmd</span>
+          </button>
         </Magnetic>
       </nav>
 

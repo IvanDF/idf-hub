@@ -1,11 +1,12 @@
 import ParticleLogo from "@/components/home/ParticleLogo";
+import styles from "./page.module.scss";
 
 export default function Home() {
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <ParticleLogo />
       
-      {/* Hint Overlay */}
+      {/* CMD+K Hint */}
       <div style={{
         position: 'absolute',
         bottom: '40px',
@@ -30,8 +31,21 @@ export default function Home() {
           fontWeight: 600,
           margin: 0
         }}>
-          Press <span style={{ color: 'var(--color-accent)', fontWeight: 'bold' }}>CMD + K</span> to initialize system
+          Press <span style={{ color: 'var(--color-accent)', fontWeight: 'bold' }}>CMD + K</span> to explore
         </p>
+      </div>
+
+      {/* Shortcuts Hint - Bottom Right */}
+      <div className={styles.shortcutsHint}>
+        <span className={styles.shortcut}>
+          <kbd>CMD</kbd>+<kbd>K</kbd> Commander
+        </span>
+        <span className={styles.shortcut}>
+          <kbd>D</kbd> Theme
+        </span>
+        <span className={styles.shortcut}>
+          <kbd>?</kbd> Help
+        </span>
       </div>
     </div>
   );

@@ -57,11 +57,11 @@ export default function MobileNav() {
     open: { x: 0, opacity: 1 }
   };
 
-  const LINKS = [
-    { href: "/", label: "HOME" },
-    { href: "/lab", label: "LAB" },
-    { href: "/about", label: "ABOUT" }
-  ];
+  const openTerminal = () => {
+    const event = new KeyboardEvent('keydown', { key: 'k', metaKey: true });
+    window.dispatchEvent(event);
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -109,19 +109,16 @@ export default function MobileNav() {
             >
               
               <div className={styles.sidebarContent}>
-                {/* Navigation Links */}
-                <nav className={styles.sidebarNav}>
-                  {LINKS.map((link) => (
-                    <motion.div key={link.href} variants={itemVariants}>
-                      <Link
-                        href={link.href}
-                        className={`${styles.sidebarNavLink} ${pathname === link.href ? styles.active : ''}`}
-                      >
-                        {link.label}
-                      </Link>
-                    </motion.div>
-                  ))}
-                </nav>
+                {/* Command Palette Trigger */}
+                <motion.button 
+                  className={styles.terminalBtn}
+                  onClick={openTerminal}
+                  variants={itemVariants}
+                >
+                  <span className={styles.prompt}>&lt;_</span>
+                  <span className={styles.label}>cmd</span>
+                  <span className={styles.shortcutHint}>cmd + k</span>
+                </motion.button>
 
                 {/* Footer Section (Theme & Socials) */}
                 <motion.div className={styles.sidebarFooter} variants={itemVariants}>

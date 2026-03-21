@@ -16,6 +16,51 @@ type HistoryItem = {
   output?: CommandOutput[];
 };
 
+// Easter eggs with cryptic hints as aliases
+type EasterEgg = {
+  id: string;
+  aliases: string[];
+  category: string;
+  name: string;
+  hint: string;
+};
+
+const EASTER_EGGS: EasterEgg[] = [
+  // HIMYM - References to the show
+  { id: 'suit_up', aliases: ['dress for success', 'barney stinson', 'bro code'], category: 'HIMYM', name: 'Suit Up', hint: 'The most important meal of the day' },
+  { id: 'playbook', aliases: ['women', 'strategies', 'move'], category: 'HIMYM', name: 'The Playbook', hint: 'Article 31: Always have a third drink ready' },
+  { id: 'robin', aliases: ['canadian', 'newbie', 'sparkles'], category: 'HIMYM', name: 'Robin', hint: 'She has great photos, terrible journalism' },
+  { id: 'ted', aliases: ['architect', 'dureka', 'yellow umbrella'], category: 'HIMYM', name: 'Have You Met Ted', hint: 'But have you really met Ted?' },
+  { id: 'legendary', aliases: ['its happening', 'dary', 'bazinga'], category: 'HIMYM', name: 'Legendary', hint: 'Wait for it...' },
+  
+  // Rick and Morty - Portal to another dimension
+  { id: 'wubba', aliases: ['pain', 'help me', 'inverted heart'], category: 'R&M', name: 'Wubba Lubba Dub Dub', hint: 'Is Morty looking?' },
+  { id: 'portal', aliases: ['dimension', 'c-137', 'blue glow'], category: 'R&M', name: 'Portal Gun', hint: 'And that\'s wicky wicky words' },
+  { id: 'pickle_rick', aliases: ['morty', 'science', 'burp'], category: 'R&M', name: 'Pickle Rick', hint: 'I turned myself into a pickle' },
+  
+  // Vikings - Glory and battle
+  { id: 'skol', aliases: ['drink', 'cheers', 'north'], category: 'Vikings', name: 'Skål', hint: 'Ragnar\'s favorite word' },
+  { id: 'ragnar', aliases: ['king', 'floki', 'athelstan'], category: 'Vikings', name: 'Ragnar', hint: 'Who wants to be King?' },
+  { id: 'valhalla', aliases: ['odin', 'warrior', 'afterlife'], category: 'Vikings', name: 'Valhalla', hint: 'Odin awaits the brave' },
+  
+  // Secret Features - Cryptic hints
+  { id: 'future_mode', aliases: ['zen', 'minimal', 'distraction-free', 'clean'], category: 'Secret', name: 'Future Mode', hint: 'Focus on what matters' },
+  { id: 'theme_toggle', aliases: ['dark side', 'light side', 'balance', 'yoda'], category: 'Secret', name: 'Theme Master', hint: 'The force has two sides' },
+  { id: 'time_machine', aliases: ['flux', '1.21 gigawatts', 'lightning', 'delorean'], category: 'Secret', name: 'Time Traveler', hint: 'Where we\'re going we don\'t need roads' },
+  { id: 'secrets', aliases: ['up up down down', '30 lives', 'nes', 'arcade'], category: 'Secret', name: 'Konami Code', hint: 'The most famous code in gaming history' },
+];
+
+const TOTAL_EASTER_EGGS = EASTER_EGGS.length;
+
+// Playbook articles for variety
+const PLAYBOOK_ARTICLES = [
+  'Article 1: The Lorenzo Von Matterhorn',
+  'Article 2: The Wedding Rachel',
+  'Article 3: The Naked Man',
+  'Article 4: The Platinum Rule',
+  'Article 5: The Yips',
+];
+
 export default function Terminal() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
@@ -32,6 +77,7 @@ export default function Terminal() {
   ]);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [discoveredEggs, setDiscoveredEggs] = useState<Set<string>>(new Set());
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const terminalBodyRef = useRef<HTMLDivElement>(null);
@@ -39,6 +85,33 @@ export default function Terminal() {
   const router = useRouter();
   const { toggleTheme, theme } = useTheme();
   const { toggleFutureMode, isFutureMode } = useFutureMode();
+
+  // Load discovered eggs from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('idf-easter-eggs');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        setDiscoveredEggs(new Set(parsed));
+      } catch {
+        // Ignore invalid data
+      }
+    }
+  }, []);
+
+  // Save discovered eggs to localStorage
+  useEffect(() => {
+    localStorage.setItem('idf-easter-eggs', JSON.stringify([...discoveredEggs]));
+  }, [discoveredEggs]);
+
+  const discoverEgg = useCallback((eggId: string) => {
+    setDiscoveredEggs(prev => {
+      if (prev.has(eggId)) return prev;
+      const next = new Set(prev);
+      next.add(eggId);
+      return next;
+    });
+  }, []);
 
   const SHORTCUTS_INFO = [
     { key: 'CMD+K', action: 'Open Terminal' },
@@ -110,151 +183,196 @@ export default function Terminal() {
     
     let outputs: CommandOutput[] = [];
 
-    switch (cmd) {
-      case 'help':
-      case '?':
-        outputs = [
-          { type: 'system', content: 'AVAILABLE COMMANDS:' },
-          { type: 'text', content: '  lab / work / projects    - Enter The Lab' },
-          { type: 'text', content: '  home / back             - Return to Home' },
-          { type: 'text', content: '  theme                   - Toggle light/dark mode' },
-          { type: 'text', content: '  future / zen            - Toggle Future Mode' },
-          { type: 'text', content: '  shortcuts / keys        - Show keyboard shortcuts' },
-          { type: 'text', content: '  clear                   - Clear terminal' },
-          { type: 'text', content: '  whoami                  - Identity check' },
-          { type: 'text', content: '  echo [text]             - Echoes text back' },
-          { type: 'text', content: '  exit / close            - Close terminal' },
-        ];
-        break;
-
-      case 'shortcuts':
-      case 'keys':
-        outputs = [
-          { type: 'system', content: 'KEYBOARD SHORTCUTS:' },
-          ...SHORTCUTS_INFO.map(s => ({ 
-            type: 'text' as const, 
-            content: `  ${s.key.padEnd(20)} - ${s.action}` 
-          })),
-        ];
-        break;
-
-      case 'future':
-      case 'zen':
-        toggleFutureMode();
-        outputs = [{ type: 'success', content: isFutureMode ? 'Deactivating Future Mode...' : 'Activating Future Mode...' }];
-        break;
-
-      case 'portfolio':
-      case 'work':
-      case 'projects':
-      case 'lab':
-      case 'experiments':
-        outputs = [{ type: 'success', content: 'Accessing The Lab...' }];
-        setTimeout(() => {
-             router.push('/lab');
-             setIsOpen(false);
-        }, 800);
-        break;
-
-      case 'home':
-      case 'back':
-        outputs = [{ type: 'success', content: 'Returning Home...' }];
-        setTimeout(() => {
-            router.push('/');
+    // Check for easter eggs first
+    const foundEgg = EASTER_EGGS.find(egg => egg.aliases.includes(cmd));
+    if (foundEgg) {
+      discoverEgg(foundEgg.id);
+      
+      switch (foundEgg.id) {
+        case 'suit_up':
+          outputs = [{ type: 'system', content: '🏆 SUIT UP! That\'s Barney\'s motto!' }];
+          break;
+        case 'playbook':
+          const article = PLAYBOOK_ARTICLES[Math.floor(Math.random() * PLAYBOOK_ARTICLES.length)];
+          outputs = [{ type: 'text', content: `📖 The Playbook. ${article}` }];
+          break;
+        case 'robin':
+          outputs = [{ type: 'text', content: '💔 NOBODY ASKED YOU PATRICE!' }];
+          break;
+        case 'ted':
+          outputs = [{ type: 'text', content: '💜 Haaaaave you met Ted? The architect with a yellow umbrella...' }];
+          break;
+        case 'legendary':
+          outputs = [{ type: 'success', content: '⚡ Legend... wait for it... DARY!' }];
+          break;
+        case 'wubba':
+          outputs = [{ type: 'error', content: '😭 I am in great pain, please help me.' }];
+          break;
+        case 'portal':
+          outputs = [{ type: 'success', content: '🌀 Opening portal to Dimension C-137... Wubba Lubba Dub Dub!' }];
+          break;
+        case 'pickle_rick':
+          outputs = [{ type: 'success', content: '🥒 I turned myself into a pickle, Morty! I\'m Pickle Riiiiick!' }];
+          break;
+        case 'skol':
+          outputs = [{ type: 'success', content: '🍺 SKÅL! To the North!' }];
+          break;
+        case 'ragnar':
+          outputs = [{ type: 'text', content: '👑 Who wants to be King?! Ragnar Lothbrok!' }];
+          break;
+        case 'valhalla':
+          outputs = [{ type: 'system', content: '⚔️ Odin is with us! Valhalla awaits the brave!' }];
+          break;
+        case 'future_mode':
+          toggleFutureMode();
+          outputs = [{ type: 'success', content: '🌌 Future Mode: ' + (isFutureMode ? 'Deactivated...' : 'Activated! Focus mode engaged.') }];
+          break;
+        case 'theme_toggle':
+          toggleTheme();
+          const themeMsg = [
+            '🎨 Theme switched. You have an eye for design.',
+            '🌙 Darker than my soul. Or lighter.',
+            '☀️ Light mode activated. It is a bright day.',
+            '🖤 Black is the new black. Or white is?',
+          ];
+          outputs = [{ type: 'success', content: themeMsg[Math.floor(Math.random() * themeMsg.length)] }];
+          break;
+        case 'time_machine':
+          outputs = [{ type: 'success', content: '⏰ Initiating Temporal Displacement Sequence... Flux Capacitor engaged!' }];
+          setTimeout(() => {
+            router.push('/time-machine');
             setIsOpen(false);
-        }, 800);
-        break;
-      
-      case 'theme':
-        toggleTheme();
-        outputs = [{ type: 'success', content: `Switched to ${theme === 'dark' ? 'Light' : 'Dark'} Mode.` }];
-        break;
+          }, 800);
+          break;
+        case 'secrets':
+          outputs = [
+            { type: 'system', content: '🔐 You found a secret!' },
+            { type: 'text', content: 'Hint: ↑ ↑ ↓ ↓ ← → ← → B A' },
+            { type: 'text', content: 'Try typing it anywhere on the page...' },
+          ];
+          break;
+        default:
+          outputs = [{ type: 'text', content: `🎮 You found: ${foundEgg.name}` }];
+      }
+    } else {
+      // Standard commands
+      switch (cmd) {
+        case 'help':
+        case '?':
+          outputs = [
+            { type: 'system', content: 'AVAILABLE COMMANDS:' },
+            { type: 'text', content: '  lab / work / projects    - Enter The Lab' },
+            { type: 'text', content: '  home / back             - Return to Home' },
+            { type: 'text', content: '  theme                  - Toggle light/dark mode' },
+            { type: 'text', content: '  future / zen           - Toggle Future Mode' },
+            { type: 'text', content: '  time                   - Access Time Machine' },
+            { type: 'text', content: '  shortcuts / keys        - Show keyboard shortcuts' },
+            { type: 'text', content: '  eggs / achievements     - Easter eggs progress' },
+            { type: 'text', content: '  clear                  - Clear terminal' },
+            { type: 'text', content: '  whoami                 - Identity check' },
+            { type: 'text', content: '  echo [text]            - Echoes text back' },
+            { type: 'text', content: '  exit / close           - Close terminal' },
+          ];
+          break;
 
-      case 'clear':
-        setHistory([]);
-        return; 
+        case 'eggs':
+        case 'easter':
+        case 'achievements':
+        case 'badges':
+          const discovered = discoveredEggs.size;
+          outputs = [
+            { type: 'system', content: '🏆 ACHIEVEMENTS PROGRESS' },
+            { type: 'text', content: `━━━━━━━━━━━━━━━━━━━━━━━━` },
+            { type: 'text', content: `Discovered: ${discovered}/${TOTAL_EASTER_EGGS}` },
+            { type: 'text', content: '' },
+          ];
+          
+          const categories = ['HIMYM', 'R&M', 'Vikings', 'Secret'];
+          categories.forEach(cat => {
+            const catEggs = EASTER_EGGS.filter(e => e.category === cat);
+            const foundInCat = catEggs.filter(e => discoveredEggs.has(e.id)).length;
+            const catIcon = cat === 'HIMYM' ? '💜' : cat === 'R&M' ? '🌀' : cat === 'Vikings' ? '⚔️' : '🔐';
+            outputs.push({ type: 'text', content: `${catIcon} ${cat}: ${foundInCat}/${catEggs.length}` });
+            
+            catEggs.forEach(egg => {
+              const isFound = discoveredEggs.has(egg.id);
+              outputs.push({ 
+                type: isFound ? 'success' as const : 'text' as const, 
+                content: `   ${isFound ? '✓' : '○'} ${egg.name}` 
+              });
+            });
+            outputs.push({ type: 'text', content: '' });
+          });
+          
+          if (discovered === TOTAL_EASTER_EGGS) {
+            outputs.push({ type: 'success', content: '🎉 CONGRATULATIONS! All achievements unlocked!' });
+          } else if (discovered > 0) {
+            outputs.push({ type: 'text', content: `Keep exploring to unlock ${TOTAL_EASTER_EGGS - discovered} more!` });
+          }
+          break;
+
+        case 'shortcuts':
+        case 'keys':
+          outputs = [
+            { type: 'system', content: 'KEYBOARD SHORTCUTS:' },
+            ...SHORTCUTS_INFO.map(s => ({ 
+              type: 'text' as const, 
+              content: `  ${s.key.padEnd(20)} - ${s.action}` 
+            })),
+          ];
+          break;
+
+        case 'portfolio':
+        case 'work':
+        case 'projects':
+        case 'lab':
+        case 'experiments':
+          outputs = [{ type: 'success', content: 'Accessing The Lab...' }];
+          setTimeout(() => {
+               router.push('/lab');
+               setIsOpen(false);
+          }, 800);
+          break;
+
+        case 'home':
+        case 'back':
+          outputs = [{ type: 'success', content: 'Returning Home...' }];
+          setTimeout(() => {
+              router.push('/');
+              setIsOpen(false);
+          }, 800);
+          break;
+
+        case 'clear':
+          setHistory([]);
+          return; 
+          
+        case 'whoami':
+          outputs = [
+            { type: 'system', content: 'User: Guest / Observer' },
+            { type: 'text', content: 'Access Level: Read-Only' },
+            { type: 'text', content: 'Mission: Explore the Digital Lab.' },
+          ];
+          break;
+
+        case 'echo':
+          outputs = [{ type: 'text', content: args.join(' ') }];
+          break;
         
-      case 'whoami':
-        outputs = [
-          { type: 'system', content: 'User: Guest / Observer' },
-          { type: 'text', content: 'Access Level: Read-Only' },
-          { type: 'text', content: 'Mission: Explore the Digital Lab.' },
-        ];
-        break;
+        case 'exit':
+        case 'close':
+          setIsOpen(false);
+          return;
 
-      case 'echo':
-        outputs = [{ type: 'text', content: args.join(' ') }];
-        break;
-      
-      case 'exit':
-      case 'close':
-         setIsOpen(false);
-         return;
-
-      // Access Time Machine
-      case 'time':
-      case 'time machine':
-      case 'archive':
-      case 'timeline':
-      case 'back to the future':
-         outputs = [{ type: 'success', content: 'Initiating Temporal Displacement Sequence...' }];
-         setTimeout(() => {
-             router.push('/time-machine');
-             setIsOpen(false);
-         }, 800);
-         break;
-
-      // Easter Eggs - HIMYM
-      case 'suit up':
-      case 'suitup':
-          outputs = [{ type: 'system', content: 'SUIT UP!' }]; 
-          break;
-      case 'playbook':
-          outputs = [{ type: 'text', content: 'The Playbook. Article 1: The Lorenzo Von Matterhorn.' }];
-          break;
-      case 'robin':
-          outputs = [{ type: 'text', content: 'NOBODY ASKED YOU PATRICE!' }];
-          break;
-      case 'ted':
-      case 'have you met ted':
-          outputs = [{ type: 'text', content: 'Haaaaave you met Ted?' }];
-          break;
-      case 'legendary':
-          outputs = [{ type: 'success', content: 'Legend... wait for it... DARY!' }];
-          break;
-      
-      // Easter Eggs - Rick and Morty
-      case 'wubba lubba dub dub':
-          outputs = [{ type: 'error', content: 'I am in great pain, please help me.' }];
-          break;
-      case 'portal':
-          outputs = [{ type: 'success', content: 'Opening portal to Dimension C-137...' }];
-          break;
-      case 'pickle rick':
-      case 'pickle':
-          outputs = [{ type: 'success', content: 'I turned myself into a pickle, Morty! I\'m Pickle Riiiiick!' }];
-          break;
-      
-      // Easter Eggs - Vikings
-      case 'skol':
-      case 'skål':
-          outputs = [{ type: 'success', content: 'SKÅL!' }];
-          break;
-      case 'ragnar':
-          outputs = [{ type: 'text', content: 'Who wants to be King?!' }];
-          break;
-      case 'valhalla':
-          outputs = [{ type: 'system', content: 'Odin is with us!' }];
+        case '':
           break;
 
-      case '':
-        break;
-
-      default:
-        outputs = [
-          { type: 'error', content: `Command not found: ${cmd}` },
-          { type: 'text', content: "Type 'help' for a list of commands." }
-        ];
+        default:
+          outputs = [
+            { type: 'error', content: `Command not found: ${cmd}` },
+            { type: 'text', content: "Type 'help' for a list of commands." }
+          ];
+      }
     }
 
     setHistory(prev => [...prev, { command: cmdRaw, output: outputs }]);
@@ -262,7 +380,7 @@ export default function Terminal() {
         setCommandHistory(prev => [...prev, cmdRaw]);
         setHistoryIndex(-1); 
     }
-  }, [router, theme, toggleTheme, toggleFutureMode, isFutureMode, SHORTCUTS_INFO]);
+  }, [router, theme, toggleTheme, toggleFutureMode, isFutureMode, SHORTCUTS_INFO, discoverEgg, discoveredEggs.size, PLAYBOOK_ARTICLES.length]);
 
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {

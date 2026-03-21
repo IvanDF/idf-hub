@@ -133,7 +133,7 @@ export const PROJECTS: Project[] = [
   {
     id: 'neural-map',
     title: 'Neural Map',
-    description: 'Explore the connection between skills and concepts in a 3D graph (live in /about).',
+    description: 'Explore the connection between skills and concepts in a 3D graph.',
     category: 'EXPERIMENT',
     tags: ['Data Viz', 'R3F', 'Graph'],
     year: '2024',
@@ -143,7 +143,7 @@ export const PROJECTS: Project[] = [
     interaction: 'tilt',
     links: {
       repo: '',
-      demo: '/about'
+      demo: '/lab'
     }
   },
   {
