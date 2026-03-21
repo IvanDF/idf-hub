@@ -26,28 +26,29 @@ type EasterEgg = {
 };
 
 const EASTER_EGGS: EasterEgg[] = [
-  // HIMYM - References to the show
-  { id: 'suit_up', aliases: ['dress for success', 'barney stinson', 'bro code'], category: 'HIMYM', name: 'Suit Up', hint: 'The most important meal of the day' },
-  { id: 'playbook', aliases: ['women', 'strategies', 'move'], category: 'HIMYM', name: 'The Playbook', hint: 'Article 31: Always have a third drink ready' },
-  { id: 'robin', aliases: ['canadian', 'newbie', 'sparkles'], category: 'HIMYM', name: 'Robin', hint: 'She has great photos, terrible journalism' },
-  { id: 'ted', aliases: ['architect', 'dureka', 'yellow umbrella'], category: 'HIMYM', name: 'Have You Met Ted', hint: 'But have you really met Ted?' },
-  { id: 'legendary', aliases: ['its happening', 'dary', 'bazinga'], category: 'HIMYM', name: 'Legendary', hint: 'Wait for it...' },
+  // HIMYM - Quote e riferimenti
+  { id: 'suit_up', aliases: ['suit up', 'suits'], category: 'HIMYM', name: 'Suit Up', hint: 'Barney\'s motto' },
+  { id: 'playbook', aliases: ['have you met'], category: 'HIMYM', name: 'The Playbook', hint: 'Have you met...' },
+  { id: 'legendary', aliases: ['is gonna be', 'wait for it'], category: 'HIMYM', name: 'Legendary', hint: 'The catchphrase' },
+  { id: 'yellow umbrella', aliases: ['yellow umbrella', 'umbrella'], category: 'HIMYM', name: 'Yellow Umbrella', hint: 'Ted\'s symbol' },
   
-  // Rick and Morty - Portal to another dimension
-  { id: 'wubba', aliases: ['pain', 'help me', 'inverted heart'], category: 'R&M', name: 'Wubba Lubba Dub Dub', hint: 'Is Morty looking?' },
-  { id: 'portal', aliases: ['dimension', 'c-137', 'blue glow'], category: 'R&M', name: 'Portal Gun', hint: 'And that\'s wicky wicky words' },
-  { id: 'pickle_rick', aliases: ['morty', 'science', 'burp'], category: 'R&M', name: 'Pickle Rick', hint: 'I turned myself into a pickle' },
+  // Rick and Morty
+  { id: 'pickle_rick', aliases: ['pickle rick', 'im pickle'], category: 'R&M', name: 'Pickle Rick', hint: 'Turned into a pickle' },
+  { id: 'wubba', aliases: ['wubba lubba', 'in great pain'], category: 'R&M', name: 'Wubba Lubba Dub Dub', hint: 'Rick\'s cry' },
+  { id: 'burp', aliases: ['burp', 'burping', 'burped'], category: 'R&M', name: 'Burp', hint: 'Rick\'s signature' },
+  { id: 'science', aliases: ['science', 'wubba lubba dub dub'], category: 'R&M', name: 'Science', hint: '"And that\'s the wicky wicky"' },
   
-  // Vikings - Glory and battle
-  { id: 'skol', aliases: ['drink', 'cheers', 'north'], category: 'Vikings', name: 'Skål', hint: 'Ragnar\'s favorite word' },
-  { id: 'ragnar', aliases: ['king', 'floki', 'athelstan'], category: 'Vikings', name: 'Ragnar', hint: 'Who wants to be King?' },
-  { id: 'valhalla', aliases: ['odin', 'warrior', 'afterlife'], category: 'Vikings', name: 'Valhalla', hint: 'Odin awaits the brave' },
+  // Vikings
+  { id: 'ragnar', aliases: ['who wants to be king', 'ragnarok'], category: 'Vikings', name: 'Who Wants to be King', hint: 'Ragnar\'s famous words' },
+  { id: 'aesir', aliases: ['the aesir will', 'aesir'], category: 'Vikings', name: 'The Aesir', hint: 'Ragnar\'s final words' },
+  { id: 'skol', aliases: ['skol', 'to the north'], category: 'Vikings', name: 'Skål', hint: 'Viking cheers' },
+  { id: 'valhalla', aliases: ['valhalla', 'odin'], category: 'Vikings', name: 'Valhalla', hint: 'Viking paradise' },
   
-  // Secret Features - Cryptic hints
-  { id: 'future_mode', aliases: ['zen', 'minimal', 'distraction-free', 'clean'], category: 'Secret', name: 'Future Mode', hint: 'Focus on what matters' },
-  { id: 'theme_toggle', aliases: ['dark side', 'light side', 'balance', 'yoda'], category: 'Secret', name: 'Theme Master', hint: 'The force has two sides' },
-  { id: 'time_machine', aliases: ['flux', '1.21 gigawatts', 'lightning', 'delorean'], category: 'Secret', name: 'Time Traveler', hint: 'Where we\'re going we don\'t need roads' },
-  { id: 'secrets', aliases: ['up up down down', '30 lives', 'nes', 'arcade'], category: 'Secret', name: 'Konami Code', hint: 'The most famous code in gaming history' },
+  // Secret Features
+  { id: 'future_mode', aliases: ['zen', 'clean mode', 'focus mode'], category: 'Secret', name: 'Future Mode', hint: 'Distraction-free' },
+  { id: 'theme_toggle', aliases: ['dark side', 'light side', 'the force'], category: 'Secret', name: 'Theme Master', hint: 'Two sides of the force' },
+  { id: 'time_machine', aliases: ['time travel', 'flux capacitor', '1.21 gigawatts'], category: 'Secret', name: 'Time Traveler', hint: 'Where we\'re going...' },
+  { id: 'konami', aliases: ['up up down down', '30 lives', ' NES '], category: 'Secret', name: 'Konami Code', hint: 'The famous code' },
 ];
 
 const TOTAL_EASTER_EGGS = EASTER_EGGS.length;
