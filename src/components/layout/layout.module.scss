@@ -1,8 +1,5 @@
-// src/components/layout/layout.module.scss
+@use "@/styles/variables" as *;
 
-@use '@/styles/variables' as *;
-
-// --- Desktop Layout (Unchanged) ---
 .container {
   display: flex;
   width: 100vw;
@@ -17,7 +14,8 @@
   transition: background-color 0.4s ease;
 }
 
-.leftColumn, .rightColumn {
+.leftColumn,
+.rightColumn {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -27,26 +25,69 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: 
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.4s ease;
   pointer-events: none; // Allow clicks through empty space
 
   // Re-enable pointer events for children
   & > * {
     pointer-events: auto;
   }
+  
+  // Future Mode - Fade out
+  :global(.future-mode) & {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.rightColumn {
+  right: 0;
+  align-items: flex-end;
+}
+
+// Mobile header fade out in future mode
+:global(.future-mode) header {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+// Mobile Header in Future Mode
+.mobileHeader {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  z-index: 100;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  color: var(--color-text);
+  transition: opacity 0.4s ease;
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
 }
 
 .leftColumn {
   left: 0;
   align-items: flex-start;
-  
+
   &.autoHide {
     transform: translateX(calc(-100% + 20px));
     pointer-events: auto; // Needs to be interactive to hover back
 
     &:hover {
       transform: translateX(0);
-      background: rgba(var(--color-bg-rgb), 0.8); // Needs RGB var or solid color
+      background: rgba(
+        var(--color-bg-rgb),
+        0.8
+      ); // Needs RGB var or solid color
       backdrop-filter: blur(12px);
     }
   }
@@ -59,7 +100,8 @@
 
 // Hide columns on mobile
 @media (max-width: 768px) {
-  .leftColumn, .rightColumn {
+  .leftColumn,
+  .rightColumn {
     display: none;
   }
 }
@@ -74,16 +116,16 @@
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  
+
   // Custom Scrollbar
   &::-webkit-scrollbar {
     width: 6px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: transparent;
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background: rgba(150, 150, 150, 0.2);
     border-radius: 3px;
@@ -105,9 +147,12 @@
   text-decoration: none;
   letter-spacing: 0.1em;
   opacity: 0.5;
-  transition: opacity 0.3s, color 0.3s;
+  transition:
+    opacity 0.3s,
+    color 0.3s;
 
-  &:hover, &.active {
+  &:hover,
+  &.active {
     opacity: 1;
     color: var(--color-accent);
   }
@@ -118,20 +163,20 @@
   background-color: var(--color-divider);
   flex-grow: 1;
   margin: 32px 0;
-  opacity: 0.2;
+  opacity: 0.75;
 }
 
 .footer {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  
+
   .name {
     font-weight: 700;
     font-size: 14px;
     letter-spacing: 0.05em;
   }
-  
+
   .role {
     font-size: 12px;
     opacity: 0.6;
@@ -217,7 +262,7 @@
   padding: 80px 32px 40px;
   display: flex;
   flex-direction: column;
-  box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
 }
 
 .sidebarContent {
@@ -243,8 +288,9 @@
   letter-spacing: 0.05em;
   opacity: 0.5;
   transition: opacity 0.3s;
-  
-  &:hover, &.active {
+
+  &:hover,
+  &.active {
     opacity: 1;
     color: var(--color-accent);
   }
@@ -274,7 +320,7 @@
   cursor: pointer;
   border-radius: 4px;
   text-align: center;
-  
+
   &:hover {
     border-color: var(--color-accent);
     color: var(--color-accent);
@@ -284,14 +330,14 @@
 .socials {
   display: flex;
   justify-content: space-between;
-  
+
   a {
     font-family: $font-family-mono;
     font-size: 0.9rem;
     color: var(--color-text);
     text-decoration: none;
     opacity: 0.6;
-    
+
     &:hover {
       opacity: 1;
       color: var(--color-accent);
@@ -300,9 +346,9 @@
 }
 
 .copyright {
-    font-family: $font-family-mono;
-    font-size: 0.6rem;
-    color: var(--color-text);
-    opacity: 0.3;
-    text-align: center;
+  font-family: $font-family-mono;
+  font-size: 0.6rem;
+  color: var(--color-text);
+  opacity: 0.3;
+  text-align: center;
 }

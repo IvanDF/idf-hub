@@ -166,9 +166,7 @@ function InteractiveParticles() {
         <bufferGeometry ref={geometryRef}>
             <bufferAttribute
             attach="attributes-position"
-            count={particleCount}
-            array={initialData.pos}
-            itemSize={3}
+            args={[initialData.pos, 3]}
             />
         </bufferGeometry>
         <pointsMaterial

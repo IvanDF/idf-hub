@@ -15,10 +15,15 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   // Decode the slug just in case
-  const slug = decodeURIComponent(params.slug);
-  const project = PROJECTS.find((p) => p.id === slug);
+  const { slug } = await params;
+
+  const decodedSlug = decodeURIComponent(slug);
+  const project = PROJECTS.find((p) => p.id === decodedSlug);
+
+  console.log("🔎 [page][slug] =>", decodedSlug);
+  console.log("🔎 [page][project] =>", project);
 
   if (!project) {
     notFound();

@@ -1,4 +1,4 @@
-export type ProjectCategory = 'DEV' | 'DESIGN' | 'MAKER' | 'EXPERIMENT';
+export type ProjectCategory = "DEV" | "DESIGN" | "MAKER" | "EXPERIMENT";
 
 export interface Project {
   id: string;
@@ -9,6 +9,7 @@ export interface Project {
   year: string;
   links?: {
     demo?: string;
+    live?: string;
     repo?: string;
     marketplace?: string;
     caseStudy?: string;
@@ -17,6 +18,6 @@ export interface Project {
     thumbnail: string; // Path relative to public (e.g., "/projects/my-project/thumb.jpg")
     gallery?: string[];
   };
-  interaction?: 'glitch' | 'tilt' | 'spotlight';
-  layout?: 'tall' | 'wide' | 'featured';
+  interaction?: "glitch" | "tilt" | "spotlight";
+  layout?: "tall" | "wide" | "featured";
 }

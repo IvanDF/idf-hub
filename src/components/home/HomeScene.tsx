@@ -122,7 +122,7 @@ export default function HomeScene() {
         </Suspense>
 
         {/* Post Processing: Optimized */}
-        <EffectComposer disableNormalPass>
+        <EffectComposer>
             <Bloom 
                 luminanceThreshold={0.9} 
                 mipmapBlur 

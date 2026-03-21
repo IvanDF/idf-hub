@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTheme } from '@/context/ThemeContext';
+import { useFutureMode } from '@/context/FutureModeContext';
 import styles from './Terminal.module.scss';
 
 type CommandOutput = {
@@ -22,10 +23,10 @@ export default function Terminal() {
     {
       command: '',
       output: [
-        { type: 'system', content: 'IDF OS [Version 2.0.1]' },
+        { type: 'system', content: 'IDF OS [Version 3.0.0]' },
         { type: 'text', content: '(c) 2024 Ivan Del Fatti. All rights reserved.' },
         { type: 'text', content: 'Welcome to the Digital Lab.' },
-        { type: 'text', content: "Type 'help' to see available commands." },
+        { type: 'text', content: "Type 'help' or '?' to see available commands." },
       ]
     }
   ]);
@@ -33,26 +34,56 @@ export default function Terminal() {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const terminalBodyRef = useRef<HTMLDivElement>(null); // New ref for scrolling body content
+  const terminalBodyRef = useRef<HTMLDivElement>(null);
   
   const router = useRouter();
   const { toggleTheme, theme } = useTheme();
+  const { toggleFutureMode, isFutureMode } = useFutureMode();
+
+  const SHORTCUTS_INFO = [
+    { key: 'CMD+K', action: 'Open Terminal' },
+    { key: 'D', action: 'Toggle Dark/Light Mode' },
+    { key: 'CMD+SHIFT+F', action: 'Toggle Future Mode' },
+    { key: '1', action: 'Go to Home' },
+    { key: '2', action: 'Go to Lab' },
+    { key: 'ESC', action: 'Close/Exit' },
+    { key: '?', action: 'Show this help' },
+  ];
 
   // Global Key Listener for Toggle (Cmd+K)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Only trigger if not typing in input
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+      
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         setIsOpen(prev => !prev);
       }
+      // D key for dark mode toggle
+      if (e.key === 'd' || e.key === 'D') {
+        if (!e.metaKey && !e.ctrlKey && !e.altKey) {
+          e.preventDefault();
+          toggleTheme();
+        }
+      }
       if (e.key === 'Escape' && isOpen) {
         setIsOpen(false);
+      }
+      // Number keys for navigation
+      if (e.key === '1' && !e.metaKey && !e.ctrlKey) {
+        router.push('/');
+      }
+      if (e.key === '2' && !e.metaKey && !e.ctrlKey) {
+        router.push('/lab');
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
+  }, [isOpen, router, toggleTheme]);
 
   // Focus input when opened
   useEffect(() => {
@@ -81,16 +112,36 @@ export default function Terminal() {
 
     switch (cmd) {
       case 'help':
+      case '?':
         outputs = [
           { type: 'system', content: 'AVAILABLE COMMANDS:' },
-          { type: 'text', content: '  lab / work / projects  - Enter The Lab' },
-          { type: 'text', content: '  about / mind       - Enter the mind map' },
-          { type: 'text', content: '  theme              - Toggle light/dark mode' },
-          { type: 'text', content: '  clear              - Clear terminal' },
-          { type: 'text', content: '  whoami             - Identity check' },
-          { type: 'text', content: '  echo [text]        - Echoes text back' },
-          { type: 'text', content: '  exit               - Close terminal' },
+          { type: 'text', content: '  lab / work / projects    - Enter The Lab' },
+          { type: 'text', content: '  home / back             - Return to Home' },
+          { type: 'text', content: '  theme                   - Toggle light/dark mode' },
+          { type: 'text', content: '  future / zen            - Toggle Future Mode' },
+          { type: 'text', content: '  shortcuts / keys        - Show keyboard shortcuts' },
+          { type: 'text', content: '  clear                   - Clear terminal' },
+          { type: 'text', content: '  whoami                  - Identity check' },
+          { type: 'text', content: '  echo [text]             - Echoes text back' },
+          { type: 'text', content: '  exit / close            - Close terminal' },
         ];
+        break;
+
+      case 'shortcuts':
+      case 'keys':
+        outputs = [
+          { type: 'system', content: 'KEYBOARD SHORTCUTS:' },
+          ...SHORTCUTS_INFO.map(s => ({ 
+            type: 'text' as const, 
+            content: `  ${s.key.padEnd(20)} - ${s.action}` 
+          })),
+        ];
+        break;
+
+      case 'future':
+      case 'zen':
+        toggleFutureMode();
+        outputs = [{ type: 'success', content: isFutureMode ? 'Deactivating Future Mode...' : 'Activating Future Mode...' }];
         break;
 
       case 'portfolio':
@@ -105,11 +156,11 @@ export default function Terminal() {
         }, 800);
         break;
 
-      case 'about':
-      case 'mind':
-        outputs = [{ type: 'success', content: 'Entering the Neural Network...' }];
+      case 'home':
+      case 'back':
+        outputs = [{ type: 'success', content: 'Returning Home...' }];
         setTimeout(() => {
-            router.push('/about');
+            router.push('/');
             setIsOpen(false);
         }, 800);
         break;
@@ -211,7 +262,7 @@ export default function Terminal() {
         setCommandHistory(prev => [...prev, cmdRaw]);
         setHistoryIndex(-1); 
     }
-  }, [router, theme, toggleTheme]);
+  }, [router, theme, toggleTheme, toggleFutureMode, isFutureMode, SHORTCUTS_INFO]);
 
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {

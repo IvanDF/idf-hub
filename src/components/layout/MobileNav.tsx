@@ -39,11 +39,11 @@ export default function MobileNav() {
   };
 
   const sidebarVariants = {
-    closed: { x: "100%", transition: { type: "tween", duration: 0.3 } },
+    closed: { x: "100%", transition: { type: "tween" as const, duration: 0.3 } },
     open: { 
       x: 0, 
       transition: { 
-        type: "spring", 
+        type: "spring" as const, 
         stiffness: 300, 
         damping: 30,
         staggerChildren: 0.1,

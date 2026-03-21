@@ -1,13 +1,20 @@
+'use client';
+
 import styles from './layout.module.scss';
 import LeftColumn from './LeftColumn';
 import RightColumn from './RightColumn';
 import MobileNav from './MobileNav';
 import Terminal from '@/components/home/Terminal';
+import SuperDarkMode from '@/components/SuperDarkMode';
+import { FutureModeProvider, useFutureMode } from '@/context/FutureModeContext';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+function LayoutContent({ children }: { children: React.ReactNode }) {
+  const { isFutureMode } = useFutureMode();
+  
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${isFutureMode ? styles.futureModeActive : ''}`}>
       <Terminal />
+      <SuperDarkMode />
       <MobileNav />
       <LeftColumn />
       <main className={styles.main}>
@@ -15,5 +22,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </main>
       <RightColumn />
     </div>
+  );
+}
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <FutureModeProvider>
+      <LayoutContent>{children}</LayoutContent>
+    </FutureModeProvider>
   );
 }
