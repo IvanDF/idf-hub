@@ -26,29 +26,29 @@ type EasterEgg = {
 };
 
 const EASTER_EGGS: EasterEgg[] = [
-  // HIMYM - Quote e riferimenti
-  { id: 'suit_up', aliases: ['suit up', 'suits'], category: 'HIMYM', name: 'Suit Up', hint: 'Barney\'s motto' },
-  { id: 'playbook', aliases: ['have you met'], category: 'HIMYM', name: 'The Playbook', hint: 'Have you met...' },
-  { id: 'legendary', aliases: ['is gonna be', 'wait for it'], category: 'HIMYM', name: 'Legendary', hint: 'The catchphrase' },
-  { id: 'yellow umbrella', aliases: ['yellow umbrella', 'umbrella'], category: 'HIMYM', name: 'Yellow Umbrella', hint: 'Ted\'s symbol' },
+  // HIMYM
+  { id: 'suit_up', aliases: ['suit up'], hint: '"Suit up!" - Barney\'s classic', category: 'HIMYM', name: 'Suit Up' },
+  { id: 'playbook', aliases: ['playbook'], hint: '"Have you met..." - Ted\'s legendary line', category: 'HIMYM', name: 'The Playbook' },
+  { id: 'legendary', aliases: ['legendary'], hint: '"This is gonna be legen... wait for it... dary!"', category: 'HIMYM', name: 'Legendary' },
+  { id: 'umbrella', aliases: ['umbrella'], hint: 'Yellow umbrella, the symbol of love', category: 'HIMYM', name: 'Yellow Umbrella' },
   
   // Rick and Morty
-  { id: 'pickle_rick', aliases: ['pickle rick', 'im pickle'], category: 'R&M', name: 'Pickle Rick', hint: 'Turned into a pickle' },
-  { id: 'wubba', aliases: ['wubba lubba', 'in great pain'], category: 'R&M', name: 'Wubba Lubba Dub Dub', hint: 'Rick\'s cry' },
-  { id: 'burp', aliases: ['burp', 'burping', 'burped'], category: 'R&M', name: 'Burp', hint: 'Rick\'s signature' },
-  { id: 'science', aliases: ['science', 'wubba lubba dub dub'], category: 'R&M', name: 'Science', hint: '"And that\'s the wicky wicky"' },
+  { id: 'pickle_rick', aliases: ['pickle rick'], hint: '"I turned myself into a pickle!"', category: 'R&M', name: 'Pickle Rick' },
+  { id: 'wubba', aliases: ['wubba lubba dub dub'], hint: '"I am in great pain, please help me"', category: 'R&M', name: 'Wubba Lubba Dub Dub' },
+  { id: 'burp', aliases: ['burp'], hint: '"And that\'s the wicky wicky words"', category: 'R&M', name: 'Burp' },
+  { id: 'science', aliases: ['science'], hint: 'Rick\'s answer to everything', category: 'R&M', name: 'Science' },
   
   // Vikings
-  { id: 'ragnar', aliases: ['who wants to be king', 'ragnarok'], category: 'Vikings', name: 'Who Wants to be King', hint: 'Ragnar\'s famous words' },
-  { id: 'aesir', aliases: ['the aesir will', 'aesir'], category: 'Vikings', name: 'The Aesir', hint: 'Ragnar\'s final words' },
-  { id: 'skol', aliases: ['skol', 'to the north'], category: 'Vikings', name: 'Skål', hint: 'Viking cheers' },
-  { id: 'valhalla', aliases: ['valhalla', 'odin'], category: 'Vikings', name: 'Valhalla', hint: 'Viking paradise' },
+  { id: 'ragnar', aliases: ['ragnar'], hint: '"Who wants to be King?"', category: 'Vikings', name: 'Who Wants to be King' },
+  { id: 'aesir', aliases: ['aesir'], hint: '"The Aesir will welcome me home"', category: 'Vikings', name: 'The Aesir' },
+  { id: 'skol', aliases: ['skol'], hint: '"Skol!" - Viking cheers', category: 'Vikings', name: 'Skål' },
+  { id: 'valhalla', aliases: ['valhalla'], hint: 'The Viking paradise awaits', category: 'Vikings', name: 'Valhalla' },
   
   // Secret Features
-  { id: 'future_mode', aliases: ['zen', 'clean mode', 'focus mode'], category: 'Secret', name: 'Future Mode', hint: 'Distraction-free' },
-  { id: 'theme_toggle', aliases: ['dark side', 'light side', 'the force'], category: 'Secret', name: 'Theme Master', hint: 'Two sides of the force' },
-  { id: 'time_machine', aliases: ['time travel', 'flux capacitor', '1.21 gigawatts'], category: 'Secret', name: 'Time Traveler', hint: 'Where we\'re going...' },
-  { id: 'konami', aliases: ['up up down down', '30 lives', ' NES '], category: 'Secret', name: 'Konami Code', hint: 'The famous code' },
+  { id: 'future_mode', aliases: ['zen'], hint: 'Focus mode. Nothing else matters.', category: 'Secret', name: 'Future Mode' },
+  { id: 'theme_toggle', aliases: ['yoda'], hint: '"The force has two sides..."', category: 'Secret', name: 'Theme Master' },
+  { id: 'time_machine', aliases: ['flux'], hint: '"Where we\'re going we don\'t need roads"', category: 'Secret', name: 'Time Traveler' },
+  { id: 'konami', aliases: ['konami'], hint: '↑ ↑ ↓ ↓ ← → ← → B A', category: 'Secret', name: 'Konami Code' },
 ];
 
 const TOTAL_EASTER_EGGS = EASTER_EGGS.length;
@@ -216,40 +216,47 @@ export default function Terminal() {
           outputs = [{ type: 'success', content: '🥒 I turned myself into a pickle, Morty! I\'m Pickle Riiiiick!' }];
           break;
         case 'skol':
-          outputs = [{ type: 'success', content: '🍺 SKÅL! To the North!' }];
+          outputs = [{ type: 'success', content: '🍺 SKÅL! ' + (discoveredEggs.has('skol') ? 'Discovered: Skål' : 'To the North!') }];
           break;
         case 'ragnar':
-          outputs = [{ type: 'text', content: '👑 Who wants to be King?! Ragnar Lothbrok!' }];
+          outputs = [{ type: 'text', content: '👑 Who wants to be King?' }];
+          break;
+        case 'aesir':
+          outputs = [{ type: 'text', content: '⚔️ The Aesir will welcome me home...' }];
           break;
         case 'valhalla':
-          outputs = [{ type: 'system', content: '⚔️ Odin is with us! Valhalla awaits the brave!' }];
+          outputs = [{ type: 'system', content: '⚔️ Valhalla awaits the brave!' }];
+          break;
+        case 'umbrella':
+          outputs = [{ type: 'text', content: '☂️ Yellow umbrella, a symbol of love' }];
           break;
         case 'future_mode':
           toggleFutureMode();
-          outputs = [{ type: 'success', content: '🌌 Future Mode: ' + (isFutureMode ? 'Deactivated...' : 'Activated! Focus mode engaged.') }];
+          outputs = [{ type: 'success', content: '🌌 ' + (isFutureMode ? 'Deactivated...' : 'Future Mode activated. Focus.') }];
           break;
         case 'theme_toggle':
+        case 'yoda':
           toggleTheme();
           const themeMsg = [
-            '🎨 Theme switched. You have an eye for design.',
-            '🌙 Darker than my soul. Or lighter.',
-            '☀️ Light mode activated. It is a bright day.',
-            '🖤 Black is the new black. Or white is?',
+            '🎨 Theme switched.',
+            '🌙 Darker than my soul.',
+            '☀️ Light mode.',
+            '🖤 Black or white?',
           ];
           outputs = [{ type: 'success', content: themeMsg[Math.floor(Math.random() * themeMsg.length)] }];
           break;
         case 'time_machine':
-          outputs = [{ type: 'success', content: '⏰ Initiating Temporal Displacement Sequence... Flux Capacitor engaged!' }];
+        case 'flux':
+          outputs = [{ type: 'success', content: '⏰ Flux Capacitor engaged!' }];
           setTimeout(() => {
             router.push('/time-machine');
             setIsOpen(false);
           }, 800);
           break;
-        case 'secrets':
+        case 'konami':
           outputs = [
-            { type: 'system', content: '🔐 You found a secret!' },
-            { type: 'text', content: 'Hint: ↑ ↑ ↓ ↓ ← → ← → B A' },
-            { type: 'text', content: 'Try typing it anywhere on the page...' },
+            { type: 'system', content: '🔐 Konami Code!' },
+            { type: 'text', content: '↑ ↑ ↓ ↓ ← → ← → B A' },
           ];
           break;
         default:
@@ -282,9 +289,8 @@ export default function Terminal() {
         case 'badges':
           const discovered = discoveredEggs.size;
           outputs = [
-            { type: 'system', content: '🏆 ACHIEVEMENTS PROGRESS' },
-            { type: 'text', content: `━━━━━━━━━━━━━━━━━━━━━━━━` },
-            { type: 'text', content: `Discovered: ${discovered}/${TOTAL_EASTER_EGGS}` },
+            { type: 'system', content: '🏆 ACHIEVEMENTS' },
+            { type: 'text', content: `${discovered}/${TOTAL_EASTER_EGGS} discovered` },
             { type: 'text', content: '' },
           ];
           
@@ -293,22 +299,27 @@ export default function Terminal() {
             const catEggs = EASTER_EGGS.filter(e => e.category === cat);
             const foundInCat = catEggs.filter(e => discoveredEggs.has(e.id)).length;
             const catIcon = cat === 'HIMYM' ? '💜' : cat === 'R&M' ? '🌀' : cat === 'Vikings' ? '⚔️' : '🔐';
-            outputs.push({ type: 'text', content: `${catIcon} ${cat}: ${foundInCat}/${catEggs.length}` });
+            outputs.push({ type: 'text', content: `${catIcon} ${cat} ${foundInCat}/${catEggs.length}` });
             
             catEggs.forEach(egg => {
               const isFound = discoveredEggs.has(egg.id);
-              outputs.push({ 
-                type: isFound ? 'success' as const : 'text' as const, 
-                content: `   ${isFound ? '✓' : '○'} ${egg.name}` 
-              });
+              if (isFound) {
+                outputs.push({ 
+                  type: 'success' as const, 
+                  content: `   ✓ ${egg.name}` 
+                });
+              } else {
+                outputs.push({ 
+                  type: 'text' as const, 
+                  content: `   ? ${egg.hint}` 
+                });
+              }
             });
             outputs.push({ type: 'text', content: '' });
           });
           
           if (discovered === TOTAL_EASTER_EGGS) {
-            outputs.push({ type: 'success', content: '🎉 CONGRATULATIONS! All achievements unlocked!' });
-          } else if (discovered > 0) {
-            outputs.push({ type: 'text', content: `Keep exploring to unlock ${TOTAL_EASTER_EGGS - discovered} more!` });
+            outputs.push({ type: 'success', content: '🎉 All achievements unlocked!' });
           }
           break;
 
