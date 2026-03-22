@@ -68,7 +68,7 @@ function SpotlightOverlay() {
  * @param {React.ReactNode} props.children - Child components
  */
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>('dark');
   const [mounted, setMounted] = useState(false);
   
   // Super Dark Mode Easter Egg State
@@ -83,12 +83,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const savedTheme = localStorage.getItem('theme') as Theme | null;
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    // Only update if different from initial 'light' to avoid unnecessary render
-    if (savedTheme && savedTheme !== 'light') {
+    // Only update if different from initial 'dark' to avoid unnecessary render
+    if (savedTheme) {
       // eslint-disable-next-line
       setTheme(savedTheme);
-    } else if (!savedTheme && systemPrefersDark) {
-      setTheme('dark');
+    } else if (!savedTheme && !systemPrefersDark) {
+      setTheme('light');
     }
     
     setMounted(true);

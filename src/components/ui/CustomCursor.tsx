@@ -105,7 +105,7 @@ export default function CustomCursor() {
           backgroundColor: "#FFFFFF", // Force white for difference mode
           borderRadius: "50%",
           pointerEvents: "none",
-          zIndex: 10000,
+          zIndex: 1000001,
           mixBlendMode: "difference", // Ensure visibility on all backgrounds
         }}
         animate={{
@@ -129,7 +129,7 @@ export default function CustomCursor() {
           border: "1px solid #FFFFFF", // Force white for difference mode
           borderRadius: "50%",
           pointerEvents: "none",
-          zIndex: 9999,
+          zIndex: 1000000,
           mixBlendMode: "difference",
           backgroundColor: "transparent",
         }}

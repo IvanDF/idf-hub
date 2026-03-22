@@ -3,29 +3,26 @@
 // Inspired by Como (Lario) and Alessandro Volta.
 // Balances soft pastel aesthetics with high-contrast readability.
 
-// 1. "Voltaic Violet" (Primary Accent)
-// Dedicated to Alessandro Volta. Represents innovation, electricity, and the spark of creativity.
-$color-volta-light: #8B5CF6; // Vivid Purple
-$color-volta-dark: #A78BFA;  // Soft Pastel Purple
+// RGB values stored as channels for alpha support via rgba()
+$color-volta-rgb: 139 92 246;
+$color-lario-rgb: 59 130 246;
+$color-silk-rgb: 10 10 10;
+$color-slate-rgb: 243 244 246;
 
-// 2. "Lario Mist" (Secondary Accent)
-// Inspired by Lake Como (Lario) on a misty morning. A calm, intellectual blue-grey.
-$color-lario-light: #3B82F6; // Deep Lake Blue
-$color-lario-dark: #60A5FA;  // Sky Reflection Blue
+$color-volta-light: #8B5CF6;
+$color-volta-dark: #A78BFA;
+$color-lario-light: #3B82F6;
+$color-lario-dark: #60A5FA;
+$color-silk-light: #FAFAFA;
+$color-silk-dark: #0A0A0A;
+$color-slate-light: #111827;
+$color-slate-dark: #F3F4F6;
 
-// 3. "Silk" (Backgrounds)
-// Tribute to Como's history as the City of Silk.
-$color-silk-light: #FAFAFA; // Pure, clean white
-$color-silk-dark: #0A0A0A;  // Deep, rich black (Obsidian)
-
-// 4. "Slate" (Text & Structure)
-// Grounded, legible, high-contrast.
-$color-slate-light: #111827; // Ink Black
-$color-slate-dark: #F3F4F6;  // Off-White
+$color-success-rgb: 74 222 128;
+$color-error-rgb: 255 107 107;
+$color-warning-rgb: 250 204 21;
 
 // Theme Mapping
-// =============================================================================
-
 $color-bg-light: $color-silk-light;
 $color-text-light: $color-slate-light;
 $color-accent-light: $color-volta-light;
@@ -38,7 +35,7 @@ $color-accent-dark: $color-volta-dark;
 $color-secondary-dark: $color-lario-dark;
 $color-divider-dark: rgba(243, 244, 246, 0.1);
 
-// Variables applied via CSS Custom Properties
+// CSS Variables (used in modules)
 $color-bg: var(--color-bg);
 $color-text: var(--color-text);
 $color-accent: var(--color-accent);

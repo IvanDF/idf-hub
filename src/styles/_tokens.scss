@@ -1,0 +1,45 @@
+// Design Tokens - Color System with Alpha Support
+// =============================================================================
+// Colors stored as RGB channels (without parentheses) for rgba() usage
+// Usage: rgba($color-success, 0.5) or var(--color-success-alpha-50)
+
+:root {
+  // Success (Green) - RGB format for alpha support
+  --color-success-rgb: 74 222 128;
+  --color-success: rgb(var(--color-success-rgb));
+  --color-success-alpha-50: rgba(var(--color-success-rgb) / 0.5);
+  --color-success-alpha-80: rgba(var(--color-success-rgb) / 0.8);
+  
+  // Error (Red)
+  --color-error-rgb: 255 107 107;
+  --color-error: rgb(var(--color-error-rgb));
+  --color-error-alpha-50: rgba(var(--color-error-rgb) / 0.5);
+  
+  // Warning (Yellow)
+  --color-warning-rgb: 250 204 21;
+  --color-warning: rgb(var(--color-warning-rgb));
+  
+  // Text - uses theme colors
+  --color-text-rgb: var(--color-slate-rgb);
+  
+  // Accent - Voltaic Violet
+  --color-volta-rgb: 139 92 246;
+  --color-volta: rgb(var(--color-volta-rgb));
+  --color-volta-alpha-30: rgba(var(--color-volta-rgb) / 0.3);
+  
+  // ASCII Art default color (white)
+  --color-ascii-rgb: 255 255 255;
+  --color-ascii: rgb(var(--color-ascii-rgb));
+}
+
+// Dark theme adjustments
+[data-theme="dark"] {
+  --color-text-rgb: 243 244 246;
+  --color-slate-rgb: 243 244 246;
+}
+
+// Light theme adjustments
+[data-theme="light"] {
+  --color-text-rgb: 17 24 39;
+  --color-slate-rgb: 17 24 39;
+}
