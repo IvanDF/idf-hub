@@ -5,7 +5,6 @@ import LeftColumn from './LeftColumn';
 import RightColumn from './RightColumn';
 import MobileNav from './MobileNav';
 import Terminal from '@/components/home/Terminal';
-import SuperDarkMode from '@/components/SuperDarkMode';
 import { FutureModeProvider, useFutureMode } from '@/context/FutureModeContext';
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
@@ -14,7 +13,6 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
   return (
     <div className={`${styles.container} ${isFutureMode ? styles.futureModeActive : ''}`}>
       <Terminal />
-      <SuperDarkMode />
       <MobileNav />
       <LeftColumn />
       <main className={styles.main}>

@@ -11,16 +11,13 @@ import {
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Terminal.module.scss";
-
-type CommandOutput = {
-  type: "text" | "error" | "success" | "system" | "link";
-  content: string | React.ReactNode;
-};
-
-type HistoryItem = {
-  command: string;
-  output?: CommandOutput[];
-};
+import {
+  TerminalOverlay,
+  TerminalHeader,
+  TerminalQuickCommands,
+  TerminalInput,
+} from "@/components/terminal";
+import type { CommandOutput, HistoryItem } from "@/components/terminal";
 
 // ASCII art for easter eggs
 const ASCII_ART: Record<string, readonly (readonly string[])[]> = {
@@ -201,6 +198,7 @@ export default function Terminal() {
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const terminalBodyRef = useRef<HTMLDivElement>(null);
+  const touchStartY = useRef(0);
 
   const router = useRouter();
   const { toggleTheme, theme } = useTheme();
@@ -747,13 +745,37 @@ export default function Terminal() {
 
   if (!isOpen) return null;
 
+  const handleQuickCommand = (cmd: string) => {
+    setInput(cmd);
+    inputRef.current?.focus();
+  };
+
+  const executeQuickCommand = (cmd: string) => {
+    setInput(cmd);
+    setTimeout(() => executeCommand(cmd), 0);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const touchEndY = e.changedTouches[0].clientY;
+    const diff = touchStartY.current - touchEndY;
+    if (diff > 100) {
+      setIsOpen(false);
+    }
+  };
+
   return (
-    <div className={styles.overlay} onClick={() => setIsOpen(false)}>
+    <TerminalOverlay onClose={() => setIsOpen(false)}>
       <div
         className={styles.terminalContainer}
         ref={containerRef}
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+        onClick={(e) => e.stopPropagation()}
       >
+        <TerminalHeader onClose={() => setIsOpen(false)} />
+
         <div className={styles.terminalBody} ref={terminalBodyRef}>
           {/* History */}
           {history.map((item, index) => (
@@ -780,22 +802,15 @@ export default function Terminal() {
           )}
         </div>
 
-        {/* Input Area */}
-        <div className={styles.inputArea}>
-          <span className={styles.prompt}>{">"}</span>
-          <input
-            ref={inputRef}
-            type="text"
-            className={styles.input}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleInputKeyDown}
-            autoFocus
-            spellCheck={false}
-            autoComplete="off"
-          />
-        </div>
+        <TerminalQuickCommands onCommand={executeQuickCommand} />
+
+        <TerminalInput
+          ref={inputRef}
+          value={input}
+          onChange={setInput}
+          onKeyDown={handleInputKeyDown}
+        />
       </div>
-    </div>
+    </TerminalOverlay>
   );
 }
