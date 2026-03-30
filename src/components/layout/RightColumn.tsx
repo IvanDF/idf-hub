@@ -2,6 +2,7 @@
 
 import Magnetic from "@/components/ui/Magnetic";
 import { useTheme } from "@/context/ThemeContext";
+import { useAudio } from "@/context/AudioContext";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
@@ -11,18 +12,19 @@ export default function RightColumn() {
   const pathname = usePathname();
   const isLab = pathname.startsWith('/lab');
   const { theme, toggleTheme, superDarkMode, clickHint } = useTheme();
+  const { playLightOn } = useAudio();
 
-  // Randomize the exit text when entering Super Dark Mode
   const exitQuote = useMemo(() => {
     const quotes = [
-      "MISCHIEF MANAGED", // Harry Potter
-      "LUMOS",            // Harry Potter
-      "LOOK TO THE EAST", // Lord of the Rings
-      "YOU SHALL PASS",   // Lord of the Rings
-      "SKÅL",             // Viking
+      "MISCHIEF MANAGED",
+      "LUMOS",
+      "LOOK TO THE EAST",
+      "YOU SHALL PASS",
+      "SKÅL",
     ];
-    return quotes[Math.floor(Math.random() * quotes.length)];
-  }, [superDarkMode]);
+    const index = Math.abs(superDarkMode ? clickHint : 0) % quotes.length;
+    return quotes[index];
+  }, [superDarkMode, clickHint]);
 
   // Determine button text
   let buttonText = theme === "light" ? "DARK-MODE" : "LIGHT-MODE";
@@ -39,7 +41,7 @@ export default function RightColumn() {
       <Magnetic>
         <div
           className={styles.themeToggle}
-          onClick={toggleTheme}
+          onClick={() => { playLightOn(); toggleTheme(); }}
           style={{
             cursor: "pointer",
             display: "flex",
@@ -152,7 +154,7 @@ export default function RightColumn() {
         </Magnetic>
         <Magnetic>
           <a
-            href="hhttps://github.com/IvanDF"
+            href="https://github.com/IvanDF"
             target="_blank"
             rel="noopener noreferrer"
             style={{

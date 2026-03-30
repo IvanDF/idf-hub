@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { ExternalLink, Github, ArrowRight, History } from 'lucide-react';
+import { Github, ArrowRight, History } from 'lucide-react';
 import styles from './TimeMachine.module.scss';
 
 const TimeVortex = dynamic(() => import('@/components/time-machine/TimeVortex'), { ssr: false });

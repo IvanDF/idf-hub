@@ -22,9 +22,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const decodedSlug = decodeURIComponent(slug);
   const project = PROJECTS.find((p) => p.id === decodedSlug);
 
-  console.log("🔎 [page][slug] =>", decodedSlug);
-  console.log("🔎 [page][project] =>", project);
-
   if (!project) {
     notFound();
   }

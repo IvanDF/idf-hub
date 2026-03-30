@@ -1,14 +1,22 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
+import { useAudio } from "@/context/AudioContext";
 import styles from "./page.module.scss";
 
 export default function SecretsPage() {
+  const { playGlitch } = useAudio();
+
+  useEffect(() => {
+    playGlitch();
+  }, [playGlitch]);
+
   return (
     <main className={styles.container}>
       <div className={styles.terminal}>
         <div className={styles.header}>
-          <h1>// CLASSIFIED ARCHIVES</h1>
+          <h1>{`// CLASSIFIED ARCHIVES`}</h1>
           <span className={styles.status}>[ACCESS GRANTED]</span>
         </div>
 
@@ -34,7 +42,7 @@ export default function SecretsPage() {
               </ul>
               <p>
                 <strong>EXIT PROTOCOL:</strong> Utilize the red emergency
-                release ("EXIT DARKNESS").
+                release ({'"'}EXIT DARKNESS{'"'}).
               </p>
             </div>
           </div>

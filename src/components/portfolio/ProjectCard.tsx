@@ -6,6 +6,7 @@ import { Project } from '@/types/project';
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
+import { useAudio } from '@/context/AudioContext';
 import styles from './ProjectCard.module.scss';
 
 interface ProjectCardProps {
@@ -16,6 +17,7 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project, onClick, className = '' }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const { playClick, playHover } = useAudio();
 
   // --- Interaction State ---
   const [isHovered, setIsHovered] = useState(false);
@@ -71,31 +73,37 @@ export default function ProjectCard({ project, onClick, className = '' }: Projec
     const element = cardRef.current;
     element.addEventListener('mousemove', handleMouseMove);
     element.addEventListener('mouseleave', handleMouseLeave);
-    element.addEventListener('mouseenter', () => setIsHovered(true));
 
     return () => {
       element.removeEventListener('mousemove', handleMouseMove);
       element.removeEventListener('mouseleave', handleMouseLeave);
-      // Remove mouseenter listener? No need for separate removal if we add it inline or here.
-      // Let's rely on standard React events for simplicity if possible, but for 
-      // consistent animation frame updates native listeners are sometimes smoother.
-      // Actually, React onMouseMove is fine for this scale.
     };
   }, [x, y, mouseX, mouseY, rotateX, rotateY, spotlightX, spotlightY]);
 
 
   // --- Render Logic ---
 
+  const handleClick = () => {
+    playClick();
+    onClick();
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    playHover();
+  };
+
   return (
     <motion.div
       ref={cardRef}
       className={`${styles.card} ${styles[project.interaction || 'default']} ${styles[project.category.toLowerCase()]} ${className}`}
-      onClick={onClick}
+      onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
-          onClick();
+          handleClick();
         }
       }}
       style={{

@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react';
+
 export type CommandOutput = {
   type: "text" | "error" | "success" | "system" | "link";
-  content: string | React.ReactNode;
+  content: string | ReactNode;
 };
 
 export type HistoryItem = {

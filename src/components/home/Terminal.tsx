@@ -1,30 +1,28 @@
 "use client";
 
-import { useFutureMode } from "@/context/FutureModeContext";
+import type { CommandOutput, HistoryItem } from "@/components/terminal";
+import {
+  TerminalHeader,
+  TerminalInput,
+  TerminalOverlay,
+  TerminalQuickCommands,
+} from "@/components/terminal";
+import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
 import {
   ASCII_BARNEY,
   ASCII_PLAYBOOK,
   ASCII_RAGNAR1,
-  ASCII_RAGNAR2,
 } from "@/design-system/ascii";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Terminal.module.scss";
-import {
-  TerminalOverlay,
-  TerminalHeader,
-  TerminalQuickCommands,
-  TerminalInput,
-} from "@/components/terminal";
-import type { CommandOutput, HistoryItem } from "@/components/terminal";
 
 // ASCII art for easter eggs
 const ASCII_ART: Record<string, readonly (readonly string[])[]> = {
-  barney: ASCII_BARNEY,
+  legendary: ASCII_BARNEY,
   playbook: ASCII_PLAYBOOK,
   ragnar: ASCII_RAGNAR1,
-  ragnar2: ASCII_RAGNAR2,
   pickle_rick: [
     ["      ●      ", "    ╭───╮    ", "    │   │    ", "    ╰───╯    "],
     ["     \\●/     ", "    ╭─────╮  ", "    │     │  ", "    ╰──┬──╯  "],
@@ -33,27 +31,7 @@ const ASCII_ART: Record<string, readonly (readonly string[])[]> = {
     ["      ▲      ", "     ╱ ╲     ", "    ╱   ╲    ", "   ╱  ▼  ╲   "],
     ["      │      ", "     ╱ │     ", "    ╱  │     ", "   ╱   ▼     "],
   ],
-  legendary: [
-    [
-      "   ┌─────────┐   ",
-      "   │ LEGEN.. │   ",
-      "   │ WAIT..  │   ",
-      "   │ DARY!   │   ",
-      "   └─────────┘   ",
-    ],
-    ["   ┌─────────┐   ", "   │  DARY!  │   ", "   └─────────┘   "],
-  ],
   konami: [["    ↑ ↑ ↓ ↓    ", "    ← → ← →    ", "      B A       "]],
-  valhalla: [
-    [
-      "  ╔═══════════╗  ",
-      "  ║  ╭─────╮  ║  ",
-      "  ║  │VALHA│  ║  ",
-      "  ║  │LLA  │  ║  ",
-      "  ║  ╰─────╯  ║  ",
-      "  ╚═══════════╝  ",
-    ],
-  ],
 };
 type EasterEgg = {
   id: string;
@@ -65,13 +43,6 @@ type EasterEgg = {
 
 const EASTER_EGGS: EasterEgg[] = [
   // HIMYM
-  {
-    id: "suit_up",
-    aliases: ["suit up"],
-    hint: "Barney's famous catchphrase",
-    category: "HIMYM",
-    name: "Suit Up",
-  },
   {
     id: "playbook",
     aliases: ["playbook"],
@@ -85,13 +56,6 @@ const EASTER_EGGS: EasterEgg[] = [
     hint: "The catchphrase before 'dary'",
     category: "HIMYM",
     name: "Legendary",
-  },
-  {
-    id: "umbrella",
-    aliases: ["umbrella"],
-    hint: "Something yellow that shelters from rain",
-    category: "HIMYM",
-    name: "Yellow Umbrella",
   },
 
   // Rick and Morty
@@ -109,20 +73,6 @@ const EASTER_EGGS: EasterEgg[] = [
     category: "R&M",
     name: "Wubba Lubba Dub Dub",
   },
-  {
-    id: "burp",
-    aliases: ["burp"],
-    hint: "Rick's signature sound",
-    category: "R&M",
-    name: "Burp",
-  },
-  {
-    id: "science",
-    aliases: ["science"],
-    hint: "Rick's answer to everything",
-    category: "R&M",
-    name: "Science",
-  },
 
   // Vikings
   {
@@ -133,48 +83,20 @@ const EASTER_EGGS: EasterEgg[] = [
     name: "Who Wants to be King",
   },
   {
-    id: "aesir",
-    aliases: ["aesir"],
-    hint: "Ragnar's final words",
-    category: "Vikings",
-    name: "The Aesir",
-  },
-  {
     id: "skol",
-    aliases: ["skol"],
+    aliases: ["skol", "skål", "skaal", "skol!"],
     hint: "Viking way to say cheers",
     category: "Vikings",
     name: "Skål",
   },
-  {
-    id: "valhalla",
-    aliases: ["valhalla"],
-    hint: "Where warriors go after death",
-    category: "Vikings",
-    name: "Valhalla",
-  },
 
   // Secret Features
-  {
-    id: "future_mode",
-    aliases: ["zen"],
-    hint: "Focus. Nothing else.",
-    category: "Secret",
-    name: "Future Mode",
-  },
   {
     id: "theme_toggle",
     aliases: ["yoda"],
     hint: "The force has two of these",
     category: "Secret",
     name: "Theme Master",
-  },
-  {
-    id: "time_machine",
-    aliases: ["flux"],
-    hint: "Marty's 1.21 of these",
-    category: "Secret",
-    name: "Time Traveler",
   },
   {
     id: "konami",
@@ -196,13 +118,12 @@ export default function Terminal() {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [discoveredEggs, setDiscoveredEggs] = useState<Set<string>>(new Set());
   const inputRef = useRef<HTMLInputElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const terminalBodyRef = useRef<HTMLDivElement>(null);
-  const touchStartY = useRef(0);
 
   const router = useRouter();
-  const { toggleTheme, theme } = useTheme();
-  const { toggleFutureMode, isFutureMode } = useFutureMode();
+  const { toggleTheme, theme, superDarkMode } = useTheme();
+  const { playType, playCommand, playError, playEasterEgg, playLightOn } =
+    useAudio();
 
   // Load discovered eggs from localStorage
   useEffect(() => {
@@ -234,10 +155,15 @@ export default function Terminal() {
     });
   }, []);
 
+  useEffect(() => {
+    if (superDarkMode) {
+      discoverEgg("theme_toggle");
+    }
+  }, [superDarkMode, discoverEgg]);
+
   const SHORTCUTS_INFO = [
     { key: "CMD+K", action: "Open Terminal" },
     { key: "D", action: "Toggle Dark/Light Mode" },
-    { key: "CMD+SHIFT+F", action: "Toggle Future Mode" },
     { key: "1", action: "Go to Home" },
     { key: "2", action: "Go to Lab" },
     { key: "ESC", action: "Close/Exit" },
@@ -263,6 +189,7 @@ export default function Terminal() {
       if (e.key === "d" || e.key === "D") {
         if (!e.metaKey && !e.ctrlKey && !e.altKey) {
           e.preventDefault();
+          playLightOn();
           toggleTheme();
         }
       }
@@ -280,7 +207,9 @@ export default function Terminal() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, router, toggleTheme]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, toggleTheme]);
 
   // Welcome message
   const WELCOME_MESSAGE: HistoryItem = {
@@ -328,10 +257,9 @@ export default function Terminal() {
   // Mapping easter egg ID → ASCII art ID
   const getAsciiId = (eggId: string): string => {
     const mapping: Record<string, string> = {
-      suit_up: "barney",
+      legendary: "barney",
       playbook: "playbook",
       ragnar: "ragnar",
-      valhalla: "ragnar2",
     };
     return mapping[eggId] || eggId;
   };
@@ -376,17 +304,10 @@ export default function Terminal() {
         discoverEgg(foundEgg.id);
         setLastEasterEgg(foundEgg.id);
         setAsciiFrame(0);
+        playEasterEgg(foundEgg.id);
 
         // Fun responses for each easter egg
         const responses: Record<string, CommandOutput[]> = {
-          suit_up: [
-            { type: "system", content: "Suit Up" },
-            {
-              type: "text",
-              content: '"Every time you suit up, you\'re at your best."',
-            },
-            { type: "text", content: "- Barney Stinson" },
-          ],
           playbook: [
             { type: "system", content: "The Playbook" },
             { type: "text", content: '"There is no such thing as bad ideas.' },
@@ -402,13 +323,6 @@ export default function Terminal() {
               content: '"This is gonna be legend... wait for it... dary!"',
             },
           ],
-          umbrella: [
-            { type: "system", content: "Yellow Umbrella" },
-            {
-              type: "text",
-              content: "Something yellow that shelters from rain.",
-            },
-          ],
           pickle_rick: [
             { type: "success", content: "I turned myself into a pickle!" },
             { type: "text", content: '"Morty, I\'m a pickle!"' },
@@ -416,17 +330,6 @@ export default function Terminal() {
           wubba: [
             { type: "error", content: '"I am in great pain, please help me."' },
             { type: "text", content: "Rick's cry echoes through dimensions." },
-          ],
-          burp: [
-            { type: "success", content: "*BURRRRRP*" },
-            { type: "text", content: '"Wubba lubba dub dub, Morty!"' },
-          ],
-          science: [
-            { type: "success", content: "Science!" },
-            {
-              type: "text",
-              content: '"Rick Sanchez - The smartest man in the universe."',
-            },
           ],
           ragnar: [
             { type: "system", content: "Who Wants to be King?" },
@@ -436,26 +339,11 @@ export default function Terminal() {
             },
             { type: "text", content: "- Ragnar Lothbrok" },
           ],
-          aesir: [
-            { type: "system", content: '"The Aesir will welcome me home."' },
-            { type: "text", content: "Ragnar's final words before death." },
-          ],
           skol: [
             { type: "success", content: "SKÅL!" },
             { type: "text", content: '"To the North, to the Viking gods!"' },
           ],
-          valhalla: [
-            { type: "system", content: "Valhalla awaits the brave." },
-            {
-              type: "text",
-              content: '"A warrior\'s paradise, an eternity of glory."',
-            },
-          ],
-          future_mode: [
-            { type: "success", content: "Future Mode activated." },
-            { type: "text", content: "Nothing else matters." },
-          ],
-          yoda: [
+          theme_toggle: [
             { type: "success", content: "The Force has two sides." },
             { type: "text", content: '"Luminous beings are we." - Yoda' },
           ],
@@ -490,10 +378,6 @@ export default function Terminal() {
               {
                 type: "text",
                 content: "  theme                  - Toggle light/dark mode",
-              },
-              {
-                type: "text",
-                content: "  future / zen           - Toggle Future Mode",
               },
               {
                 type: "text",
@@ -619,21 +503,11 @@ export default function Terminal() {
           case "clear":
             setHistory([]);
             return;
-
-          case "future":
-          case "zen":
-            toggleFutureMode();
-            outputs = [
-              {
-                type: "success",
-                content: isFutureMode ? "Deactivated." : "Future Mode.",
-              },
-            ];
-            break;
-
+          case "theme":
           case "yoda":
           case "dark side":
           case "light side":
+            playLightOn();
             toggleTheme();
             const themeMsg = ["Dark.", "Light.", "Switched."];
             outputs = [
@@ -686,6 +560,7 @@ export default function Terminal() {
             break;
 
           default:
+            playError();
             outputs = [
               { type: "error", content: `Command not found: ${cmd}` },
               { type: "text", content: "Type 'help' for a list of commands." },
@@ -703,8 +578,6 @@ export default function Terminal() {
     [
       theme,
       toggleTheme,
-      toggleFutureMode,
-      isFutureMode,
       SHORTCUTS_INFO,
       discoverEgg,
       discoveredEggs.size,
@@ -716,6 +589,7 @@ export default function Terminal() {
 
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      playCommand();
       executeCommand(input);
       setInput("");
     } else if (e.key === "ArrowUp") {
@@ -745,33 +619,15 @@ export default function Terminal() {
 
   if (!isOpen) return null;
 
-  const handleQuickCommand = (cmd: string) => {
-    setInput(cmd);
-    inputRef.current?.focus();
-  };
-
   const executeQuickCommand = (cmd: string) => {
     setInput(cmd);
     setTimeout(() => executeCommand(cmd), 0);
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartY.current = e.touches[0].clientY;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const touchEndY = e.changedTouches[0].clientY;
-    const diff = touchStartY.current - touchEndY;
-    if (diff > 100) {
-      setIsOpen(false);
-    }
   };
 
   return (
     <TerminalOverlay onClose={() => setIsOpen(false)}>
       <div
         className={styles.terminalContainer}
-        ref={containerRef}
         onClick={(e) => e.stopPropagation()}
       >
         <TerminalHeader onClose={() => setIsOpen(false)} />
@@ -807,7 +663,10 @@ export default function Terminal() {
         <TerminalInput
           ref={inputRef}
           value={input}
-          onChange={setInput}
+          onChange={(v) => {
+            setInput(v);
+            if (v.length > 0) playType();
+          }}
           onKeyDown={handleInputKeyDown}
         />
       </div>

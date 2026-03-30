@@ -10,8 +10,8 @@ export type QuickCommand = {
 const DEFAULT_COMMANDS: QuickCommand[] = [
   { label: "help", command: "help" },
   { label: "theme", command: "theme" },
+  { label: "home", command: "home" },
   { label: "projects", command: "projects" },
-  { label: "eggs", command: "eggs" },
   { label: "whoami", command: "whoami" },
 ];
 
@@ -20,16 +20,16 @@ interface TerminalQuickCommandsProps {
   onCommand: (command: string) => void;
 }
 
-export default function TerminalQuickCommands({ 
+export default function TerminalQuickCommands({
   commands = DEFAULT_COMMANDS,
-  onCommand 
+  onCommand,
 }: TerminalQuickCommandsProps) {
   return (
     <div className={styles.quickCommands} onClick={(e) => e.stopPropagation()}>
       {commands.map((cmd) => (
-        <button 
+        <button
           key={cmd.command}
-          type="button" 
+          type="button"
           onClick={() => onCommand(cmd.command)}
         >
           {cmd.label}

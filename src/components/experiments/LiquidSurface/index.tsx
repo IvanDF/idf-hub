@@ -6,7 +6,6 @@ import { useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 const LiquidShader = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mesh = useRef<THREE.Mesh>(null!);
   const [hovered, setHovered] = useState(false);
 

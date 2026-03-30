@@ -54,24 +54,24 @@ function SpotlightOverlay() {
 /**
  * ThemeProvider Component
  */
+function getInitialTheme(): Theme {
+  if (typeof window === 'undefined') return 'dark';
+  const saved = localStorage.getItem('theme') as Theme | null;
+  if (saved) return saved;
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  return systemDark ? 'dark' : 'light';
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark');
-  const [mounted, setMounted] = useState(false);
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  const [mounted, setMounted] = useState<boolean | null>(null);
   const [superDarkMode, setSuperDarkMode] = useState(false);
   const [clickHint, setClickHint] = useState(0); 
   const clickCount = useRef(0);
   const clickTimer = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as Theme | null;
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else if (!savedTheme && !systemPrefersDark) {
-      setTheme('light');
-    }
-    
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -124,7 +124,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, superDarkMode, toggleSuperDarkMode, clickHint }}>
-      {mounted ? children : <div style={{ visibility: 'hidden' }}>{children}</div>}
+      {mounted === null ? null : children}
       {superDarkMode && <SpotlightOverlay />}
     </ThemeContext.Provider>
   );

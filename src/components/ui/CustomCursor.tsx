@@ -38,7 +38,7 @@ export default function CustomCursor() {
     ).matches;
     if (isTouchDevice) return;
 
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsVisible(true);
 
     const moveCursor = (e: MouseEvent) => {
@@ -51,18 +51,23 @@ export default function CustomCursor() {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      // Check for interactive elements
-      if (
-        target.tagName === "A" ||
-        target.tagName === "BUTTON" ||
-        target.closest("a") ||
-        target.closest("button") ||
-        target.getAttribute("role") === "button" ||
-        getComputedStyle(target).cursor === "pointer"
-      ) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
+      if (!target) return;
+      
+      try {
+        if (
+          target.tagName === "A" ||
+          target.tagName === "BUTTON" ||
+          target.closest("a") ||
+          target.closest("button") ||
+          target.getAttribute("role") === "button" ||
+          getComputedStyle(target).cursor === "pointer"
+        ) {
+          setIsHovering(true);
+        } else {
+          setIsHovering(false);
+        }
+      } catch {
+        // Ignore errors from getComputedStyle on removed elements
       }
     };
 

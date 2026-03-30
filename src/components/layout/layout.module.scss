@@ -28,17 +28,10 @@
   transition: 
     transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.4s ease;
-  pointer-events: none; // Allow clicks through empty space
+  pointer-events: none;
 
-  // Re-enable pointer events for children
   & > * {
     pointer-events: auto;
-  }
-  
-  // Future Mode - Fade out
-  :global(.future-mode) & {
-    opacity: 0;
-    pointer-events: none;
   }
 }
 
@@ -47,14 +40,6 @@
   align-items: flex-end;
 }
 
-// Mobile header fade out in future mode
-:global(.future-mode) header {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-
-// Mobile Header in Future Mode
 .mobileHeader {
   display: none;
   position: fixed;

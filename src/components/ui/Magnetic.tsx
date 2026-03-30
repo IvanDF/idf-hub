@@ -11,7 +11,6 @@ interface MagneticProps {
 export default function Magnetic({ children, strength = 0.5 }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  // const { setCursorType } = useCursor();
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const { clientX, clientY } = e;
@@ -26,12 +25,9 @@ export default function Magnetic({ children, strength = 0.5 }: MagneticProps) {
 
   const handleMouseLeave = () => {
     setPosition({ x: 0, y: 0 });
-    // setCursorType("default");
   };
 
-  const handleMouseEnter = () => {
-    // setCursorType("magnetic");
-  };
+  const handleMouseEnter = () => {};
 
   const { x, y } = position;
 

@@ -1,26 +1,28 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import styles from './layout.module.scss';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import Magnetic from '@/components/ui/Magnetic';
-import RotatingTitle from '@/components/ui/RotatingTitle';
-import GlitchText from '@/components/ui/GlitchText';
+import AudioToggle from "@/components/ui/AudioToggle";
+import GlitchText from "@/components/ui/GlitchText";
+import Magnetic from "@/components/ui/Magnetic";
+import RotatingTitle from "@/components/ui/RotatingTitle";
+import { usePathname } from "next/navigation";
+import styles from "./layout.module.scss";
 
 export default function LeftColumn() {
   const pathname = usePathname();
-  const isLab = pathname.startsWith('/lab');
+  const isLab = pathname.startsWith("/lab");
 
   return (
-    <aside className={`${styles.leftColumn} ${isLab ? styles.autoHide : ''}`}>
+    <aside className={`${styles.leftColumn} ${isLab ? styles.autoHide : ""}`}>
       {/* Command Palette Trigger */}
       <nav className={styles.navbar}>
         <Magnetic>
-          <button 
+          <button
             className={styles.terminalLink}
             onClick={() => {
-              const event = new KeyboardEvent('keydown', { key: 'k', metaKey: true });
+              const event = new KeyboardEvent("keydown", {
+                key: "k",
+                metaKey: true,
+              });
               window.dispatchEvent(event);
             }}
           >
@@ -33,11 +35,14 @@ export default function LeftColumn() {
       {/* 2. Divider */}
       <div className={styles.divider}></div>
 
-      {/* 3. Footer: Name + Role */}
+      {/* 3. Footer: Name + Role + Audio */}
       <footer className={styles.footer}>
+        <AudioToggle />
+
         <div className={styles.name}>
           <GlitchText text="IVAN DEL FATTI" />
         </div>
+
         <RotatingTitle className={styles.role} />
       </footer>
     </aside>

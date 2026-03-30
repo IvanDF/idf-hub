@@ -2,6 +2,7 @@
 "use client";
 
 import { useTheme } from "@/context/ThemeContext";
+import { useAudio } from "@/context/AudioContext";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,12 +14,12 @@ export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
+  const { playLightOn } = useAudio();
 
   // Close menu when route changes
   useEffect(() => {
-    if (isOpen) {
-      setIsOpen(false);
-    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsOpen(false);
   }, [pathname]);
 
   // Lock scroll when menu is open
@@ -124,7 +125,7 @@ export default function MobileNav() {
                 <motion.div className={styles.sidebarFooter} variants={itemVariants}>
                     <div className={styles.divider} />
                     
-                    <button onClick={toggleTheme} className={styles.themeToggle}>
+                    <button onClick={() => { playLightOn(); toggleTheme(); }} className={styles.themeToggle}>
                         {theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}
                     </button>
 

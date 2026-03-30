@@ -2,7 +2,9 @@ import GlobalBackground from "@/components/background/GlobalBackground";
 import MainLayout from "@/components/layout";
 import SecretGateway from "@/components/layout/SecretGateway";
 import CustomCursor from "@/components/ui/CustomCursor";
+import AudioPrompt from "@/components/ui/AudioPrompt";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { AudioProvider } from "@/context/AudioContext";
 import "@/styles/globals.scss";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Josefin_Sans } from "next/font/google";
@@ -39,12 +41,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${josefinSans.variable}`}
       >
         <ThemeProvider>
-          {/* Custom Cursor (visible on desktop only) */}
-          <CustomCursor />
-          <SecretGateway />
+          <AudioProvider>
+            <CustomCursor />
+            <SecretGateway />
+            <AudioPrompt />
 
-          <MainLayout>{children}</MainLayout>
-          <GlobalBackground />
+            <MainLayout>{children}</MainLayout>
+            <GlobalBackground />
+          </AudioProvider>
         </ThemeProvider>
       </body>
     </html>

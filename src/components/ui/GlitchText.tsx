@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import styles from './GlitchText.module.scss';
 
 interface GlitchTextProps {
@@ -22,7 +22,7 @@ export default function GlitchText({ text, className = '', scrambleSpeed = 30 }:
     if (intervalRef.current) clearInterval(intervalRef.current);
 
     intervalRef.current = setInterval(() => {
-      setDisplayText(prev => 
+      setDisplayText(() => 
         text
           .split('')
           .map((char, index) => {
