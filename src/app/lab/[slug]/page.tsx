@@ -15,7 +15,11 @@ export function generateStaticParams() {
   }));
 }
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ProjectPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   // Decode the slug just in case
   const { slug } = await params;
 
@@ -25,6 +29,18 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (!project) {
     notFound();
   }
+
+  const detailHighlights =
+    project.highlights && project.highlights.length > 0
+      ? project.highlights
+      : [
+          "Crafted as part of an iterative portfolio R&D process",
+          "Built with focus on visual identity and interaction quality",
+          "Continuously refined based on usability feedback",
+        ];
+
+  const detailStack =
+    project.stack && project.stack.length > 0 ? project.stack : project.tags;
 
   return (
     <main className={styles.container}>
@@ -36,11 +52,17 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <header className={styles.header}>
         <div className={styles.meta}>
           <span className={styles.category}>{project.category}</span>
-          {/* eslint-disable-next-line react/jsx-no-comment-textnodes */}
-          <span>//</span>
+          <span>{"//"}</span>
           <span>{project.year}</span>
+          {project.status && (
+            <span className={styles.status}>{project.status}</span>
+          )}
         </div>
         <h1>{project.title}</h1>
+
+        <p className={styles.lead}>
+          {project.longDescription || project.description}
+        </p>
 
         <div className={styles.tags}>
           {project.tags.map((tag) => (
@@ -56,6 +78,62 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div className={styles.description}>
             <p>{project.description}</p>
           </div>
+
+          <div className={styles.detailGrid}>
+            {project.problem && (
+              <section className={styles.infoBlock}>
+                <h3>Problem</h3>
+                <p>{project.problem}</p>
+              </section>
+            )}
+
+            {project.solution && (
+              <section className={styles.infoBlock}>
+                <h3>Approach</h3>
+                <p>{project.solution}</p>
+              </section>
+            )}
+
+            {project.role && (
+              <section className={styles.infoBlock}>
+                <h3>Role</h3>
+                <p>{project.role}</p>
+              </section>
+            )}
+
+            {project.duration && (
+              <section className={styles.infoBlock}>
+                <h3>Duration</h3>
+                <p>{project.duration}</p>
+              </section>
+            )}
+          </div>
+
+          <section className={styles.highlights}>
+            <h3>Highlights</h3>
+            <ul>
+              {detailHighlights.map((highlight) => (
+                <li key={highlight}>{highlight}</li>
+              ))}
+            </ul>
+          </section>
+
+          {project.metrics && project.metrics.length > 0 && (
+            <section className={styles.metrics}>
+              <h3>Key Metrics</h3>
+              <div className={styles.metricGrid}>
+                {project.metrics.map((metric) => (
+                  <div
+                    key={`${metric.label}-${metric.value}`}
+                    className={styles.metricItem}
+                  >
+                    <span>{metric.label}</span>
+                    <strong>{metric.value}</strong>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           <div className={styles.mediaSection}>
             <div className={styles.mediaContainer}>
@@ -77,6 +155,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         <aside className={styles.sidebar}>
           <h3>Project Links</h3>
+
+          <div className={styles.stackSection}>
+            <h4>Stack</h4>
+            <div className={styles.stackTags}>
+              {detailStack.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          </div>
 
           {/* Launch Experiment / Demo */}
           {project.links?.demo && (
@@ -115,6 +202,28 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               <ExternalLink size={18} />
               Visit Live Site
             </a>
+          )}
+
+          {project.links?.marketplace && (
+            <a
+              href={project.links.marketplace}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${styles.actionButton} ${styles.secondary}`}
+            >
+              <ExternalLink size={18} />
+              Open Marketplace
+            </a>
+          )}
+
+          {project.links?.caseStudy && (
+            <Link
+              href={project.links.caseStudy}
+              className={`${styles.actionButton} ${styles.secondary}`}
+            >
+              <Play size={18} />
+              Open Case Study
+            </Link>
           )}
         </aside>
       </div>

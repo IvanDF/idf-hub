@@ -1,9 +1,9 @@
-@use '@/styles/variables' as *;
+@use "@/styles/variables" as *;
 
 .card {
   position: relative;
   overflow: hidden;
-  border-radius: 6px; 
+  border-radius: 6px;
   background: var(--color-card-bg);
   border: 1px solid var(--color-card-border);
   box-shadow: var(--color-card-shadow);
@@ -15,10 +15,11 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  
+
   // Corner accents
-  &::before, &::after {
-    content: '';
+  &::before,
+  &::after {
+    content: "";
     position: absolute;
     width: 8px;
     height: 8px;
@@ -41,31 +42,31 @@
   }
 
   &.dev {
-    --accent-color: #3b82f6;
+    --accent-color: var(--color-category-dev);
   }
 
   &.maker {
-    --accent-color: #f59e0b;
+    --accent-color: var(--color-category-maker);
   }
 
   &.design {
-    --accent-color: #ec4899;
+    --accent-color: var(--color-category-design);
   }
 
   &.experiment {
-    --accent-color: #10b981;
+    --accent-color: var(--color-category-experiment);
   }
 
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
     border-color: var(--accent-color);
-    
+
     &::before {
       border-color: var(--accent-color);
       opacity: 1;
     }
-    
+
     &::after {
       border-color: var(--accent-color);
       opacity: 1;
@@ -87,7 +88,7 @@
   .image {
     transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
   }
-  
+
   &:hover .image {
     transform: scale(1.05);
   }
@@ -99,7 +100,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  
+
   .header {
     display: flex;
     justify-content: space-between;
@@ -178,19 +179,41 @@
     background: var(--color-accent);
     opacity: 0;
     z-index: 11;
-    
+
     // Simple random movement
     animation: glitch 2s infinite linear;
 
-    &:nth-child(1) { top: 20%; animation-delay: 0.1s; }
-    &:nth-child(2) { top: 60%; animation-delay: 1.5s; height: 1px; }
-    &:nth-child(3) { top: 80%; animation-delay: 0.8s; height: 3px; }
+    &:nth-child(1) {
+      top: 20%;
+      animation-delay: 0.1s;
+    }
+    &:nth-child(2) {
+      top: 60%;
+      animation-delay: 1.5s;
+      height: 1px;
+    }
+    &:nth-child(3) {
+      top: 80%;
+      animation-delay: 0.8s;
+      height: 3px;
+    }
   }
 }
 
 @keyframes glitch {
-  0% { transform: translateX(0); opacity: 0; }
-  2% { transform: translateX(-10px); opacity: 0.5; }
-  4% { transform: translateX(10px); opacity: 0; }
-  100% { opacity: 0; }
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  2% {
+    transform: translateX(-10px);
+    opacity: 0.5;
+  }
+  4% {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }

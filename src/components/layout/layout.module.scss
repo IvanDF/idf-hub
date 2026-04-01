@@ -25,7 +25,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: 
+  transition:
     transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.4s ease;
   pointer-events: none;
@@ -38,25 +38,6 @@
 .rightColumn {
   right: 0;
   align-items: flex-end;
-}
-
-.mobileHeader {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 64px;
-  z-index: 100;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 24px;
-  color: var(--color-text);
-  transition: opacity 0.4s ease;
-
-  @media (max-width: 768px) {
-    display: flex;
-  }
 }
 
 .leftColumn {
@@ -88,10 +69,7 @@
 
     &:hover {
       transform: translateX(0);
-      background: rgba(
-        var(--color-bg-rgb),
-        0.8
-      );
+      background: rgba(var(--color-bg-rgb), 0.8);
       backdrop-filter: blur(12px);
     }
   }
@@ -176,7 +154,7 @@
 
   &:hover {
     opacity: 1;
-    
+
     .prompt {
       color: var(--color-accent);
     }
@@ -336,7 +314,7 @@
   &:hover {
     opacity: 1;
     border-color: var(--color-accent);
-    
+
     .prompt {
       color: var(--color-accent);
     }

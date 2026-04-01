@@ -1,23 +1,36 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import { PROJECTS } from '@/data/projects';
-import { ProjectCategory } from '@/types/project';
-import ProjectCard from '@/components/portfolio/ProjectCard';
-import styles from './page.module.scss';
+import ProjectCard from "@/components/portfolio/ProjectCard";
+import { PROJECTS } from "@/data/projects";
+import { ProjectCategory } from "@/types/project";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import styles from "./page.module.scss";
 
-const FILTERS: (ProjectCategory | 'ALL')[] = ['ALL', 'DEV', 'MAKER', 'DESIGN', 'EXPERIMENT'];
+const FILTERS: (ProjectCategory | "ALL")[] = [
+  "ALL",
+  "DEV",
+  "MAKER",
+  "DESIGN",
+  "EXPERIMENT",
+];
 
 export default function Lab() {
   const router = useRouter();
-  const [filter, setFilter] = useState<ProjectCategory | 'ALL'>('ALL');
+  const [filter, setFilter] = useState<ProjectCategory | "ALL">("ALL");
 
   const filteredProjects = PROJECTS.filter((project) => {
-    if (filter === 'ALL') return true;
+    if (filter === "ALL") return true;
     return project.category === filter;
   });
+
+  const liveCount = PROJECTS.filter(
+    (project) => project.status === "live",
+  ).length;
+  const inProgressCount = PROJECTS.filter(
+    (project) => project.status === "in-progress",
+  ).length;
 
   return (
     <main className={styles.container}>
@@ -37,6 +50,12 @@ export default function Lab() {
         >
           Experimental playground. Concepts, prototypes, and failures.
         </motion.p>
+
+        <div className={styles.quickStats}>
+          <span>{PROJECTS.length} projects</span>
+          <span>{liveCount} live</span>
+          <span>{inProgressCount} in progress</span>
+        </div>
       </header>
 
       {/* Filters */}
@@ -45,7 +64,7 @@ export default function Lab() {
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`${styles.filterBtn} ${filter === f ? styles.active : ''}`}
+            className={`${styles.filterBtn} ${filter === f ? styles.active : ""}`}
           >
             {f}
           </button>
@@ -53,37 +72,29 @@ export default function Lab() {
       </nav>
 
       {/* Grid */}
-      <motion.div 
-        layout 
-        className={styles.grid}
-      >
-        <AnimatePresence mode='popLayout'>
-          {filteredProjects.map((project) => (
-            <motion.div
-              key={project.id}
-              layout
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-              className={`
-                ${styles.gridItem} 
-                ${project.layout === 'featured' ? styles.featured : ''}
-                ${project.layout === 'tall' ? styles.tall : ''}
-                ${project.layout === 'wide' ? styles.wide : ''}
-              `}
-            >
-              <ProjectCard 
-                project={project} 
-                onClick={() => {
-                  // Default to the dynamic project page for all items
-                  // This ensures a consistent "Case Study" experience
-                  router.push(`/lab/${project.id}`);
-                }}
-              />
-            </motion.div>
-          ))}
-        </AnimatePresence>
+      <motion.div layout className={styles.grid}>
+        {filteredProjects.map((project) => (
+          <motion.div
+            key={project.id}
+            layout
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.25 }}
+            className={`
+              ${styles.gridItem}
+              ${project.layout === "featured" ? styles.featured : ""}
+              ${project.layout === "tall" ? styles.tall : ""}
+              ${project.layout === "wide" ? styles.wide : ""}
+            `}
+          >
+            <ProjectCard
+              project={project}
+              onClick={() => {
+                router.push(`/lab/${project.id}`);
+              }}
+            />
+          </motion.div>
+        ))}
       </motion.div>
     </main>
   );

@@ -9,6 +9,7 @@ import {
 } from "@/components/terminal";
 import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
+import { PROJECTS } from "@/data/projects";
 import {
   ASCII_BARNEY,
   ASCII_PLAYBOOK,
@@ -293,8 +294,11 @@ export default function Terminal() {
 
   const executeCommand = useCallback(
     (cmdRaw: string) => {
-      const cmd = cmdRaw.trim().toLowerCase();
-      const args = cmdRaw.trim().split(" ").slice(1);
+      const normalizedInput = cmdRaw.trim().toLowerCase();
+      const [rawCommand = "", ...args] = normalizedInput
+        .split(/\s+/)
+        .filter(Boolean);
+      const cmd = rawCommand.replace(/[!?.,;:]+$/g, "");
 
       let outputs: CommandOutput[] = [];
 
@@ -405,6 +409,14 @@ export default function Terminal() {
               },
               {
                 type: "text",
+                content: "  search [keyword]       - Search projects in lab",
+              },
+              {
+                type: "text",
+                content: "  open [project-id]      - Open project detail",
+              },
+              {
+                type: "text",
                 content: "  exit / close           - Close terminal",
               },
             ];
@@ -482,6 +494,7 @@ export default function Terminal() {
           case "portfolio":
           case "work":
           case "projects":
+          case "progetti":
           case "lab":
           case "experiments":
             outputs = [{ type: "success", content: "Accessing The Lab..." }];
@@ -550,6 +563,95 @@ export default function Terminal() {
           case "echo":
             outputs = [{ type: "text", content: args.join(" ") }];
             break;
+
+          case "search":
+          case "find":
+          case "cerca":
+          case "ricerca": {
+            const query = args.join(" ").trim().toLowerCase();
+
+            if (!query) {
+              outputs = [
+                { type: "system", content: "SEARCH USAGE" },
+                { type: "text", content: "search [keyword]" },
+                {
+                  type: "text",
+                  content: "Try: search shader, search vscode, search design",
+                },
+                {
+                  type: "text",
+                  content: "Oppure: cerca shader",
+                },
+              ];
+              break;
+            }
+
+            const matches = PROJECTS.filter((project) => {
+              const tags = project.tags.join(" ").toLowerCase();
+              return (
+                project.id.toLowerCase().includes(query) ||
+                project.title.toLowerCase().includes(query) ||
+                project.description.toLowerCase().includes(query) ||
+                project.category.toLowerCase().includes(query) ||
+                tags.includes(query)
+              );
+            });
+
+            if (matches.length === 0) {
+              outputs = [
+                { type: "error", content: `No matches for '${query}'` },
+                { type: "text", content: "Tip: use broader keywords." },
+              ];
+              break;
+            }
+
+            outputs = [
+              { type: "success", content: `${matches.length} match(es) found` },
+              ...matches.slice(0, 6).map((project) => ({
+                type: "text" as const,
+                content: `- ${project.id} | ${project.title}`,
+              })),
+              {
+                type: "text",
+                content: "Use: open [project-id] to jump directly.",
+              },
+            ];
+            break;
+          }
+
+          case "open":
+          case "apri": {
+            const targetId = args.join(" ").trim().toLowerCase();
+            if (!targetId) {
+              outputs = [
+                { type: "system", content: "OPEN USAGE" },
+                { type: "text", content: "open [project-id]" },
+                { type: "text", content: "apri [project-id]" },
+              ];
+              break;
+            }
+
+            const target = PROJECTS.find(
+              (project) => project.id.toLowerCase() === targetId,
+            );
+
+            if (!target) {
+              outputs = [
+                { type: "error", content: `Project not found: ${targetId}` },
+                { type: "text", content: "Tip: run search first." },
+              ];
+              break;
+            }
+
+            outputs = [
+              { type: "success", content: `Opening ${target.title}...` },
+            ];
+            setTimeout(() => {
+              router.push(`/lab/${target.id}`);
+              setIsOpen(false);
+            }, 450);
+            break;
+          }
 
           case "exit":
           case "close":
@@ -620,7 +722,14 @@ export default function Terminal() {
   if (!isOpen) return null;
 
   const executeQuickCommand = (cmd: string) => {
+    const isDraftCommand = cmd.endsWith(" ");
     setInput(cmd);
+
+    if (isDraftCommand) {
+      requestAnimationFrame(() => inputRef.current?.focus());
+      return;
+    }
+
     setTimeout(() => executeCommand(cmd), 0);
   };
 
