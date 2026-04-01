@@ -8,6 +8,7 @@ export type QuickCommand = {
 };
 
 const DEFAULT_COMMANDS: QuickCommand[] = [
+  { label: "guide", command: "guide" },
   { label: "help", command: "help" },
   { label: "search", command: "search " },
   { label: "lab", command: "lab" },

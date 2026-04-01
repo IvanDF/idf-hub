@@ -218,7 +218,9 @@ export default function Terminal() {
     output: [
       { type: "system", content: "IDF OS v3.0" },
       { type: "text", content: "Welcome." },
-      { type: "text", content: "Type 'help' for commands." },
+      { type: "text", content: "Type 'guide' for a quick tour." },
+      { type: "text", content: "Try: search shader" },
+      { type: "text", content: "Then: open gravity-well" },
     ],
   };
 
@@ -373,6 +375,11 @@ export default function Terminal() {
               { type: "system", content: "AVAILABLE COMMANDS:" },
               {
                 type: "text",
+                content:
+                  "  guide / tour            - Quick platform walkthrough",
+              },
+              {
+                type: "text",
                 content: "  lab / work / projects    - Enter The Lab",
               },
               {
@@ -418,6 +425,34 @@ export default function Terminal() {
               {
                 type: "text",
                 content: "  exit / close           - Close terminal",
+              },
+            ];
+            break;
+
+          case "guide":
+          case "tour":
+          case "start":
+            outputs = [
+              { type: "system", content: "NAVIGATION GUIDE" },
+              {
+                type: "text",
+                content: "1) Discover projects with: search [keyword]",
+              },
+              {
+                type: "text",
+                content: "2) Open details with: open [project-id]",
+              },
+              {
+                type: "text",
+                content: "3) Jump quickly: lab, home, time",
+              },
+              {
+                type: "text",
+                content: "4) Theme toggle anytime: theme",
+              },
+              {
+                type: "success",
+                content: "Example: search shader",
               },
             ];
             break;

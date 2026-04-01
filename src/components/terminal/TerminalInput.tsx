@@ -1,7 +1,7 @@
 "use client";
 
-import { forwardRef } from "react";
 import styles from "@/components/home/Terminal.module.scss";
+import { forwardRef } from "react";
 
 interface TerminalInputProps {
   value: string;
@@ -19,6 +19,7 @@ const TerminalInput = forwardRef<HTMLInputElement, TerminalInputProps>(
           type="text"
           className={styles.input}
           value={value}
+          placeholder="Type guide, help, or search..."
           onChange={(e) => onChange(e.target.value)}
           onKeyDown={onKeyDown}
           autoFocus
@@ -27,7 +28,7 @@ const TerminalInput = forwardRef<HTMLInputElement, TerminalInputProps>(
         />
       </div>
     );
-  }
+  },
 );
 
 TerminalInput.displayName = "TerminalInput";

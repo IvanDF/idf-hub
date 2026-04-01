@@ -2,7 +2,7 @@
 
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * CustomCursor Component
@@ -30,6 +30,7 @@ export default function CustomCursor() {
   const springConfig = { damping: 25, stiffness: 300 };
   const ringX = useSpring(mouseX, springConfig);
   const ringY = useSpring(mouseY, springConfig);
+  const activeMagnetElRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     // Only enable on desktop devices
@@ -46,13 +47,66 @@ export default function CustomCursor() {
       mouseY.set(e.clientY);
     };
 
+    const resetMagnetElement = (element: HTMLElement | null) => {
+      if (!element) return;
+      element.style.setProperty("translate", "0px 0px");
+      element.style.removeProperty("will-change");
+    };
+
+    const applyGlobalMagnetism = (e: MouseEvent) => {
+      const source = e.target as HTMLElement | null;
+      const candidate = source?.closest(
+        "a, button, [role='button'], [data-magnetized='true']",
+      ) as HTMLElement | null;
+
+      // Keep local Magnetic components in control.
+      if (!candidate || candidate.closest("[data-local-magnetic='true']")) {
+        if (activeMagnetElRef.current) {
+          resetMagnetElement(activeMagnetElRef.current);
+          activeMagnetElRef.current = null;
+        }
+        return;
+      }
+
+      if (
+        activeMagnetElRef.current &&
+        activeMagnetElRef.current !== candidate
+      ) {
+        resetMagnetElement(activeMagnetElRef.current);
+      }
+
+      activeMagnetElRef.current = candidate;
+
+      const rect = candidate.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const normalizedX = (e.clientX - centerX) / Math.max(rect.width, 1);
+      const normalizedY = (e.clientY - centerY) / Math.max(rect.height, 1);
+      const maxOffset = 10;
+      const offsetX = Math.max(-1, Math.min(1, normalizedX)) * maxOffset;
+      const offsetY = Math.max(-1, Math.min(1, normalizedY)) * maxOffset;
+
+      candidate.style.setProperty("will-change", "translate");
+      candidate.style.setProperty(
+        "translate",
+        `${offsetX.toFixed(2)}px ${offsetY.toFixed(2)}px`,
+      );
+    };
+
+    const clearMagnetism = () => {
+      if (activeMagnetElRef.current) {
+        resetMagnetElement(activeMagnetElRef.current);
+        activeMagnetElRef.current = null;
+      }
+    };
+
     const handleMouseDown = () => setIsClicking(true);
     const handleMouseUp = () => setIsClicking(false);
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (!target) return;
-      
+
       try {
         if (
           target.tagName === "A" ||
@@ -75,12 +129,19 @@ export default function CustomCursor() {
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
     window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("mousemove", applyGlobalMagnetism);
+    window.addEventListener("mouseleave", clearMagnetism);
+    window.addEventListener("blur", clearMagnetism);
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mousemove", applyGlobalMagnetism);
+      window.removeEventListener("mouseleave", clearMagnetism);
+      window.removeEventListener("blur", clearMagnetism);
+      clearMagnetism();
     };
   }, [mouseX, mouseY]);
 

@@ -40,6 +40,7 @@ export default function Magnetic({ children, strength = 0.5 }: MagneticProps) {
 
   return (
     <motion.div
+      data-local-magnetic="true"
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
