@@ -26,6 +26,11 @@ export default function ProjectCard({
   onClick,
   className = "",
 }: ProjectCardProps) {
+  const platform = project.platform || "web";
+  const mediaFit = project.media.fit || "contain";
+  const hasThumbnail =
+    Boolean(project.media.thumbnail) &&
+    project.media.thumbnail !== "/assets/placeholder.svg";
   const cardRef = useRef<HTMLDivElement>(null);
   const { playClick, playHover } = useAudio();
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -134,7 +139,7 @@ export default function ProjectCard({
   return (
     <motion.div
       ref={cardRef}
-      className={`${styles.card} ${styles[project.interaction || "default"]} ${styles[project.category.toLowerCase()]} ${className}`}
+      className={`${styles.card} ${styles[project.interaction || "default"]} ${styles[project.category.toLowerCase()]} ${styles[platform]} ${className}`}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       role="button"
@@ -175,23 +180,37 @@ export default function ProjectCard({
 
       {/* Content */}
       <div className={styles.imageContainer}>
-        {project.media.thumbnail ? (
+        {hasThumbnail ? (
           <Image
             src={project.media.thumbnail}
             alt={project.title}
             fill
             className={styles.image}
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: mediaFit }}
             unoptimized={project.media.thumbnail.endsWith(".svg")}
           />
         ) : (
-          <div className={styles.placeholder} />
+          <div className={`${styles.generatedCover} ${styles[platform]}`}>
+            <span className={styles.coverPlatform}>
+              {platform.replace(/-/g, " ")}
+            </span>
+            <strong>{project.title}</strong>
+            <small>{project.category}</small>
+          </div>
         )}
       </div>
 
       <div className={styles.info}>
         <div className={styles.header}>
           <span className={styles.category}>{project.category}</span>
+          <span className={styles.platform}>{platform.replace(/-/g, " ")}</span>
+          {project.status && (
+            <span
+              className={`${styles.status} ${project.status === "live" ? styles.live : ""}`}
+            >
+              {project.status}
+            </span>
+          )}
           <span className={styles.year}>{project.year}</span>
         </div>
         <h3 className={styles.title}>{project.title}</h3>

@@ -4,23 +4,40 @@ import ProjectCard from "@/components/portfolio/ProjectCard";
 import { PROJECTS } from "@/data/projects";
 import { ProjectCategory } from "@/types/project";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import styles from "./page.module.scss";
 
-// Only categories that have active projects are listed here.
-// Categories like DESIGN, FIGMA, MAKER, APPLE, CODEPEN, PRINT are
-// defined in ProjectCategory and will be added to this list as content is published.
 const FILTERS: (ProjectCategory | "ALL")[] = [
   "ALL",
-  "DEV",
-  "VSCODE",
-  "EXPERIMENT",
+  ...Array.from(new Set(PROJECTS.map((project) => project.category))),
 ];
 
 export default function Lab() {
   const router = useRouter();
-  const [filter, setFilter] = useState<ProjectCategory | "ALL">("ALL");
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const searchFilter = searchParams.get("filter");
+  const filter: ProjectCategory | "ALL" = FILTERS.includes(
+    searchFilter as ProjectCategory | "ALL",
+  )
+    ? (searchFilter as ProjectCategory | "ALL")
+    : "ALL";
+
+  const updateFilter = (nextFilter: ProjectCategory | "ALL") => {
+    const nextParams = new URLSearchParams(searchParams.toString());
+
+    if (nextFilter === "ALL") {
+      nextParams.delete("filter");
+    } else {
+      nextParams.set("filter", nextFilter);
+    }
+
+    const query = nextParams.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, {
+      scroll: false,
+    });
+  };
 
   const filteredProjects = PROJECTS.filter((project) => {
     if (filter === "ALL") return true;
@@ -65,7 +82,7 @@ export default function Lab() {
         {FILTERS.map((f) => (
           <button
             key={f}
-            onClick={() => setFilter(f)}
+            onClick={() => updateFilter(f)}
             className={`${styles.filterBtn} ${filter === f ? styles.active : ""}`}
           >
             {f}
@@ -92,7 +109,16 @@ export default function Lab() {
             <ProjectCard
               project={project}
               onClick={() => {
-                router.push(`/lab/${project.id}`);
+                const detailParams = new URLSearchParams();
+
+                if (filter !== "ALL") {
+                  detailParams.set("filter", filter);
+                }
+
+                const query = detailParams.toString();
+                router.push(
+                  query ? `/lab/${project.id}?${query}` : `/lab/${project.id}`,
+                );
               }}
             />
           </motion.div>

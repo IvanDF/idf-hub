@@ -46,15 +46,15 @@ const EASTER_EGGS: EasterEgg[] = [
   // HIMYM
   {
     id: "playbook",
-    aliases: ["playbook"],
-    hint: "Ted's legendary pickup line",
+    aliases: ["playbook", "the playbook"],
+    hint: "The book full of bad ideas... or are they?",
     category: "HIMYM",
     name: "The Playbook",
   },
   {
     id: "legendary",
-    aliases: ["legendary"],
-    hint: "The catchphrase before 'dary'",
+    aliases: ["legendary", "legen", "wait for it", "dary"],
+    hint: "The word Barney uses to describe his most outrageous plans... is gonna be...?",
     category: "HIMYM",
     name: "Legendary",
   },
@@ -62,15 +62,21 @@ const EASTER_EGGS: EasterEgg[] = [
   // Rick and Morty
   {
     id: "pickle_rick",
-    aliases: ["pickle rick"],
-    hint: "Rick's most absurd invention",
+    aliases: ["pickle rick", "picklerick", "pickle"],
+    hint: "Rick turned himself into a...?",
     category: "R&M",
     name: "Pickle Rick",
   },
   {
     id: "wubba",
-    aliases: ["wubba lubba dub dub"],
-    hint: "Rick's cry for help",
+    aliases: [
+      "wubba lubba dub dub",
+      "wubba lubba dub dub!",
+      "wubba",
+      "lubba",
+      "dub dub",
+    ],
+    hint: "Rick’s chaotic catchphrase that hides pain.",
     category: "R&M",
     name: "Wubba Lubba Dub Dub",
   },
@@ -78,15 +84,15 @@ const EASTER_EGGS: EasterEgg[] = [
   // Vikings
   {
     id: "ragnar",
-    aliases: ["ragnar"],
-    hint: "The question every king must answer",
+    aliases: ["ragnar", "ragnar lothbrok", "ragnar lodbrok"],
+    hint: "“Don’t look back...” — said by which Viking?",
     category: "Vikings",
     name: "Who Wants to be King",
   },
   {
     id: "skol",
     aliases: ["skol", "skål", "skaal", "skol!"],
-    hint: "Viking way to say cheers",
+    hint: "Viking toast for “cheers.”",
     category: "Vikings",
     name: "Skål",
   },
@@ -94,15 +100,23 @@ const EASTER_EGGS: EasterEgg[] = [
   // Secret Features
   {
     id: "theme_toggle",
-    aliases: ["yoda"],
-    hint: "The force has two of these",
+    aliases: ["yoda", "dark side", "light side", "theme", "toggle theme"],
+    hint: "Two sides of the Force: light and dark.",
     category: "Secret",
     name: "Theme Master",
   },
   {
     id: "konami",
-    aliases: ["konami"],
-    hint: "The cheat code to end all cheat codes",
+    aliases: [
+      "konami",
+      "up up down down left right left right b a",
+      "↑ ↑ ↓ ↓ ← → ← → b a",
+      "↑↑↓↓←→←→ba",
+      "↑↑↓↓←→←→b a",
+      "konami code",
+      "konami cheat code",
+    ],
+    hint: "Classic cheat sequence: directions + B A.",
     category: "Secret",
     name: "Konami Code",
   },

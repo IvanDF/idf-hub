@@ -11,10 +11,133 @@
   color: var(--color-text);
   display: flex;
   flex-direction: column;
+  --project-accent: var(--color-secondary);
 
   @media (max-width: 768px) {
     padding: 5.5rem 1rem 2rem;
   }
+}
+
+.github {
+  --project-accent: var(--color-platform-github);
+  --platform-enter: githubIn;
+
+  .header h1 {
+    text-shadow: 0 0 0 transparent;
+    letter-spacing: -0.03em;
+  }
+
+  .sidebar {
+    border-style: dashed;
+  }
+}
+
+.figma {
+  --project-accent: var(--color-platform-figma);
+  --platform-enter: figmaIn;
+
+  .header {
+    border-bottom: 1px solid
+      color-mix(in srgb, var(--project-accent) 40%, transparent);
+    padding-bottom: 1.4rem;
+  }
+}
+
+.notion {
+  --project-accent: var(--color-platform-notion);
+  --platform-enter: notionIn;
+
+  .leftColumn {
+    position: relative;
+  }
+
+  .mainContent {
+    grid-template-columns: 2.2fr 1fr;
+  }
+
+  .leftColumn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 10px;
+    background: linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 34px,
+        color-mix(in srgb, var(--project-accent) 7%, transparent) 35px,
+        transparent 36px
+      )
+      repeat-y;
+    background-size: 100% 36px;
+    opacity: 0.35;
+  }
+}
+
+.codepen {
+  --project-accent: var(--color-platform-codepen);
+  --platform-enter: codepenIn;
+
+  .mediaContainer,
+  .galleryItem {
+    border-color: color-mix(
+      in srgb,
+      var(--project-accent) 55%,
+      var(--color-divider)
+    );
+  }
+
+  .mediaSection {
+    position: relative;
+  }
+
+  .mediaSection::before {
+    content: "";
+    position: absolute;
+    inset: -0.4rem;
+    border-radius: 12px;
+    z-index: -1;
+    background: radial-gradient(
+        circle at 1px 1px,
+        color-mix(in srgb, var(--project-accent) 45%, transparent) 1px,
+        transparent 0
+      )
+      0 0 / 14px 14px;
+    opacity: 0.25;
+  }
+}
+
+.apple-shortcuts {
+  --project-accent: var(--color-platform-apple-shortcuts);
+  --platform-enter: appleIn;
+
+  .sidebar {
+    background:
+      radial-gradient(
+        circle at top right,
+        color-mix(in srgb, var(--project-accent) 25%, transparent),
+        transparent 55%
+      ),
+      var(--color-surface-card-strong);
+  }
+
+  .actionButton.primary {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--project-accent) 65%, transparent),
+      color-mix(in srgb, var(--project-accent) 30%, var(--color-primary-cta))
+    );
+  }
+}
+
+.vscode-marketplace {
+  --project-accent: var(--color-platform-vscode);
+  --platform-enter: vscodeIn;
+}
+
+.web {
+  --project-accent: var(--color-platform-web);
+  --platform-enter: githubIn;
 }
 
 .backLink {
@@ -30,11 +153,10 @@
   display: flex;
   align-items: center;
   gap: 8px;
-
   z-index: 2;
 
   &:hover {
-    color: var(--color-text);
+    color: var(--project-accent);
   }
 
   @media (max-width: 768px) {
@@ -53,10 +175,10 @@
     font-weight: 800;
     line-height: 0.9;
     letter-spacing: -0.05em;
-    margin: 0 0 1rem;
+    margin: 1rem 0 1rem;
     color: var(--color-text);
-    // Glitchy shadow effect?
-    text-shadow: 2px 2px 0px rgba(var(--color-secondary-rgb), 0.3);
+    text-shadow: 2px 2px 0px
+      color-mix(in srgb, var(--project-accent) 35%, transparent);
   }
 }
 
@@ -70,32 +192,63 @@
 
 .meta {
   display: flex;
-  gap: 2rem;
+  gap: 0.6rem;
   margin-top: 2rem;
   flex-wrap: wrap;
   align-items: center;
   font-family: $font-family-mono;
   font-size: 0.875rem;
   color: var(--color-text-soft);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--color-divider);
   padding-top: 1.5rem;
 }
 
 .category {
-  color: var(--color-secondary);
+  color: var(--project-accent);
   font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.platform {
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--project-accent) 55%, transparent);
+  color: var(--project-accent);
+  font-size: 0.64rem;
+  text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
 .status {
   margin-left: auto;
   padding: 0.25rem 0.5rem;
-  border: 1px solid rgba(var(--color-secondary-rgb), 0.45);
+  border: 1px solid color-mix(in srgb, var(--project-accent) 40%, transparent);
   border-radius: 999px;
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-secondary);
+  color: var(--project-accent);
+}
+
+.statusLive {
+  position: relative;
+  padding-left: 1rem;
+  color: #ff5f57;
+  border-color: color-mix(in srgb, #ff5f57 55%, transparent);
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0.45rem;
+    top: 50%;
+    width: 0.36rem;
+    height: 0.36rem;
+    border-radius: 999px;
+    background: currentColor;
+    transform: translateY(-50%);
+    box-shadow: 0 0 0 rgba(255, 95, 87, 0.5);
+    animation: livePulse 1.5s infinite;
+  }
 }
 
 .tags {
@@ -149,7 +302,7 @@
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--color-secondary);
+    color: var(--project-accent);
     font-family: $font-family-mono;
   }
 
@@ -167,7 +320,7 @@
     font-size: 0.82rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-secondary);
+    color: var(--project-accent);
     margin-bottom: 0.75rem;
   }
 
@@ -190,9 +343,124 @@
     font-size: 0.82rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-secondary);
+    color: var(--project-accent);
     margin-bottom: 0.75rem;
   }
+}
+
+.platformPanel {
+  border: 1px solid var(--color-divider);
+  border-radius: 10px;
+  padding: 1rem;
+  background: var(--color-surface-glass);
+  display: grid;
+  gap: 0.8rem;
+  animation: var(--platform-enter, slideUp) 0.55s ease-out;
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: $font-family-mono;
+    color: var(--project-accent);
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  li {
+    color: var(--color-text-soft);
+    line-height: 1.45;
+  }
+}
+
+.panelBadge {
+  font-family: $font-family-mono;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--project-accent) 55%, transparent);
+  color: var(--project-accent);
+}
+
+.panelIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--project-accent) 45%, transparent);
+  color: var(--project-accent);
+  background: color-mix(in srgb, var(--project-accent) 10%, transparent);
+}
+
+.githubPanel {
+  background: #0d1117;
+  border-color: #30363d;
+
+  li {
+    color: #c9d1d9;
+  }
+}
+
+.notionPanel {
+  background:
+    linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 30px,
+        color-mix(in srgb, var(--project-accent) 8%, transparent) 31px,
+        transparent 32px
+      )
+      repeat-y,
+    var(--color-surface-glass);
+  background-size: 100% 32px;
+}
+
+.codepenPanel {
+  background:
+    radial-gradient(
+        circle at 1px 1px,
+        color-mix(in srgb, var(--project-accent) 30%, transparent) 1px,
+        transparent 0
+      )
+      0 0 / 12px 12px,
+    var(--color-surface-glass);
+}
+
+.applePanel {
+  background:
+    radial-gradient(
+      circle at top right,
+      color-mix(in srgb, var(--project-accent) 22%, transparent),
+      transparent 58%
+    ),
+    var(--color-surface-glass);
+}
+
+.figmaPanel {
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--project-accent) 15%, transparent),
+      transparent
+    ),
+    var(--color-surface-glass);
 }
 
 .metricGrid {
@@ -250,7 +518,7 @@
   padding: 2rem;
   background: var(--color-surface-card-strong);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-divider);
   border-radius: 8px;
   height: fit-content;
 
@@ -313,11 +581,12 @@
   &.primary {
     background: var(--color-primary-cta);
     color: var(--color-text);
-    border: 1px solid var(--color-secondary);
+    border: 1px solid var(--project-accent);
 
     &:hover {
       background: var(--color-primary-cta-hover);
-      box-shadow: 0 0 20px rgba(var(--color-secondary-rgb), 0.3);
+      box-shadow: 0 0 20px
+        color-mix(in srgb, var(--project-accent) 45%, transparent);
     }
   }
 
@@ -328,7 +597,7 @@
 
     &:hover {
       background: color-mix(in srgb, var(--color-bg) 60%, transparent);
-      border-color: var(--color-secondary);
+      border-color: var(--project-accent);
     }
   }
 }
@@ -345,7 +614,7 @@
   background: color-mix(in srgb, var(--color-bg) 80%, black);
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-divider);
 
   @media (max-width: 768px) {
     aspect-ratio: 4/3;
@@ -359,8 +628,75 @@
   }
 }
 
+.galleryGrid {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.galleryItem {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid var(--color-divider);
+}
+
+.generatedCover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  padding: 1.4rem;
+  background:
+    radial-gradient(
+      circle at top right,
+      color-mix(in srgb, var(--project-accent) 22%, transparent),
+      transparent 40%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-bg) 15%, transparent),
+      color-mix(in srgb, var(--color-bg) 82%, black)
+    );
+
+  strong {
+    font-size: clamp(1.3rem, 2vw, 2rem);
+    line-height: 1;
+    color: var(--color-text);
+    max-width: 14ch;
+  }
+
+  p {
+    margin: 0;
+    max-width: 56ch;
+    color: var(--color-text-soft);
+    line-height: 1.5;
+    font-size: 0.92rem;
+  }
+}
+
+.coverPlatform {
+  align-self: flex-start;
+  font-family: $font-family-mono;
+  font-size: 0.68rem;
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--project-accent) 55%, transparent);
+  color: var(--project-accent);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
 .image {
-  // Use image styles if needed specifically
   width: 100%;
   height: auto;
 }
@@ -388,8 +724,96 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes githubIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes notionIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes codepenIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) rotate(-0.5deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes appleIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes figmaIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    clip-path: inset(0 0 30% 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes vscodeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes livePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 95, 87, 0.55);
+    opacity: 1;
+  }
+
+  70% {
+    box-shadow: 0 0 0 0.5rem rgba(255, 95, 87, 0);
+    opacity: 0.9;
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 95, 87, 0);
+    opacity: 1;
   }
 }

@@ -9,12 +9,22 @@ export type ProjectCategory =
   | "PRINT"
   | "EXPERIMENT";
 
+export type ProjectPlatform =
+  | "github"
+  | "figma"
+  | "notion"
+  | "codepen"
+  | "apple-shortcuts"
+  | "vscode-marketplace"
+  | "web";
+
 export interface Project {
   id: string;
   title: string;
   description: string;
   longDescription?: string;
   category: ProjectCategory;
+  platform?: ProjectPlatform;
   tags: string[];
   year: string;
   duration?: string;
@@ -34,10 +44,12 @@ export interface Project {
     repo?: string;
     marketplace?: string;
     caseStudy?: string;
+    figma?: string;
   };
   media: {
     thumbnail: string; // Path relative to public (e.g., "/projects/my-project/thumb.jpg")
     gallery?: string[];
+    fit?: "cover" | "contain";
   };
   interaction?: "glitch" | "tilt" | "spotlight";
   layout?: "tall" | "wide" | "featured";

@@ -8,13 +8,13 @@ export type QuickCommand = {
 };
 
 const DEFAULT_COMMANDS: QuickCommand[] = [
+  { label: "home", command: "home" },
+  { label: "lab", command: "lab" },
   { label: "guide", command: "guide" },
   { label: "help", command: "help" },
   { label: "search", command: "search " },
-  { label: "lab", command: "lab" },
   { label: "theme", command: "theme" },
   { label: "whoami", command: "whoami" },
-  { label: "home", command: "home" },
 ];
 
 interface TerminalQuickCommandsProps {
