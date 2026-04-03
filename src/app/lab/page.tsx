@@ -11,8 +11,7 @@ import styles from "./page.module.scss";
 const FILTERS: (ProjectCategory | "ALL")[] = [
   "ALL",
   "DEV",
-  "MAKER",
-  "DESIGN",
+  "VSCODE",
   "EXPERIMENT",
 ];
 

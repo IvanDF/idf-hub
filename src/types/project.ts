@@ -1,4 +1,13 @@
-export type ProjectCategory = "DEV" | "DESIGN" | "MAKER" | "EXPERIMENT";
+export type ProjectCategory =
+  | "DEV"
+  | "VSCODE"
+  | "DESIGN"
+  | "FIGMA"
+  | "MAKER"
+  | "APPLE"
+  | "CODEPEN"
+  | "PRINT"
+  | "EXPERIMENT";
 
 export interface Project {
   id: string;

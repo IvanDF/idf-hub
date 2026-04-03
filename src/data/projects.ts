@@ -42,7 +42,128 @@ export const PROJECTS: Project[] = [
       thumbnail: "/assets/placeholder.svg",
     },
     interaction: "tilt",
+    layout: "featured",
   },
+  {
+    id: "filteroo",
+    title: "Filteroo",
+    description:
+      "Web app to apply real-time filters to images directly in the browser, inspired by Instagram-style effects.",
+    longDescription:
+      "A React application that applies CSS and canvas-based filters to images in real time, built with a strong focus on component reusability and instant visual feedback. Figma was used for UI design.",
+    category: "DEV",
+    tags: ["React", "Hooks", "Image Processing", "SCSS"],
+    year: "2022",
+    duration: "2 weeks",
+    role: "Design, Frontend Development",
+    status: "archived",
+    stack: ["React", "Hooks", "SCSS", "Styled Components", "Figma"],
+    highlights: [
+      "Real-time filter preview with no external libraries",
+      "Figma-designed UI translated to React components",
+      "Modular hooks architecture for filter logic",
+    ],
+    problem:
+      "Applying and previewing image filters typically requires desktop software.",
+    solution:
+      "A lightweight browser-based tool using CSS filters and React state to deliver instant feedback.",
+    links: {
+      repo: "https://github.com/IvanDF/filteroo",
+    },
+    media: {
+      thumbnail: "/assets/placeholder.svg",
+    },
+    interaction: "spotlight",
+    layout: "wide",
+  },
+  {
+    id: "zelda-cookbook",
+    title: "Zelda Cookbook",
+    description:
+      "Full-stack recipe app themed around Breath of the Wild, with a Laravel REST API and a React TypeScript frontend.",
+    longDescription:
+      "A full-stack project featuring a Lumen/Laravel REST API backend and a TypeScript React frontend. Users can explore Zelda-inspired recipes with data fetched via REST.",
+    category: "DEV",
+    tags: ["React", "TypeScript", "Laravel", "REST API"],
+    year: "2022",
+    duration: "3 weeks",
+    role: "Full-Stack Developer",
+    status: "archived",
+    stack: ["React", "TypeScript", "SCSS", "PHP", "Lumen", "REST API"],
+    highlights: [
+      "Decoupled frontend/backend architecture",
+      "TypeScript React with custom fetch hooks",
+      "Lumen REST API with CRUD endpoints",
+    ],
+    problem: "Classic full-stack exercise elevated by a themed concept.",
+    solution:
+      "Separate repos for frontend and backend communicating through a clean REST API.",
+    links: {
+      repo: "https://github.com/IvanDF/zelda-cookbook-fe",
+    },
+    media: {
+      thumbnail: "/assets/placeholder.svg",
+    },
+    interaction: "tilt",
+  },
+  {
+    id: "vue-boolflix",
+    title: "Boolflix",
+    description:
+      "Netflix-inspired movie and TV search app powered by the TMDB API, built with Vue.js.",
+    longDescription:
+      "A responsive Vue.js application that queries the TMDB API to search for movies and TV series, displaying results in a card grid with dynamic info and poster images.",
+    category: "DEV",
+    tags: ["Vue.js", "AJAX", "API", "TMDB"],
+    year: "2021",
+    duration: "2 weeks",
+    role: "Frontend Developer",
+    status: "archived",
+    stack: ["Vue.js", "AJAX", "TMDB API", "CSS"],
+    highlights: [
+      "Live search with TMDB API integration",
+      "Responsive card grid with movie posters",
+      "Vue component architecture for dynamic data",
+    ],
+    links: {
+      repo: "https://github.com/IvanDF/vue-boolflix",
+    },
+    media: {
+      thumbnail: "/assets/placeholder.svg",
+    },
+    interaction: "tilt",
+  },
+  {
+    id: "html-css-spotifyweb",
+    title: "Spotify Web Clone",
+    description:
+      "Pixel-faithful responsive clone of the Spotify Web Player UI built with pure HTML and CSS.",
+    longDescription:
+      "A pure HTML/CSS reproduction of the Spotify Web Player interface with a focus on responsive layout precision and visual accuracy.",
+    category: "DEV",
+    tags: ["HTML", "CSS", "Responsive"],
+    year: "2021",
+    duration: "1 week",
+    role: "Frontend Developer",
+    status: "archived",
+    stack: ["HTML", "CSS"],
+    highlights: [
+      "Pixel-accurate Spotify layout reproduction",
+      "Fully responsive with flexbox and grid",
+      "No JavaScript — pure CSS layout challenge",
+    ],
+    links: {
+      repo: "https://github.com/IvanDF/html-css-spotifyweb",
+    },
+    media: {
+      thumbnail: "/assets/placeholder.svg",
+    },
+    interaction: "spotlight",
+  },
+
+  // ----------------------------------------------------------------------
+  // VSCODE PROJECTS
+  // ----------------------------------------------------------------------
   {
     id: "rick-and-morty-theme",
     title: "Rick and Morty Theme",
@@ -50,7 +171,7 @@ export const PROJECTS: Project[] = [
       "VS Code theme extension with dual variants, semantic token mapping, and contrast-aware palettes for long coding sessions.",
     longDescription:
       'A complete editor theme pack featuring "Portal Gun Dark" and "Citadel Light", with semantic token mapping, readability-first color decisions, and marketplace-ready packaging.',
-    category: "DEV",
+    category: "VSCODE",
     tags: ["VS Code", "Theme", "Design System"],
     year: "2023",
     duration: "3 weeks",
@@ -72,7 +193,7 @@ export const PROJECTS: Project[] = [
       { label: "Core Value", value: "Readable semantic tokens" },
     ],
     links: {
-      repo: "https://github.com/ivandf/rick-and-morty-theme",
+      repo: "https://github.com/IvanDF/rick-and-morty-theme",
       marketplace:
         "https://marketplace.visualstudio.com/items?itemName=idf-studio.rick-and-morty-theme",
     },
@@ -93,7 +214,7 @@ export const PROJECTS: Project[] = [
       "VS Code extension that surfaces Azure DevOps pipeline status in a terminal-style panel to reduce context switching.",
     longDescription:
       "A focused TypeScript extension built on the VS Code API and Azure DevOps REST APIs to keep build visibility inside the editor with a low-noise command-first UX.",
-    category: "DEV",
+    category: "VSCODE",
     tags: ["VS Code Extension", "TypeScript", "Azure DevOps"],
     year: "2023",
     duration: "5 weeks",
@@ -120,221 +241,61 @@ export const PROJECTS: Project[] = [
   },
 
   // ----------------------------------------------------------------------
-  // MAKER / DESIGN
-  // ----------------------------------------------------------------------
-  {
-    id: "gwent-cards",
-    title: "Real Life Gwent",
-    description:
-      "Physical recreation of The Witcher 3 Gwent decks. High-res asset extraction & print design.",
-    longDescription:
-      "A physical production project combining digital asset extraction, print preflight, and material testing to recreate a playable premium card set.",
-    category: "MAKER",
-    tags: ["Print Design", "Prop Making", "The Witcher"],
-    year: "2022",
-    duration: "6 weeks",
-    role: "Research, Print Pipeline, Crafting",
-    status: "live",
-    highlights: [
-      "Playable physical decks with game-accurate visuals",
-      "High resolution print calibration",
-      "Material and finish experimentation",
-    ],
-    media: {
-      thumbnail: "/projects/gwent/thumb.jpg",
-    },
-    interaction: "tilt",
-    layout: "tall",
-  },
-  {
-    id: "cosplay-business-cards",
-    title: "Cosplay Branding",
-    description:
-      "Custom character-specific business cards (Pokémon, Yu-Gi-Oh!) for cosplayers.",
-    longDescription:
-      "A branding system for cosplayers where each card variant reflects character lore while preserving consistent personal identity cues.",
-    category: "DESIGN",
-    tags: ["Graphic Design", "Branding", "Print"],
-    year: "2022",
-    duration: "2 weeks",
-    role: "Art Direction, Print Design",
-    status: "live",
-    highlights: [
-      "Character-specific card variants",
-      "Consistent identity framework across themes",
-      "Print-ready layouts and color profiles",
-    ],
-    media: {
-      thumbnail: "/projects/business-cards/thumb.jpg",
-    },
-    interaction: "tilt",
-  },
-
-  // ----------------------------------------------------------------------
   // EXPERIMENTS
   // ----------------------------------------------------------------------
   {
-    id: "genji-ai",
-    title: "Genji.ai",
-    description: "Experimental generative interface concept.",
+    id: "3d-blender-animation",
+    title: "3D Blender Animation",
+    description:
+      "3D model animation brought to life on the web with GSAP and CSS, exported from Blender.",
     longDescription:
-      "A speculative interface exploration for conversational and generative workflows with strong emphasis on atmosphere and discoverability.",
+      "A creative experiment combining a Blender 3D model with GSAP-driven animations on the web. The static model is exported and animated entirely with CSS and JavaScript for a smooth cinematic experience in the browser.",
     category: "EXPERIMENT",
-    tags: ["AI", "Generative", "Concept"],
-    year: "2023",
-    duration: "Concept sprint",
-    role: "Concept Design, UX Prototyping",
-    status: "concept",
+    tags: ["Blender", "GSAP", "3D", "CSS Animation"],
+    year: "2022",
+    duration: "1 week",
+    role: "3D Modeling, Web Animation",
+    status: "archived",
+    stack: ["Blender", "GSAP", "HTML", "CSS", "JavaScript"],
     highlights: [
-      "Narrative-first interface language",
-      "Exploration of command and prompt blending",
-      "Rapid concept validation",
+      "Blender model exported for web use",
+      "Smooth animation sequences driven by GSAP",
+      "No WebGL — pure CSS 3D transforms and GSAP",
     ],
+    links: {
+      repo: "https://github.com/IvanDF/3d-blender-animation",
+    },
     media: {
-      thumbnail: "/projects/genji/thumb.svg",
+      thumbnail: "/assets/placeholder.svg",
     },
     interaction: "glitch",
     layout: "wide",
   },
   {
-    id: "gravity-well",
-    title: "Gravity Well",
+    id: "snake-3d",
+    title: "Snake 3D",
     description:
-      "Particle simulation where cursor creates a black hole, distorting nearby elements and light.",
+      "Classic Snake game reimagined in a 3D JavaScript environment.",
     longDescription:
-      "An interactive physics-inspired visual where pointer movement modifies a gravity field in real time, affecting particles and ambient distortions.",
+      "A 3D take on the timeless Snake game, built with vanilla JavaScript. The project explores game loop logic, collision detection, and 3D rendering without a dedicated game engine.",
     category: "EXPERIMENT",
-    tags: ["Physics", "Three.js", "Shader"],
-    year: "2024",
-    duration: "R&D ongoing",
-    role: "Creative Coding, Shader Prototyping",
-    status: "in-progress",
-    stack: ["React", "Three.js", "WebGL Shader"],
+    tags: ["JavaScript", "3D", "Game", "Canvas"],
+    year: "2022",
+    duration: "1 week",
+    role: "Game Development, Creative Coding",
+    status: "archived",
+    stack: ["JavaScript", "HTML Canvas", "CSS"],
     highlights: [
-      "Cursor-driven gravity simulation",
-      "Realtime distortion and particle reactions",
-      "Optimized for experiential storytelling",
+      "Classic Snake mechanics in a 3D perspective",
+      "Vanilla JavaScript with no game engine",
+      "Game loop, collision detection, and score system",
     ],
-    problem:
-      "Typical portfolio interactions feel static and quickly become forgettable.",
-    solution:
-      "Use physically reactive visuals to build immersion and direct attention.",
+    links: {
+      repo: "https://github.com/IvanDF/snake-3d",
+    },
     media: {
       thumbnail: "/assets/placeholder.svg",
     },
     interaction: "glitch",
-    layout: "featured",
-    links: {
-      caseStudy: "/lab/gravity-well",
-      demo: "/lab/demo/gravity-well",
-    },
-  },
-  {
-    id: "data-stream",
-    title: "Data Stream",
-    description:
-      "Infinite tunnel navigation visualizing data flow in a cyberpunk aesthetic.",
-    longDescription:
-      "A directional tunnel interface that communicates navigation and momentum through motion, depth, and reactive UI accents.",
-    category: "EXPERIMENT",
-    tags: ["WebGL", "Audio-Reactive", "Glitch"],
-    year: "2024",
-    duration: "Prototype",
-    role: "Visual R&D",
-    status: "concept",
-    highlights: [
-      "Depth-driven navigation metaphor",
-      "Audio-reactive visual accents",
-      "Cyberpunk visual language tests",
-    ],
-    media: {
-      thumbnail: "/assets/placeholder.svg",
-    },
-    interaction: "glitch",
-  },
-  {
-    id: "neural-map",
-    title: "Neural Map",
-    description:
-      "Explore the connection between skills and concepts in a 3D graph.",
-    longDescription:
-      "A graph exploration experiment to navigate technical skills as connected nodes, exposing relationships and learning paths.",
-    category: "EXPERIMENT",
-    tags: ["Data Viz", "R3F", "Graph"],
-    year: "2024",
-    duration: "Prototype",
-    role: "Interaction Design, Data Visualization",
-    status: "in-progress",
-    highlights: [
-      "Interactive graph navigation",
-      "Cluster-based skill storytelling",
-      "Exploratory learning UX",
-    ],
-    media: {
-      thumbnail: "/assets/placeholder.svg",
-    },
-    interaction: "tilt",
-    links: {
-      repo: "",
-      demo: "/lab",
-    },
-  },
-  {
-    id: "liquid-surface",
-    title: "Liquid Surface",
-    description:
-      "Interactive fluid simulation responding to mouse movement and scroll velocity.",
-    longDescription:
-      "A fluid-based interaction layer where movement and velocity shape surface ripples, used as a cinematic transition and focus tool.",
-    category: "EXPERIMENT",
-    tags: ["Fluid Sim", "Shader", "Interaction"],
-    year: "2024",
-    duration: "R&D ongoing",
-    role: "Shader Design, Experience Engineering",
-    status: "in-progress",
-    stack: ["React", "WebGL", "Custom Shader"],
-    highlights: [
-      "Velocity-based wave behavior",
-      "Expressive interaction feedback",
-      "Reusable visual effect component",
-    ],
-    problem:
-      "Standard hover/click animations can feel repetitive and low impact.",
-    solution:
-      "Introduce physically-inspired fluid reactions that feel tactile and alive.",
-    media: {
-      thumbnail: "/assets/placeholder.svg",
-    },
-    interaction: "spotlight",
-    links: {
-      caseStudy: "/lab/liquid-surface",
-      demo: "/lab/demo/liquid-surface",
-    },
-  },
-  {
-    id: "terminal-os",
-    title: "Terminal OS",
-    description:
-      'The command line interface powering this portfolio. Type "help" to explore.',
-    longDescription:
-      "A command-driven interaction layer that transforms portfolio browsing into an exploratory terminal experience with discoverable shortcuts.",
-    category: "EXPERIMENT",
-    tags: ["CLI", "React", "System"],
-    year: "2024",
-    duration: "Ongoing",
-    role: "System UX, Frontend Architecture",
-    status: "live",
-    highlights: [
-      "Command palette and quick navigation",
-      "Playful but functional terminal metaphor",
-      "Integrated with page-level navigation",
-    ],
-    media: {
-      thumbnail: "/assets/placeholder.svg",
-    },
-    interaction: "glitch",
-    links: {
-      demo: "/",
-    },
   },
 ];
