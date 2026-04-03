@@ -114,7 +114,7 @@ export const PROJECTS: Project[] = [
       repo: "https://github.com/IvanDF/check-your-pipes",
     },
     media: {
-      thumbnail: "/projects/check-your-pipes/thumb.jpg",
+      thumbnail: "/projects/check-your-pipes/thumb.svg",
     },
     interaction: "spotlight",
   },
@@ -191,7 +191,7 @@ export const PROJECTS: Project[] = [
       "Rapid concept validation",
     ],
     media: {
-      thumbnail: "/projects/genji/thumb.jpg",
+      thumbnail: "/projects/genji/thumb.svg",
     },
     interaction: "glitch",
     layout: "wide",

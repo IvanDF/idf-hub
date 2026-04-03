@@ -121,6 +121,11 @@ export default function Terminal() {
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalBodyRef = useRef<HTMLDivElement>(null);
 
+  const shouldAutoFocusInput = () => {
+    if (typeof window === "undefined") return false;
+    return !window.matchMedia("(max-width: 768px)").matches;
+  };
+
   const router = useRouter();
   const { toggleTheme, theme, superDarkMode } = useTheme();
   const { playType, playCommand, playError, playEasterEgg, playLightOn } =
@@ -228,7 +233,10 @@ export default function Terminal() {
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
-        inputRef.current?.focus();
+        // On mobile we avoid forcing keyboard open immediately.
+        if (shouldAutoFocusInput()) {
+          inputRef.current?.focus();
+        }
         if (isFirstOpen) {
           setHistory([WELCOME_MESSAGE]);
           setIsFirstOpen(false);
@@ -724,11 +732,18 @@ export default function Terminal() {
     ],
   );
 
+  const submitCurrentInput = useCallback(() => {
+    const value = input.trim();
+    if (!value) return;
+
+    playCommand();
+    executeCommand(value);
+    setInput("");
+  }, [input, playCommand, executeCommand]);
+
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      playCommand();
-      executeCommand(input);
-      setInput("");
+      submitCurrentInput();
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       if (commandHistory.length > 0) {
@@ -812,6 +827,7 @@ export default function Terminal() {
             if (v.length > 0) playType();
           }}
           onKeyDown={handleInputKeyDown}
+          onSubmit={submitCurrentInput}
         />
       </div>
     </TerminalOverlay>

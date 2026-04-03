@@ -182,6 +182,7 @@ export default function ProjectCard({
             fill
             className={styles.image}
             style={{ objectFit: "cover" }}
+            unoptimized={project.media.thumbnail.endsWith(".svg")}
           />
         ) : (
           <div className={styles.placeholder} />

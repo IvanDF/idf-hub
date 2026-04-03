@@ -1,150 +1,218 @@
 // src/components/layout/MobileNav.tsx
 "use client";
 
-import { useTheme } from "@/context/ThemeContext";
+import AudioToggle from "@/components/ui/AudioToggle";
+import GlitchText from "@/components/ui/GlitchText";
+import RotatingTitle from "@/components/ui/RotatingTitle";
 import { useAudio } from "@/context/AudioContext";
-import { AnimatePresence, motion } from "framer-motion";
+import { useTheme } from "@/context/ThemeContext";
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import styles from "./layout.module.scss";
 
-export default function MobileNav() {
-  const [isOpen, setIsOpen] = useState(false);
+interface MobileNavProps {
+  isOpen: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+}
+
+const socials = [
+  {
+    href: "https://www.instagram.com/idf.me/",
+    src: "/assets/instagram.svg",
+    alt: "Instagram",
+  },
+  {
+    href: "https://www.linkedin.com/in/ivandf/",
+    src: "/assets/linkedin.svg",
+    alt: "LinkedIn",
+  },
+  {
+    href: "https://github.com/IvanDF",
+    src: "/assets/github.svg",
+    alt: "GitHub",
+  },
+  {
+    href: "https://www.figma.com/@ivandf",
+    src: "/assets/figma.svg",
+    alt: "Figma",
+  },
+];
+
+export default function MobileNav({
+  isOpen,
+  onToggle,
+  onClose,
+}: MobileNavProps) {
   const pathname = usePathname();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, superDarkMode, clickHint } = useTheme();
   const { playLightOn } = useAudio();
 
-  // Close menu when route changes
+  const exitQuote = useMemo(() => {
+    const quotes = [
+      "MISCHIEF MANAGED",
+      "LUMOS",
+      "LOOK TO THE EAST",
+      "YOU SHALL PASS",
+      "SKÅL",
+    ];
+    const index = Math.abs(superDarkMode ? clickHint : 0) % quotes.length;
+    return quotes[index];
+  }, [superDarkMode, clickHint]);
+
+  let buttonText = theme === "light" ? "DARK-MODE" : "LIGHT-MODE";
+  if (superDarkMode) {
+    buttonText = exitQuote;
+  } else if (clickHint >= 2) {
+    const hints = ["?", "??", "???", "????"];
+    buttonText = hints[Math.min(clickHint - 2, hints.length - 1)];
+  }
+
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsOpen(false);
+    onClose();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  // Lock scroll when menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
       document.body.style.overflow = "";
-    }
+    };
   }, [isOpen]);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-
-  // Animation variants
-  const backdropVariants = {
-    closed: { opacity: 0, pointerEvents: "none" as const },
-    open: { opacity: 1, pointerEvents: "auto" as const }
-  };
-
-  const sidebarVariants = {
-    closed: { x: "100%", transition: { type: "tween" as const, duration: 0.3 } },
-    open: { 
-      x: 0, 
-      transition: { 
-        type: "spring" as const, 
-        stiffness: 300, 
-        damping: 30,
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      } 
-    }
-  };
-
-  const itemVariants = {
-    closed: { x: 20, opacity: 0 },
-    open: { x: 0, opacity: 1 }
-  };
-
   const openTerminal = () => {
-    const event = new KeyboardEvent('keydown', { key: 'k', metaKey: true });
+    onClose();
+    const event = new KeyboardEvent("keydown", {
+      key: "k",
+      metaKey: true,
+    });
     window.dispatchEvent(event);
-    setIsOpen(false);
   };
 
   return (
     <>
-      {/* Header - Always visible on mobile */}
-      <header className={styles.mobileHeader}>
-        <Link href="/" className={styles.logo}>
-          <Image
-            src="/assets/idf-logo.svg"
-            alt="iDF"
-            width={28}
-            height={28}
-            className={theme === 'light' ? styles.logoInvert : ''}
-          />
-        </Link>
-        
-        <button 
-          className={`${styles.burger} ${isOpen ? styles.open : ''}`}
-          onClick={toggleMenu}
-          aria-label="Toggle Menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </header>
+      {/* Single floating burger — animates for both open and close */}
+      <button
+        type="button"
+        className={`${styles.burger} ${isOpen ? styles.open : ""}`}
+        onClick={onToggle}
+        aria-label="Toggle Menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-      {/* Sidebar Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className={styles.mobileBackdrop}
-            initial="closed"
-            animate="open"
-            exit="closed"
-            variants={backdropVariants}
-            onClick={toggleMenu} // Close when clicking outside
-          >
-            <motion.div 
-              className={styles.mobileSidebar}
-              variants={sidebarVariants}
-              initial="closed"
-              animate="open"
-              exit="closed"
-              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside sidebar
+      {/* Full-screen overlay */}
+      {isOpen && (
+        <div className={styles.mobileOverlay}>
+          {/* Top bar */}
+          <div className={styles.mobileOverlayTop}>
+            <button
+              type="button"
+              className={styles.mobileCmdBtn}
+              onClick={openTerminal}
+              aria-label="Open Command Palette"
             >
-              
-              <div className={styles.sidebarContent}>
-                {/* Command Palette Trigger */}
-                <motion.button 
-                  className={styles.terminalBtn}
-                  onClick={openTerminal}
-                  variants={itemVariants}
+              <span className={styles.prompt}>&lt;_</span>
+              <span className={styles.label}>cmd</span>
+            </button>
+
+            <div className={styles.mobileTopActions}>
+              <button
+                type="button"
+                className={styles.mobileThemeToggle}
+                onClick={() => {
+                  playLightOn();
+                  toggleTheme();
+                }}
+                style={{
+                  transition:
+                    "transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+                  transform:
+                    clickHint > 0 && !superDarkMode
+                      ? `scale(${1 + clickHint * 0.05}) rotate(${clickHint % 2 === 0 ? 2 : -2}deg)`
+                      : "none",
+                  color: superDarkMode ? "#ff4d4d" : undefined,
+                }}
+              >
+                <span
+                  style={{
+                    fontWeight: superDarkMode ? "bold" : "normal",
+                  }}
                 >
-                  <span className={styles.prompt}>&lt;_</span>
-                  <span className={styles.label}>cmd</span>
-                  <span className={styles.shortcutHint}>cmd + k</span>
-                </motion.button>
+                  {buttonText}
+                </span>
+                <div
+                  className={styles.mobileThemePill}
+                  data-dark={theme === "dark"}
+                  style={{
+                    borderColor: superDarkMode ? "#ff4d4d" : undefined,
+                    background: superDarkMode
+                      ? "rgba(255, 77, 77, 0.1)"
+                      : undefined,
+                    justifyContent:
+                      theme === "dark" ? "flex-end" : "flex-start",
+                  }}
+                >
+                  <div
+                    className={styles.mobileThemeDot}
+                    style={{
+                      background: superDarkMode ? "#ff4d4d" : undefined,
+                      boxShadow: superDarkMode ? "0 0 8px #ff4d4d" : undefined,
+                    }}
+                  />
+                </div>
+              </button>
+            </div>
+          </div>
 
-                {/* Footer Section (Theme & Socials) */}
-                <motion.div className={styles.sidebarFooter} variants={itemVariants}>
-                    <div className={styles.divider} />
-                    
-                    <button onClick={() => { playLightOn(); toggleTheme(); }} className={styles.themeToggle}>
-                        {theme === 'dark' ? 'LIGHT MODE' : 'DARK MODE'}
-                    </button>
+          {/* Center: big logo */}
+          <div className={styles.mobileOverlayCenter}>
+            <Image
+              src="/assets/idf-logo.svg"
+              alt="iDF"
+              width={220}
+              height={220}
+              className={theme === "light" ? styles.logoInvert : ""}
+              priority
+            />
+          </div>
 
-                    <div className={styles.socials}>
-                        <a href="https://github.com/IvanDF" target="_blank" rel="noopener noreferrer">GH</a>
-                        <a href="https://www.linkedin.com/in/ivandf/" target="_blank" rel="noopener noreferrer">LI</a>
-                        <a href="https://www.instagram.com/idf.me/" target="_blank" rel="noopener noreferrer">IG</a>
-                    </div>
-                    
-                    <div className={styles.copyright}>
-                        © 2024 IDF
-                    </div>
-                </motion.div>
+          {/* Bottom: name+role + socials */}
+          <div className={styles.mobileOverlayBottom}>
+            <div className={styles.mobileOverlayMeta}>
+              <AudioToggle className={styles.mobileAudioToggle} />
+
+              <div className={styles.mobileOverlayName}>
+                <GlitchText text="IVAN DEL FATTI" />
+                <RotatingTitle className={styles.mobileOverlayRole} />
               </div>
+            </div>
 
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <div className={styles.mobileOverlaySocials}>
+              {socials.map(({ href, src, alt }) => (
+                <a
+                  key={alt}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.mobileOverlaySocialIcon}
+                >
+                  <Image
+                    src={src}
+                    alt={alt}
+                    width={20}
+                    height={20}
+                    style={{ filter: theme === "dark" ? "invert(1)" : "none" }}
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

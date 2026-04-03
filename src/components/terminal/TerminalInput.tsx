@@ -7,10 +7,11 @@ interface TerminalInputProps {
   value: string;
   onChange: (value: string) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onSubmit: () => void;
 }
 
 const TerminalInput = forwardRef<HTMLInputElement, TerminalInputProps>(
-  ({ value, onChange, onKeyDown }, ref) => {
+  ({ value, onChange, onKeyDown, onSubmit }, ref) => {
     return (
       <div className={styles.inputArea}>
         <span className={styles.prompt}>{">"}</span>
@@ -26,6 +27,14 @@ const TerminalInput = forwardRef<HTMLInputElement, TerminalInputProps>(
           spellCheck={false}
           autoComplete="off"
         />
+        <button
+          type="button"
+          className={styles.sendButton}
+          onClick={onSubmit}
+          aria-label="Send command"
+        >
+          Send
+        </button>
       </div>
     );
   },
