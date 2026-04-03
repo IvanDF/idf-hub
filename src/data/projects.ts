@@ -95,7 +95,8 @@ export const PROJECTS: Project[] = [
       "TypeScript React with custom fetch hooks",
       "Lumen REST API with CRUD endpoints",
     ],
-    problem: "Classic full-stack exercise elevated by a themed concept.",
+    problem:
+      "Full-stack exercises often lack an engaging theme, making it harder to stay motivated through both frontend and backend development.",
     solution:
       "Separate repos for frontend and backend communicating through a clean REST API.",
     links: {

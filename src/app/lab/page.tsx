@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from "./page.module.scss";
 
+// Only categories that have active projects are listed here.
+// Categories like DESIGN, FIGMA, MAKER, APPLE, CODEPEN, PRINT are
+// defined in ProjectCategory and will be added to this list as content is published.
 const FILTERS: (ProjectCategory | "ALL")[] = [
   "ALL",
   "DEV",
