@@ -169,16 +169,7 @@ export default function MobileNav({
           </div>
 
           {/* Center: big logo */}
-          <div className={styles.mobileOverlayCenter}>
-            <Image
-              src="/assets/idf-logo.svg"
-              alt="iDF"
-              width={220}
-              height={220}
-              className={theme === "light" ? styles.logoInvert : ""}
-              priority
-            />
-          </div>
+          <div className={styles.mobileOverlayCenter} />
 
           {/* Bottom: name+role + socials */}
           <div className={styles.mobileOverlayBottom}>
