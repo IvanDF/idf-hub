@@ -295,7 +295,9 @@
   position: fixed;
   inset: 0;
   z-index: 150;
-  background: var(--color-bg);
+  background: rgba(var(--color-bg-rgb), 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   flex-direction: column;
   padding: 20px 24px 32px;
 

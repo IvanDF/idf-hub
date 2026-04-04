@@ -124,6 +124,38 @@ const EASTER_EGGS: EasterEgg[] = [
 
 const TOTAL_EASTER_EGGS = EASTER_EGGS.length;
 
+// All valid commands for autocomplete (single-word commands only)
+const VALID_COMMANDS = [
+  "guide",
+  "tour",
+  "lab",
+  "work",
+  "projects",
+  "home",
+  "back",
+  "clear",
+  "theme",
+  "time",
+  "shortcuts",
+  "keys",
+  "eggs",
+  "achievements",
+  "whoami",
+  "echo",
+  "search",
+  "find",
+  "open",
+  "exit",
+  "close",
+  "help",
+  "-h",
+  "konami",
+  "legendary",
+  "playbook",
+  "ragnar",
+  "skol",
+];
+
 export default function Terminal() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -282,7 +314,6 @@ export default function Terminal() {
   // Mapping easter egg ID → ASCII art ID
   const getAsciiId = (eggId: string): string => {
     const mapping: Record<string, string> = {
-      legendary: "barney",
       playbook: "playbook",
       ragnar: "ragnar",
     };
@@ -393,6 +424,7 @@ export default function Terminal() {
         switch (cmd) {
           case "help":
           case "?":
+          case "-h":
             outputs = [
               { type: "system", content: "AVAILABLE COMMANDS:" },
               {
@@ -443,6 +475,10 @@ export default function Terminal() {
               {
                 type: "text",
                 content: "  open [project-id]      - Open project detail",
+              },
+              {
+                type: "text",
+                content: "  konami                 - Classic cheat code",
               },
               {
                 type: "text",
@@ -755,8 +791,24 @@ export default function Terminal() {
     setInput("");
   }, [input, playCommand, executeCommand]);
 
+  // Compute inline autocomplete suggestion
+  const suggestion = (() => {
+    if (!input || !input.trim()) return "";
+    const inputLower = input.toLowerCase();
+    return (
+      VALID_COMMANDS.find(
+        (cmd) => cmd.startsWith(inputLower) && cmd.length > inputLower.length,
+      ) || ""
+    );
+  })();
+
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === "Tab") {
+      e.preventDefault();
+      if (suggestion) {
+        setInput(suggestion);
+      }
+    } else if (e.key === "Enter") {
       submitCurrentInput();
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
@@ -836,6 +888,7 @@ export default function Terminal() {
         <TerminalInput
           ref={inputRef}
           value={input}
+          suggestion={suggestion}
           onChange={(v) => {
             setInput(v);
             if (v.length > 0) playType();
