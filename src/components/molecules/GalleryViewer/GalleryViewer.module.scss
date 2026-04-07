@@ -52,28 +52,19 @@
   position: relative;
   width: 100%;
   min-width: 0;
-  min-height: 240px;
-  max-height: 600px;
+  aspect-ratio: 16 / 9;
   border: 1px solid var(--color-divider);
   border-radius: 12px;
   overflow: hidden;
   background: rgba(var(--color-bg-rgb), 0.7);
-  /* No fixed aspect-ratio: the image drives height via padding trick below */
 }
 
 .stageImageWrap {
-  position: relative;
-  width: 100%;
-  min-height: 240px;
-  max-height: 600px;
+  position: absolute;
+  inset: 0;
 
   img {
-    position: relative !important;
-    width: 100% !important;
-    height: auto !important;
-    max-height: 600px;
-    object-fit: contain;
-    display: block;
+    object-fit: contain !important;
   }
 }
 
@@ -213,10 +204,14 @@
 .compareImageWrap {
   position: relative;
   width: 100%;
-  min-height: 180px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: rgba(var(--color-bg-rgb), 0.6);
 
   img {
-    position: relative !important;
+    object-fit: contain !important;
+    position: absolute !important;
+    inset: 0 !important;
     width: 100% !important;
     height: auto !important;
     max-height: 480px;

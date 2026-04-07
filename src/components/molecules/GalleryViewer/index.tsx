@@ -8,13 +8,11 @@ import styles from "./GalleryViewer.module.scss";
 interface GalleryViewerProps {
   images: string[];
   projectTitle: string;
-  mediaFit?: "cover" | "contain";
 }
 
 export default function GalleryViewer({
   images,
   projectTitle,
-  mediaFit = "contain",
 }: GalleryViewerProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const isCompareMode = images.length === 2;
@@ -55,10 +53,9 @@ export default function GalleryViewer({
                 <Image
                   src={image}
                   alt={`${projectTitle} compare frame ${index + 1}`}
-                  width={900}
-                  height={600}
+                  fill
                   sizes="(max-width: 900px) 100vw, 50vw"
-                  style={{ objectFit: mediaFit, width: "100%", height: "auto" }}
+                  style={{ objectFit: "contain" }}
                   priority={index === 0}
                 />
               </div>
@@ -98,10 +95,9 @@ export default function GalleryViewer({
               <Image
                 src={images[selectedIndex]}
                 alt={`${projectTitle} - frame ${selectedIndex + 1}`}
-                width={1200}
-                height={900}
+                fill
                 sizes="(max-width: 900px) 100vw, 75vw"
-                style={{ objectFit: mediaFit, width: "100%", height: "auto" }}
+                style={{ objectFit: "contain" }}
                 priority={selectedIndex === 0}
               />
             </motion.div>
@@ -128,7 +124,7 @@ export default function GalleryViewer({
                   alt={`${projectTitle} thumbnail ${index + 1}`}
                   fill
                   sizes="(max-width: 768px) 50vw, 20vw"
-                  style={{ objectFit: mediaFit }}
+                  style={{ objectFit: "cover" }}
                 />
               </div>
               <div className={styles.thumbInfo}>
