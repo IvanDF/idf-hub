@@ -1,12 +1,11 @@
+import GalleryViewer from "@/components/molecules/GalleryViewer";
 import { PROJECTS } from "@/data/projects";
 import {
   ArrowLeft,
   BookOpen,
   ExternalLink,
   Github,
-  Goal,
   Play,
-  Sparkles,
   WandSparkles,
   Workflow,
 } from "lucide-react";
@@ -56,13 +55,19 @@ export default async function ProjectPage({
   const detailStack =
     project.stack && project.stack.length > 0 ? project.stack : project.tags;
   const platform = project.platform || "web";
+  const category = project.category;
 
   const galleryImages = project.media?.gallery || [];
-  const primaryUrl = project.links?.demo || project.links?.live;
+  const mediaFrames = Array.from(
+    new Set(
+      [project.media.thumbnail, ...galleryImages].filter(
+        (frame): frame is string =>
+          Boolean(frame) && frame !== "/assets/placeholder.svg",
+      ),
+    ),
+  );
   const mediaFit = project.media.fit || "contain";
-  const hasThumbnail =
-    Boolean(project.media.thumbnail) &&
-    project.media.thumbnail !== "/assets/placeholder.svg";
+  const primaryUrl = project.links?.demo || project.links?.live;
   const backHref = resolvedSearchParams.filter
     ? `/lab?filter=${encodeURIComponent(resolvedSearchParams.filter)}`
     : "/lab";
@@ -106,19 +111,19 @@ export default async function ProjectPage({
     "gabberg-icard": {
       tone: "githubPanel",
       badge: "product",
-      title: "Recruiter Snapshot",
-      icon: <Goal size={16} />,
+      title: "Build Direction",
+      icon: <WandSparkles size={16} />,
       bullets: [
-        "Digital identity concept shipped to production with custom persona variations",
-        "Focus on conversion flow: quick access to contacts and social channels",
-        "Strong brand direction translated into a responsive front-end implementation",
+        "Event-ready digital identity with persona-based profile variants",
+        "Fast contact actions tuned for in-person, high-traffic contexts",
+        "Visual language and front-end implementation designed as one system",
       ],
     },
     filteroo: {
       tone: "githubPanel",
       badge: "ux",
       title: "Design + Execution",
-      icon: <Sparkles size={16} />,
+      icon: <WandSparkles size={16} />,
       bullets: [
         "From Figma concepts to functioning React interface",
         "Real-time visual feedback designed for fast user experimentation",
@@ -182,6 +187,100 @@ export default async function ProjectPage({
     },
   };
 
+  const categoryPanelByCategory: Record<
+    string,
+    {
+      tone:
+        | "githubPanel"
+        | "notionPanel"
+        | "codepenPanel"
+        | "applePanel"
+        | "figmaPanel";
+      badge: string;
+      title: string;
+      icon: ReactNode;
+      bullets: string[];
+    }
+  > = {
+    DEV: {
+      tone: "githubPanel",
+      badge: "code",
+      title: "Engineering Lens",
+      icon: <WandSparkles size={16} />,
+      bullets: [
+        "Focus on shipping clear features with pragmatic technical choices",
+        "UI quality, implementation discipline, and maintainability are balanced together",
+        "Built as production-minded experiments, not isolated code snippets",
+      ],
+    },
+    VSCODE: {
+      tone: "githubPanel",
+      badge: "tooling",
+      title: "Developer Experience",
+      icon: <WandSparkles size={16} />,
+      bullets: [
+        "Built around daily workflows to reduce context switching",
+        "Strong attention to clarity, low-noise interfaces, and discoverable commands",
+        "Designed to be useful over long sessions, not one-off demos",
+      ],
+    },
+    CODEPEN: {
+      tone: "codepenPanel",
+      badge: "design",
+      title: "Visual Craft",
+      icon: <WandSparkles size={16} />,
+      bullets: [
+        "Fast visual explorations to test composition, motion, and detail",
+        "Short cycles from concept to browser output",
+        "Reusable ideas for richer production UI surfaces",
+      ],
+    },
+    APPLE: {
+      tone: "applePanel",
+      badge: "automation",
+      title: "Flow Design",
+      icon: <Workflow size={16} />,
+      bullets: [
+        "Automates repetitive actions into reliable one-tap flows",
+        "Optimized for speed, consistency, and low cognitive load",
+        "Small systems designed for everyday practical impact",
+      ],
+    },
+    CREATIVE: {
+      tone: "figmaPanel",
+      badge: "creative tech",
+      title: "Creative Direction",
+      icon: <WandSparkles size={16} />,
+      bullets: [
+        "Design-led experiments with intentional visual identity",
+        "Interaction and storytelling explored as part of the build",
+        "Craft quality prioritized alongside technical feasibility",
+      ],
+    },
+    MAKER: {
+      tone: "figmaPanel",
+      badge: "maker",
+      title: "Build Experiment",
+      icon: <WandSparkles size={16} />,
+      bullets: [
+        "Prototype mindset with measurable iterations",
+        "Hands-on exploration to validate ideas quickly",
+        "Emphasis on learning loops and practical outcomes",
+      ],
+    },
+    EXPERIMENT: {
+      tone: "figmaPanel",
+      badge: "r&d",
+      title: "Research Track",
+      icon: <WandSparkles size={16} />,
+      bullets: [
+        "Focused on testing interaction or technical hypotheses",
+        "Short iterations with clear observations from each build",
+        "Outcomes feed back into future product and design decisions",
+      ],
+    },
+  };
+
   const fallbackPanelByPlatform: Record<
     string,
     {
@@ -197,17 +296,6 @@ export default async function ProjectPage({
       bullets: string[];
     }
   > = {
-    github: {
-      tone: "githubPanel",
-      badge: "impact",
-      title: "Project Value",
-      icon: <Goal size={16} />,
-      bullets: [
-        "Portfolio project focused on translating ideas into shippable experiences",
-        "Emphasis on clarity, ownership, and end-to-end execution",
-        "Demonstrates product and implementation balance",
-      ],
-    },
     notion: {
       tone: "notionPanel",
       badge: "wiki",
@@ -255,9 +343,11 @@ export default async function ProjectPage({
   };
 
   const selectedPanel =
-    panelByProjectId[project.id] || fallbackPanelByPlatform[platform];
+    panelByProjectId[project.id] ||
+    categoryPanelByCategory[category] ||
+    fallbackPanelByPlatform[platform];
 
-  const platformPanel = selectedPanel ? (
+  const categoryLensPanel = selectedPanel ? (
     <section
       className={`${styles.platformPanel} ${styles[selectedPanel.tone]}`}
     >
@@ -284,6 +374,7 @@ export default async function ProjectPage({
       <header className={styles.header}>
         <div className={styles.meta}>
           <span className={styles.category}>{project.category}</span>
+          <span className={styles.categoryLens}>{selectedPanel?.badge}</span>
           <span className={styles.platform}>{platform.replace(/-/g, " ")}</span>
           <span>{"//"}</span>
           <span>{project.year}</span>
@@ -312,10 +403,6 @@ export default async function ProjectPage({
 
       <div className={styles.mainContent}>
         <div className={styles.leftColumn}>
-          <div className={styles.description}>
-            <p>{project.description}</p>
-          </div>
-
           <div className={styles.detailGrid}>
             {project.problem && (
               <section className={styles.infoBlock}>
@@ -347,7 +434,7 @@ export default async function ProjectPage({
           </div>
 
           <section className={styles.highlights}>
-            <h3>Highlights</h3>
+            <h3>Focus Areas</h3>
             <ul>
               {detailHighlights.map((highlight) => (
                 <li key={highlight}>{highlight}</li>
@@ -355,7 +442,7 @@ export default async function ProjectPage({
             </ul>
           </section>
 
-          {platformPanel}
+          {categoryLensPanel}
 
           {project.metrics && project.metrics.length > 0 && (
             <section className={styles.metrics}>
@@ -375,18 +462,26 @@ export default async function ProjectPage({
           )}
 
           <div className={styles.mediaSection}>
-            <div className={styles.mediaContainer}>
-              {hasThumbnail ? (
+            {mediaFrames.length > 1 ? (
+              <GalleryViewer
+                images={mediaFrames}
+                projectTitle={project.title}
+                mediaFit={mediaFit}
+              />
+            ) : mediaFrames.length === 1 ? (
+              <div className={styles.mediaContainer}>
                 <Image
-                  src={project.media.thumbnail}
-                  alt={project.title}
+                  src={mediaFrames[0]}
+                  alt={`${project.title} media`}
                   fill
                   className={styles.image}
                   style={{ objectFit: mediaFit }}
-                  sizes="(max-width: 768px) 100vw, 800px"
+                  sizes="(max-width: 768px) 100vw, 900px"
                   priority
                 />
-              ) : (
+              </div>
+            ) : (
+              <div className={styles.mediaContainer}>
                 <div className={`${styles.generatedCover} ${styles[platform]}`}>
                   <span className={styles.coverPlatform}>
                     {platform.replace(/-/g, " ")}
@@ -394,23 +489,6 @@ export default async function ProjectPage({
                   <strong>{project.title}</strong>
                   <p>{project.longDescription || project.description}</p>
                 </div>
-              )}
-            </div>
-
-            {galleryImages.length > 0 && (
-              <div className={styles.galleryGrid}>
-                {galleryImages.map((imageSrc) => (
-                  <div key={imageSrc} className={styles.galleryItem}>
-                    <Image
-                      src={imageSrc}
-                      alt={`${project.title} screenshot`}
-                      fill
-                      className={styles.image}
-                      style={{ objectFit: mediaFit }}
-                      sizes="(max-width: 768px) 50vw, 250px"
-                    />
-                  </div>
-                ))}
               </div>
             )}
           </div>

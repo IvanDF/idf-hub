@@ -1,8 +1,8 @@
-import GlobalBackground from "@/components/background/GlobalBackground";
-import MainLayout from "@/components/layout";
-import SecretGateway from "@/components/layout/SecretGateway";
-import AudioPrompt from "@/components/ui/AudioPrompt";
-import CustomCursor from "@/components/ui/CustomCursor";
+import GlobalBackground from "@/components/organisms/Background/GlobalBackground";
+import MainLayout from "@/components/templates/Layout";
+import SecretGateway from "@/components/templates/Layout/SecretGateway";
+import AudioPrompt from "@/components/molecules/AudioPrompt";
+import CustomCursor from "@/components/atoms/CustomCursor";
 import { AudioProvider } from "@/context/AudioContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import "@/styles/globals.scss";

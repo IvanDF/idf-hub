@@ -1,12 +1,10 @@
 export type ProjectCategory =
   | "DEV"
   | "VSCODE"
-  | "DESIGN"
-  | "FIGMA"
+  | "CREATIVE"
   | "MAKER"
   | "APPLE"
   | "CODEPEN"
-  | "PRINT"
   | "EXPERIMENT";
 
 export type ProjectPlatform =

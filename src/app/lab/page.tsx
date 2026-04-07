@@ -1,6 +1,6 @@
 "use client";
 
-import ProjectCard from "@/components/portfolio/ProjectCard";
+import ProjectCard from "@/components/molecules/ProjectCard";
 import { PROJECTS } from "@/data/projects";
 import { ProjectCategory } from "@/types/project";
 import { motion } from "framer-motion";

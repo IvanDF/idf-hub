@@ -1,5 +1,3 @@
-// projects.ts
-
 import { Project } from "@/types/project";
 
 export const PROJECTS: Project[] = [
@@ -506,7 +504,7 @@ export const PROJECTS: Project[] = [
       "Figma plugin that converts selected design nodes into reusable React icon components, with optional motion-ready output.",
     longDescription:
       "Icon Builder is a Figma plugin focused on speeding up design-to-code flow for icon systems. It exports structured React components, supports wrapper patterns, and includes options for animated integrations.",
-    category: "FIGMA",
+    category: "CREATIVE",
     platform: "figma",
     tags: ["Figma Plugin", "Design to Code", "React Icons"],
     year: "2025",
@@ -686,5 +684,134 @@ export const PROJECTS: Project[] = [
       fit: "contain",
     },
     interaction: "glitch",
+  },
+
+  // ----------------------------------------------------------------------
+  // PRINT & MERCHANDISE
+  // ----------------------------------------------------------------------
+  {
+    id: "gin-tonic-tshirt",
+    title: "Gin-Tonic T-Shirt Design",
+    description:
+      "Minimalist graphic design for apparel featuring a cocktail glass with a witty tagline, created for print production.",
+    longDescription:
+      "A custom shirt design project combining playful illustration with minimalist typography. The design features a gin-tonic glass with the phrase 'let the party be-gin' as a clever visual pun, optimized for screen printing.",
+    category: "CREATIVE",
+    platform: "web",
+    tags: ["Design", "Apparel", "Print", "Illustrator"],
+    year: "2023",
+    duration: "1 week",
+    role: "Graphic Designer",
+    status: "live",
+    stack: ["Affinity Designer", "Print Design", "Vector Graphics"],
+    highlights: [
+      "Minimalist cocktail illustration with personality",
+      "Screen-print ready vector artwork",
+      "Front and back designs with alternate variations",
+    ],
+    problem:
+      "Need a playful, minimalist design for custom apparel that stands out while remaining timeless.",
+    solution:
+      "Designed a clever visual pun combining typography and illustration in Affinity Designer, optimized for garment printing.",
+    links: {},
+    media: {
+      thumbnail: "/projects/merchandise/gin-tonic/gin-tonic-front.png",
+      gallery: [
+        "/projects/merchandise/gin-tonic/gin-tonic-front.png",
+        "/projects/merchandise/gin-tonic/gin-tonic-back.png",
+        "/projects/merchandise/gin-tonic/gin-tonic-illustration.png",
+        "/projects/merchandise/gin-tonic/gin-tonic-illustration-outline.png",
+      ],
+      fit: "contain",
+    },
+    interaction: "spotlight",
+    layout: "wide",
+  },
+  {
+    id: "phone-covers-design",
+    title: "Phone Covers Design Collection",
+    description:
+      "Custom phone case graphics created on commission, featuring diverse design styles and artistic approaches.",
+    longDescription:
+      "A commissioned project designing multiple phone cover variations. Each design brings a distinct aesthetic perspective suitable for custom case production, showcasing versatility in commercial graphic design.",
+    category: "CREATIVE",
+    platform: "web",
+    tags: ["Design", "Merchandise", "Commercial", "Illustrator"],
+    year: "2023",
+    duration: "2 weeks",
+    role: "Graphic Designer",
+    status: "live",
+    stack: ["Affinity Designer", "Design for Commerce", "Print Production"],
+    highlights: [
+      "Multiple design variations for client selection",
+      "Commercial-grade print specifications",
+      "Portfolio-ready production files",
+    ],
+    problem:
+      "Create multiple custom phone case designs on commission with commercial production requirements.",
+    solution:
+      "Developed a collection of diverse graphic designs in Affinity Designer, optimized for phone case printing and client approval workflow.",
+    links: {},
+    media: {
+      thumbnail: "/projects/merchandise/phone-covers/himym-cover.jpg",
+      gallery: [
+        "/projects/merchandise/phone-covers/himym-cover.jpg",
+        "/projects/merchandise/phone-covers/stranger-things-final.png",
+        "/projects/merchandise/phone-covers/stranger-things-variant-01.png",
+        "/projects/merchandise/phone-covers/stranger-things-variant-02.png",
+      ],
+      fit: "contain",
+    },
+    interaction: "tilt",
+  },
+
+  // ----------------------------------------------------------------------
+  // PHOTOGRAPHY & PORTRAITURE
+  // ----------------------------------------------------------------------
+  {
+    id: "mirror-archetype-cosplay",
+    title: "The Mirror Archetype — Cosplay Compositing",
+    description:
+      "Complex portraiture and digital compositing project featuring a single performer in dual protagonist/antagonist roles through narrative symmetry.",
+    longDescription:
+      "An ambitious cosplay photography project bringing the Seven Deadly Sins aesthetic to life through multi-plate studio compositing. Using single-subject mirroring and landscape symmetry, the final piece creates a static narrative tension between hero and villain archetypes.",
+    category: "CREATIVE",
+    platform: "web",
+    tags: ["Photography", "Compositing", "Cosplay", "Affinity", "Narrative"],
+    year: "2023",
+    duration: "4 weeks",
+    role: "Photography, Post-Production, Conceptualization",
+    status: "live",
+    stack: ["Canon Camera", "Affinity Photo", "On-Location Lighting"],
+    highlights: [
+      "Complex multi-plate compositing for visual storytelling",
+      "Symmetry-based framing to emphasize conflict and balance",
+      "Single-subject dual-role technique for narrative cohesion",
+    ],
+    problem:
+      "How to visually communicate character rivalry and internal conflict in a static image without losing photographic authenticity.",
+    solution:
+      "Used location scouting, lighting consistency, and precise compositing to merge two narrative poles into one coherent visual statement.",
+    metrics: [
+      { label: "Technique", value: "Multi-plate compositing" },
+      { label: "Scenes", value: "3 plates (backgrounds + characters)" },
+      { label: "Character", value: "Seven Deadly Sins Archetype" },
+    ],
+    links: {},
+    media: {
+      thumbnail:
+        "/projects/cosplay/mirror-archetype/mirror-archetype-final-01.jpg",
+      gallery: [
+        "/projects/cosplay/mirror-archetype/mirror-archetype-final-01.jpg",
+        "/projects/cosplay/mirror-archetype/mirror-archetype-final-02.jpg",
+        "/projects/cosplay/mirror-archetype/mirror-archetype-final-03.jpg",
+        "/projects/cosplay/mirror-archetype/mirror-archetype-background-01.jpeg",
+        "/projects/cosplay/mirror-archetype/mirror-archetype-right.jpeg",
+        "/projects/cosplay/mirror-archetype/mirror-archetype-left.jpeg",
+      ],
+      fit: "cover",
+    },
+    interaction: "glitch",
+    layout: "featured",
   },
 ];
