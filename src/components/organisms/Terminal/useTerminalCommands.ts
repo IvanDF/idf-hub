@@ -140,6 +140,7 @@ export function useTerminalCommands({
               { type: "text", content: "status — show DB stats", cta: { label: "→ run", cmd: "status" } },
               { type: "text", content: "logout — sign out", cta: { label: "→ run", cmd: "logout" } },
               { type: "text", content: "theme — toggle theme", cta: { label: "→ run", cmd: "theme" } },
+              { type: "text", content: "brand — identity system", cta: { label: "→ open", cmd: "brand" } },
               { type: "text", content: "site — back to main site", cta: { label: "→ go", cmd: "site" } },
               { type: "text", content: "clear — clear terminal" },
             ];
@@ -229,6 +230,7 @@ export function useTerminalCommands({
               { type: "text", content: "clear — clear terminal", cta: { label: "→ run", cmd: "clear" } },
               { type: "system", content: "── FUN ──" },
               { type: "text", content: "snake / play — ASCII snake game 🐍", cta: { label: "→ play", cmd: "snake" } },
+              { type: "text", content: "brand — identity system + companion", cta: { label: "→ run", cmd: "brand" } },
               { type: "text", content: "guide / tour — platform tour", cta: { label: "→ start", cmd: "guide" } },
               { type: "text", content: "eggs — easter egg tracker" },
               { type: "text", content: "shortcuts / keys — keyboard shortcuts" },
@@ -520,6 +522,36 @@ export function useTerminalCommands({
             }, 450);
             break;
           }
+
+          case "brand":
+          case "identity":
+            outputs = [
+              { type: "system", content: "── iDF BRAND IDENTITY ──" },
+              { type: "text",   content: "         ◉                 ◉" },
+              { type: "text",   content: "        /|\\               /|\\" },
+              { type: "text",   content: "       / | \\             / | \\" },
+              { type: "text",   content: "      |  |  \\___________/  |  |" },
+              { type: "text",   content: "      |  |                 |  |" },
+              { type: "text",   content: "       \\ |_________________| /" },
+              { type: "text",   content: "        \\_____fusion-4_____/" },
+              { type: "system", content: "── PALETTE ──" },
+              { type: "success", content: "■ Volta   #8b5cf6  primary accent" },
+              { type: "text",   content: "■ Lario   #3b82f6  secondary / links" },
+              { type: "text",   content: "■ Ink     #111827  dark text / bg" },
+              { type: "text",   content: "■ Silk    #fafafa  light bg" },
+              { type: "text",   content: "■ Slate   #64748b  muted" },
+              { type: "system", content: "── TYPE ──" },
+              { type: "text",   content: "display  Josefin Sans 700  ·  wide tracking" },
+              { type: "text",   content: "code     Geist Mono 400    ·  14px base" },
+              { type: "system", content: "── ASSETS ──" },
+              { type: "text",   content: "brand guide →", cta: { label: "→ open /brand", cmd: "brand-page" } },
+            ];
+            break;
+
+          case "brand-page":
+            outputs = [{ type: "success", content: "Opening brand guide..." }];
+            setTimeout(() => { router.push('/brand'); setIsOpen(false); }, 400);
+            break;
 
           case "snake":
           case "play":

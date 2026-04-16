@@ -143,6 +143,7 @@ export const VALID_COMMANDS = [
   "-h",
   "snake",
   "play",
+  "brand",
 ];
 
 // Admin terminal commands
@@ -158,6 +159,7 @@ export const ADMIN_COMMANDS = [
   "clear",
   "whoami",
   "ping",
+  "brand",
 ];
 
 // Commands that accept a second argument (for smart autocomplete)
