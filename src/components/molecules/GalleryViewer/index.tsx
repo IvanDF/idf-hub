@@ -8,11 +8,13 @@ import styles from "./GalleryViewer.module.scss";
 interface GalleryViewerProps {
   images: string[];
   projectTitle: string;
+  mediaFit?: "cover" | "contain";
 }
 
 export default function GalleryViewer({
   images,
   projectTitle,
+  mediaFit,
 }: GalleryViewerProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const isCompareMode = images.length === 2;

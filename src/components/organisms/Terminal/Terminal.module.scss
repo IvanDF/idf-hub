@@ -307,6 +307,24 @@
   }
 }
 
+.ctaBtn {
+  font-family: var(--font-geist-mono);
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  padding: 0.1rem 0.45rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+  vertical-align: middle;
+
+  &:hover {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+  }
+}
+
 // Mobile responsive adjustments
 @media (max-width: 768px) {
   .overlay {
@@ -414,3 +432,4 @@
     font-size: 12px;
   }
 }
+

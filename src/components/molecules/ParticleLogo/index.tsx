@@ -7,10 +7,18 @@ import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
+function getParticleCount(): number {
+  if (typeof window === "undefined") return 2000;
+  const w = window.innerWidth;
+  if (w < 576) return 600;   // mobile
+  if (w < 992) return 1200;  // tablet
+  return 2000;               // desktop
+}
+
 function InteractiveParticles() {
   const { theme } = useTheme();
 
-  const particleCount = 2000;
+  const particleCount = useMemo(() => getParticleCount(), []);
   const sphereRadius = 1.8;
   const particleSize = 0.08;
 

@@ -42,6 +42,9 @@ export default function CustomCursor() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsVisible(true);
 
+    let lastMoveCalled = 0;
+    const THROTTLE_MS = 1000 / 60; // 60fps cap
+
     const moveCursor = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -93,6 +96,15 @@ export default function CustomCursor() {
       );
     };
 
+    // Single throttled handler combining position update + magnetism (avoids two separate listeners)
+    const handleMouseMove = (e: MouseEvent) => {
+      const now = performance.now();
+      if (now - lastMoveCalled < THROTTLE_MS) return;
+      lastMoveCalled = now;
+      moveCursor(e);
+      applyGlobalMagnetism(e);
+    };
+
     const clearMagnetism = () => {
       if (activeMagnetElRef.current) {
         resetMagnetElement(activeMagnetElRef.current);
@@ -125,20 +137,18 @@ export default function CustomCursor() {
       }
     };
 
-    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
     window.addEventListener("mouseover", handleMouseOver);
-    window.addEventListener("mousemove", applyGlobalMagnetism);
     window.addEventListener("mouseleave", clearMagnetism);
     window.addEventListener("blur", clearMagnetism);
 
     return () => {
-      window.removeEventListener("mousemove", moveCursor);
+      window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("mouseover", handleMouseOver);
-      window.removeEventListener("mousemove", applyGlobalMagnetism);
       window.removeEventListener("mouseleave", clearMagnetism);
       window.removeEventListener("blur", clearMagnetism);
       clearMagnetism();

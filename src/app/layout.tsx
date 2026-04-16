@@ -1,8 +1,6 @@
 import GlobalBackground from "@/components/organisms/Background/GlobalBackground";
 import MainLayout from "@/components/templates/Layout";
-import SecretGateway from "@/components/templates/Layout/SecretGateway";
-import AudioPrompt from "@/components/molecules/AudioPrompt";
-import CustomCursor from "@/components/atoms/CustomCursor";
+import SiteChrome from "@/components/templates/Layout/SiteChrome";
 import { AudioProvider } from "@/context/AudioContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import "@/styles/globals.scss";
@@ -131,12 +129,8 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <AudioProvider>
-            <CustomCursor />
-            <SecretGateway />
-            <AudioPrompt />
-
+            <SiteChrome />
             <MainLayout>{children}</MainLayout>
-            <GlobalBackground />
           </AudioProvider>
         </ThemeProvider>
       </body>

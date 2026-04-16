@@ -1,0 +1,217 @@
+.game {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+  min-height: 0;
+  touch-action: none; // prevent page scroll while swiping in-game
+}
+
+// ── HUD ──────────────────────────────────────────────
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-geist-mono);
+  font-size: 0.68rem;
+  color: var(--color-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+
+  strong { color: var(--color-accent); }
+}
+
+.hudEsc {
+  cursor: pointer;
+  border: 1px solid var(--color-divider);
+  padding: 1px 6px;
+  &:hover { color: var(--color-text); border-color: var(--color-text); }
+}
+
+// ── Grid ─────────────────────────────────────────────
+.grid {
+  font-family: var(--font-geist-mono);
+  // Small size keeps grid compact and readable
+  font-size: clamp(0.52rem, 1.1vw, 0.68rem);
+  line-height: 1.15;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: 0;
+  white-space: pre;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+// ── Start message ─────────────────────────────────────
+.startMsg {
+  font-family: var(--font-geist-mono);
+  font-size: 0.65rem;
+  color: var(--color-secondary);
+  text-align: center;
+  padding: 4px 0;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+// ── Mobile D-pad ──────────────────────────────────────
+.dpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-top: auto;
+  padding-bottom: 4px;
+
+  // Only show on touch/small screens
+  @media (min-width: 769px) {
+    display: none;
+  }
+}
+
+.dpadRow {
+  display: flex;
+  gap: 2px;
+}
+
+.dpadBtn {
+  font-family: var(--font-geist-mono);
+  font-size: 0.9rem;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 1px solid var(--color-divider);
+  color: var(--color-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+
+  &:active {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
+  }
+}
+
+// ── Overlay (game over / leaderboard) ─────────────────
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 0;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+  font-family: var(--font-geist-mono);
+}
+
+.panelTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+}
+
+.panelScore {
+  font-size: 0.8rem;
+  color: var(--color-secondary);
+  strong { color: var(--color-text); font-size: 1rem; }
+}
+
+.panelHint {
+  font-size: 0.68rem;
+  color: var(--color-secondary);
+  margin: 0;
+}
+
+.nameInput {
+  font-family: var(--font-geist-mono);
+  font-size: 0.8rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-accent);
+  color: var(--color-text);
+  padding: 4px 0;
+  outline: none;
+  width: 100%;
+
+  &::placeholder { color: var(--color-secondary); opacity: 0.5; }
+}
+
+.panelActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: var(--font-geist-mono);
+  font-size: 0.72rem;
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+
+  &:hover:not(:disabled) {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+  &:disabled { opacity: 0.4; cursor: wait; }
+}
+
+.btnGhost {
+  @extend .btn;
+  border-color: var(--color-divider);
+  color: var(--color-secondary);
+
+  &:hover {
+    background: transparent;
+    border-color: var(--color-text);
+    color: var(--color-text);
+  }
+}
+
+// ── Leaderboard table ─────────────────────────────────
+.board {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.7rem;
+
+  th, td {
+    padding: 3px 8px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-divider);
+  }
+
+  th {
+    color: var(--color-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: normal;
+  }
+
+  td { color: var(--color-text); }
+
+  td:last-child, th:last-child {
+    text-align: right;
+  }
+}
+
+.myRow td {
+  color: var(--color-accent) !important;
+}

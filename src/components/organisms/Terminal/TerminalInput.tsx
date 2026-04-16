@@ -6,17 +6,24 @@ import { forwardRef } from "react";
 interface TerminalInputProps {
   value: string;
   suggestion?: string;
+  context?: 'site' | 'admin';
   onChange: (value: string) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onSubmit: () => void;
 }
 
 const TerminalInput = forwardRef<HTMLInputElement, TerminalInputProps>(
-  ({ value, suggestion, onChange, onKeyDown, onSubmit }, ref) => {
+  ({ value, suggestion, context = 'site', onChange, onKeyDown, onSubmit }, ref) => {
     const ghostSuffix =
       suggestion && value && suggestion.startsWith(value.toLowerCase())
         ? suggestion.slice(value.length)
         : "";
+
+    const placeholder = ghostSuffix
+      ? "tab to complete"
+      : context === 'admin'
+        ? "list · add · status · tab to complete"
+        : "help · lab · open · tab to complete";
 
     return (
       <div className={styles.inputArea}>
@@ -33,7 +40,7 @@ const TerminalInput = forwardRef<HTMLInputElement, TerminalInputProps>(
             type="text"
             className={styles.input}
             value={value}
-            placeholder="Type guide, help, or search..."
+            placeholder={placeholder}
             onChange={(e) => onChange(e.target.value)}
             onKeyDown={onKeyDown}
             autoFocus

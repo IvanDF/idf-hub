@@ -1,5 +1,7 @@
 import GalleryViewer from "@/components/molecules/GalleryViewer";
-import { PROJECTS } from "@/data/projects";
+import { mapDbRowToProject } from "@/lib/mappers/project";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
 import {
   ArrowLeft,
   BookOpen,
@@ -19,10 +21,10 @@ import styles from "./ProjectDetail.module.scss";
 // However, since we are using static params, we can just access it.
 // But to be safe and compatible with newer Next.js versions:
 
-export function generateStaticParams() {
-  return PROJECTS.map((project) => ({
-    slug: project.id,
-  }));
+export async function generateStaticParams() {
+  const supabase = createAdminClient();
+  const { data } = await supabase.from("projects").select("id");
+  return (data ?? []).map((row) => ({ slug: row.id }));
 }
 
 export default async function ProjectPage({
@@ -32,16 +34,19 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ filter?: string }>;
 }) {
-  // Decode the slug just in case
   const { slug } = await params;
   const resolvedSearchParams = await searchParams;
 
   const decodedSlug = decodeURIComponent(slug);
-  const project = PROJECTS.find((p) => p.id === decodedSlug);
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("projects")
+    .select("*")
+    .eq("id", decodedSlug)
+    .single();
 
-  if (!project) {
-    notFound();
-  }
+  if (error || !data) notFound();
+  const project = mapDbRowToProject(data);
 
   const detailHighlights =
     project.highlights && project.highlights.length > 0
