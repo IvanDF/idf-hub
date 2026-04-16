@@ -1,9 +1,9 @@
-import GlobalBackground from "@/components/organisms/Background/GlobalBackground";
 import MainLayout from "@/components/templates/Layout";
 import SiteChrome from "@/components/templates/Layout/SiteChrome";
 import { AudioProvider } from "@/context/AudioContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import "@/styles/globals.scss";
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Josefin_Sans } from "next/font/google";
 
@@ -133,6 +133,7 @@ export default function RootLayout({
             <MainLayout>{children}</MainLayout>
           </AudioProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
