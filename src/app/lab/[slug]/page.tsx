@@ -22,9 +22,18 @@ import styles from "./ProjectDetail.module.scss";
 // But to be safe and compatible with newer Next.js versions:
 
 export async function generateStaticParams() {
-  const supabase = createAdminClient();
-  const { data } = await supabase.from("projects").select("id");
-  return (data ?? []).map((row) => ({ slug: row.id }));
+  // Graceful fallback: if env vars are missing (e.g. first Vercel build before
+  // env vars are set), return [] and let Next.js render pages on demand (SSR).
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    return [];
+  }
+  try {
+    const supabase = createAdminClient();
+    const { data } = await supabase.from("projects").select("id");
+    return (data ?? []).map((row) => ({ slug: row.id }));
+  } catch {
+    return [];
+  }
 }
 
 export default async function ProjectPage({
