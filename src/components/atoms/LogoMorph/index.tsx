@@ -1,8 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import styles from "./LogoMorph.module.scss";
 
 // ── SVG path data from the iDF logo mark (viewBox 0 0 184 256) ─────────────
@@ -19,52 +17,21 @@ const PATH_TOPBAR =
 const PATH_BOTTOMRIGHT =
   "M112.032 212.545L132.058 212.809C160.167 212.809 182.989 190.051 182.989 162.02L183.118 111.275C183.118 101.931 149.165 83.2436 149.165 111.275L149.036 162.02C149.036 171.364 141.427 178.949 132.058 178.949L112.032 178.685C102.652 178.685 95.0378 186.281 95.0378 195.636C95.0378 204.988 102.652 212.581 112.032 212.581V212.545Z";
 
-// Fusion compositions to cycle through (pre-rendered brand SVGs)
-const FUSION_IMAGES = [
-  { src: "/assets/brand/fusion-4-face.svg",      label: "Face — companion" },
-  { src: "/assets/brand/fusion-1-vertical.svg",  label: "Vertical greca" },
-  { src: "/assets/brand/fusion-3-horizontal.svg",label: "Horizontal greca" },
-  { src: "/assets/brand/fusion-2-diagonal.svg",  label: "Diagonal" },
-];
-
-const CYCLE_INTERVAL_MS = 3000;
-
-// ── Animation variants ──────────────────────────────────────────────────────
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.11 } },
-};
-
-const makePathVariant = (offsetX = 0, offsetY = 0) => ({
-  hidden: { opacity: 0, x: offsetX, y: offsetY, scale: 0.92 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const },
-  },
-});
-
-// Each logo path has its own directional entry for a physical assembly feel
-const pathVariants = [
-  makePathVariant(0, -18),   // circle — drops from above
-  makePathVariant(-14, 0),   // top bar — slides from left
-  makePathVariant(-10, 10),  // J-curve — slides from lower-left
-  makePathVariant(12, 0),    // bottom-right — enters from right
-];
+// Draw order: circle → top-bar → J-curve → bottom-right
+const PATHS = [PATH_CIRCLE, PATH_TOPBAR, PATH_JCURVE, PATH_BOTTOMRIGHT];
+const STAGGER_DELAY = 0.18; // seconds between each path draw start
+const DRAW_DURATION = 0.65; // time to stroke each path
+const FILL_OFFSET = 0.45;   // fill fades in this many seconds after stroke starts
 
 // ── Props ───────────────────────────────────────────────────────────────────
 
 interface LogoMorphProps {
   /**
    * Animation mode:
-   * - `assemble` (default) — paths fly in one-by-one on mount
-   * - `cycle` — crossfades through fusion compositions every 3s
+   * - `assemble` (default) — paths draw themselves stroke-first, then fill
    * - `static` — no animation, plain logo
    */
-  mode?: "assemble" | "cycle" | "static";
+  mode?: "assemble" | "static";
   /** CSS color for the logo fill. Defaults to currentColor. */
   color?: string;
   /** Width in px. Height is derived from the 184:256 aspect ratio. */
@@ -73,86 +40,51 @@ interface LogoMorphProps {
   className?: string;
 }
 
-// ── Sub-component: assembled logo SVG with staggered path entrance ──────────
+// ── Sub-component: assembled logo SVG with stroke-draw entrance ──────────────
 
+/**
+ * Renders the iDF logo with a stroke path-draw animation:
+ * each path is stroked first (pathLength 0→1), then filled.
+ */
 function AssembledLogo({ color, size }: { color: string; size: number }) {
   const shouldReduceMotion = useReducedMotion();
   const height = Math.round((size / 184) * 256);
 
   return (
-    <motion.svg
+    <svg
       width={size}
       height={height}
       viewBox="0 0 184 256"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      variants={containerVariants}
-      initial={shouldReduceMotion ? "visible" : "hidden"}
-      animate="visible"
       aria-hidden="true"
     >
-      {[PATH_CIRCLE, PATH_TOPBAR, PATH_JCURVE, PATH_BOTTOMRIGHT].map((d, i) => (
-        <motion.path
-          key={i}
-          d={d}
-          fill={color}
-          fillRule={i > 0 ? "evenodd" : undefined}
-          clipRule={i > 0 ? "evenodd" : undefined}
-          variants={pathVariants[i]}
-        />
-      ))}
-    </motion.svg>
-  );
-}
-
-// ── Sub-component: crossfading fusion cycle ──────────────────────────────────
-
-function FusionCycle({ size }: { size: number }) {
-  const [index, setIndex] = useState(0);
-  const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (shouldReduceMotion) return;
-    const id = setInterval(() => {
-      setIndex((prev) => (prev + 1) % FUSION_IMAGES.length);
-    }, CYCLE_INTERVAL_MS);
-    return () => clearInterval(id);
-  }, [shouldReduceMotion]);
-
-  const current = FUSION_IMAGES[index];
-
-  return (
-    <div className={styles.cycleWrapper} style={{ width: size }}>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={index}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-          className={styles.cycleFrame}
-          aria-label={current.label}
-        >
-          <Image
-            src={current.src}
-            alt={current.label}
-            width={size}
-            height={size}
-            className={styles.cycleImage}
+      {PATHS.map((d, i) => {
+        const delay = i * STAGGER_DELAY;
+        return (
+          <motion.path
+            key={i}
+            d={d}
+            fill={color}
+            stroke={color}
+            strokeWidth={2}
+            fillRule={i > 0 ? "evenodd" : undefined}
+            clipRule={i > 0 ? "evenodd" : undefined}
+            initial={
+              shouldReduceMotion
+                ? { pathLength: 1, fillOpacity: 1, strokeOpacity: 0 }
+                : { pathLength: 0, fillOpacity: 0, strokeOpacity: 1 }
+            }
+            animate={{ pathLength: 1, fillOpacity: 1, strokeOpacity: 0 }}
+            transition={{
+              pathLength:    { duration: DRAW_DURATION,  ease: "easeInOut", delay },
+              fillOpacity:   { duration: 0.3, delay: delay + FILL_OFFSET },
+              strokeOpacity: { duration: 0.25, delay: delay + FILL_OFFSET },
+            }}
           />
-        </motion.div>
-      </AnimatePresence>
-      {!shouldReduceMotion && (
-        <div className={styles.cycleDots} aria-hidden="true">
-          {FUSION_IMAGES.map((_, i) => (
-            <span
-              key={i}
-              className={`${styles.cycleDot} ${i === index ? styles.cycleDotActive : ""}`}
-            />
-          ))}
-        </div>
-      )}
-    </div>
+        );
+      })}
+    </svg>
   );
 }
 
@@ -160,8 +92,9 @@ function FusionCycle({ size }: { size: number }) {
 
 /**
  * Animated iDF logo mark.
- * Supports three modes: path assembly (`assemble`), fusion crossfade (`cycle`),
- * or static render. Respects `prefers-reduced-motion`.
+ * In `assemble` mode each path draws itself stroke-first then fills in.
+ * In `static` mode no animation is applied.
+ * Always respects `prefers-reduced-motion`.
  */
 export default function LogoMorph({
   mode = "assemble",
@@ -169,16 +102,12 @@ export default function LogoMorph({
   size = 80,
   className,
 }: LogoMorphProps) {
-  if (mode === "cycle") {
-    return (
-      <div className={`${styles.root} ${className ?? ""}`} role="img" aria-label="iDF logo animations">
-        <FusionCycle size={size} />
-      </div>
-    );
-  }
-
   return (
-    <div className={`${styles.root} ${className ?? ""}`} role="img" aria-label="iDF logo">
+    <div
+      className={`${styles.root} ${className ?? ""}`}
+      role="img"
+      aria-label="iDF logo"
+    >
       <AssembledLogo color={color} size={size} />
     </div>
   );

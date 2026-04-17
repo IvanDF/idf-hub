@@ -230,11 +230,15 @@
 
 .logoGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: $spacing-md;
 
   @media (max-width: 700px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 400px) {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
@@ -260,7 +264,7 @@
   object-fit: contain;
 }
 
-// Override width for the full-width horizontal logo variant
+// Override width for the full-width horizontal logo variant (kept for potential future use)
 .logoImgFull {
   width: 100%;
   height: auto;
@@ -274,39 +278,6 @@
   text-align: center;
 }
 
-.fusionGrid {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-md;
-}
-
-.fusionTitle {
-  font-family: $font-family-mono;
-  font-size: $font-size-xs;
-  color: var(--color-text-muted);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin: 0;
-}
-
-// Animated cycle preview — centered showcase
-.fusionCycleWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: $spacing-xl 0;
-}
-
-.fusionCycleAnim {
-  // Accent tint for SVG paths rendered via next/image (png-like raster)
-  filter: invert(42%) sepia(90%) saturate(600%) hue-rotate(230deg) brightness(1.1);
-
-  :global([data-theme="dark"]) & {
-    filter: invert(100%);
-  }
-}
-
-// Static reference grid below the cycle
 .fusionStaticGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -318,17 +289,17 @@
 }
 
 .fusionCard {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: $spacing-lg;
-  padding: $spacing-md $spacing-lg;
+  gap: $spacing-sm;
+  padding: $spacing-lg;
   border-radius: 10px;
   border: 1px solid var(--color-divider);
 }
 
 .fusionImg {
-  height: 60px;
+  max-height: 100px;
   width: auto;
   object-fit: contain;
   // Recolour dark (#333) paths to Volta accent
@@ -341,14 +312,75 @@
 
 // ── Business Cards ────────────────────────────────────────────────────────────
 
-.cardsGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: $spacing-xl;
+.bcGrid {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xxl;
+}
 
-  @media (max-width: 700px) {
+.bcVariant {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.bcLabel {
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.bcPair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-md;
+
+  @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
+}
+
+.bcCard {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--color-divider);
+}
+
+.bcImg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.bcSide {
+  font-family: $font-family-mono;
+  font-size: $font-size-2xs;
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  padding: $spacing-xs $spacing-sm;
+}
+
+.bcDownload {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  color: var(--color-accent);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  align-self: flex-start;
+  padding: $spacing-xs 0;
+
+  &:hover { opacity: 1; }
 }
 
 // ── Assets ────────────────────────────────────────────────────────────────────
