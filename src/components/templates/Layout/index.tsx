@@ -34,7 +34,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         onClose={() => setMobileMenuOpen(false)}
       />
       <LeftColumn />
-      <main className={styles.main}>{children}</main>
+      <main className={styles.main} data-fus-target="main">{children}</main>
       <RightColumn />
     </div>
   );

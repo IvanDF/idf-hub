@@ -1,7 +1,9 @@
 import MainLayout from "@/components/templates/Layout";
 import SiteChrome from "@/components/templates/Layout/SiteChrome";
+import FusRoDahWrapper from "@/components/organisms/FusRoDah/FusRoDahWrapper";
 import { AudioProvider } from "@/context/AudioContext";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { VoiceShoutProvider } from "@/context/VoiceShoutContext";
 import "@/styles/globals.scss";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
@@ -129,8 +131,11 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <AudioProvider>
-            <SiteChrome />
-            <MainLayout>{children}</MainLayout>
+            <VoiceShoutProvider>
+              <SiteChrome />
+              <MainLayout>{children}</MainLayout>
+              <FusRoDahWrapper />
+            </VoiceShoutProvider>
           </AudioProvider>
         </ThemeProvider>
         <Analytics />

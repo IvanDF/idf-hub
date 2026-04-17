@@ -72,8 +72,8 @@ export function useSiteCommands({
             { type: "text", content: `${discovered}/${TOTAL_EASTER_EGGS} discovered` },
             { type: "text", content: "" },
           ];
-          const catIcon: Record<string, string> = { HIMYM: "💜", "R&M": "🌀", Vikings: "⚔️", Secret: "🔐" };
-          ["HIMYM", "R&M", "Vikings", "Secret"].forEach((cat) => {
+          const catIcon: Record<string, string> = { HIMYM: "💜", "R&M": "🌀", Vikings: "⚔️", Secret: "🔐", Skyrim: "🐉", iDF: "◉" };
+          ["HIMYM", "R&M", "Vikings", "Secret", "iDF", "Skyrim"].forEach((cat) => {
             const catEggs = EASTER_EGGS.filter((e) => e.category === cat);
             const found = catEggs.filter((e) => discoveredEggs.has(e.id)).length;
             outputs.push({ type: "text", content: `${catIcon[cat]} ${cat} ${found}/${catEggs.length}` });

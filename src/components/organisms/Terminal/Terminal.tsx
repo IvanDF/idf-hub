@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
+import { useVoiceShoutContext } from "@/context/VoiceShoutContext";
 import { createClient } from "@/lib/supabase/client";
 import { ASCII_ART, ADMIN_COMMANDS, OPEN_COMMANDS, PROJECT_CATEGORIES, SEARCH_COMMANDS, VALID_COMMANDS } from "./Terminal.constants";
 import type { HistoryItem } from "./Terminal.types";
@@ -47,6 +48,7 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
   const router = useRouter();
   const { toggleTheme, superDarkMode } = useTheme();
   const { playType, playCommand, playError, playEasterEgg, playLightOn } = useAudio();
+  const { isListening, transcript, sessionId, error: voiceError, detectedLevel } = useVoiceShoutContext();
 
   const discoverEgg = useCallback((eggId: string) => {
     setDiscoveredEggs((prev) => {
@@ -116,6 +118,7 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
         { type: "text", content: "Welcome. Tap [→] to run commands.", cta: { label: "→ help", cmd: "help" } },
         { type: "text", content: "lab — projects  │  search — find  │  theme — toggle" },
         { type: "text", content: "admin — dashboard  │  whoami — auth status" },
+        { type: "text", content: "⟁  joor zah frul...  ⟁" },
       ]};
 
   useEffect(() => {
@@ -133,7 +136,7 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
 
   useEffect(() => {
     if (terminalBodyRef.current) terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
-  }, [history]);
+  }, [history, transcript, isListening, voiceError]);
 
   const { executeCommand } = useTerminalCommands({
     router, toggleTheme, playLightOn, playError, playEasterEgg,
@@ -209,6 +212,48 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
               ))}
               {lastEasterEgg && ASCII_ART[getAsciiId(lastEasterEgg)] && (
                 <pre className={styles.asciiArt}>{getAsciiArt(lastEasterEgg).join("\n")}</pre>
+              )}
+
+              {/* ── Voice / Thu'um inline block ─────────────────────── */}
+              {(isListening || voiceError) && (
+                <div className={`${styles.voiceBlock}${voiceError ? ` ${styles.voiceBlockError}` : ""}`}>
+                  <div className={styles.voiceHeader}>
+                    {!voiceError && <span className={styles.voiceDot} />}
+                    <span>{voiceError ? "⚠ Thu\u2019um blocked" : "🎙\uFE0F  Speak the Thu\u2019um, Dovahkiin\u2026"}</span>
+                  </div>
+
+                  {isListening && (
+                    <>
+                      <div className={styles.voiceCountdown}>
+                        <div key={sessionId} className={styles.voiceCountdownFill} />
+                      </div>
+
+                      {/* Transcript visible only in admin context for debugging */}
+                      {context === "admin" && (
+                        <div className={styles.voiceTranscript}>
+                          <span className={styles.voiceTranscriptLabel}>● REC</span>
+                          <span className={styles.voiceTranscriptText}>{transcript || "\u2026"}</span>
+                        </div>
+                      )}
+
+                      <div className={styles.voiceHints}>
+                        <span className={detectedLevel && detectedLevel >= 1 ? styles.voiceHintActive : undefined}>fus</span>
+                        {" \u00b7 "}
+                        <span className={detectedLevel && detectedLevel >= 2 ? styles.voiceHintActive : undefined}>fus ro</span>
+                        {" \u00b7 "}
+                        <span className={detectedLevel && detectedLevel >= 3 ? styles.voiceHintActive : undefined}>fus ro dah</span>
+                      </div>
+                    </>
+                  )}
+
+                  {voiceError && (
+                    <div className={styles.voiceError}>
+                      {voiceError === "network-error"
+                        ? "Chrome speech API needs HTTPS — works on production, not plain localhost."
+                        : voiceError}
+                    </div>
+                  )}
+                </div>
               )}
             </>
           )}

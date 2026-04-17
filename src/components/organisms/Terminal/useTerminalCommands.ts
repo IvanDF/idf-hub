@@ -79,10 +79,16 @@ export function useTerminalCommands({
       let outputs: CommandOutput[] = [];
       let skipHistory = false;
 
-      // Easter eggs — site context only, never platformOnly ones
+      // Easter eggs — site context only, never platformOnly ones.
+      // Match against both the first word (`cmd`) and the full normalised input
+      // so that multi-word aliases like "fus ro dah" or "who are you" work too.
       const foundEgg =
         context !== "admin"
-          ? EASTER_EGGS.find((egg) => !egg.platformOnly && egg.aliases.includes(cmd))
+          ? EASTER_EGGS.find(
+              (egg) =>
+                !egg.platformOnly &&
+                (egg.aliases.includes(cmd) || egg.aliases.includes(normalizedInput)),
+            )
           : null;
 
       if (foundEgg) {
@@ -91,6 +97,11 @@ export function useTerminalCommands({
         setAsciiFrame(0);
         playEasterEgg(foundEgg.id);
         outputs = EASTER_EGG_RESPONSES[foundEgg.id] ?? [{ type: "success", content: foundEgg.name }];
+
+        // Fus Ro Dah: activate global voice overlay
+        if (foundEgg.id === "fus_ro_dah") {
+          window.dispatchEvent(new CustomEvent("fus:activate"));
+        }
       } else if (context === "admin") {
         const adminResult = await handleAdminCommand(cmd, args);
         if (adminResult.handled) {

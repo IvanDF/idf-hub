@@ -42,6 +42,12 @@ export const EASTER_EGG_RESPONSES: Record<string, CommandOutput[]> = {
     { type: "text", content: "The fusion-4 face — logo interpolated onto itself." },
     { type: "text", content: "Four paths. Infinite combinations. One identity." },
   ],
+  fus_ro_dah: [
+    { type: "system", content: "FUS RO DAH — Unrelenting Force" },
+    { type: "text", content: "The Greybeards stir in High Hrothgar." },
+    { type: "text", content: "Microphone activating... speak the Thu'um, Dovahkiin." },
+    { type: "text", content: "fus (Force) · fus ro (Balance) · fus ro dah (Push)" },
+  ],
 };
 
 /** Output lines for the site `help` command. */
@@ -65,6 +71,7 @@ export const HELP_OUTPUT: CommandOutput[] = [
   { type: "text", content: "guide / tour — platform tour", cta: { label: "→ start", cmd: "guide" } },
   { type: "text", content: "eggs — easter egg tracker" },
   { type: "text", content: "shortcuts / keys — keyboard shortcuts" },
+  { type: "text", content: "shout — ???" },
 ];
 
 /** Output lines for the `guide` / `tour` command. */

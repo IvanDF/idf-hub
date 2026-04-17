@@ -119,6 +119,13 @@ export const EASTER_EGGS: EasterEgg[] = [
     category: "iDF",
     name: "iDF Companion",
   },
+  {
+    id: "fus_ro_dah",
+    aliases: ["fus", "fus ro dah", "thu'um", "shout", "dragonborn", "skyrim", "dovahkiin"],
+    hint: "The Greybeards whisper of a power hidden in words. Speak the ancient Thu'um.",
+    category: "Skyrim",
+    name: "Unrelenting Force",
+  },
 ];
 
 export const TOTAL_EASTER_EGGS = EASTER_EGGS.length;
