@@ -21,6 +21,12 @@ interface ProjectCardProps {
   className?: string;
 }
 
+/**
+ * Interactive portfolio card with tilt, spotlight, and glitch hover effects.
+ * @param project - Project data object to display
+ * @param onClick - Callback invoked when the card is activated
+ * @param className - Optional additional CSS class
+ */
 export default function ProjectCard({
   project,
   onClick,

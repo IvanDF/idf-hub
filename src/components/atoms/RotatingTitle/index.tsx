@@ -32,6 +32,10 @@ const ROLES = [
   },
 ];
 
+/**
+ * Animated title cycling through professional roles, pausing on hover and navigating on click.
+ * @param className - Optional CSS class to apply to the container
+ */
 export default function RotatingTitle({ className }: { className?: string }) {
   const [index, setIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);

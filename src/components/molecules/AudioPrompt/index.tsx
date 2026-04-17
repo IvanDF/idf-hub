@@ -5,6 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAudio } from "@/context/AudioContext";
 import styles from "./AudioPrompt.module.scss";
 
+/**
+ * Modal prompt that asks the user to enable ambient audio on their first visit.
+ */
 export default function AudioPrompt() {
   const { requestAudioAccess, isEnabled, playClick } = useAudio();
   const [showPrompt, setShowPrompt] = useState(false);

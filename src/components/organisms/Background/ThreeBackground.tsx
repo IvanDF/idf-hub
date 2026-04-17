@@ -93,6 +93,9 @@ declare global {
   }
 }
 
+/**
+ * Three.js scene rendering the interactive SVG logo background with a custom hover-lift shader.
+ */
 export default function ThreeBackground() {
   const svgData = useLoader(SVGLoader, '/background.svg');
   

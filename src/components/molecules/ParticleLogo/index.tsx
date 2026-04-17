@@ -181,6 +181,9 @@ function InteractiveParticles() {
   );
 }
 
+/**
+ * Full-viewport Three.js canvas rendering the iDF logo surrounded by an interactive particle sphere.
+ */
 export default function ParticleLogo() {
   return (
     <div

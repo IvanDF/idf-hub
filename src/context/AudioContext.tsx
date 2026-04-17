@@ -90,6 +90,10 @@ const AVAILABLE_TRACKS = [
 
 const MUSIC_VOLUME = 0.1;
 
+/**
+ * Context provider that manages ambient music playback and UI sound effects.
+ * @param children - React children to receive audio context
+ */
 export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -357,6 +361,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * Hook to access the AudioContext value; must be used within an AudioProvider.
+ */
 export function useAudio() {
   const context = useContext(AudioContext);
   if (context === undefined) {

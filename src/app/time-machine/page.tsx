@@ -9,6 +9,9 @@ const TimeVortex = dynamic(() => import("@/components/organisms/TimeVortex"), {
   ssr: false,
 });
 
+/**
+ * Time Machine page showcasing the legacy portfolio as a nostalgic archive artifact.
+ */
 export default function TimeMachinePage() {
   const legacyProject = {
     id: "idf-old",

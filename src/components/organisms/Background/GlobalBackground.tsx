@@ -4,6 +4,9 @@ import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 import ThreeBackground from './ThreeBackground';
 
+/**
+ * Full-viewport fixed Three.js canvas that renders the global decorative background scene.
+ */
 export default function GlobalBackground() {
   return (
     <div 

@@ -1,8 +1,10 @@
 "use client";
 
 import BusinessCard, { CardVariant } from "@/components/organisms/BrandPage/BusinessCard";
+import LogoMorph from "@/components/atoms/LogoMorph";
 import { useTheme } from "@/context/ThemeContext";
 import { createClient } from "@/lib/supabase/client";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./page.module.scss";
@@ -38,6 +40,9 @@ function ColorSwatch({ name, hex, role }: { name: string; hex: string; role: str
   );
 }
 
+/**
+ * Protected brand-assets page displaying colour swatches and downloadable business-card variants.
+ */
 export default function BrandPage() {
   const router = useRouter();
   const { theme } = useTheme();
@@ -50,7 +55,7 @@ export default function BrandPage() {
       if (data.user) {
         setAuthed(true);
       } else {
-        router.replace("/admin/login");
+        router.replace(`/admin/login?next=/brand`);
       }
       setLoading(false);
     });
@@ -71,12 +76,7 @@ export default function BrandPage() {
       {/* ── Hero ─────────────────────────────────────────────────────────────── */}
       <header className={styles.hero}>
         <div className={styles.heroLogo}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/assets/brand/logo-dark.svg"
-            alt="iDF logo mark"
-            className={styles.heroMark}
-          />
+          <LogoMorph mode="assemble" color="#8b5cf6" size={80} />
         </div>
         <div className={styles.heroText}>
           <h1 className={styles.heroTitle}>iDF Brand</h1>
@@ -104,7 +104,7 @@ export default function BrandPage() {
         <div className={styles.typeGrid}>
           <div className={styles.typeCard}>
             <span className={styles.typeLabel}>Display / UI — Josefin Sans</span>
-            <p className={styles.typeSpecimen} style={{ fontFamily: "var(--font-josefin-sans), sans-serif" }}>
+            <p className={`${styles.typeSpecimen} ${styles.typeSpecimenSans}`}>
               ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />
               abcdefghijklmnopqrstuvwxyz<br />
               0123456789
@@ -113,7 +113,7 @@ export default function BrandPage() {
           </div>
           <div className={styles.typeCard}>
             <span className={styles.typeLabel}>Code / Terminal — Geist Mono</span>
-            <p className={styles.typeSpecimen} style={{ fontFamily: "var(--font-geist-mono), monospace" }}>
+            <p className={`${styles.typeSpecimen} ${styles.typeSpecimenMono}`}>
               ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />
               abcdefghijklmnopqrstuvwxyz<br />
               0123456789 {"{ } ( ) [ ]"}
@@ -128,41 +128,41 @@ export default function BrandPage() {
         <h2 className={styles.sectionTitle}>Logo</h2>
         <div className={styles.logoGrid}>
           <div className={styles.logoCard} data-bg="light">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/brand/logo-dark.svg" alt="iDF logo dark" className={styles.logoImg} />
+            <Image src="/assets/brand/logo-dark.svg" alt="iDF logo dark" width={80} height={112} className={styles.logoImg} />
             <span className={styles.logoLabel}>On light</span>
           </div>
           <div className={styles.logoCard} data-bg="dark">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/idf-logo.svg" alt="iDF logo light" className={styles.logoImg} />
+            <Image src="/assets/idf-logo.svg" alt="iDF logo light" width={80} height={112} className={styles.logoImg} />
             <span className={styles.logoLabel}>On dark</span>
           </div>
           <div className={styles.logoCard} data-bg="accent">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/idf-logo.svg" alt="iDF logo on accent" className={styles.logoImg} />
+            <Image src="/assets/idf-logo.svg" alt="iDF logo on accent" width={80} height={112} className={styles.logoImg} />
             <span className={styles.logoLabel}>On accent</span>
           </div>
           <div className={styles.logoCard} data-bg="light">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/brand/logo-horizontal.svg" alt="iDF logo horizontal" className={styles.logoImg} style={{ width: "100%" }} />
+            <Image src="/assets/brand/logo-horizontal.svg" alt="iDF logo horizontal" width={220} height={80} className={`${styles.logoImg} ${styles.logoImgFull}`} />
             <span className={styles.logoLabel}>Horizontal</span>
           </div>
         </div>
 
         <div className={styles.fusionGrid}>
           <h3 className={styles.fusionTitle}>Brand Fusions</h3>
-          {[
-            { src: "/assets/brand/fusion-1-vertical.svg",   label: "Fusion 1 — Vertical greca" },
-            { src: "/assets/brand/fusion-2-diagonal.svg",   label: "Fusion 2 — Diagonal" },
-            { src: "/assets/brand/fusion-3-horizontal.svg", label: "Fusion 3 — Horizontal greca" },
-            { src: "/assets/brand/fusion-4-face.svg",       label: "Fusion 4 — Face / companion" },
-          ].map(({ src, label }) => (
-            <div key={src} className={styles.fusionCard}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt={label} className={styles.fusionImg} />
-              <span className={styles.logoLabel}>{label}</span>
-            </div>
-          ))}
+          <div className={styles.fusionCycleWrapper}>
+            <LogoMorph mode="cycle" size={180} className={styles.fusionCycleAnim} />
+          </div>
+          <div className={styles.fusionStaticGrid}>
+            {[
+              { src: "/assets/brand/fusion-1-vertical.svg",   label: "Fusion 1 — Vertical greca" },
+              { src: "/assets/brand/fusion-2-diagonal.svg",   label: "Fusion 2 — Diagonal" },
+              { src: "/assets/brand/fusion-3-horizontal.svg", label: "Fusion 3 — Horizontal greca" },
+              { src: "/assets/brand/fusion-4-face.svg",       label: "Fusion 4 — Face / companion" },
+            ].map(({ src, label }) => (
+              <div key={src} className={styles.fusionCard}>
+                <Image src={src} alt={label} width={120} height={120} className={styles.fusionImg} />
+                <span className={styles.logoLabel}>{label}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -100,6 +100,9 @@ const ParticleField = () => {
   );
 };
 
+/**
+ * Interactive Three.js gravity-well canvas where particles are attracted to the cursor.
+ */
 export default function GravityWell() {
   return (
     <div style={{ width: '100vw', height: '100vh', background: '#000' }}>

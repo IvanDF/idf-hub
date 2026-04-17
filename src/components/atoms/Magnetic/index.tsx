@@ -8,6 +8,11 @@ interface MagneticProps {
   strength?: number; // How much it moves (default: 0.5)
 }
 
+/**
+ * Magnetic hover effect wrapper — pulls children toward the cursor using spring physics.
+ * @param children - React child element to wrap
+ * @param strength - How strongly the element follows the cursor (0–1, default 0.5)
+ */
 export default function Magnetic({ children, strength = 0.5 }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });

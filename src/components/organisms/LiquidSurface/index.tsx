@@ -192,6 +192,9 @@ const LiquidShader = () => {
   );
 };
 
+/**
+ * Interactive Three.js liquid surface canvas with simplex-noise ripples and mouse interaction.
+ */
 export default function LiquidSurface() {
   return (
     <div className="w-full h-screen bg-black overflow-hidden relative">

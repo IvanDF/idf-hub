@@ -5,6 +5,9 @@ import { useEffect } from "react";
 import { useAudio } from "@/context/AudioContext";
 import styles from "./page.module.scss";
 
+/**
+ * Hidden "classified" page revealing Easter-egg instructions; accessible via the Konami code.
+ */
 export default function SecretsPage() {
   const { playGlitch } = useAudio();
 

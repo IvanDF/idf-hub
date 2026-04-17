@@ -28,6 +28,11 @@ $color-success-rgb: 74 222 128;
 $color-error-rgb: 255 107 107;
 $color-warning-rgb: 250 204 21;
 
+// Semantic status colours (hex shortcuts for success/error/warning)
+$color-success: #4ade80;
+$color-error: #ff6b6b;
+$color-warning: #facc15;
+
 // Theme Mapping
 $color-bg-light: $color-silk-light;
 $color-text-light: $color-slate-light;

@@ -11,6 +11,12 @@ interface GalleryViewerProps {
   mediaFit?: "cover" | "contain";
 }
 
+/**
+ * Image gallery with thumbnail-strip navigation; renders a side-by-side compare layout for exactly two images.
+ * @param images - Array of image URLs to display
+ * @param projectTitle - Used as alt text and fallback labels
+ * @param mediaFit - CSS object-fit value for the main stage image (default: "contain")
+ */
 export default function GalleryViewer({
   images,
   projectTitle,

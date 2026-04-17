@@ -12,6 +12,12 @@ interface GlitchTextProps {
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const SYMBOLS = '!@#$%^&*()_+-=[]{}|;:,.<>?';
 
+/**
+ * Text element that scrambles characters on hover, progressively revealing the original string.
+ * @param text - The string to display and scramble
+ * @param className - Optional CSS class to apply to the span element
+ * @param scrambleSpeed - Interval in ms between scramble frames (default: 30)
+ */
 export default function GlitchText({ text, className = '', scrambleSpeed = 30 }: GlitchTextProps) {
   const [displayText, setDisplayText] = useState(text);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);

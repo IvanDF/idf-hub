@@ -7,6 +7,10 @@ interface AudioToggleProps {
   className?: string;
 }
 
+/**
+ * Audio control widget with play/pause and mute toggle buttons.
+ * @param className - Optional CSS class to apply to the root element
+ */
 export default function AudioToggle({ className }: AudioToggleProps) {
   const {
     isEnabled,

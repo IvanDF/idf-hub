@@ -122,6 +122,14 @@ const PATTERNS: Record<CardVariant, () => React.ReactElement> = {
 };
 
 // ── Card component ─────────────────────────────────────────────────────────────
+/**
+ * SVG business card rendered in one of four design variants (dev, creative, general, maker).
+ * @param variant - Visual design variant of the card
+ * @param name - Full name printed on the card (default: "Ivan De Falco")
+ * @param title - Professional title printed on the card
+ * @param email - Contact email address
+ * @param website - Personal website URL/label
+ */
 export default function BusinessCard({
   variant,
   name    = "Ivan De Falco",

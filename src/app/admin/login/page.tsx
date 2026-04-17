@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { useTheme } from '@/context/ThemeContext'
@@ -12,6 +12,7 @@ const DEMO_PASSWORD = 'wubbalubbadubdub'
 
 export default function AdminLoginPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const { theme, toggleTheme } = useTheme()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -32,7 +33,8 @@ export default function AdminLoginPage() {
       return
     }
 
-    router.push('/admin')
+    const next = searchParams.get('next') ?? '/admin'
+    router.push(next)
     router.refresh()
   }
 

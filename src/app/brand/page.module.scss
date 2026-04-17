@@ -219,7 +219,14 @@
   letter-spacing: 0.06em;
 }
 
-// ── Logo ──────────────────────────────────────────────────────────────────────
+// Typography font-family variants (cannot use CSS vars in font-family shorthand in modules)
+.typeSpecimenSans {
+  font-family: $font-family-primary;
+}
+
+.typeSpecimenMono {
+  font-family: $font-family-mono;
+}
 
 .logoGrid {
   display: grid;
@@ -242,15 +249,21 @@
   border: 1px solid var(--color-divider);
   min-height: 120px;
 
-  &[data-bg="dark"]   { background: #0a0a0a; }
-  &[data-bg="accent"] { background: #8b5cf6; }
-  &[data-bg="light"]  { background: #fafafa; border-color: rgba(0,0,0,0.08); }
+  &[data-bg="dark"]   { background: $color-silk-dark; }
+  &[data-bg="accent"] { background: $color-volta-light; }
+  &[data-bg="light"]  { background: $color-silk-light; border-color: rgba(17, 24, 39, 0.08); }
 }
 
 .logoImg {
   width: 52px;
   height: auto;
   object-fit: contain;
+}
+
+// Override width for the full-width horizontal logo variant
+.logoImgFull {
+  width: 100%;
+  height: auto;
 }
 
 .logoLabel {
@@ -276,6 +289,34 @@
   margin: 0;
 }
 
+// Animated cycle preview — centered showcase
+.fusionCycleWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: $spacing-xl 0;
+}
+
+.fusionCycleAnim {
+  // Accent tint for SVG paths rendered via next/image (png-like raster)
+  filter: invert(42%) sepia(90%) saturate(600%) hue-rotate(230deg) brightness(1.1);
+
+  :global([data-theme="dark"]) & {
+    filter: invert(100%);
+  }
+}
+
+// Static reference grid below the cycle
+.fusionStaticGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-md;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
 .fusionCard {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -290,7 +331,7 @@
   height: 60px;
   width: auto;
   object-fit: contain;
-  // Recolour #333 paths to accent
+  // Recolour dark (#333) paths to Volta accent
   filter: invert(42%) sepia(90%) saturate(600%) hue-rotate(230deg) brightness(1.1);
 
   :global([data-theme="dark"]) & {

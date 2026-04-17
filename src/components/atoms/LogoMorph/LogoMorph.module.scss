@@ -1,0 +1,49 @@
+@use "@/styles/variables" as *;
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// ── Cycle mode ─────────────────────────────────────────────────────────────
+
+.cycleWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.cycleFrame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cycleImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+// ── Progress dots for the cycle ────────────────────────────────────────────
+
+.cycleDots {
+  display: flex;
+  gap: $spacing-xs;
+}
+
+.cycleDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-divider);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.cycleDotActive {
+  background: var(--color-accent);
+  transform: scale(1.4);
+}
