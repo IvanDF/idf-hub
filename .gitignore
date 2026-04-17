@@ -22,7 +22,7 @@
 
 # misc
 .DS_Store
-/ai_rules
+# ai_rules tracked (contains RULES.md — see ai_rules/RULES.md)
 *.pem
 
 # debug
