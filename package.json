@@ -12,7 +12,6 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "@react-three/cannon": "^6.6.0",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@react-three/postprocessing": "^3.0.4",
@@ -20,16 +19,13 @@
     "@supabase/supabase-js": "^2.103.2",
     "@types/three": "^0.183.1",
     "@vercel/analytics": "^2.0.1",
-    "clsx": "^2.1.1",
     "framer-motion": "^12.35.2",
-    "gsap": "^3.14.2",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",
     "postprocessing": "^6.38.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "sass": "^1.97.3",
-    "tailwind-merge": "^3.5.0",
     "three": "^0.183.2"
   },
   "devDependencies": {

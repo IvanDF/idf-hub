@@ -58,16 +58,25 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
     screenshots: [
       {
-        src: "/projects/rick-and-morty/dark.png",
-        sizes: "1833x1130",
+        src: "/screenshots/dark.png",
+        sizes: "3024x1964",
         type: "image/png",
         form_factor: "wide",
+        label: "iDF – dark theme",
       },
       {
-        src: "/projects/rick-and-morty/light.png",
-        sizes: "1833x1130",
+        src: "/screenshots/light.png",
+        sizes: "3024x1964",
         type: "image/png",
         form_factor: "wide",
+        label: "iDF – light theme",
+      },
+      {
+        src: "/screenshots/super-dark.png",
+        sizes: "3024x1964",
+        type: "image/png",
+        form_factor: "wide",
+        label: "iDF – super dark theme",
       },
     ],
   };
