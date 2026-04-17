@@ -1,5 +1,6 @@
 import {
   ASCII_BARNEY,
+  ASCII_IDF_FACE,
   ASCII_PLAYBOOK,
   ASCII_RAGNAR1,
 } from "@/design-system/ascii";
@@ -9,6 +10,7 @@ export const ASCII_ART: Record<string, readonly (readonly string[])[]> = {
   legendary: ASCII_BARNEY,
   playbook: ASCII_PLAYBOOK,
   ragnar: ASCII_RAGNAR1,
+  companion: ASCII_IDF_FACE,
   pickle_rick: [
     ["      ●      ", "    ╭───╮    ", "    │   │    ", "    ╰───╯    "],
     ["     \●/     ", "    ╭─────╮  ", "    │     │  ", "    ╰──┬──╯  "],
@@ -109,6 +111,13 @@ export const EASTER_EGGS: EasterEgg[] = [
     category: "Secret",
     name: "Konami Code",
     platformOnly: true,
+  },
+  {
+    id: "companion",
+    aliases: ["companion", "face", "idf face", "fusion face", "who are you"],
+    hint: "The iDF mark, seen from another angle. Made of brackets and angles.",
+    category: "iDF",
+    name: "iDF Companion",
   },
 ];
 

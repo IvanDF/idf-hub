@@ -37,6 +37,11 @@ export const EASTER_EGG_RESPONSES: Record<string, CommandOutput[]> = {
     { type: "success", content: "↑ ↑ ↓ ↓ ← → ← → B A" },
     { type: "text", content: '"The cheat code to end all cheat codes."' },
   ],
+  companion: [
+    { type: "system", content: "iDF Companion" },
+    { type: "text", content: "The fusion-4 face — logo interpolated onto itself." },
+    { type: "text", content: "Four paths. Infinite combinations. One identity." },
+  ],
 };
 
 /** Output lines for the site `help` command. */
