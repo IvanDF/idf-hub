@@ -187,11 +187,11 @@
 }
 
 .separator {
-  color: rgba(#{$color-slate-light}, 0.35);
+  color: rgba($color-slate-light, 0.35);
 }
 
 .artifactDescription {
-  color: rgba(#{$color-slate-dark}, 0.85);
+  color: rgba($color-slate-dark, 0.85);
   line-height: 1.6;
   margin-bottom: $spacing-xl;
   font-size: 1.1rem;
