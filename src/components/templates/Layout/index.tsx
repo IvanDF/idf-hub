@@ -12,6 +12,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  // Business card landing page — fullscreen immersive canvas, no chrome
+  if (pathname?.startsWith("/business-card")) {
+    return <>{children}</>;
+  }
+
   // Admin routes get terminal with admin context — no sidebar or columns
   if (pathname?.startsWith("/admin")) {
     return (

@@ -1,0 +1,18 @@
+@use "@/styles/variables" as *;
+
+/**
+ * Canvas wrapper — fills its container and acts as the primary click/tap target.
+ * The `outline` provides a visible focus ring for keyboard users.
+ */
+.canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  outline: none;
+
+  &:focus-visible {
+    outline: 2px solid $color-volta-dark;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+}
