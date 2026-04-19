@@ -12,6 +12,9 @@ const BusinessCard3D = dynamic(
   { ssr: false },
 );
 
+/** Duration in milliseconds for the flip haptic pulse — intentionally brief. */
+const FLIP_HAPTIC_MS = 10;
+
 const VARIANTS = [
   { id: 'normal', label: 'General' },
   { id: 'code',   label: 'Dev' },
@@ -56,7 +59,7 @@ export default function BusinessCardPage() {
   const handleFlip = () => {
     setIsFlipped((prev) => !prev);
     setHintVisible(false);
-    if ('vibrate' in navigator) navigator.vibrate(10);
+    if ('vibrate' in navigator) navigator.vibrate(FLIP_HAPTIC_MS);
   };
 
   const switchStyle = (s: CardStyle) => {

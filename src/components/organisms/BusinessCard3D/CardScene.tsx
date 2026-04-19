@@ -13,9 +13,16 @@ const CARD_D = 0.04;
 /** Maximum tilt in radians (±10°). */
 const MAX_TILT = (10 * Math.PI) / 180;
 
+/** Maximum device rotation (in degrees) mapped to MAX_TILT for gyroscope. */
+const MAX_GAMMA_DEGREES = 30;
+const MAX_BETA_DEGREES = 30;
+
 /** Spring constants for the flip animation. */
 const STIFFNESS = 0.12;
 const DAMPING = 0.8;
+
+/** Edge colour for the card — matches the Ink / Slate-light design token (#111827). */
+const CARD_EDGE_COLOR = '#111827';
 
 /** Lerp factor for tilt smoothing. */
 const TILT_LERP = 0.08;
@@ -80,10 +87,10 @@ function BusinessCardMesh({ frontUrl, backUrl, isFlipped, reducedMotion }: CardS
     if (!window.matchMedia('(hover: none)').matches) return;
 
     const onOrientation = (e: DeviceOrientationEvent) => {
-      const gamma = Math.max(-30, Math.min(30, e.gamma ?? 0));
-      const beta = Math.max(-30, Math.min(30, (e.beta ?? 30) - 30));
-      anim.current.targetTiltX = (gamma / 30) * MAX_TILT;
-      anim.current.targetTiltY = -(beta / 30) * MAX_TILT;
+      const gamma = Math.max(-MAX_GAMMA_DEGREES, Math.min(MAX_GAMMA_DEGREES, e.gamma ?? 0));
+      const beta = Math.max(-MAX_BETA_DEGREES, Math.min(MAX_BETA_DEGREES, (e.beta ?? MAX_BETA_DEGREES) - MAX_BETA_DEGREES));
+      anim.current.targetTiltX = (gamma / MAX_GAMMA_DEGREES) * MAX_TILT;
+      anim.current.targetTiltY = -(beta / MAX_BETA_DEGREES) * MAX_TILT;
     };
 
     window.addEventListener('deviceorientation', onOrientation);
@@ -113,7 +120,7 @@ function BusinessCardMesh({ frontUrl, backUrl, isFlipped, reducedMotion }: CardS
   // Box material array: [+x, -x, +y, -y, +z (front), -z (back)]
   const materials = useMemo(() => {
     const edge = () =>
-      new THREE.MeshStandardMaterial({ color: '#111827', roughness: 0.5, metalness: 0.1 });
+      new THREE.MeshStandardMaterial({ color: CARD_EDGE_COLOR, roughness: 0.5, metalness: 0.1 });
     return [
       edge(),
       edge(),
