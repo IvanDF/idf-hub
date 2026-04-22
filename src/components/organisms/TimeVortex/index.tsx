@@ -4,10 +4,13 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Stars, PerspectiveCamera } from '@react-three/drei';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import styles from './TimeVortex.module.scss';
 
 const VortexShader = () => {
   const mesh = useRef<THREE.Mesh>(null!);
   
+  // Hardcoded colors for WebGL shader - these are specific to the vortex visual effect
+  // and cannot be mapped to CSS design tokens
   const uniforms = useMemo(() => ({
     uTime: { value: 0 },
     uColor1: { value: new THREE.Color('#000000') },
@@ -104,7 +107,7 @@ const VortexShader = () => {
  */
 export default function TimeVortex() {
   return (
-    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: -10 }}>
+    <div className={styles.container}>
       <Canvas>
         <PerspectiveCamera makeDefault position={[0, 0, 5]} />
         <ambientLight intensity={0.5} />

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import React, { useRef, useState } from "react";
+import styles from "./Magnetic.module.scss";
 
 interface MagneticProps {
   children: React.ReactElement<{ className?: string }>;
@@ -10,6 +11,7 @@ interface MagneticProps {
 
 /**
  * Magnetic hover effect wrapper — pulls children toward the cursor using spring physics.
+ * Uses Framer Motion for physics-based animation that cannot be done with CSS.
  * @param children - React child element to wrap
  * @param strength - How strongly the element follows the cursor (0–1, default 0.5)
  */
@@ -52,7 +54,7 @@ export default function Magnetic({ children, strength = 0.5 }: MagneticProps) {
       onMouseEnter={handleMouseEnter}
       animate={{ x, y }}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-      style={{ display: "inline-block" }} // Ensure it wraps correctly
+      className={styles.magnetic}
     >
       {child}
     </motion.div>

@@ -3,7 +3,7 @@ import {
   ASCII_IDF_FACE,
   ASCII_PLAYBOOK,
   ASCII_RAGNAR1,
-} from "@/design-system/ascii";
+} from "@/lib/ascii";
 
 // ASCII art for easter eggs
 export const ASCII_ART: Record<string, readonly (readonly string[])[]> = {

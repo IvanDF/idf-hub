@@ -183,6 +183,8 @@ function InteractiveParticles() {
 
 /**
  * Full-viewport Three.js canvas rendering the iDF logo surrounded by an interactive particle sphere.
+ * Uses R3F Html component which requires inline styles for positioning within the 3D scene.
+ * Also uses dynamic theme-aware filter values that change at runtime.
  */
 export default function ParticleLogo() {
   return (

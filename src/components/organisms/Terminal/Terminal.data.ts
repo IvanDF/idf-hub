@@ -83,16 +83,12 @@ export const GUIDE_OUTPUT: CommandOutput[] = [
   { type: "text", content: "4) theme — toggle dark/light", cta: { label: "→ explore lab", cmd: "lab" } },
 ];
 
+import { ASCII_IDF_FACE } from "@/lib/ascii";
+
 /** Output lines for the `brand` / `identity` command. */
 export const BRAND_OUTPUT: CommandOutput[] = [
   { type: "system", content: "── iDF BRAND IDENTITY ──" },
-  { type: "text", content: "         ◉                 ◉" },
-  { type: "text", content: "        /|\\               /|\\" },
-  { type: "text", content: "       / | \\             / | \\" },
-  { type: "text", content: "      |  |  \\___________/  |  |" },
-  { type: "text", content: "      |  |                 |  |" },
-  { type: "text", content: "       \\ |_________________| /" },
-  { type: "text", content: "        \\_____fusion-4_____/" },
+  ...ASCII_IDF_FACE[0].map((line) => ({ type: "text" as const, content: line })),
   { type: "system", content: "── PALETTE ──" },
   { type: "success", content: "■ Volta   #8b5cf6  primary accent" },
   { type: "text", content: "■ Lario   #3b82f6  secondary / links" },

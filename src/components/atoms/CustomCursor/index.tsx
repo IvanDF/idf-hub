@@ -8,6 +8,9 @@ import { useEffect, useRef, useState } from "react";
  * CustomCursor Component
  *
  * Replaces the default system cursor with an interactive, animated cursor.
+ * Uses Framer Motion's motion values for GPU-accelerated cursor tracking.
+ * Inline styles are required for motion values (translateX, translateY) that
+ * update on every frame - CSS cannot achieve this performance.
  * Features:
  * - Central dot that follows mouse instantly
  * - Outer ring with spring physics (magnetic feel)

@@ -13,14 +13,14 @@ interface GalleryViewerProps {
 
 /**
  * Image gallery with thumbnail-strip navigation; renders a side-by-side compare layout for exactly two images.
+ * Uses next/image with fill - objectFit must be passed via style prop (required for fill to work).
  * @param images - Array of image URLs to display
  * @param projectTitle - Used as alt text and fallback labels
- * @param mediaFit - CSS object-fit value for the main stage image (default: "contain")
+ * @param mediaFit - Reserved for future use (currently defaults to "contain")
  */
 export default function GalleryViewer({
   images,
   projectTitle,
-  mediaFit,
 }: GalleryViewerProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const isCompareMode = images.length === 2;

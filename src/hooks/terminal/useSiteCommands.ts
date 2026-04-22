@@ -3,9 +3,9 @@
 import { PROJECTS } from "@/data/projects";
 import type React from "react";
 import { useCallback } from "react";
-import { EASTER_EGGS, SHORTCUTS_INFO, TOTAL_EASTER_EGGS } from "./Terminal.constants";
-import { BRAND_OUTPUT, GUIDE_OUTPUT, HELP_OUTPUT } from "./Terminal.data";
-import type { CommandOutput, HistoryItem } from "./Terminal.types";
+import { EASTER_EGGS, SHORTCUTS_INFO, TOTAL_EASTER_EGGS } from "@/components/organisms/Terminal/Terminal.constants";
+import { BRAND_OUTPUT, GUIDE_OUTPUT, HELP_OUTPUT } from "@/components/organisms/Terminal/Terminal.data";
+import type { CommandOutput, HistoryItem } from "@/components/organisms/Terminal/Terminal.types";
 
 type SiteCommandResult = {
   outputs: CommandOutput[];
@@ -288,7 +288,6 @@ export function useSiteCommands({
 
       return { outputs, handled: true };
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [router, toggleTheme, playLightOn, playError, discoveredEggs, setHistory, setIsOpen, setGameActive, getAuthUser, signOut],
   );
 

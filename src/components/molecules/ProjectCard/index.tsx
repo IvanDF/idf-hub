@@ -23,6 +23,8 @@ interface ProjectCardProps {
 
 /**
  * Interactive portfolio card with tilt, spotlight, and glitch hover effects.
+ * Uses Framer Motion for GPU-accelerated 3D transforms (perspective, rotateX, rotateY)
+ * that require dynamic motion values. These cannot be achieved via CSS modules alone.
  * @param project - Project data object to display
  * @param onClick - Callback invoked when the card is activated
  * @param className - Optional additional CSS class

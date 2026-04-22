@@ -4,7 +4,7 @@ import { useTheme } from "@/context/ThemeContext";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AdminDeleteConfirm } from "./_components/AdminDeleteConfirm";
 import { AdminProjectForm } from "./_components/AdminProjectForm";
 import { AdminProjectsTable } from "./_components/AdminProjectsTable";
@@ -42,10 +42,25 @@ export default function AdminPage() {
     setLoading(false);
   }, []);
 
+  // Initial data fetch - this is a valid use case for calling setState in effect
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { fetchProjects(); }, [fetchProjects]);
 
+  const openAddRef = useRef<() => void>(() => {});
+
+  const openAdd = useCallback(() => {
+    setForm(EMPTY_FORM);
+    setEditingId(null);
+    setFormError(null);
+    setShowForm(true);
+  }, []);
+
   useEffect(() => {
-    const handler = () => openAdd();
+    openAddRef.current = openAdd;
+  }, [openAdd]);
+
+  useEffect(() => {
+    const handler = () => openAddRef.current();
     window.addEventListener("terminal:admin:add", handler);
     return () => window.removeEventListener("terminal:admin:add", handler);
   }, []);
@@ -59,13 +74,6 @@ export default function AdminPage() {
   async function handleLogout() {
     await createClient().auth.signOut();
     router.push("/admin/login");
-  }
-
-  function openAdd() {
-    setForm(EMPTY_FORM);
-    setEditingId(null);
-    setFormError(null);
-    setShowForm(true);
   }
 
   function openEdit(row: ProjectRow) {

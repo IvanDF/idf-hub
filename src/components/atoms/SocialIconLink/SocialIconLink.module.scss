@@ -1,0 +1,15 @@
+@use "@/styles/variables" as *;
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  transition: filter 0.2s ease;
+}
+
+.inverted {
+  filter: invert(1);
+}

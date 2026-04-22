@@ -2,8 +2,8 @@
 
 import type React from "react";
 import { useCallback } from "react";
-import { ADMIN_HELP_OUTPUT } from "./Terminal.data";
-import type { CommandOutput } from "./Terminal.types";
+import { ADMIN_HELP_OUTPUT } from "@/components/organisms/Terminal/Terminal.data";
+import type { CommandOutput } from "@/components/organisms/Terminal/Terminal.types";
 
 type AdminCommandResult = {
   outputs: CommandOutput[];
@@ -20,10 +20,11 @@ type UseAdminCommandsOptions = {
  * Returns a `handleAdminCommand` function to call from the main command orchestrator.
  */
 export function useAdminCommands({ router, setIsOpen }: UseAdminCommandsOptions): {
-  handleAdminCommand: (cmd: string, args: string[]) => Promise<AdminCommandResult>;
+  handleAdminCommand: (cmd: string, args?: string[]) => Promise<AdminCommandResult>;
 } {
   const handleAdminCommand = useCallback(
-    async (cmd: string, _args: string[]): Promise<AdminCommandResult> => {
+    async (cmd: string): Promise<AdminCommandResult> => {
+      // Note: _args reserved for future subcommands
       let outputs: CommandOutput[] = [];
       let handled = false;
 

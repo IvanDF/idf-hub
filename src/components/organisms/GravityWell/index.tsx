@@ -4,6 +4,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import styles from './GravityWell.module.scss';
 
 function seededRandom(seed: number): number {
   const x = Math.sin(seed * 9999) * 10000;
@@ -105,7 +106,7 @@ const ParticleField = () => {
  */
 export default function GravityWell() {
   return (
-    <div style={{ width: '100vw', height: '100vh', background: '#000' }}>
+    <div className={styles.container}>
       <Canvas>
         <PerspectiveCamera makeDefault position={[0, 0, 30]} />
         <ParticleField />

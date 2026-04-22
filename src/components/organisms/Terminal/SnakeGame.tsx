@@ -75,7 +75,7 @@ export default function SnakeGame({ onExit }: SnakeGameProps) {
                 </tr>
               ))}
               {board.length === 0 && (
-                <tr><td colSpan={3} style={{ textAlign: "center", opacity: 0.5 }}>no scores yet — be the first!</td></tr>
+                <tr><td colSpan={3} className={styles.emptyRow}>no scores yet — be the first!</td></tr>
               )}
             </tbody>
           </table>

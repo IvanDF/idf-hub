@@ -21,7 +21,7 @@ const PATH_BOTTOMRIGHT =
 const PATHS = [PATH_CIRCLE, PATH_TOPBAR, PATH_JCURVE, PATH_BOTTOMRIGHT];
 const STAGGER_DELAY = 0.18; // seconds between each path draw start
 const DRAW_DURATION = 0.65; // time to stroke each path
-const FILL_OFFSET = 0.45;   // fill fades in this many seconds after stroke starts
+const FILL_OFFSET = 0.45; // fill fades in this many seconds after stroke starts
 
 // ── Props ───────────────────────────────────────────────────────────────────
 
@@ -30,6 +30,7 @@ interface LogoMorphProps {
    * Animation mode:
    * - `assemble` (default) — paths draw themselves stroke-first, then fill
    * - `static` — no animation, plain logo
+   * @deprecated `mode` is reserved for future use. Currently only "assemble" is implemented.
    */
   mode?: "assemble" | "static";
   /** CSS color for the logo fill. Defaults to currentColor. */
@@ -77,8 +78,8 @@ function AssembledLogo({ color, size }: { color: string; size: number }) {
             }
             animate={{ pathLength: 1, fillOpacity: 1, strokeOpacity: 0 }}
             transition={{
-              pathLength:    { duration: DRAW_DURATION,  ease: "easeInOut", delay },
-              fillOpacity:   { duration: 0.3, delay: delay + FILL_OFFSET },
+              pathLength: { duration: DRAW_DURATION, ease: "easeInOut", delay },
+              fillOpacity: { duration: 0.3, delay: delay + FILL_OFFSET },
               strokeOpacity: { duration: 0.25, delay: delay + FILL_OFFSET },
             }}
           />
@@ -102,6 +103,7 @@ export default function LogoMorph({
   size = 80,
   className,
 }: LogoMorphProps) {
+  // Note: mode is accepted for future animation support - currently only "assemble" is implemented
   return (
     <div
       className={`${styles.root} ${className ?? ""}`}

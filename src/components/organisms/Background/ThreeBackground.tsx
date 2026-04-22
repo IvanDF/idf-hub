@@ -85,8 +85,7 @@ declare global {
       hoverMaterial: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
         transparent?: boolean;
         depthWrite?: boolean;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        uniforms?: any;
+        uniforms?: Record<string, THREE.IUniform<unknown>>;
         attach?: string;
       };
     }

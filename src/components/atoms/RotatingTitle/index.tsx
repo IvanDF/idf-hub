@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import styles from "./RotatingTitle.module.scss";
 
 const ROLES = [
   { text: "CREATIVO", duration: 4000, action: "glitch" },
@@ -68,16 +69,7 @@ export default function RotatingTitle({ className }: { className?: string }) {
 
   return (
     <div
-      className={className}
-      style={{
-        position: "relative",
-        height: "1.2em",
-        overflow: "hidden",
-        display: "flex",
-        alignItems: "center",
-        // Ensure the container width accommodates the longest text to prevent layout shift
-        // or just let it flow naturally if parent handles it.
-      }}
+      className={`${styles.container} ${className}`}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onClick={handleClick}
@@ -89,12 +81,7 @@ export default function RotatingTitle({ className }: { className?: string }) {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -20, opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          style={{
-            display: "block",
-            width: "100%",
-            cursor: "pointer",
-            userSelect: "none",
-          }}
+          className={styles.text}
           whileHover={{ scale: 1.05, color: "var(--color-accent)" }}
         >
           {ROLES[index].text}

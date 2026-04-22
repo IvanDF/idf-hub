@@ -12,7 +12,7 @@ import type { HistoryItem } from "./Terminal.types";
 import { TerminalHeader, TerminalInput, TerminalOverlay, TerminalQuickCommands } from "./index";
 import SnakeGame from "./SnakeGame";
 import TerminalHistoryItem from "./TerminalHistoryItem";
-import { useTerminalCommands } from "./useTerminalCommands";
+import { useTerminalCommands } from "@/hooks/terminal/useTerminalCommands";
 import { useTerminalInput } from "./useTerminalInput";
 import { useTerminalKeyboard } from "./useTerminalKeyboard";
 import styles from "./Terminal.module.scss";
@@ -142,7 +142,7 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
     router, toggleTheme, playLightOn, playError, playEasterEgg,
     discoveredEggs, discoverEgg, setHistory, setCommandHistory,
     setHistoryIndex, setLastEasterEgg, setAsciiFrame, setIsOpen,
-    getAsciiArt, context, setGameActive,
+    context, setGameActive,
     getAuthUser: async () => {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();

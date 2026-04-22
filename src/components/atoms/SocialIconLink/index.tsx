@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import styles from "./SocialIconLink.module.scss";
 
 interface SocialIconLinkProps {
   href: string;
@@ -13,6 +14,7 @@ interface SocialIconLinkProps {
 
 /**
  * Icon-based social link that opens in a new tab.
+ * Uses dynamic filter prop for theme-aware icon inversion (required for Image component).
  * @param href - Destination URL
  * @param src - Path to the icon image asset
  * @param alt - Accessible alt text for the icon
@@ -33,14 +35,14 @@ export default function SocialIconLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={className}
+      className={`${styles.link} ${className}`}
     >
       <Image
         src={src}
         alt={alt}
         width={iconSize}
         height={iconSize}
-        style={{ filter: invertOnDark ? "invert(1)" : "none" }}
+        className={`${styles.icon} ${invertOnDark ? styles.inverted : ""}`}
       />
     </a>
   );

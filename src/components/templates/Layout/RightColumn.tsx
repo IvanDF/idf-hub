@@ -8,6 +8,12 @@ import { useIsLabRoute } from "@/hooks/useIsLabRoute";
 import { useMemo } from "react";
 import styles from "./layout.module.scss";
 
+/**
+ * Right sidebar column containing theme toggle and social links.
+ * Contains inline styles for dynamic animations (scale, rotate, transform)
+ * that depend on runtime state values - these cannot be achieved via CSS modules.
+ */
+
 const socials = [
   {
     href: "https://www.instagram.com/idf.me/",

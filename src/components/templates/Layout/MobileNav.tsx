@@ -10,6 +10,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useMemo } from "react";
 import styles from "./layout.module.scss";
 
+/**
+ * Mobile navigation overlay with theme toggle and menu items.
+ * Contains inline styles for dynamic animations (scale, rotate, transform)
+ * that depend on runtime state values - these cannot be achieved via CSS modules.
+ */
+
 interface MobileNavProps {
   isOpen: boolean;
   onToggle: () => void;

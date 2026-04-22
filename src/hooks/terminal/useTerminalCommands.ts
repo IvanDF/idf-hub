@@ -2,9 +2,9 @@
 
 import type React from "react";
 import { useCallback } from "react";
-import { EASTER_EGGS } from "./Terminal.constants";
-import { EASTER_EGG_RESPONSES } from "./Terminal.data";
-import type { CommandOutput, HistoryItem } from "./Terminal.types";
+import { EASTER_EGGS } from "@/components/organisms/Terminal/Terminal.constants";
+import { EASTER_EGG_RESPONSES } from "@/components/organisms/Terminal/Terminal.data";
+import type { CommandOutput, HistoryItem } from "@/components/organisms/Terminal/Terminal.types";
 import { useAdminCommands } from "./useAdminCommands";
 import { useSiteCommands } from "./useSiteCommands";
 
@@ -22,8 +22,6 @@ type UseTerminalCommandsOptions = {
   setLastEasterEgg: React.Dispatch<React.SetStateAction<string | null>>;
   setAsciiFrame: React.Dispatch<React.SetStateAction<number>>;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  /** Passed for API compatibility; used externally by Terminal.tsx for rendering. */
-  getAsciiArt: (eggId: string) => string[];
   getAuthUser: () => Promise<{ email?: string | null } | null>;
   signOut: () => Promise<void>;
   setGameActive: React.Dispatch<React.SetStateAction<boolean>>;
@@ -48,7 +46,6 @@ export function useTerminalCommands({
   setLastEasterEgg,
   setAsciiFrame,
   setIsOpen,
-  getAsciiArt: _getAsciiArt,
   getAuthUser,
   signOut,
   setGameActive,

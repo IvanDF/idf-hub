@@ -215,3 +215,8 @@
 .myRow td {
   color: var(--color-accent) !important;
 }
+
+.emptyRow {
+  text-align: center;
+  opacity: 0.5;
+}

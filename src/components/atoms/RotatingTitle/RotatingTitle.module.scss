@@ -1,0 +1,16 @@
+@use "@/styles/variables" as *;
+
+.container {
+  position: relative;
+  height: 1.2em;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.text {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+}

@@ -27,7 +27,7 @@ const eslintConfig = defineConfig([
       "src/__tests__/**",
       // Pure data / asset files — no logic, just large arrays/objects
       "src/data/**",
-      "src/design-system/ascii/**",
+      "src/lib/ascii/**",
       "src/types/**",
     ],
     rules: {
