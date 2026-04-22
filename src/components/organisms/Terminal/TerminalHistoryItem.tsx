@@ -1,4 +1,4 @@
-import type { HistoryItem } from "./Terminal.types";
+import type { HistoryItem } from "@/types/terminal";
 import styles from "./Terminal.module.scss";
 
 interface TerminalHistoryItemProps {

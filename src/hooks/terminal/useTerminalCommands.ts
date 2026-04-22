@@ -2,9 +2,9 @@
 
 import type React from "react";
 import { useCallback } from "react";
-import { EASTER_EGGS } from "@/components/organisms/Terminal/Terminal.constants";
-import { EASTER_EGG_RESPONSES } from "@/components/organisms/Terminal/Terminal.data";
-import type { CommandOutput, HistoryItem } from "@/components/organisms/Terminal/Terminal.types";
+import { EASTER_EGGS } from "@/lib/terminal/Terminal.constants";
+import { EASTER_EGG_RESPONSES } from "@/lib/terminal/Terminal.data";
+import type { CommandOutput, HistoryItem } from "@/types/terminal";
 import { useAdminCommands } from "./useAdminCommands";
 import { useSiteCommands } from "./useSiteCommands";
 

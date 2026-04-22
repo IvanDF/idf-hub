@@ -1,6 +1,6 @@
 "use client";
 
-import { renderGrid, useSnakeGame } from "./useSnakeGame";
+import { renderGrid, useSnakeGame } from "@/hooks/terminal/useSnakeGame";
 import styles from "./SnakeGame.module.scss";
 
 interface SnakeGameProps {

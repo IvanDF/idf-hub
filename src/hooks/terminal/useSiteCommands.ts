@@ -3,9 +3,9 @@
 import { PROJECTS } from "@/data/projects";
 import type React from "react";
 import { useCallback } from "react";
-import { EASTER_EGGS, SHORTCUTS_INFO, TOTAL_EASTER_EGGS } from "@/components/organisms/Terminal/Terminal.constants";
-import { BRAND_OUTPUT, GUIDE_OUTPUT, HELP_OUTPUT } from "@/components/organisms/Terminal/Terminal.data";
-import type { CommandOutput, HistoryItem } from "@/components/organisms/Terminal/Terminal.types";
+import { EASTER_EGGS, SHORTCUTS_INFO, TOTAL_EASTER_EGGS } from "@/lib/terminal/Terminal.constants";
+import { BRAND_OUTPUT, GUIDE_OUTPUT, HELP_OUTPUT } from "@/lib/terminal/Terminal.data";
+import type { CommandOutput, HistoryItem } from "@/types/terminal";
 
 type SiteCommandResult = {
   outputs: CommandOutput[];

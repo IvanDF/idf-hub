@@ -2,8 +2,8 @@
 
 import type React from "react";
 import { useCallback } from "react";
-import { ADMIN_HELP_OUTPUT } from "@/components/organisms/Terminal/Terminal.data";
-import type { CommandOutput } from "@/components/organisms/Terminal/Terminal.types";
+import { ADMIN_HELP_OUTPUT } from "@/lib/terminal/Terminal.data";
+import type { CommandOutput } from "@/types/terminal";
 
 type AdminCommandResult = {
   outputs: CommandOutput[];

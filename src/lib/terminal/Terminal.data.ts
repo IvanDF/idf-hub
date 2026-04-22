@@ -1,4 +1,4 @@
-import type { CommandOutput } from "./Terminal.types";
+import type { CommandOutput } from "@/types/terminal";
 
 /** Output lines for each easter egg, keyed by egg ID. */
 export const EASTER_EGG_RESPONSES: Record<string, CommandOutput[]> = {

@@ -7,14 +7,14 @@ import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useVoiceShoutContext } from "@/context/VoiceShoutContext";
 import { createClient } from "@/lib/supabase/client";
-import { ASCII_ART, ADMIN_COMMANDS, OPEN_COMMANDS, PROJECT_CATEGORIES, SEARCH_COMMANDS, VALID_COMMANDS } from "./Terminal.constants";
-import type { HistoryItem } from "./Terminal.types";
+import { ASCII_ART, ADMIN_COMMANDS, OPEN_COMMANDS, PROJECT_CATEGORIES, SEARCH_COMMANDS, VALID_COMMANDS } from "@/lib/terminal/Terminal.constants";
+import type { HistoryItem } from "@/types/terminal";
 import { TerminalHeader, TerminalInput, TerminalOverlay, TerminalQuickCommands } from "./index";
 import SnakeGame from "./SnakeGame";
 import TerminalHistoryItem from "./TerminalHistoryItem";
 import { useTerminalCommands } from "@/hooks/terminal/useTerminalCommands";
-import { useTerminalInput } from "./useTerminalInput";
-import { useTerminalKeyboard } from "./useTerminalKeyboard";
+import { useTerminalInput } from "@/hooks/terminal/useTerminalInput";
+import { useTerminalKeyboard } from "@/hooks/terminal/useTerminalKeyboard";
 import styles from "./Terminal.module.scss";
 
 /** Returns false on mobile (≤768 px) to avoid force-opening the software keyboard. */
