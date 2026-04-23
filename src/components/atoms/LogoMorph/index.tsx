@@ -98,7 +98,7 @@ function AssembledLogo({ color, size }: { color: string; size: number }) {
  * Always respects `prefers-reduced-motion`.
  */
 export default function LogoMorph({
-  mode = "assemble",
+  // mode = "assemble",
   color = "currentColor",
   size = 80,
   className,
