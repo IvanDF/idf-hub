@@ -1,6 +1,6 @@
 "use client";
 
-import ProjectCard from "@/components/molecules/ProjectCard";
+import ProjectCard from "@/components/molecules/project-card";
 import type { Project, ProjectCategory } from "@/types/project";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";

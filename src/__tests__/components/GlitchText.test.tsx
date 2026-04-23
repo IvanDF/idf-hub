@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import GlitchText from '@/components/atoms/GlitchText'
+import GlitchText from '@/components/atoms/glitch-text'
 
 describe('GlitchText', () => {
   it('renders the provided text', () => {

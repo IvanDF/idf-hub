@@ -1,9 +1,9 @@
 "use client";
 
-import AudioToggle from "@/components/atoms/AudioToggle";
-import GlitchText from "@/components/atoms/GlitchText";
-import Magnetic from "@/components/atoms/Magnetic";
-import RotatingTitle from "@/components/atoms/RotatingTitle";
+import AudioToggle from "@/components/atoms/audio-toggle";
+import GlitchText from "@/components/atoms/glitch-text";
+import Magnetic from "@/components/atoms/magnetic";
+import RotatingTitle from "@/components/atoms/rotating-title";
 import { useIsLabRoute } from "@/hooks/useIsLabRoute";
 import styles from "./layout.module.scss";
 

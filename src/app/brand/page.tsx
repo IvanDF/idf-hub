@@ -1,6 +1,6 @@
 "use client";
 
-import LogoMorph from "@/components/atoms/LogoMorph";
+import LogoMorph from "@/components/atoms/logo-morph";
 import { useTheme } from "@/context/ThemeContext";
 import { createClient } from "@/lib/supabase/client";
 import Image from "next/image";

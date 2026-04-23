@@ -5,9 +5,10 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import styles from "./TimeMachine.module.scss";
 
-const TimeVortex = dynamic(() => import("@/components/organisms/TimeVortex"), {
-  ssr: false,
-});
+const TimeVortex = dynamic(
+  () => import("@/components/organisms/time-vortex").then((m) => m.TimeVortex),
+  { ssr: false },
+);
 
 /**
  * Time Machine page showcasing the legacy portfolio as a nostalgic archive artifact.

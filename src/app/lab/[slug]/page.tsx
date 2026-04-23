@@ -1,4 +1,4 @@
-import GalleryViewer from "@/components/molecules/GalleryViewer";
+import GalleryViewer from "@/components/molecules/gallery-viewer";
 import { mapDbRowToProject } from "@/lib/mappers/project";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";

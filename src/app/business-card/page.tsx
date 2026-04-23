@@ -8,7 +8,7 @@ import styles from "./page.module.scss";
 
 /** Loaded client-side only — Three.js requires browser APIs. */
 const BusinessCard3D = dynamic(
-  () => import("@/components/organisms/BusinessCard3D"),
+  () => import("@/components/organisms/business-card-3d").then((m) => m.BusinessCard3D),
   { ssr: false },
 );
 

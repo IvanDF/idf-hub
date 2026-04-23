@@ -1,8 +1,8 @@
 "use client";
 
-import CustomCursor from "@/components/atoms/CustomCursor";
-import AudioPrompt from "@/components/molecules/AudioPrompt";
-import GlobalBackground from "@/components/organisms/Background/GlobalBackground";
+import CustomCursor from "@/components/atoms/custom-cursor";
+import AudioPrompt from "@/components/molecules/audio-prompt";
+import GlobalBackground from "@/components/organisms/background";
 import { usePathname } from "next/navigation";
 import SecretGateway from "./SecretGateway";
 

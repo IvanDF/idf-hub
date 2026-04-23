@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import SocialIconLink from '@/components/atoms/SocialIconLink';
+import SocialIconLink from '@/components/atoms/social-icon-link';
 
 describe('SocialIconLink', () => {
   it('renders an anchor element with correct href', () => {

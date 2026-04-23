@@ -1,6 +1,5 @@
-import MainLayout from "@/components/templates/Layout";
-import SiteChrome from "@/components/templates/Layout/SiteChrome";
-import FusRoDahWrapper from "@/components/organisms/FusRoDah/FusRoDahWrapper";
+import MainLayout, { SiteChrome } from "@/components/templates/Layout";
+import FusRoDahWrapper from "@/components/organisms/fus-ro-dah";
 import { AudioProvider } from "@/context/AudioContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { VoiceShoutProvider } from "@/context/VoiceShoutContext";

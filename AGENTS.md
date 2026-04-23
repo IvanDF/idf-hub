@@ -110,6 +110,62 @@ templates/   ← page layout wrappers: Layout
 
 ---
 
+## 5.1 Folder & File Naming
+
+### Directory Structure
+
+| Location | Naming | Example |
+|---|---|---|
+| Component folders | `kebab-case` | `src/components/atoms/audio-toggle/` |
+| Component files | `PascalCase` | `src/components/atoms/audio-toggle/AudioToggle.tsx` |
+| Hook files | `camelCase` (starting with `use`) | `useAudioEngine.ts` |
+| Lib/util files | `kebab-case` | `src/lib/terminal/Terminal.constants.ts` |
+| SCSS modules | Same as component | `AudioToggle.module.scss` |
+
+### Index Exports
+
+Every component folder must have an `index.ts` file:
+
+```ts
+// For single default export (most common)
+export { default } from './ComponentName';
+
+// For multiple exports
+export { default as ComponentName } from './ComponentName';
+export type { ComponentNameProps } from './ComponentName';
+
+// For components with multiple sub-components
+export { default as Terminal } from './Terminal';
+export { default as TerminalHeader } from './TerminalHeader';
+export { default as TerminalInput } from './TerminalInput';
+```
+
+### Import Patterns
+
+```ts
+// Default export from folder (preferred)
+import ComponentName from '@/components/atoms/component-name';
+
+// Named export from folder
+import { ComponentName } from '@/components/organisms/component-name';
+
+// Direct file import (when only one component in folder)
+import ComponentName from '@/components/atoms/component-name/ComponentName';
+```
+
+### Barrel Exports
+
+Use named exports, not re-exports that mask module boundaries:
+
+```ts
+// organisms/index.ts
+export { default as GlobalBackground } from './background';
+export { default as Terminal } from './terminal';
+export { default as FusRoDah, default as FusRoDahWrapper } from './fus-ro-dah';
+```
+
+---
+
 ## 6. File & Code Quality
 
 - **No file should exceed 300 lines** without a clear architectural reason (and a comment explaining it).
@@ -222,6 +278,8 @@ templates/   ← page layout wrappers: Layout
 
 ## Quick Checklist Before Every Commit
 
+- [ ] Folder naming: kebab-case for folders, PascalCase for component files
+- [ ] Each component folder has an `index.ts` with proper exports
 - [ ] No hardcoded colors or spacing values
 - [ ] All new components have JSDoc
 - [ ] Mobile viewport tested (375px)

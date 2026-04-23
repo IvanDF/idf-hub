@@ -1,4 +1,4 @@
-import ParticleLogo from "@/components/molecules/ParticleLogo";
+import ParticleLogo from "@/components/molecules/particle-logo";
 import styles from "./page.module.scss";
 
 export default function Home() {

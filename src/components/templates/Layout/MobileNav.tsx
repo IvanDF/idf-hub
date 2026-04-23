@@ -1,9 +1,9 @@
 "use client";
 
-import AudioToggle from "@/components/atoms/AudioToggle";
-import GlitchText from "@/components/atoms/GlitchText";
-import RotatingTitle from "@/components/atoms/RotatingTitle";
-import SocialIconLink from "@/components/atoms/SocialIconLink";
+import AudioToggle from "@/components/atoms/audio-toggle";
+import GlitchText from "@/components/atoms/glitch-text";
+import RotatingTitle from "@/components/atoms/rotating-title";
+import SocialIconLink from "@/components/atoms/social-icon-link";
 import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
 import { usePathname } from "next/navigation";

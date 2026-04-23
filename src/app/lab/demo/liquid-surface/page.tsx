@@ -1,4 +1,4 @@
-import LiquidSurface from "@/components/organisms/LiquidSurface";
+import LiquidSurface from "@/components/organisms/liquid-surface";
 
 export default function LiquidSurfacePage() {
   return <LiquidSurface />;
