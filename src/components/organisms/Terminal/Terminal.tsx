@@ -13,6 +13,7 @@ import { TerminalHeader, TerminalInput, TerminalOverlay, TerminalQuickCommands }
 import SnakeGame from "./SnakeGame";
 import TerminalHistoryItem from "./TerminalHistoryItem";
 import { useTerminalCommands } from "@/hooks/terminal/useTerminalCommands";
+import { useCommandDeepLink } from "@/hooks/terminal/useCommandDeepLink";
 import { useTerminalInput } from "@/hooks/terminal/useTerminalInput";
 import { useTerminalKeyboard } from "@/hooks/terminal/useTerminalKeyboard";
 import styles from "./Terminal.module.scss";
@@ -150,6 +151,27 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
     },
     signOut: async () => { const supabase = createClient(); await supabase.auth.signOut(); },
   });
+
+  // Deep link: parse ?cmd= on mount and auto-execute
+  const { pendingCommand, clearPendingCommand } = useCommandDeepLink();
+  const deepLinkCmdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!pendingCommand) return;
+    deepLinkCmdRef.current = pendingCommand;
+    clearPendingCommand();
+    setIsOpen(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pendingCommand]);
+
+  useEffect(() => {
+    if (isOpen && deepLinkCmdRef.current) {
+      const cmd = deepLinkCmdRef.current;
+      deepLinkCmdRef.current = null;
+      setTimeout(() => executeCommand(cmd), 200);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
 
   // Inline autocomplete suggestion
   const suggestion = (() => {
