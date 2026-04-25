@@ -13,6 +13,7 @@ import { TerminalHeader, TerminalInput, TerminalOverlay, TerminalQuickCommands }
 import SnakeGame from "./SnakeGame";
 import TerminalHistoryItem from "./TerminalHistoryItem";
 import { useTerminalCommands } from "@/hooks/terminal/useTerminalCommands";
+import { useCommandDeepLink } from "@/hooks/terminal/useCommandDeepLink";
 import { useTerminalInput } from "@/hooks/terminal/useTerminalInput";
 import { useTerminalKeyboard } from "@/hooks/terminal/useTerminalKeyboard";
 import styles from "./Terminal.module.scss";
@@ -26,6 +27,13 @@ function shouldAutoFocus(): boolean {
 function getAsciiId(eggId: string): string {
   return ({ playbook: "playbook", ragnar: "ragnar" } as Record<string, string>)[eggId] ?? eggId;
 }
+
+/**
+ * Delay (ms) before executing a deep-link command after the terminal opens.
+ * Allows the open animation (~0.3 s) to complete and the initial history
+ * render to settle before running the command.
+ */
+const DEEP_LINK_EXECUTION_DELAY_MS = 200;
 
 export default function Terminal({ context = "site" }: { context?: "site" | "admin" }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -150,6 +158,26 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
     },
     signOut: async () => { const supabase = createClient(); await supabase.auth.signOut(); },
   });
+
+  // Deep link: parse ?cmd= on mount and auto-execute
+  const { pendingCommand, clearPendingCommand } = useCommandDeepLink();
+  const deepLinkCmdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!pendingCommand) return;
+    deepLinkCmdRef.current = pendingCommand;
+    clearPendingCommand();
+    setIsOpen(true);
+  }, [pendingCommand, clearPendingCommand]);
+
+  useEffect(() => {
+    if (isOpen && deepLinkCmdRef.current) {
+      const cmd = deepLinkCmdRef.current;
+      deepLinkCmdRef.current = null;
+      setTimeout(() => executeCommand(cmd), DEEP_LINK_EXECUTION_DELAY_MS);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
 
   // Inline autocomplete suggestion
   const suggestion = (() => {

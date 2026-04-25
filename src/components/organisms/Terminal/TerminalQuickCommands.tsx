@@ -1,5 +1,6 @@
 "use client";
 
+import ShareCommandButton from "@/components/atoms/ShareCommandButton";
 import styles from "./Terminal.module.scss";
 
 export type QuickCommand = {
@@ -38,14 +39,17 @@ export default function TerminalQuickCommands({
   return (
     <div className={styles.quickCommands} onClick={(e) => e.stopPropagation()}>
       {commands.map((cmd) => (
-        <button
-          key={cmd.command}
-          type="button"
-          onClick={() => onCommand(cmd.command)}
-        >
-          {cmd.label}
-        </button>
+        <div key={cmd.command} className={styles.quickCommandGroup}>
+          <button
+            type="button"
+            onClick={() => onCommand(cmd.command)}
+          >
+            {cmd.label}
+          </button>
+          <ShareCommandButton command={cmd.command} />
+        </div>
       ))}
     </div>
   );
 }
+
