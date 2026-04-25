@@ -168,8 +168,7 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
     deepLinkCmdRef.current = pendingCommand;
     clearPendingCommand();
     setIsOpen(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pendingCommand]);
+  }, [pendingCommand, clearPendingCommand]);
 
   useEffect(() => {
     if (isOpen && deepLinkCmdRef.current) {

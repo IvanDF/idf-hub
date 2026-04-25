@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * Parses the `?cmd=` query parameter from the URL on initial mount,
@@ -36,7 +36,7 @@ export function useCommandDeepLink(): {
     }
   }, []);
 
-  const clearPendingCommand = () => setPendingCommand(null);
+  const clearPendingCommand = useCallback(() => setPendingCommand(null), []);
 
   return { pendingCommand, clearPendingCommand };
 }
