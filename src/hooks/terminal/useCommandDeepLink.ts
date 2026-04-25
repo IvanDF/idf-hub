@@ -24,7 +24,7 @@ export function useCommandDeepLink(): {
     const cmd = params.get("cmd");
 
     if (cmd) {
-      setPendingCommand(decodeURIComponent(cmd));
+      setPendingCommand(cmd);
 
       params.delete("cmd");
       const newSearch = params.toString();

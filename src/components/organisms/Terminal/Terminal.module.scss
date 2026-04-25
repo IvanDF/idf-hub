@@ -266,7 +266,7 @@
 .quickCommandGroup {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
+  gap: $spacing-xs;
 }
 
 .inputWrapper {

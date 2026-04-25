@@ -7,7 +7,7 @@
   gap: $spacing-xs;
   background: transparent;
   border: 1px solid transparent;
-  border-radius: 6px;
+  border-radius: $spacing-xs;
   color: var(--color-text);
   cursor: pointer;
   opacity: 0.45;
@@ -33,8 +33,8 @@
 
 // ── Inline variant (icon-only, for toolbars) ──────────────────────────────────
 .inline {
-  min-width: 28px;
-  min-height: 28px;
+  min-width: 44px;
+  min-height: 44px;
   padding: $spacing-xs;
 }
 
@@ -45,7 +45,7 @@
   padding: $spacing-sm $spacing-md;
   border-color: var(--color-divider);
   background: rgba(var(--color-accent-rgb), 0.08);
-  border-radius: 8px;
+  border-radius: $spacing-sm;
   font-family: $font-family-mono;
   font-size: $font-size-sm;
   color: var(--color-text);

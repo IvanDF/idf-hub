@@ -28,6 +28,13 @@ function getAsciiId(eggId: string): string {
   return ({ playbook: "playbook", ragnar: "ragnar" } as Record<string, string>)[eggId] ?? eggId;
 }
 
+/**
+ * Delay (ms) before executing a deep-link command after the terminal opens.
+ * Allows the open animation (~0.3 s) to complete and the initial history
+ * render to settle before running the command.
+ */
+const DEEP_LINK_EXECUTION_DELAY_MS = 200;
+
 export default function Terminal({ context = "site" }: { context?: "site" | "admin" }) {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -168,7 +175,7 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
     if (isOpen && deepLinkCmdRef.current) {
       const cmd = deepLinkCmdRef.current;
       deepLinkCmdRef.current = null;
-      setTimeout(() => executeCommand(cmd), 200);
+      setTimeout(() => executeCommand(cmd), DEEP_LINK_EXECUTION_DELAY_MS);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
