@@ -93,6 +93,35 @@ list  ·  add  ·  status  ·  theme  ·  logout  ·  site
 
 ---
 
+## 🔗 Deep Links
+
+You can share a direct link to any terminal command using the `?cmd=` URL parameter.
+When someone opens the link, the terminal auto-opens and executes the command.
+
+### Syntax
+
+```
+https://idf-hub.vercel.app/?cmd=[command]
+```
+
+### Examples
+
+| Link | Action |
+|---|---|
+| `?cmd=snake` | Launch the snake game directly |
+| `?cmd=theme` | Toggle dark / light mode |
+| `?cmd=search%20shader` | Search for "shader" projects |
+| `?cmd=open%20gabberg-icard` | Open a specific project |
+| `?cmd=guide` | Start the interactive tour |
+| `?cmd=help` | Open help in the terminal |
+
+### Share Buttons
+
+Each quick-command chip in the terminal toolbar has a **share icon** (↗).
+Click it to copy the deep link for that command to your clipboard.
+
+---
+
 ## ⌨️ Scorciatoie globali
 
 | Tasto | Azione |

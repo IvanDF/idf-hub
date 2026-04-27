@@ -263,6 +263,12 @@
   }
 }
 
+.quickCommandGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
 .inputWrapper {
   position: relative;
   flex: 1;

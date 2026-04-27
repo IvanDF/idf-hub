@@ -72,6 +72,9 @@ export const HELP_OUTPUT: CommandOutput[] = [
   { type: "text", content: "eggs — easter egg tracker" },
   { type: "text", content: "shortcuts / keys — keyboard shortcuts" },
   { type: "text", content: "shout — ???" },
+  { type: "system", content: "── DEEP LINKS ──" },
+  { type: "text", content: "Share commands via URL: ?cmd=[command]" },
+  { type: "text", content: "Example: ?cmd=snake — launch snake directly", cta: { label: "→ copy link", cmd: "share snake" } },
 ];
 
 /** Output lines for the `guide` / `tour` command. */

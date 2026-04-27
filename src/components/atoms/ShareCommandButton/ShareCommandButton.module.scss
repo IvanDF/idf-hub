@@ -1,0 +1,101 @@
+@use "@/styles/variables" as *;
+
+.shareButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: $spacing-xs;
+  color: var(--color-text);
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    background 0.2s ease, transform 0.15s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    opacity: 1;
+    color: var(--color-accent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    opacity: 1;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+// ── Inline variant (icon-only, for toolbars) ──────────────────────────────────
+.inline {
+  min-width: 44px;
+  min-height: 44px;
+  padding: $spacing-xs;
+}
+
+// ── Standalone variant (icon + label) ────────────────────────────────────────
+.standalone {
+  min-width: 44px;
+  min-height: 44px;
+  padding: $spacing-sm $spacing-md;
+  border-color: var(--color-divider);
+  background: rgba(var(--color-accent-rgb), 0.08);
+  border-radius: $spacing-sm;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  color: var(--color-text);
+  opacity: 1;
+
+  &:hover {
+    border-color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.16);
+    color: var(--color-accent);
+  }
+}
+
+// ── Copied feedback state ─────────────────────────────────────────────────────
+.copied {
+  color: var(--color-accent);
+  opacity: 1;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: copyPulse 0.3s ease;
+  }
+}
+
+.label {
+  white-space: nowrap;
+}
+
+// Screen-reader-only helper
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes copyPulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1.15);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
