@@ -2,7 +2,7 @@
 
 import CustomCursor from "@/components/atoms/custom-cursor";
 import AudioPrompt from "@/components/molecules/audio-prompt";
-import GlobalBackground from "@/components/organisms";
+import GlobalBackground from "@/components/organisms/Background";
 import { usePathname } from "next/navigation";
 import SecretGateway from "./SecretGateway";
 

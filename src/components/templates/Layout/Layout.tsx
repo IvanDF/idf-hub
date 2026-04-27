@@ -1,6 +1,6 @@
 "use client";
 
-import Terminal from "@/components/organisms";
+import Terminal from "@/components/organisms/Terminal";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import styles from "./layout.module.scss";
