@@ -9,7 +9,7 @@ export {
   default as glitchTextStyles,
 } from "./glitch-text";
 export { default as LogoMorph, default as logoMorphStyles } from "./logo-morph";
-export { default as Magnetic, default as magneticStyles } from "./magnetic";
+export { default as Magnetic, default as magneticStyles } from "./Magnetic";
 export {
   default as RotatingTitle,
   default as rotatingTitleStyles,

@@ -1,6 +1,6 @@
 "use client";
 
-import Magnetic from "@/components/atoms/magnetic";
+import Magnetic from "@/components/atoms";
 import SocialIconLink from "@/components/atoms/social-icon-link";
 import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
