@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Magnetic from '@/components/atoms/magnetic';
+import Magnetic from '@/components/atoms/Magnetic';
 
 describe('Magnetic', () => {
   const MockChild = () => <div>Child Element</div>;
