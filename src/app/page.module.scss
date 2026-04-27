@@ -1,6 +1,9 @@
+@use "@/styles/variables" as *;
+@use "sass:color";
+
 .cmdKHint {
   position: absolute;
-  bottom: 40px;
+  bottom: $spacing-xl;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -8,14 +11,14 @@
   pointer-events: none;
   z-index: 100;
   background-color: var(--color-bg);
-  padding: 8px 16px;
-  border-radius: 20px;
+  padding: $spacing-xs $spacing-md;
+  border-radius: $radius-xl;
   border: 1px solid var(--color-divider);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px color.adjust($color-black, $alpha: -0.9);
 
   p {
     font-family: var(--font-josefin-sans);
-    font-size: 0.8rem;
+    font-size: $font-size-sm;
     color: var(--color-text);
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -31,11 +34,11 @@
 
 .shortcutsHint {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  bottom: $spacing-md;
+  right: $spacing-md;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: $spacing-xs;
   pointer-events: none;
   z-index: 100;
   opacity: 0.6;
@@ -48,27 +51,27 @@
 
 .shortcut {
   font-family: var(--font-josefin-sans);
-  font-size: 0.65rem;
+  font-size: $font-size-xs;
   color: var(--color-text);
   letter-spacing: 0.5px;
   text-transform: uppercase;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: $spacing-2xs;
 
   kbd {
     font-family: var(--font-geist-mono);
-    font-size: 0.6rem;
+    font-size: $font-size-2xs;
     background: var(--color-card-bg);
     border: 1px solid var(--color-divider);
-    border-radius: 4px;
-    padding: 2px 6px;
+    border-radius: $radius-sm;
+    padding: $spacing-3xs $spacing-sm;
     color: var(--color-accent);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px color.adjust($color-black, $alpha: -0.9);
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-md) {
   .shortcutsHint {
     display: none;
   }

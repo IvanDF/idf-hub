@@ -1,4 +1,5 @@
 @use "variables" as *;
+@use "sass:color";
 
 // Glitch effect for body when .glitch-active is present
 body.glitch-active {
@@ -41,32 +42,35 @@ body.glitch-active {
   --color-text: #{$color-text-light};
   --color-accent: #{$color-accent-light};
   --color-secondary: #{$color-secondary-light};
-  --color-secondary-rgb: 59, 130, 246;
+  --color-secondary-rgb: #{$color-lario-rgb};
   --color-divider: #{$color-divider-light};
   --color-text-muted: #{$color-slate-muted};
   --color-text-soft: color-mix(in srgb, var(--color-text) 72%, transparent);
-  --color-surface-glass: rgba(17, 24, 39, 0.08);
-  --color-surface-card-strong: rgba(17, 24, 39, 0.12);
+  --color-surface-glass: #{color.adjust($color-slate-light, $alpha: -0.92)};
+  --color-surface-card-strong: #{color.adjust(
+      $color-slate-light,
+      $alpha: -0.88
+    )};
   --color-category-dev: #{$color-lario-light};
   --color-category-maker: #{$color-category-maker};
   --color-category-design: #{$color-category-design};
   --color-category-experiment: #{$color-category-experiment};
-  --color-platform-github: #24292f;
-  --color-platform-figma: #f24e1e;
-  --color-platform-notion: #111111;
-  --color-platform-codepen: #06b6d4;
-  --color-platform-apple-shortcuts: #7c3aed;
-  --color-platform-vscode: #007acc;
-  --color-platform-web: #334155;
+  --color-platform-github: #{$platform-github};
+  --color-platform-figma: #{$platform-figma};
+  --color-platform-notion: #{$platform-notion};
+  --color-platform-codepen: #{$platform-codepen};
+  --color-platform-apple-shortcuts: #{$platform-apple-shortcuts};
+  --color-platform-vscode: #{$platform-vscode};
+  --color-platform-web: #{$platform-web};
   --color-primary-cta: #{$color-lario-light};
   --color-primary-cta-hover: #{$color-lario-dark};
-  --color-live: #ff5f57;
+  --color-live: #{$effect-live};
   --color-live-rgb: 255, 95, 87;
-  --color-super-dark: #ff4d4d;
+  --color-super-dark: #{$effect-super-dark};
   --color-super-dark-rgb: 255, 77, 77;
-  --color-github-panel-bg: #0d1117;
-  --color-github-panel-border: #30363d;
-  --color-github-panel-text: #c9d1d9;
+  --color-github-panel-bg: #{$terminal-panel-bg};
+  --color-github-panel-border: #{$terminal-panel-border};
+  --color-github-panel-text: #{$terminal-panel-text};
   --color-bg-rgb: 250, 250, 250;
   --color-silk-rgb: 10, 10, 10;
   --color-text-rgb: 17, 24, 39;
@@ -75,9 +79,10 @@ body.glitch-active {
   --color-error-rgb: #{$color-error-rgb};
   --color-warning-rgb: #{$color-warning-rgb};
   --color-card-bg: #{$color-bg-light};
-  --color-card-border: rgba(10, 10, 10, 0.05);
+  --color-card-border: #{color.adjust($color-silk-dark, $alpha: -0.95)};
   --color-card-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    0 4px 6px -1px #{color.adjust($color-black, $alpha: -0.95)},
+    0 2px 4px -1px #{color.adjust($color-black, $alpha: -0.97)};
 }
 
 [data-theme="dark"] {
@@ -90,28 +95,28 @@ body.glitch-active {
   --color-divider: #{$color-divider-dark};
   --color-text-muted: #{$color-slate-dark};
   --color-text-soft: color-mix(in srgb, var(--color-text) 72%, transparent);
-  --color-surface-glass: rgba(243, 244, 246, 0.06);
-  --color-surface-card-strong: rgba(243, 244, 246, 0.08);
+  --color-surface-glass: #{color.adjust($color-slate-dark, $alpha: -0.94)};
+  --color-surface-card-strong: #{color.adjust($color-slate-dark, $alpha: -0.92)};
   --color-category-dev: #{$color-lario-dark};
   --color-category-maker: #{$color-category-maker};
   --color-category-design: #{$color-category-design};
   --color-category-experiment: #{$color-category-experiment};
-  --color-platform-github: #c9d1d9;
-  --color-platform-figma: #f24e1e;
-  --color-platform-notion: #f5f5f4;
-  --color-platform-codepen: #22d3ee;
-  --color-platform-apple-shortcuts: #a78bfa;
-  --color-platform-vscode: #4fc3f7;
-  --color-platform-web: #94a3b8;
+  --color-platform-github: #{$terminal-panel-text};
+  --color-platform-figma: #{$platform-figma};
+  --color-platform-notion: #{$platform-notion-dark};
+  --color-platform-codepen: #{$platform-codepen-dark};
+  --color-platform-apple-shortcuts: #{$platform-apple-shortcuts-dark};
+  --color-platform-vscode: #{$platform-vscode-dark};
+  --color-platform-web: #{$platform-web-dark};
   --color-primary-cta: #{$color-lario-dark};
   --color-primary-cta-hover: #{$color-lario-figma};
-  --color-live: #ff5f57;
+  --color-live: #{$effect-live};
   --color-live-rgb: 255, 95, 87;
-  --color-super-dark: #ff4d4d;
+  --color-super-dark: #{$effect-super-dark};
   --color-super-dark-rgb: 255, 77, 77;
-  --color-github-panel-bg: #0d1117;
-  --color-github-panel-border: #30363d;
-  --color-github-panel-text: #c9d1d9;
+  --color-github-panel-bg: #{$terminal-panel-bg};
+  --color-github-panel-border: #{$terminal-panel-border};
+  --color-github-panel-text: #{$terminal-panel-text};
   --color-bg-rgb: 10, 10, 10;
   --color-silk-rgb: 10, 10, 10;
   --color-text-rgb: 243, 244, 246;
@@ -119,10 +124,11 @@ body.glitch-active {
   --color-success-rgb: #{$color-success-rgb};
   --color-error-rgb: #{$color-error-rgb};
   --color-warning-rgb: #{$color-warning-rgb};
-  --color-card-bg: #{rgba($color-bg-dark, 0.6)};
-  --color-card-border: rgba(255, 255, 255, 0.08);
+  --color-card-bg: #{color.adjust($color-silk-dark, $alpha: -0.4)};
+  --color-card-border: #{color.adjust($color-white, $alpha: -0.92)};
   --color-card-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+    0 4px 6px -1px #{color.adjust($color-black, $alpha: -0.8)},
+    0 2px 4px -1px #{color.adjust($color-black, $alpha: -0.9)};
 }
 
 html,
@@ -183,11 +189,26 @@ canvas {
 }
 
 @keyframes fusScatter {
-  0%   { transform: translateX(0)   scale(1);    filter: blur(0);   }
-  30%  { transform: translateX(6%)  scale(0.97); filter: blur(3px); }
-  60%  { transform: translateX(14%) scale(0.93); filter: blur(6px); }
-  80%  { transform: translateX(2%)  scale(0.99); filter: blur(1px); }
-  100% { transform: translateX(0)   scale(1);    filter: blur(0);   }
+  0% {
+    transform: translateX(0) scale(1);
+    filter: blur(0);
+  }
+  30% {
+    transform: translateX(6%) scale(0.97);
+    filter: blur(3px);
+  }
+  60% {
+    transform: translateX(14%) scale(0.93);
+    filter: blur(6px);
+  }
+  80% {
+    transform: translateX(2%) scale(0.99);
+    filter: blur(1px);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    filter: blur(0);
+  }
 }
 
 /* ── Fus Ro Dah page shake — scales with shout level ───────────────────────── */
@@ -198,7 +219,7 @@ canvas {
   }
 
   /* Level 2 — Fus Ro: medium rumble */
-  html[data-fus-level="2"] body {
+  html[datafus-level="2"] body {
     animation: fusShake2 0.75s ease-out;
   }
 
@@ -209,38 +230,97 @@ canvas {
 }
 
 @keyframes fusShake1 {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  20%      { transform: translate(-2px, 1px) rotate(-0.2deg); }
-  40%      { transform: translate(2px, -1px) rotate(0.2deg); }
-  60%      { transform: translate(-1px, 2px) rotate(-0.15deg); }
-  80%      { transform: translate(1px, -1px) rotate(0.15deg); }
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  20% {
+    transform: translate(-2px, 1px) rotate(-0.2deg);
+  }
+  40% {
+    transform: translate(2px, -1px) rotate(0.2deg);
+  }
+  60% {
+    transform: translate(-1px, 2px) rotate(-0.15deg);
+  }
+  80% {
+    transform: translate(1px, -1px) rotate(0.15deg);
+  }
 }
 
 @keyframes fusShake2 {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  10%      { transform: translate(-5px, 2px) rotate(-0.4deg); }
-  20%      { transform: translate(5px, -3px) rotate(0.4deg); }
-  30%      { transform: translate(-4px, 4px) rotate(-0.35deg); }
-  40%      { transform: translate(4px, -2px) rotate(0.35deg); }
-  50%      { transform: translate(-3px, 3px) rotate(-0.3deg); }
-  60%      { transform: translate(3px, -4px) rotate(0.3deg); }
-  70%      { transform: translate(-4px, 2px) rotate(-0.25deg); }
-  80%      { transform: translate(3px, -2px) rotate(0.2deg); }
-  90%      { transform: translate(-1px, 1px) rotate(-0.1deg); }
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  10% {
+    transform: translate(-5px, 2px) rotate(-0.4deg);
+  }
+  20% {
+    transform: translate(5px, -3px) rotate(0.4deg);
+  }
+  30% {
+    transform: translate(-4px, 4px) rotate(-0.35deg);
+  }
+  40% {
+    transform: translate(4px, -2px) rotate(0.35deg);
+  }
+  50% {
+    transform: translate(-3px, 3px) rotate(-0.3deg);
+  }
+  60% {
+    transform: translate(3px, -4px) rotate(0.3deg);
+  }
+  70% {
+    transform: translate(-4px, 2px) rotate(-0.25deg);
+  }
+  80% {
+    transform: translate(3px, -2px) rotate(0.2deg);
+  }
+  90% {
+    transform: translate(-1px, 1px) rotate(-0.1deg);
+  }
 }
 
 @keyframes fusShake3 {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  5%       { transform: translate(-10px, 5px) rotate(-0.7deg); }
-  10%      { transform: translate(10px, -6px) rotate(0.7deg); }
-  15%      { transform: translate(-8px, 8px) rotate(-0.6deg); }
-  20%      { transform: translate(8px, -4px) rotate(0.6deg); }
-  25%      { transform: translate(-12px, 6px) rotate(-0.8deg); }
-  30%      { transform: translate(11px, -8px) rotate(0.8deg); }
-  40%      { transform: translate(-9px, 7px) rotate(-0.6deg); }
-  50%      { transform: translate(7px, -6px) rotate(0.5deg); }
-  60%      { transform: translate(-6px, 5px) rotate(-0.4deg); }
-  70%      { transform: translate(5px, -4px) rotate(0.3deg); }
-  80%      { transform: translate(-3px, 3px) rotate(-0.2deg); }
-  90%      { transform: translate(2px, -1px) rotate(0.1deg); }
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  5% {
+    transform: translate(-10px, 5px) rotate(-0.7deg);
+  }
+  10% {
+    transform: translate(10px, -6px) rotate(0.7deg);
+  }
+  15% {
+    transform: translate(-8px, 8px) rotate(-0.6deg);
+  }
+  20% {
+    transform: translate(8px, -4px) rotate(0.6deg);
+  }
+  25% {
+    transform: translate(-12px, 6px) rotate(-0.8deg);
+  }
+  30% {
+    transform: translate(11px, -8px) rotate(0.8deg);
+  }
+  40% {
+    transform: translate(-9px, 7px) rotate(-0.6deg);
+  }
+  50% {
+    transform: translate(7px, -6px) rotate(0.5deg);
+  }
+  60% {
+    transform: translate(-6px, 5px) rotate(-0.4deg);
+  }
+  70% {
+    transform: translate(5px, -4px) rotate(0.3deg);
+  }
+  80% {
+    transform: translate(-3px, 3px) rotate(-0.2deg);
+  }
+  90% {
+    transform: translate(2px, -1px) rotate(0.1deg);
+  }
 }

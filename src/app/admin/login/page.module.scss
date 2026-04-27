@@ -1,10 +1,13 @@
+@use "@/styles/variables" as *;
+@use "sass:color";
+
 .page {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   background-color: var(--color-bg);
-  padding: 1.5rem;
+  padding: $spacing-md;
   position: relative;
 
   &::after {
@@ -14,9 +17,9 @@
     background: repeating-linear-gradient(
       0deg,
       transparent,
-      transparent 2px,
-      rgba(0, 0, 0, 0.03) 2px,
-      rgba(0, 0, 0, 0.03) 4px
+      transparent $spacing-2xs,
+      color.adjust($color-black, $alpha: -0.97) $spacing-2xs,
+      color.adjust($color-black, $alpha: -0.97) $spacing-xs
     );
     pointer-events: none;
     z-index: 9999;
