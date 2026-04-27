@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+@use "sass:color";
 
 // ── Root overlay ──────────────────────────────────────────────────────────────
 
@@ -19,7 +20,7 @@
   flex-direction: column;
   align-items: center;
   gap: $spacing-md;
-  background: rgba(0, 0, 0, 0.88);
+  background: color.adjust($color-black, $alpha: -0.12);
   border: 1px solid var(--color-accent);
   border-radius: 16px;
   padding: $spacing-xl $spacing-xxl;
@@ -52,7 +53,7 @@
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  border: 2px solid #ef4444;
+  border: 2px solid $color-error;
 }
 
 .listenText {
@@ -60,14 +61,14 @@
   font-size: $font-size-sm;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #fff;
+  color: $color-white;
   margin: 0;
 }
 
 .countdownBar {
   width: 200px;
   height: 3px;
-  background: rgba(255, 255, 255, 0.12);
+  background: color.adjust($color-white, $alpha: -0.88);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -84,7 +85,7 @@
 .hint {
   font-family: $font-family-mono;
   font-size: $font-size-2xs;
-  color: rgba(255, 255, 255, 0.35);
+  color: color.scale($color-white, $lightness: -65%);
   margin: 0;
   letter-spacing: 0.1em;
 }
@@ -92,7 +93,7 @@
 .errorText {
   font-family: $font-family-mono;
   font-size: $font-size-xs;
-  color: #ef4444;
+  color: color.scale($color-error, $lightness: -10%);
   margin: 0;
 }
 
@@ -101,8 +102,8 @@
   display: flex;
   align-items: center;
   gap: $spacing-sm;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: color.adjust($color-white, $alpha: -0.95);
+  border: 1px solid color.adjust($color-white, $alpha: -0.9);
   border-radius: 6px;
   padding: $spacing-xs $spacing-sm;
   width: 100%;
@@ -115,7 +116,7 @@
   gap: 4px;
   font-family: $font-family-mono;
   font-size: $font-size-2xs;
-  color: #ef4444;
+  color: color.scale($color-error, $lightness: -10%);
   white-space: nowrap;
   letter-spacing: 0.1em;
   flex-shrink: 0;
@@ -126,14 +127,14 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #ef4444;
+  background: $color-error;
   animation: blink 1s step-start infinite;
 }
 
 .transcriptText {
   font-family: $font-family-mono;
   font-size: $font-size-xs;
-  color: rgba(255, 255, 255, 0.65);
+  color: color.scale($color-white, $lightness: -35%);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -158,7 +159,7 @@
 .shockwave {
   position: absolute;
   border-radius: 50%;
-  border: 4px solid rgba(255, 255, 255, 0.9);
+  border: 4px solid color.adjust($color-white, $alpha: -0.1);
   width: 48px;
   height: 48px;
   top: 50%;
@@ -171,7 +172,7 @@
 .shockwave2 {
   position: absolute;
   border-radius: 50%;
-  border: 3px solid rgba(139, 92, 246, 0.75);
+  border: 3px solid color.adjust($color-volta-light, $alpha: -0.25);
   width: 48px;
   height: 48px;
   top: 50%;
@@ -204,10 +205,10 @@
   font-weight: 700;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: #fff;
+  color: $color-white;
   text-shadow:
-    0 0 40px rgba(255, 255, 255, 0.85),
-    0 0 80px rgba(139, 92, 246, 0.7);
+    0 0 40px color.scale($color-white, $lightness: -15%),
+    0 0 80px color.scale($color-volta-light, $lightness: -30%);
   margin: 0;
   animation: textShout 2.5s ease-out forwards;
 }
@@ -221,10 +222,10 @@
   font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #fff;
+  color: $color-white;
   text-shadow:
-    0 0 24px rgba(255, 255, 255, 0.7),
-    0 0 48px rgba(139, 92, 246, 0.5);
+    0 0 24px color.scale($color-white, $lightness: -30%),
+    0 0 48px color.scale($color-volta-light, $lightness: -50%);
   margin: 0;
   animation: textShout 2.5s ease-out forwards;
 }
@@ -236,7 +237,7 @@
   font-size: $font-size-sm;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
+  color: color.scale($color-white, $lightness: -45%);
   margin: 0;
   animation: textShout 2.5s ease-out forwards;
 }

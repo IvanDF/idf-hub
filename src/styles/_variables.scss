@@ -3,11 +3,20 @@
 // Inspired by Como (Lario) and Alessandro Volta.
 // Balances soft pastel aesthetics with high-contrast readability.
 
-// RGB values stored as channels for alpha support via rgba()
+@use 'sass:color';
+
+// Alpha helper function
+@function alpha($color, $opacity) {
+  @return rgba($color, $opacity);
+}
 $color-volta-rgb: 139 92 246;
 $color-lario-rgb: 59 130 246;
 $color-silk-rgb: 10 10 10;
 $color-slate-rgb: 243 244 246;
+$color-white-rgb: 255 255 255;
+$color-error-rgb: 239 68 68;
+$color-success-rgb: 74 222 128;
+$color-warning-rgb: 250 204 21;
 
 $color-volta-light: #8b5cf6;
 $color-volta-dark: #a78bfa;
@@ -20,17 +29,16 @@ $color-slate-light: #111827;
 $color-slate-dark: #f3f4f6;
 $color-slate-muted: #64748b;
 
+$color-white: #ffffff;
+$color-black: #000000;
+
 $color-category-maker: #f59e0b;
 $color-category-design: #ec4899;
 $color-category-experiment: #10b981;
 
-$color-success-rgb: 74 222 128;
-$color-error-rgb: 255 107 107;
-$color-warning-rgb: 250 204 21;
-
-// Semantic status colours (hex shortcuts for success/error/warning)
+// Semantic status colours (hex shortcuts)
 $color-success: #4ade80;
-$color-error: #ff6b6b;
+$color-error: #ef4444;
 $color-warning: #facc15;
 
 // Theme Mapping
@@ -58,20 +66,26 @@ $font-family-primary: var(--font-josefin-sans), sans-serif;
 $font-family-mono: var(--font-geist-mono), monospace;
 
 // Type Scale
-$font-size-2xs: 0.6rem;
-$font-size-xs: 0.7rem;
+$font-size-2xs: 0.5rem;
+$font-size-xs: 0.625rem;
 $font-size-sm: 0.75rem;
 $font-size-base: 0.875rem;
 $font-size-md: 1rem;
 $font-size-lg: 1.5rem;
+$font-size-xl: 2rem;
 
-// Spacing
-$spacing-xs: 4px;
-$spacing-sm: 8px;
+// Spacing (base unit 4px)
+$spacing-2xs: 4px;
+$spacing-xs: 8px;
+$spacing-sm: 12px;
 $spacing-md: 16px;
 $spacing-lg: 24px;
 $spacing-xl: 32px;
+$spacing-2xl: 48px;
 $spacing-xxl: 80px;
+
+// Touch targets (minimum 44px per WCAG)
+$touch-target-min: 44px;
 
 // Layout
 $sidebar-width: 328px;

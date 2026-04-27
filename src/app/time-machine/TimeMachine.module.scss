@@ -1,5 +1,6 @@
 @use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
+@use 'sass:color';
 
 .container {
   position: relative;
@@ -111,24 +112,23 @@
   transform: translate(-50%, -50%);
   width: 120%;
   height: 120%;
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  border-radius: 50%;
-  animation: rotate 20s linear infinite;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
-  box-shadow: 0 0 50px rgba(59, 130, 246, 0.1);
+border: 1px solid color.adjust($color-lario-light, $alpha: -0.7);
+
+  background: radial-gradient(circle, color.adjust($color-lario-light, $alpha: -0.95) 0%, transparent 70%);
+
+  box-shadow: 0 0 50px color.adjust($color-lario-light, $alpha: -0.9);
 }
 
 .artifactCard {
   position: relative;
-  background: rgba(10, 10, 10, 0.8);
-  border: 1px solid rgba(59, 130, 246, 0.5);
+  background: color.adjust($color-silk-dark, $alpha: -0.2);
+  border: 1px solid color.adjust($color-lario-light, $alpha: -0.5);
   backdrop-filter: blur(12px);
   padding: 40px;
   border-radius: 4px;
   box-shadow: 
-    0 0 20px rgba(59, 130, 246, 0.1),
-    inset 0 0 20px rgba(59, 130, 246, 0.05);
+    0 0 20px color.adjust($color-lario-light, $alpha: -0.9),
+    inset 0 0 20px color.adjust($color-lario-light, $alpha: -0.95);
   
   &::before {
     content: '';
@@ -137,7 +137,7 @@
     left: -1px;
     right: -1px;
     bottom: -1px;
-    background: linear-gradient(45deg, rgba(59, 130, 246, 0.5), transparent, rgba(168, 85, 247, 0.5));
+    background: linear-gradient(45deg, color.adjust($color-lario-light, $alpha: -0.5), transparent, color.adjust($color-volta-light, $alpha: -0.5));
     z-index: -1;
     border-radius: 4px;
     opacity: 0.5;
@@ -150,7 +150,7 @@
   gap: 12px;
   margin-bottom: $spacing-lg;
   padding-bottom: $spacing-md;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid color.adjust($color-white, $alpha: -0.9);
 }
 
 .icon {
@@ -161,10 +161,10 @@
   font-size: 0.75rem;
   color: $color-lario-dark;
   letter-spacing: 0.1em;
-  background: rgba(59, 130, 246, 0.1);
+  background: color.adjust($color-lario-light, $alpha: -0.9);
   padding: $spacing-xs $spacing-sm;
   border-radius: 2px;
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  border: 1px solid color.adjust($color-lario-light, $alpha: -0.8);
 }
 
 .artifactTitle {
@@ -173,7 +173,7 @@
   color: $color-silk-light;
   margin-bottom: $spacing-sm;
   letter-spacing: -0.02em;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 10px color.adjust($color-white, $alpha: -0.7);
 }
 
 .artifactMeta {
@@ -187,11 +187,11 @@
 }
 
 .separator {
-  color: rgba($color-slate-light, 0.35);
+  color: color.adjust($color-slate-light, $alpha: -0.65);
 }
 
 .artifactDescription {
-  color: rgba($color-slate-dark, 0.85);
+  color: color.adjust($color-slate-dark, $alpha: -0.15);
   line-height: 1.6;
   margin-bottom: $spacing-xl;
   font-size: 1.1rem;
@@ -222,8 +222,8 @@
   font-size: 0.875rem;
 
   &:hover {
-    background: darken($color-lario-light, 8%);
-    box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+    background: color.adjust($color-lario-light, $lightness: -8%);
+    box-shadow: 0 0 15px color.adjust($color-lario-light, $alpha: -0.6);
     transform: translateY(-1px);
   }
 }
@@ -233,14 +233,10 @@
   align-items: center;
   justify-content: center;
   padding: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: $color-silk-light;
-  transition: all 0.2s;
-  background: rgba(255, 255, 255, 0.05);
-
+border: 1px solid color.adjust($color-white, $alpha: -0.8);
+  background: color.adjust($color-white, $alpha: -0.95);
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: $color-silk-light;
+    background: color.adjust($color-white, $alpha: -0.9);
   }
 }
 
