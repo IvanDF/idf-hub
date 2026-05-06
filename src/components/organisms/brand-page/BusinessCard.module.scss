@@ -1,0 +1,56 @@
+@use "@/styles/variables" as *;
+@use "sass:color";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.badge {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background: color.adjust($color-volta-light, $alpha: -0.92);
+  border: 1px solid color.adjust($color-volta-light, $alpha: -0.8);
+  padding: $spacing-3xs $spacing-xs;
+  border-radius: $radius-sm;
+}
+
+.metaDesc {
+  font-family: $font-family-mono;
+  font-size: $font-size-2xs;
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+}
+
+.cardOuter {
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow:
+    0 2px 8px color.adjust($color-black, $alpha: -0.92),
+    0 8px 32px color.adjust($color-black, $alpha: -0.94);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: default;
+
+  &:hover {
+    box-shadow:
+      0 4px 16px color.adjust($color-volta-light, $alpha: -0.85),
+      0 16px 40px color.adjust($color-black, $alpha: -0.9);
+    transform: translateY(-2px);
+  }
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}

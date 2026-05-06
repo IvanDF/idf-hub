@@ -1,5 +1,3 @@
-// projects.ts
-
 import { Project } from "@/types/project";
 
 export const PROJECTS: Project[] = [
@@ -14,6 +12,7 @@ export const PROJECTS: Project[] = [
     longDescription:
       "A high-impact personal card experience designed to replace static social links with contextual profile variants tailored for events and conventions.",
     category: "DEV",
+    platform: "github",
     tags: ["React", "Vite", "Digital Identity"],
     year: "2024",
     duration: "4 weeks",
@@ -37,12 +36,222 @@ export const PROJECTS: Project[] = [
     links: {
       repo: "https://github.com/IvanDF/proj-gabberg-icard",
       live: "https://gabberg.netlify.app/?card_type=dp-ygh-001-01",
+      figma:
+        "https://www.figma.com/design/AUsHrYgiyCOT32SYU2Jrzm/Proj.-Gabber?node-id=104-39&p=f&t=Espn1nMIvV1LPI2y-0",
+    },
+    media: {
+      thumbnail: "/projects/gabberg-icard/thumb.png",
+      gallery: ["/projects/gabberg-icard/demo.gif"],
+      fit: "contain",
+    },
+    interaction: "tilt",
+    layout: "featured",
+  },
+  {
+    id: "filteroo",
+    title: "Filteroo",
+    description:
+      "Web app to apply real-time filters to images directly in the browser, inspired by Instagram-style effects.",
+    longDescription:
+      "A React application that applies CSS and canvas-based filters to images in real time, built with a strong focus on component reusability and instant visual feedback. Figma was used for UI design.",
+    category: "DEV",
+    platform: "github",
+    tags: ["React", "Hooks", "Image Processing", "SCSS"],
+    year: "2022",
+    duration: "2 weeks",
+    role: "Design, Frontend Development",
+    status: "archived",
+    stack: ["React", "Hooks", "SCSS", "Styled Components", "Figma"],
+    highlights: [
+      "Real-time filter preview with no external libraries",
+      "Figma-designed UI translated to React components",
+      "Modular hooks architecture for filter logic",
+    ],
+    problem:
+      "Applying and previewing image filters typically requires desktop software.",
+    solution:
+      "A lightweight browser-based tool using CSS filters and React state to deliver instant feedback.",
+    links: {
+      repo: "https://github.com/IvanDF/filteroo",
+      figma:
+        "https://www.figma.com/design/Fr3KTY3BGTqGphnNKQL3R4/Filter-web-app?node-id=0-1&p=f&t=EhhrwIfYZysj3pHg-0",
+    },
+    media: {
+      thumbnail:
+        "https://raw.githubusercontent.com/IvanDF/filteroo/master/src/packages/github/devices.png",
+      gallery: [
+        "https://raw.githubusercontent.com/IvanDF/filteroo/master/src/packages/github/preview.gif",
+      ],
+      fit: "contain",
+    },
+    interaction: "spotlight",
+    layout: "wide",
+  },
+  {
+    id: "zelda-cookbook",
+    title: "Zelda Cookbook",
+    description:
+      "Full-stack recipe app themed around Breath of the Wild, with a Laravel REST API and a React TypeScript frontend.",
+    longDescription:
+      "A full-stack project featuring a Lumen/Laravel REST API backend and a TypeScript React frontend. Users can explore Zelda-inspired recipes with data fetched via REST.",
+    category: "DEV",
+    platform: "github",
+    tags: ["React", "TypeScript", "Laravel", "REST API"],
+    year: "2022",
+    duration: "3 weeks",
+    role: "Full-Stack Developer",
+    status: "archived",
+    stack: ["React", "TypeScript", "SCSS", "PHP", "Lumen", "REST API"],
+    highlights: [
+      "Decoupled frontend/backend architecture",
+      "TypeScript React with custom fetch hooks",
+      "Lumen REST API with CRUD endpoints",
+    ],
+    problem:
+      "Full-stack exercises often lack an engaging theme, making it harder to stay motivated through both frontend and backend development.",
+    solution:
+      "Separate repos for frontend and backend communicating through a clean REST API.",
+    links: {
+      repo: "https://github.com/IvanDF/zelda-cookbook-fe",
     },
     media: {
       thumbnail: "/assets/placeholder.svg",
+      fit: "contain",
     },
     interaction: "tilt",
   },
+  {
+    id: "vue-boolflix",
+    title: "Boolflix",
+    description:
+      "Netflix-inspired movie and TV search app powered by the TMDB API, built with Vue.js.",
+    longDescription:
+      "A responsive Vue.js application that queries the TMDB API to search for movies and TV series, displaying results in a card grid with dynamic info and poster images.",
+    category: "DEV",
+    platform: "github",
+    tags: ["Vue.js", "AJAX", "API", "TMDB"],
+    year: "2021",
+    duration: "2 weeks",
+    role: "Frontend Developer",
+    status: "archived",
+    stack: ["Vue.js", "AJAX", "TMDB API", "CSS"],
+    highlights: [
+      "Live search with TMDB API integration",
+      "Responsive card grid with movie posters",
+      "Vue component architecture for dynamic data",
+    ],
+    links: {
+      repo: "https://github.com/IvanDF/vue-boolflix",
+    },
+    media: {
+      thumbnail:
+        "https://raw.githubusercontent.com/IvanDF/vue-boolflix/master/img/readme/devices.png",
+      fit: "contain",
+    },
+    interaction: "tilt",
+  },
+  {
+    id: "html-css-spotifyweb",
+    title: "Spotify Web Clone",
+    description:
+      "Pixel-faithful responsive clone of the Spotify Web Player UI built with pure HTML and CSS.",
+    longDescription:
+      "A pure HTML/CSS reproduction of the Spotify Web Player interface with a focus on responsive layout precision and visual accuracy.",
+    category: "DEV",
+    platform: "github",
+    tags: ["HTML", "CSS", "Responsive"],
+    year: "2021",
+    duration: "1 week",
+    role: "Frontend Developer",
+    status: "archived",
+    stack: ["HTML", "CSS"],
+    highlights: [
+      "Pixel-accurate Spotify layout reproduction",
+      "Fully responsive with flexbox and grid",
+      "No JavaScript — pure CSS layout challenge",
+    ],
+    links: {
+      repo: "https://github.com/IvanDF/html-css-spotifyweb",
+    },
+    media: {
+      thumbnail:
+        "https://raw.githubusercontent.com/IvanDF/html-css-spotifyweb/master/img/readme/devices.png",
+      fit: "contain",
+    },
+    interaction: "spotlight",
+  },
+
+  {
+    id: "todo-fullstack",
+    title: "Full-Stack ToDo List",
+    description:
+      "To-do app with separate frontend and backend layers connected via API, built as a full-stack architecture exercise.",
+    longDescription:
+      "A full-stack project with Vue on the frontend and Laravel/PHP on the backend, designed to practice API-driven development, CRUD workflows, and database-backed task management.",
+    category: "DEV",
+    platform: "github",
+    tags: ["Vue", "Laravel", "PHP", "MySQL", "API"],
+    year: "2021",
+    duration: "2 weeks",
+    role: "Full-Stack Developer",
+    status: "archived",
+    stack: ["Vue", "Axios", "Laravel", "PHP", "MySQL", "SCSS"],
+    highlights: [
+      "Separated frontend/backend with API communication",
+      "CRUD task lifecycle with persistence",
+      "Local full-stack workflow with database integration",
+    ],
+    links: {
+      repo: "https://github.com/IvanDF/todo-fullstack",
+    },
+    media: {
+      thumbnail:
+        "https://raw.githubusercontent.com/IvanDF/todo-fullstack/master/front-end/dist/img/readme/devices.png",
+      gallery: [
+        "https://raw.githubusercontent.com/IvanDF/todo-fullstack/master/front-end/dist/img/readme/demo.gif",
+      ],
+      fit: "contain",
+    },
+    interaction: "tilt",
+    layout: "wide",
+  },
+  {
+    id: "signup-onboarding-flow",
+    title: "Onboarding Flow",
+    description:
+      "Sign-up and onboarding flow prototype focused on step clarity, state management, and responsive UI.",
+    longDescription:
+      "A React/TypeScript onboarding flow experiment exploring progressive disclosure, validation states, and visual continuity across sign-up steps.",
+    category: "DEV",
+    platform: "github",
+    tags: ["React", "TypeScript", "Onboarding", "UX"],
+    year: "2021",
+    duration: "1 week",
+    role: "Frontend Developer",
+    status: "archived",
+    stack: ["React", "TypeScript", "Styled Components"],
+    highlights: [
+      "Multi-step sign-up interaction",
+      "Responsive interface and stateful progression",
+      "Reusable component-oriented structure",
+    ],
+    links: {
+      repo: "https://github.com/IvanDF/signup-page",
+    },
+    media: {
+      thumbnail:
+        "https://raw.githubusercontent.com/IvanDF/signup-page/master/src/packages/img/readme/devices.png",
+      gallery: [
+        "https://raw.githubusercontent.com/IvanDF/signup-page/master/src/packages/img/readme/demo.gif",
+      ],
+      fit: "contain",
+    },
+    interaction: "spotlight",
+  },
+
+  // ----------------------------------------------------------------------
+  // VSCODE PROJECTS
+  // ----------------------------------------------------------------------
   {
     id: "rick-and-morty-theme",
     title: "Rick and Morty Theme",
@@ -50,7 +259,8 @@ export const PROJECTS: Project[] = [
       "VS Code theme extension with dual variants, semantic token mapping, and contrast-aware palettes for long coding sessions.",
     longDescription:
       'A complete editor theme pack featuring "Portal Gun Dark" and "Citadel Light", with semantic token mapping, readability-first color decisions, and marketplace-ready packaging.',
-    category: "DEV",
+    category: "VSCODE",
+    platform: "vscode-marketplace",
     tags: ["VS Code", "Theme", "Design System"],
     year: "2023",
     duration: "3 weeks",
@@ -72,7 +282,7 @@ export const PROJECTS: Project[] = [
       { label: "Core Value", value: "Readable semantic tokens" },
     ],
     links: {
-      repo: "https://github.com/ivandf/rick-and-morty-theme",
+      repo: "https://github.com/IvanDF/rick-and-morty-theme",
       marketplace:
         "https://marketplace.visualstudio.com/items?itemName=idf-studio.rick-and-morty-theme",
     },
@@ -93,7 +303,8 @@ export const PROJECTS: Project[] = [
       "VS Code extension that surfaces Azure DevOps pipeline status in a terminal-style panel to reduce context switching.",
     longDescription:
       "A focused TypeScript extension built on the VS Code API and Azure DevOps REST APIs to keep build visibility inside the editor with a low-noise command-first UX.",
-    category: "DEV",
+    category: "VSCODE",
+    platform: "github",
     tags: ["VS Code Extension", "TypeScript", "Azure DevOps"],
     year: "2023",
     duration: "5 weeks",
@@ -114,227 +325,493 @@ export const PROJECTS: Project[] = [
       repo: "https://github.com/IvanDF/check-your-pipes",
     },
     media: {
-      thumbnail: "/projects/check-your-pipes/thumb.jpg",
+      thumbnail: "/projects/check-your-pipes/thumb.svg",
+      gallery: ["/projects/check-your-pipes/desktop-shot.png"],
+      fit: "contain",
     },
     interaction: "spotlight",
-  },
-
-  // ----------------------------------------------------------------------
-  // MAKER / DESIGN
-  // ----------------------------------------------------------------------
-  {
-    id: "gwent-cards",
-    title: "Real Life Gwent",
-    description:
-      "Physical recreation of The Witcher 3 Gwent decks. High-res asset extraction & print design.",
-    longDescription:
-      "A physical production project combining digital asset extraction, print preflight, and material testing to recreate a playable premium card set.",
-    category: "MAKER",
-    tags: ["Print Design", "Prop Making", "The Witcher"],
-    year: "2022",
-    duration: "6 weeks",
-    role: "Research, Print Pipeline, Crafting",
-    status: "live",
-    highlights: [
-      "Playable physical decks with game-accurate visuals",
-      "High resolution print calibration",
-      "Material and finish experimentation",
-    ],
-    media: {
-      thumbnail: "/projects/gwent/thumb.jpg",
-    },
-    interaction: "tilt",
-    layout: "tall",
-  },
-  {
-    id: "cosplay-business-cards",
-    title: "Cosplay Branding",
-    description:
-      "Custom character-specific business cards (Pokémon, Yu-Gi-Oh!) for cosplayers.",
-    longDescription:
-      "A branding system for cosplayers where each card variant reflects character lore while preserving consistent personal identity cues.",
-    category: "DESIGN",
-    tags: ["Graphic Design", "Branding", "Print"],
-    year: "2022",
-    duration: "2 weeks",
-    role: "Art Direction, Print Design",
-    status: "live",
-    highlights: [
-      "Character-specific card variants",
-      "Consistent identity framework across themes",
-      "Print-ready layouts and color profiles",
-    ],
-    media: {
-      thumbnail: "/projects/business-cards/thumb.jpg",
-    },
-    interaction: "tilt",
   },
 
   // ----------------------------------------------------------------------
   // EXPERIMENTS
   // ----------------------------------------------------------------------
   {
-    id: "genji-ai",
-    title: "Genji.ai",
-    description: "Experimental generative interface concept.",
+    id: "3d-blender-animation",
+    title: "3D Blender Animation",
+    description:
+      "3D model animation brought to life on the web with GSAP and CSS, exported from Blender.",
     longDescription:
-      "A speculative interface exploration for conversational and generative workflows with strong emphasis on atmosphere and discoverability.",
+      "A creative experiment combining a Blender 3D model with GSAP-driven animations on the web. The static model is exported and animated entirely with CSS and JavaScript for a smooth cinematic experience in the browser.",
     category: "EXPERIMENT",
-    tags: ["AI", "Generative", "Concept"],
-    year: "2023",
-    duration: "Concept sprint",
-    role: "Concept Design, UX Prototyping",
-    status: "concept",
+    platform: "github",
+    tags: ["Blender", "GSAP", "3D", "CSS Animation"],
+    year: "2022",
+    duration: "1 week",
+    role: "3D Modeling, Web Animation",
+    status: "archived",
+    stack: ["Blender", "GSAP", "HTML", "CSS", "JavaScript"],
     highlights: [
-      "Narrative-first interface language",
-      "Exploration of command and prompt blending",
-      "Rapid concept validation",
+      "Blender model exported for web use",
+      "Smooth animation sequences driven by GSAP",
+      "No WebGL — pure CSS 3D transforms and GSAP",
     ],
+    links: {
+      repo: "https://github.com/IvanDF/3d-blender-animation",
+    },
     media: {
-      thumbnail: "/projects/genji/thumb.jpg",
+      thumbnail:
+        "https://raw.githubusercontent.com/IvanDF/3d-blender-animation/main/assets/devices.png",
+      gallery: [
+        "https://raw.githubusercontent.com/IvanDF/3d-blender-animation/main/assets/demo.gif",
+      ],
+      fit: "contain",
     },
     interaction: "glitch",
     layout: "wide",
   },
   {
-    id: "gravity-well",
-    title: "Gravity Well",
+    id: "snake-3d",
+    title: "Snake 3D",
     description:
-      "Particle simulation where cursor creates a black hole, distorting nearby elements and light.",
+      "Classic Snake game reimagined in a 3D JavaScript environment.",
     longDescription:
-      "An interactive physics-inspired visual where pointer movement modifies a gravity field in real time, affecting particles and ambient distortions.",
+      "A 3D take on the timeless Snake game, built with vanilla JavaScript. The project explores game loop logic, collision detection, and 3D rendering without a dedicated game engine.",
     category: "EXPERIMENT",
-    tags: ["Physics", "Three.js", "Shader"],
-    year: "2024",
-    duration: "R&D ongoing",
-    role: "Creative Coding, Shader Prototyping",
-    status: "in-progress",
-    stack: ["React", "Three.js", "WebGL Shader"],
+    platform: "github",
+    tags: ["JavaScript", "3D", "Game", "Canvas"],
+    year: "2022",
+    duration: "1 week",
+    role: "Game Development, Creative Coding",
+    status: "archived",
+    stack: ["JavaScript", "HTML Canvas", "CSS"],
     highlights: [
-      "Cursor-driven gravity simulation",
-      "Realtime distortion and particle reactions",
-      "Optimized for experiential storytelling",
+      "Classic Snake mechanics in a 3D perspective",
+      "Vanilla JavaScript with no game engine",
+      "Game loop, collision detection, and score system",
     ],
-    problem:
-      "Typical portfolio interactions feel static and quickly become forgettable.",
-    solution:
-      "Use physically reactive visuals to build immersion and direct attention.",
+    links: {
+      repo: "https://github.com/IvanDF/snake-3d",
+    },
     media: {
       thumbnail: "/assets/placeholder.svg",
+      fit: "contain",
+    },
+    interaction: "glitch",
+  },
+
+  // ----------------------------------------------------------------------
+  // CODEPEN PLAYGROUNDS
+  // ----------------------------------------------------------------------
+  {
+    id: "codepen-nintendo-switch-oled",
+    title: "Nintendo Switch OLED (CSS)",
+    description:
+      "Pure CSS visual recreation of a Nintendo Switch OLED with polished controls and hardware-inspired composition.",
+    longDescription:
+      "A front-end style exercise focused on high-fidelity object recreation in CSS. The project explores gradients, shape composition, and layered shadows to mimic physical product design in a browser-only canvas.",
+    category: "CODEPEN",
+    platform: "codepen",
+    tags: ["CodePen", "CSS Art", "UI Recreation"],
+    year: "2024",
+    duration: "2 days",
+    role: "Visual Design, Frontend Craft",
+    status: "live",
+    stack: ["HTML", "CSS", "CodePen"],
+    highlights: [
+      "Pure CSS composition with no external assets",
+      "Product-like proportions and depth",
+      "Micro-details inspired by console controls",
+    ],
+    links: {
+      demo: "https://codepen.io/IvanDF/pen/OJQyyXO",
+      live: "https://codepen.io/IvanDF/full/OJQyyXO",
+    },
+    media: {
+      thumbnail: "/projects/codepen-switch-oled/thumb.png",
+      fit: "contain",
+    },
+    interaction: "spotlight",
+    layout: "wide",
+  },
+  {
+    id: "codepen-image-preview-slider",
+    title: "Image Preview Slider",
+    description:
+      "Interactive image preview slider prototype with navigation controls and smooth transition behavior.",
+    longDescription:
+      "A lightweight UI component prototype built in CodePen to test interaction rhythm, visual hierarchy, and motion between preview states.",
+    category: "CODEPEN",
+    platform: "codepen",
+    tags: ["CodePen", "Slider", "Interaction Design"],
+    year: "2024",
+    duration: "1 day",
+    role: "Interaction Design, Frontend Prototyping",
+    status: "live",
+    stack: ["HTML", "CSS", "JavaScript", "CodePen"],
+    highlights: [
+      "Fast visual experimentation for component behavior",
+      "Clear affordances for next/previous navigation",
+      "Built as a reusable UI exploration",
+    ],
+    links: {
+      demo: "https://codepen.io/IvanDF/pen/VwyOqPP",
+      live: "https://codepen.io/IvanDF/full/VwyOqPP",
+    },
+    media: {
+      thumbnail: "/projects/codepen-image-slider/thumb.png",
+      fit: "contain",
+    },
+    interaction: "tilt",
+  },
+  {
+    id: "codepen-navbar-animated",
+    title: "Navbar Animated",
+    description:
+      "Animated anchor-based navigation concept focused on movement, section linking, and responsive menu behavior.",
+    longDescription:
+      "A navigation pattern experiment built on CodePen to refine timing, link emphasis, and animated transitions for one-page layouts.",
+    category: "CODEPEN",
+    platform: "codepen",
+    tags: ["CodePen", "Navbar", "Animation"],
+    year: "2024",
+    duration: "1 day",
+    role: "Frontend Prototyping",
+    status: "live",
+    stack: ["HTML", "CSS", "JavaScript", "CodePen"],
+    highlights: [
+      "Anchor-driven sections with animated nav state",
+      "Smooth transitions tuned for clarity",
+      "Lightweight structure for rapid reuse",
+    ],
+    links: {
+      demo: "https://codepen.io/IvanDF/pen/OJzYwJy",
+      live: "https://codepen.io/IvanDF/full/OJzYwJy",
+    },
+    media: {
+      thumbnail: "/projects/codepen-navbar/thumb.png",
+      fit: "contain",
+    },
+    interaction: "spotlight",
+  },
+
+  // ----------------------------------------------------------------------
+  // FIGMA PROJECTS
+  // ----------------------------------------------------------------------
+  {
+    id: "figma-icon-builder",
+    title: "Icon Builder",
+    description:
+      "Figma plugin that converts selected design nodes into reusable React icon components, with optional motion-ready output.",
+    longDescription:
+      "Icon Builder is a Figma plugin focused on speeding up design-to-code flow for icon systems. It exports structured React components, supports wrapper patterns, and includes options for animated integrations.",
+    category: "CREATIVE",
+    platform: "figma",
+    tags: ["Figma Plugin", "Design to Code", "React Icons"],
+    year: "2025",
+    duration: "Ongoing",
+    role: "Plugin Development, Product Design",
+    status: "live",
+    stack: ["Figma Plugin API", "TypeScript", "HTML"],
+    highlights: [
+      "Convert Figma nodes into reusable React icon components",
+      "Supports wrapper-based integration patterns",
+      "Published in Figma Community with iterative updates",
+    ],
+    links: {
+      repo: "https://github.com/IvanDF/icon-builder",
+      live: "https://www.figma.com/community/plugin/1489334044911703870/icon-builder",
+    },
+    media: {
+      thumbnail:
+        "https://raw.githubusercontent.com/IvanDF/icon-builder/main/assets/ui-preview.png",
+      fit: "contain",
+    },
+    interaction: "spotlight",
+    layout: "featured",
+  },
+
+  // ----------------------------------------------------------------------
+  // NOTION SYSTEMS
+  // ----------------------------------------------------------------------
+  {
+    id: "notion-payment-tracker-2",
+    title: "Payment Tracker 2.0",
+    description:
+      "Personal finance workspace in Notion with recurring costs, month/day summaries, and history views.",
+    longDescription:
+      "A structured Notion system for tracking recurring and previsional payments. Includes summary charts, historical logs, and integration notes for Apple Shortcuts automation.",
+    category: "MAKER",
+    platform: "notion",
+    tags: ["Notion", "Productivity", "Finance"],
+    year: "2024",
+    duration: "Iterative",
+    role: "System Design, Workflow Automation",
+    status: "live",
+    stack: ["Notion Databases", "Linked Views", "Apple Shortcuts"],
+    highlights: [
+      "Recurring and previsional payment lists",
+      "Monthly and daily summary views",
+      "History section for tracking trends over time",
+    ],
+    links: {
+      live: "https://idf-dev.notion.site/Payment-tracker-2-0-5e9328575ec447c19d999fbbcbd0b026",
+    },
+    media: {
+      thumbnail: "/projects/notion/payment-tracker/thumb.png",
+      fit: "contain",
+    },
+    interaction: "tilt",
+    layout: "tall",
+  },
+  {
+    id: "notion-bookshelf-2",
+    title: "Bookshelf 2.0",
+    description:
+      "Knowledge and reading dashboard with library, genres, authors, yearly board, and personal reading stats.",
+    longDescription:
+      "A Notion reading operating system that organizes books by year, author, and genre with aggregated stats for pages, audiobooks, and active reading pipeline.",
+    category: "MAKER",
+    platform: "notion",
+    tags: ["Notion", "Knowledge Management", "Reading"],
+    year: "2024",
+    duration: "Iterative",
+    role: "Information Architecture",
+    status: "live",
+    stack: ["Notion Databases", "Board Views", "Rollups"],
+    highlights: [
+      "Structured pages for Library, Genres, Authors, and Details",
+      "Board by year for browsing and planning",
+      "Summary stats to monitor reading consistency",
+    ],
+    links: {
+      live: "https://idf-dev.notion.site/Books-67a1b5e8e3144778b1b0ef6c34b40fbb",
+    },
+    media: {
+      thumbnail: "/projects/notion/bookshelf/thumb.png",
+      fit: "contain",
+    },
+    interaction: "spotlight",
+  },
+  {
+    id: "notion-recipes-advanced",
+    title: "Recipes Advanced",
+    description:
+      "Meal-planning and kitchen workflow workspace with weekly planning, recipes, shopping list, and ingredient tracking.",
+    longDescription:
+      "An advanced Notion setup for food workflow management: weekly meal planning, recipe organization, shopping synchronization, and ingredient inventory including out-of-stock visibility.",
+    category: "MAKER",
+    platform: "notion",
+    tags: ["Notion", "Meal Planning", "System Design"],
+    year: "2024",
+    duration: "Iterative",
+    role: "Workflow Design",
+    status: "live",
+    stack: ["Notion Databases", "Templates", "Filtered Views"],
+    highlights: [
+      "Weekly meals view connected to recipe database",
+      "Dedicated shopping flow and phone-oriented list",
+      "Ingredient inventory and out-of-stock management",
+    ],
+    links: {
+      live: "https://idf-dev.notion.site/Recipes-14017fd407e24f8aa397f926d61ba536",
+    },
+    media: {
+      thumbnail: "/assets/placeholder.svg",
+      fit: "contain",
+    },
+    interaction: "tilt",
+  },
+
+  // ----------------------------------------------------------------------
+  // APPLE SHORTCUTS
+  // ----------------------------------------------------------------------
+  {
+    id: "shortcut-spotify-to-apple-music",
+    title: "Spotify to Apple Music",
+    description:
+      "iOS Shortcut to speed up migration and lookup flow between Spotify content and Apple Music.",
+    longDescription:
+      "An automation shortcut designed to reduce friction when moving between Spotify and Apple Music contexts, enabling faster handoff for tracks and listening sessions.",
+    category: "APPLE",
+    platform: "apple-shortcuts",
+    tags: ["Apple Shortcuts", "Automation", "Music"],
+    year: "2024",
+    duration: "1 day",
+    role: "Automation Design",
+    status: "live",
+    stack: ["Apple Shortcuts", "iOS", "URL Actions"],
+    highlights: [
+      "Cross-service listening workflow",
+      "Single-action mobile automation",
+      "Designed for daily usage speed",
+    ],
+    links: {
+      live: "https://www.icloud.com/shortcuts/b943ddc8db69421ea8b471426f643e40",
+    },
+    media: {
+      thumbnail: "/projects/apple-shortcuts/spotify-to-apple/thumb.png",
+      gallery: ["/projects/apple-shortcuts/spotify-to-apple/content.png"],
+      fit: "contain",
+    },
+    interaction: "glitch",
+  },
+  {
+    id: "shortcut-tabata",
+    title: "Tabata",
+    description:
+      "Apple Shortcut for interval training routines with quick-start flow suitable for short workout sessions.",
+    longDescription:
+      "A focused iOS automation shortcut created to launch and support Tabata-style training routines with minimal setup and repeatable timing flow.",
+    category: "APPLE",
+    platform: "apple-shortcuts",
+    tags: ["Apple Shortcuts", "Fitness", "Automation"],
+    year: "2024",
+    duration: "1 day",
+    role: "Automation Design",
+    status: "live",
+    stack: ["Apple Shortcuts", "iOS"],
+    highlights: [
+      "Quick-start fitness routine",
+      "Optimized for repeated short sessions",
+      "Lightweight mobile-first interaction",
+    ],
+    links: {
+      live: "https://www.icloud.com/shortcuts/188a947ada5343b89bcd1ea1b32e2cdd",
+    },
+    media: {
+      thumbnail: "/projects/apple-shortcuts/tabata/thumb.png",
+      gallery: ["/projects/apple-shortcuts/tabata/content.png"],
+      fit: "contain",
+    },
+    interaction: "glitch",
+  },
+
+  // ----------------------------------------------------------------------
+  // PRINT & MERCHANDISE
+  // ----------------------------------------------------------------------
+  {
+    id: "gin-tonic-tshirt",
+    title: "Gin-Tonic T-Shirt Design",
+    description:
+      "Minimalist graphic design for apparel featuring a cocktail glass with a witty tagline, created for print production.",
+    longDescription:
+      "A custom shirt design project combining playful illustration with minimalist typography. The design features a gin-tonic glass with the phrase 'let the party be-gin' as a clever visual pun, optimized for screen printing.",
+    category: "CREATIVE",
+    platform: "web",
+    tags: ["Design", "Apparel", "Print", "Illustrator"],
+    year: "2023",
+    duration: "1 week",
+    role: "Graphic Designer",
+    status: "live",
+    stack: ["Affinity Designer", "Print Design", "Vector Graphics"],
+    highlights: [
+      "Minimalist cocktail illustration with personality",
+      "Screen-print ready vector artwork",
+      "Front and back designs with alternate variations",
+    ],
+    problem:
+      "Need a playful, minimalist design for custom apparel that stands out while remaining timeless.",
+    solution:
+      "Designed a clever visual pun combining typography and illustration in Affinity Designer, optimized for garment printing.",
+    links: {},
+    media: {
+      thumbnail: "/projects/merchandise/gin-tonic/gin-tonic-front.png",
+      gallery: [
+        "/projects/merchandise/gin-tonic/gin-tonic-front.png",
+        "/projects/merchandise/gin-tonic/gin-tonic-back.png",
+        "/projects/merchandise/gin-tonic/gin-tonic-illustration.png",
+        "/projects/merchandise/gin-tonic/gin-tonic-illustration-outline.png",
+      ],
+      fit: "contain",
+    },
+    interaction: "spotlight",
+    layout: "wide",
+  },
+  {
+    id: "phone-covers-design",
+    title: "Phone Covers Design Collection",
+    description:
+      "Custom phone case graphics created on commission, featuring diverse design styles and artistic approaches.",
+    longDescription:
+      "A commissioned project designing multiple phone cover variations. Each design brings a distinct aesthetic perspective suitable for custom case production, showcasing versatility in commercial graphic design.",
+    category: "CREATIVE",
+    platform: "web",
+    tags: ["Design", "Merchandise", "Commercial", "Illustrator"],
+    year: "2023",
+    duration: "2 weeks",
+    role: "Graphic Designer",
+    status: "live",
+    stack: ["Affinity Designer", "Design for Commerce", "Print Production"],
+    highlights: [
+      "Multiple design variations for client selection",
+      "Commercial-grade print specifications",
+      "Portfolio-ready production files",
+    ],
+    problem:
+      "Create multiple custom phone case designs on commission with commercial production requirements.",
+    solution:
+      "Developed a collection of diverse graphic designs in Affinity Designer, optimized for phone case printing and client approval workflow.",
+    links: {},
+    media: {
+      thumbnail: "/projects/merchandise/phone-covers/himym-cover.jpg",
+      gallery: [
+        "/projects/merchandise/phone-covers/himym-cover.jpg",
+        "/projects/merchandise/phone-covers/stranger-things-final.png",
+        "/projects/merchandise/phone-covers/stranger-things-variant-01.png",
+        "/projects/merchandise/phone-covers/stranger-things-variant-02.png",
+      ],
+      fit: "contain",
+    },
+    interaction: "tilt",
+  },
+
+  // ----------------------------------------------------------------------
+  // PHOTOGRAPHY & PORTRAITURE
+  // ----------------------------------------------------------------------
+  {
+    id: "mirror-archetype-cosplay",
+    title: "The Mirror Archetype — Cosplay Compositing",
+    description:
+      "Complex portraiture and digital compositing project featuring a single performer in dual protagonist/antagonist roles through narrative symmetry.",
+    longDescription:
+      "An ambitious cosplay photography project bringing the Seven Deadly Sins aesthetic to life through multi-plate studio compositing. Using single-subject mirroring and landscape symmetry, the final piece creates a static narrative tension between hero and villain archetypes.",
+    category: "CREATIVE",
+    platform: "web",
+    tags: ["Photography", "Compositing", "Cosplay", "Affinity", "Narrative"],
+    year: "2023",
+    duration: "4 weeks",
+    role: "Photography, Post-Production, Conceptualization",
+    status: "live",
+    stack: ["Canon Camera", "Affinity Photo", "On-Location Lighting"],
+    highlights: [
+      "Complex multi-plate compositing for visual storytelling",
+      "Symmetry-based framing to emphasize conflict and balance",
+      "Single-subject dual-role technique for narrative cohesion",
+    ],
+    problem:
+      "How to visually communicate character rivalry and internal conflict in a static image without losing photographic authenticity.",
+    solution:
+      "Used location scouting, lighting consistency, and precise compositing to merge two narrative poles into one coherent visual statement.",
+    metrics: [
+      { label: "Technique", value: "Multi-plate compositing" },
+      { label: "Scenes", value: "3 plates (backgrounds + characters)" },
+      { label: "Character", value: "Seven Deadly Sins Archetype" },
+    ],
+    links: {},
+    media: {
+      thumbnail:
+        "/projects/cosplay/mirror-archetype/mirror-archetype-final-01.jpg",
+      gallery: [
+        "/projects/cosplay/mirror-archetype/mirror-archetype-final-01.jpg",
+        "/projects/cosplay/mirror-archetype/mirror-archetype-final-02.jpg",
+        "/projects/cosplay/mirror-archetype/mirror-archetype-final-03.jpg",
+        "/projects/cosplay/mirror-archetype/mirror-archetype-background-01.jpeg",
+        "/projects/cosplay/mirror-archetype/mirror-archetype-right.jpeg",
+        "/projects/cosplay/mirror-archetype/mirror-archetype-left.jpeg",
+      ],
+      fit: "cover",
     },
     interaction: "glitch",
     layout: "featured",
-    links: {
-      caseStudy: "/lab/gravity-well",
-      demo: "/lab/demo/gravity-well",
-    },
-  },
-  {
-    id: "data-stream",
-    title: "Data Stream",
-    description:
-      "Infinite tunnel navigation visualizing data flow in a cyberpunk aesthetic.",
-    longDescription:
-      "A directional tunnel interface that communicates navigation and momentum through motion, depth, and reactive UI accents.",
-    category: "EXPERIMENT",
-    tags: ["WebGL", "Audio-Reactive", "Glitch"],
-    year: "2024",
-    duration: "Prototype",
-    role: "Visual R&D",
-    status: "concept",
-    highlights: [
-      "Depth-driven navigation metaphor",
-      "Audio-reactive visual accents",
-      "Cyberpunk visual language tests",
-    ],
-    media: {
-      thumbnail: "/assets/placeholder.svg",
-    },
-    interaction: "glitch",
-  },
-  {
-    id: "neural-map",
-    title: "Neural Map",
-    description:
-      "Explore the connection between skills and concepts in a 3D graph.",
-    longDescription:
-      "A graph exploration experiment to navigate technical skills as connected nodes, exposing relationships and learning paths.",
-    category: "EXPERIMENT",
-    tags: ["Data Viz", "R3F", "Graph"],
-    year: "2024",
-    duration: "Prototype",
-    role: "Interaction Design, Data Visualization",
-    status: "in-progress",
-    highlights: [
-      "Interactive graph navigation",
-      "Cluster-based skill storytelling",
-      "Exploratory learning UX",
-    ],
-    media: {
-      thumbnail: "/assets/placeholder.svg",
-    },
-    interaction: "tilt",
-    links: {
-      repo: "",
-      demo: "/lab",
-    },
-  },
-  {
-    id: "liquid-surface",
-    title: "Liquid Surface",
-    description:
-      "Interactive fluid simulation responding to mouse movement and scroll velocity.",
-    longDescription:
-      "A fluid-based interaction layer where movement and velocity shape surface ripples, used as a cinematic transition and focus tool.",
-    category: "EXPERIMENT",
-    tags: ["Fluid Sim", "Shader", "Interaction"],
-    year: "2024",
-    duration: "R&D ongoing",
-    role: "Shader Design, Experience Engineering",
-    status: "in-progress",
-    stack: ["React", "WebGL", "Custom Shader"],
-    highlights: [
-      "Velocity-based wave behavior",
-      "Expressive interaction feedback",
-      "Reusable visual effect component",
-    ],
-    problem:
-      "Standard hover/click animations can feel repetitive and low impact.",
-    solution:
-      "Introduce physically-inspired fluid reactions that feel tactile and alive.",
-    media: {
-      thumbnail: "/assets/placeholder.svg",
-    },
-    interaction: "spotlight",
-    links: {
-      caseStudy: "/lab/liquid-surface",
-      demo: "/lab/demo/liquid-surface",
-    },
-  },
-  {
-    id: "terminal-os",
-    title: "Terminal OS",
-    description:
-      'The command line interface powering this portfolio. Type "help" to explore.',
-    longDescription:
-      "A command-driven interaction layer that transforms portfolio browsing into an exploratory terminal experience with discoverable shortcuts.",
-    category: "EXPERIMENT",
-    tags: ["CLI", "React", "System"],
-    year: "2024",
-    duration: "Ongoing",
-    role: "System UX, Frontend Architecture",
-    status: "live",
-    highlights: [
-      "Command palette and quick navigation",
-      "Playful but functional terminal metaphor",
-      "Integrated with page-level navigation",
-    ],
-    media: {
-      thumbnail: "/assets/placeholder.svg",
-    },
-    interaction: "glitch",
-    links: {
-      demo: "/",
-    },
   },
 ];

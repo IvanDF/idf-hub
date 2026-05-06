@@ -2,46 +2,91 @@
 // =============================================================================
 // Inspired by Como (Lario) and Alessandro Volta.
 // Balances soft pastel aesthetics with high-contrast readability.
+// All external platform colors are also defined for brand consistency.
 
-// RGB values stored as channels for alpha support via rgba()
+@use 'sass:color';
+
+// RGB channels for alpha support via color.adjust()
 $color-volta-rgb: 139 92 246;
 $color-lario-rgb: 59 130 246;
 $color-silk-rgb: 10 10 10;
 $color-slate-rgb: 243 244 246;
+$color-white-rgb: 255 255 255;
+$color-black-rgb: 0 0 0;
+$color-error-rgb: 239 68 68;
+$color-success-rgb: 74 222 128;
+$color-warning-rgb: 250 204 21;
 
+// Primary Colors (Volta - violet)
 $color-volta-light: #8b5cf6;
 $color-volta-dark: #a78bfa;
+
+// Secondary Colors (Lario - blue)
 $color-lario-light: #3b82f6;
 $color-lario-dark: #60a5fa;
 $color-lario-figma: #6d9eeb;
+
+// Neutral Colors (Silk & Slate)
 $color-silk-light: #fafafa;
 $color-silk-dark: #0a0a0a;
 $color-slate-light: #111827;
 $color-slate-dark: #f3f4f6;
 $color-slate-muted: #64748b;
 
+// Base Colors
+$color-white: #ffffff;
+$color-black: #000000;
+
+// Category Colors
 $color-category-maker: #f59e0b;
 $color-category-design: #ec4899;
 $color-category-experiment: #10b981;
 
-$color-success-rgb: 74 222 128;
-$color-error-rgb: 255 107 107;
-$color-warning-rgb: 250 204 21;
+// Semantic Status Colors
+$color-success: #4ade80;
+$color-error: #ef4444;
+$color-warning: #facc15;
+
+// Platform Colors (External services)
+$platform-github: #24292f;
+$platform-figma: #f24e1e;
+$platform-notion: #111111;
+$platform-codepen: #06b6d4;
+$platform-apple-shortcuts: #7c3aed;
+$platform-vscode: #007acc;
+$platform-web: #334155;
+$platform-notion-dark: #f5f5f4;
+$platform-codepen-dark: #22d3ee;
+$platform-apple-shortcuts-dark: #a78bfa;
+$platform-vscode-dark: #4fc3f7;
+$platform-web-dark: #94a3b8;
+
+// Effect Colors
+$effect-live: #ff5f57;
+$effect-super-dark: #ff4d4d;
+$effect-glitch-cyan: #00ffff;
+$effect-glitch-magenta: #ff00ff;
+
+// Terminal Colors
+$effect-terminal-green: #0f0;
+$terminal-panel-bg: #0d1117;
+$terminal-panel-border: #30363d;
+$terminal-panel-text: #c9d1d9;
 
 // Theme Mapping
 $color-bg-light: $color-silk-light;
 $color-text-light: $color-slate-light;
 $color-accent-light: $color-volta-light;
 $color-secondary-light: $color-lario-light;
-$color-divider-light: rgba(17, 24, 39, 0.1);
+$color-divider-light: color.adjust($color-slate-light, $alpha: -0.9);
 
 $color-bg-dark: $color-silk-dark;
 $color-text-dark: $color-slate-dark;
 $color-accent-dark: $color-volta-dark;
 $color-secondary-dark: $color-lario-dark;
-$color-divider-dark: rgba(243, 244, 246, 0.1);
+$color-divider-dark: color.adjust($color-slate-dark, $alpha: -0.9);
 
-// CSS Variables (used in modules)
+// CSS Variables (used in runtime theme)
 $color-bg: var(--color-bg);
 $color-text: var(--color-text);
 $color-accent: var(--color-accent);
@@ -52,20 +97,49 @@ $color-divider: var(--color-divider);
 $font-family-primary: var(--font-josefin-sans), sans-serif;
 $font-family-mono: var(--font-geist-mono), monospace;
 
-// Spacing
-$spacing-xs: 4px;
-$spacing-sm: 8px;
+// Type Scale (for accessibility and consistency)
+$font-size-3xs: 0.375rem; // 6px - terminal micro
+$font-size-2xs: 0.5rem;   // 8px
+$font-size-xs: 0.625rem; // 10px
+$font-size-sm: 0.75rem;  // 12px
+$font-size-base: 0.875rem; // 14px
+$font-size-md: 1rem;     // 16px
+$font-size-lg: 1.5rem;  // 24px
+$font-size-xl: 2rem;     // 32px
+$font-size-2xl: 2.5rem; // 40px
+
+// Spacing Scale (base unit 4px)
+$spacing-3xs: 2px;
+$spacing-2xs: 4px;
+$spacing-xs: 8px;
+$spacing-sm: 12px;
 $spacing-md: 16px;
 $spacing-lg: 24px;
 $spacing-xl: 32px;
+$spacing-2xl: 48px;
+$spacing-3xl: 56px;
 $spacing-xxl: 80px;
+
+// Touch targets (minimum 44px per WCAG)
+$touch-target-min: 44px;
+
+// Border Radius
+$radius-xs: 2px;
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$radius-full: 999px;
 
 // Layout
 $sidebar-width: 328px;
 $header-width: 448px;
 
-// Breakpoints
-$breakpoint-sm: 576px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 992px;
-$breakpoint-xl: 1200px;
+// Breakpoints (mobile-first)
+$breakpoint-xs: 400px;
+$breakpoint-sm: 480px;
+$breakpoint-md: 576px;
+$breakpoint-lg: 700px;
+$breakpoint-xl: 768px;
+$breakpoint-2xl: 992px;
+$breakpoint-3xl: 1200px;

@@ -1,40 +1,69 @@
 "use client";
 
-import ProjectCard from "@/components/portfolio/ProjectCard";
-import { PROJECTS } from "@/data/projects";
-import { ProjectCategory } from "@/types/project";
+import ProjectCard from "@/components/molecules/project-card";
+import type { Project, ProjectCategory } from "@/types/project";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import styles from "./page.module.scss";
 
-const FILTERS: (ProjectCategory | "ALL")[] = [
+const ALL_FILTERS: (ProjectCategory | "ALL")[] = [
   "ALL",
   "DEV",
+  "VSCODE",
+  "CREATIVE",
   "MAKER",
-  "DESIGN",
+  "APPLE",
+  "CODEPEN",
   "EXPERIMENT",
 ];
 
 export default function Lab() {
   const router = useRouter();
-  const [filter, setFilter] = useState<ProjectCategory | "ALL">("ALL");
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const filteredProjects = PROJECTS.filter((project) => {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/projects")
+      .then((r) => r.json())
+      .then((data: Project[]) => {
+        setProjects(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  const searchFilter = searchParams.get("filter");
+  const filter: ProjectCategory | "ALL" = ALL_FILTERS.includes(
+    searchFilter as ProjectCategory | "ALL",
+  )
+    ? (searchFilter as ProjectCategory | "ALL")
+    : "ALL";
+
+  const updateFilter = (nextFilter: ProjectCategory | "ALL") => {
+    const nextParams = new URLSearchParams(searchParams.toString());
+    if (nextFilter === "ALL") {
+      nextParams.delete("filter");
+    } else {
+      nextParams.set("filter", nextFilter);
+    }
+    const query = nextParams.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  };
+
+  const filteredProjects = projects.filter((project) => {
     if (filter === "ALL") return true;
     return project.category === filter;
   });
 
-  const liveCount = PROJECTS.filter(
-    (project) => project.status === "live",
-  ).length;
-  const inProgressCount = PROJECTS.filter(
-    (project) => project.status === "in-progress",
-  ).length;
+  const liveCount = projects.filter((p) => p.status === "live").length;
+  const inProgressCount = projects.filter((p) => p.status === "in-progress").length;
 
   return (
     <main className={styles.container}>
-      {/* Header */}
       <header className={styles.header}>
         <motion.h1
           initial={{ y: -20, opacity: 0 }}
@@ -52,18 +81,17 @@ export default function Lab() {
         </motion.p>
 
         <div className={styles.quickStats}>
-          <span>{PROJECTS.length} projects</span>
-          <span>{liveCount} live</span>
-          <span>{inProgressCount} in progress</span>
+          <span>{loading ? "..." : `${projects.length} projects`}</span>
+          <span>{loading ? "..." : `${liveCount} live`}</span>
+          <span>{loading ? "..." : `${inProgressCount} in progress`}</span>
         </div>
       </header>
 
-      {/* Filters */}
       <nav className={styles.filters}>
-        {FILTERS.map((f) => (
+        {ALL_FILTERS.map((f) => (
           <button
             key={f}
-            onClick={() => setFilter(f)}
+            onClick={() => updateFilter(f)}
             className={`${styles.filterBtn} ${filter === f ? styles.active : ""}`}
           >
             {f}
@@ -71,7 +99,6 @@ export default function Lab() {
         ))}
       </nav>
 
-      {/* Grid */}
       <motion.div layout className={styles.grid}>
         {filteredProjects.map((project) => (
           <motion.div
@@ -90,7 +117,10 @@ export default function Lab() {
             <ProjectCard
               project={project}
               onClick={() => {
-                router.push(`/lab/${project.id}`);
+                const detailParams = new URLSearchParams();
+                if (filter !== "ALL") detailParams.set("filter", filter);
+                const query = detailParams.toString();
+                router.push(query ? `/lab/${project.id}?${query}` : `/lab/${project.id}`);
               }}
             />
           </motion.div>
@@ -99,3 +129,5 @@ export default function Lab() {
     </main>
   );
 }
+
+

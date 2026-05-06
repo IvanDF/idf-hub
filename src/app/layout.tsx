@@ -1,12 +1,11 @@
-import GlobalBackground from "@/components/background/GlobalBackground";
-import MainLayout from "@/components/layout";
-import SecretGateway from "@/components/layout/SecretGateway";
-import CustomCursor from "@/components/ui/CustomCursor";
-import AudioPrompt from "@/components/ui/AudioPrompt";
-import { ThemeProvider } from "@/context/ThemeContext";
+import MainLayout, { SiteChrome } from "@/components/templates/Layout";
+import FusRoDahWrapper from "@/components/organisms/fus-ro-dah";
 import { AudioProvider } from "@/context/AudioContext";
+import { ThemeProvider } from "@/context/ThemeContext";
+import { VoiceShoutProvider } from "@/context/VoiceShoutContext";
 import "@/styles/globals.scss";
-import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Josefin_Sans } from "next/font/google";
 
 const geistSans = Geist({
@@ -25,9 +24,98 @@ const josefinSans = Josefin_Sans({
   weight: ["400", "700"],
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://idf-hub.vercel.app";
+const siteName = "iDF 2.0";
+const siteDescription =
+  "Portfolio hub with interactive experiments, polished micro-effects, and playful digital craftsmanship.";
+const socialImagePath = "/opengraph-image";
+const brandColor = "#05070b";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4f5f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#05070b" },
+  ],
+};
+
 export const metadata: Metadata = {
-  title: "iDF 2.0",
-  description: "Portfolio Hub",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteName,
+    template: `%s | ${siteName}`,
+  },
+  description: siteDescription,
+  applicationName: siteName,
+  referrer: "origin-when-cross-origin",
+  manifest: "/manifest.webmanifest",
+  keywords: [
+    "portfolio",
+    "interactive",
+    "experiments",
+    "creative coding",
+    "frontend",
+    "motion design",
+  ],
+  authors: [{ name: "Ivan D'F" }],
+  creator: "Ivan D'F",
+  publisher: "Ivan D'F",
+  category: "portfolio",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: siteName,
+    description: siteDescription,
+    url: "/",
+    siteName,
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: socialImagePath,
+        width: 1200,
+        height: 630,
+        alt: `${siteName} social preview`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteName,
+    description: siteDescription,
+    images: [socialImagePath],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: ["/favicon.ico"],
+    apple: [{ url: "/apple-icon", sizes: "180x180", type: "image/png" }],
+    other: [
+      {
+        rel: "mask-icon",
+        url: "/safari-pinned-tab.svg",
+        color: brandColor,
+      },
+    ],
+  },
+  appleWebApp: {
+    capable: true,
+    title: siteName,
+    statusBarStyle: "black-translucent",
+  },
+  other: {
+    "msapplication-TileColor": brandColor,
+  },
 };
 
 export default function RootLayout({
@@ -42,14 +130,14 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <AudioProvider>
-            <CustomCursor />
-            <SecretGateway />
-            <AudioPrompt />
-
-            <MainLayout>{children}</MainLayout>
-            <GlobalBackground />
+            <VoiceShoutProvider>
+              <SiteChrome />
+              <MainLayout>{children}</MainLayout>
+              <FusRoDahWrapper />
+            </VoiceShoutProvider>
           </AudioProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

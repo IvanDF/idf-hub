@@ -1,15 +1,16 @@
 @use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
+@use 'sass:color';
 
 .container {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background-color: #000;
+  background-color: $color-silk-dark;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  color: #fff;
+  color: $color-silk-light;
   font-family: $font-family-mono;
 }
 
@@ -26,7 +27,7 @@
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 80px 24px;
+  padding: $spacing-xxl $spacing-lg;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,7 +41,7 @@
   animation: fadeInUp 0.8s ease-out;
 
   p {
-    color: #9ca3af;
+    color: $color-slate-muted;
     font-size: 1.125rem;
     max-width: 42rem;
     margin: 0 auto;
@@ -61,7 +62,7 @@
 .glitch {
   font-size: 3rem;
   font-weight: 700;
-  color: #fff;
+  color: $color-silk-light;
   letter-spacing: -0.05em;
   position: relative;
   
@@ -81,14 +82,14 @@
 
   &::before {
     left: 2px;
-    text-shadow: -1px 0 #00ffff;
+    text-shadow: -1px 0 #00ffff; /* intentional: glitch chromatic aberration */
     clip: rect(44px, 450px, 56px, 0);
     animation: glitch-anim 5s infinite linear alternate-reverse;
   }
 
   &::after {
     left: -2px;
-    text-shadow: -1px 0 #ff00ff;
+    text-shadow: -1px 0 #ff00ff; /* intentional: glitch chromatic aberration */
     clip: rect(44px, 450px, 56px, 0);
     animation: glitch-anim2 5s infinite linear alternate-reverse;
   }
@@ -111,24 +112,23 @@
   transform: translate(-50%, -50%);
   width: 120%;
   height: 120%;
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  border-radius: 50%;
-  animation: rotate 20s linear infinite;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
-  box-shadow: 0 0 50px rgba(59, 130, 246, 0.1);
+border: 1px solid color.adjust($color-lario-light, $alpha: -0.7);
+
+  background: radial-gradient(circle, color.adjust($color-lario-light, $alpha: -0.95) 0%, transparent 70%);
+
+  box-shadow: 0 0 50px color.adjust($color-lario-light, $alpha: -0.9);
 }
 
 .artifactCard {
   position: relative;
-  background: rgba(10, 10, 10, 0.8);
-  border: 1px solid rgba(59, 130, 246, 0.5);
+  background: color.adjust($color-silk-dark, $alpha: -0.2);
+  border: 1px solid color.adjust($color-lario-light, $alpha: -0.5);
   backdrop-filter: blur(12px);
   padding: 40px;
   border-radius: 4px;
   box-shadow: 
-    0 0 20px rgba(59, 130, 246, 0.1),
-    inset 0 0 20px rgba(59, 130, 246, 0.05);
+    0 0 20px color.adjust($color-lario-light, $alpha: -0.9),
+    inset 0 0 20px color.adjust($color-lario-light, $alpha: -0.95);
   
   &::before {
     content: '';
@@ -137,7 +137,7 @@
     left: -1px;
     right: -1px;
     bottom: -1px;
-    background: linear-gradient(45deg, rgba(59, 130, 246, 0.5), transparent, rgba(168, 85, 247, 0.5));
+    background: linear-gradient(45deg, color.adjust($color-lario-light, $alpha: -0.5), transparent, color.adjust($color-volta-light, $alpha: -0.5));
     z-index: -1;
     border-radius: 4px;
     opacity: 0.5;
@@ -148,60 +148,60 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: $spacing-lg;
+  padding-bottom: $spacing-md;
+  border-bottom: 1px solid color.adjust($color-white, $alpha: -0.9);
 }
 
 .icon {
-  color: #60a5fa;
+  color: $color-lario-dark;
 }
 
 .idBadge {
   font-size: 0.75rem;
-  color: #60a5fa;
+  color: $color-lario-dark;
   letter-spacing: 0.1em;
-  background: rgba(59, 130, 246, 0.1);
-  padding: 4px 8px;
+  background: color.adjust($color-lario-light, $alpha: -0.9);
+  padding: $spacing-xs $spacing-sm;
   border-radius: 2px;
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  border: 1px solid color.adjust($color-lario-light, $alpha: -0.8);
 }
 
 .artifactTitle {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #fff;
-  margin-bottom: 8px;
+  color: $color-silk-light;
+  margin-bottom: $spacing-sm;
   letter-spacing: -0.02em;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 10px color.adjust($color-white, $alpha: -0.7);
 }
 
 .artifactMeta {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #94a3b8;
+  color: $color-slate-muted;
   font-size: 0.875rem;
-  margin-bottom: 24px;
+  margin-bottom: $spacing-lg;
   font-family: $font-family-mono;
 }
 
 .separator {
-  color: #334155;
+  color: color.adjust($color-slate-light, $alpha: -0.65);
 }
 
 .artifactDescription {
-  color: #cbd5e1;
+  color: color.adjust($color-slate-dark, $alpha: -0.15);
   line-height: 1.6;
-  margin-bottom: 32px;
+  margin-bottom: $spacing-xl;
   font-size: 1.1rem;
-  border-left: 2px solid #3b82f6;
-  padding-left: 16px;
+  border-left: 2px solid $color-lario-light;
+  padding-left: $spacing-md;
 }
 
 .artifactActions {
   display: flex;
-  gap: 16px;
+  gap: $spacing-md;
 }
 
 .primaryAction {
@@ -209,21 +209,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  background: #2563eb;
-  color: #fff;
-  padding: 12px 24px;
+  gap: $spacing-sm;
+  background: $color-lario-light;
+  color: $color-silk-light;
+  padding: 12px $spacing-lg;
   text-decoration: none;
   font-weight: 600;
-  border: 1px solid #3b82f6;
+  border: 1px solid $color-lario-light;
   transition: all 0.2s;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 0.875rem;
 
   &:hover {
-    background: #1d4ed8;
-    box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+    background: color.adjust($color-lario-light, $lightness: -8%);
+    box-shadow: 0 0 15px color.adjust($color-lario-light, $alpha: -0.6);
     transform: translateY(-1px);
   }
 }
@@ -233,14 +233,10 @@
   align-items: center;
   justify-content: center;
   padding: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-  transition: all 0.2s;
-  background: rgba(255, 255, 255, 0.05);
-
+border: 1px solid color.adjust($color-white, $alpha: -0.8);
+  background: color.adjust($color-white, $alpha: -0.95);
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: #fff;
+    background: color.adjust($color-white, $alpha: -0.9);
   }
 }
 
@@ -249,7 +245,7 @@
 }
 
 .backLink {
-  color: #64748b;
+  color: $color-slate-muted;
   text-transform: uppercase;
   font-size: 0.75rem;
   letter-spacing: 0.2em;
@@ -257,7 +253,7 @@
   transition: color 0.2s;
   
   &:hover {
-    color: #fff;
+    color: $color-silk-light;
   }
 }
 

@@ -62,6 +62,10 @@ function getInitialTheme(): Theme {
   return systemDark ? "dark" : "light";
 }
 
+/**
+ * Context provider that manages light/dark/super-dark theme state and persists the preference.
+ * @param children - React children to receive theme context
+ */
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
   const [mounted, setMounted] = useState<boolean | null>(null);
@@ -138,6 +142,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * Hook to access the ThemeContext value; must be used within a ThemeProvider.
+ */
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (context === undefined) {

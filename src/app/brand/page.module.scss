@@ -1,0 +1,430 @@
+@use "@/styles/variables" as *;
+
+// ── Page ──────────────────────────────────────────────────────────────────────
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: $spacing-xxl $spacing-xl;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xxl;
+
+  @media (max-width: 768px) {
+    padding: $spacing-xl $spacing-md;
+    gap: $spacing-xl;
+  }
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.loadingDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.4); }
+}
+
+// ── Hero ──────────────────────────────────────────────────────────────────────
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xl;
+  position: relative;
+}
+
+.heroLogo {
+  flex-shrink: 0;
+}
+
+.heroMark {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  // Recolour dark SVG paths to brand accent
+  filter: invert(42%) sepia(90%) saturate(600%) hue-rotate(230deg) brightness(1.1);
+}
+
+.heroText {
+  flex: 1;
+}
+
+.heroTitle {
+  font-family: $font-family-primary;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin: 0 0 $spacing-xs 0;
+  line-height: 1;
+}
+
+.heroSub {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.backLink {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  color: var(--color-accent);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+
+  &:hover { opacity: 1; }
+}
+
+// ── Section ───────────────────────────────────────────────────────────────────
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.sectionTitle {
+  font-family: $font-family-primary;
+  font-size: $font-size-md;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin: 0;
+  padding-bottom: $spacing-sm;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.sectionNote {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  color: var(--color-text-muted);
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+
+// ── Colors ────────────────────────────────────────────────────────────────────
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: $spacing-md;
+}
+
+.swatch {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: $spacing-md;
+  border-radius: 10px;
+  border: 1px solid var(--color-divider);
+  transition: border-color 0.2s, transform 0.2s;
+
+  &:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+}
+
+.swatchColor {
+  display: block;
+  width: 100%;
+  height: 56px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.swatchName {
+  font-family: $font-family-primary;
+  font-weight: 700;
+  font-size: $font-size-sm;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+}
+
+.swatchHex {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  color: var(--color-accent);
+  letter-spacing: 0.04em;
+}
+
+.swatchRole {
+  font-family: $font-family-mono;
+  font-size: $font-size-2xs;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+}
+
+// ── Typography ────────────────────────────────────────────────────────────────
+
+.typeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-lg;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.typeCard {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  padding: $spacing-lg;
+  border-radius: 10px;
+  border: 1px solid var(--color-divider);
+}
+
+.typeLabel {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  color: var(--color-accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.typeSpecimen {
+  font-size: $font-size-base;
+  line-height: 1.8;
+  color: var(--color-text);
+  margin: 0;
+  word-break: break-all;
+}
+
+.typeDetail {
+  font-family: $font-family-mono;
+  font-size: $font-size-2xs;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+}
+
+// Typography font-family variants (cannot use CSS vars in font-family shorthand in modules)
+.typeSpecimenSans {
+  font-family: $font-family-primary;
+}
+
+.typeSpecimenMono {
+  font-family: $font-family-mono;
+}
+
+.logoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-md;
+
+  @media (max-width: 700px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 400px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.logoCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  padding: $spacing-lg;
+  border-radius: 10px;
+  border: 1px solid var(--color-divider);
+  min-height: 120px;
+
+  &[data-bg="dark"]   { background: $color-silk-dark; }
+  &[data-bg="accent"] { background: $color-volta-light; }
+  &[data-bg="light"]  { background: $color-silk-light; border-color: rgba(17, 24, 39, 0.08); }
+}
+
+.logoImg {
+  width: 52px;
+  height: auto;
+  object-fit: contain;
+}
+
+// Override width for the full-width horizontal logo variant (kept for potential future use)
+.logoImgFull {
+  width: 100%;
+  height: auto;
+}
+
+.logoLabel {
+  font-family: $font-family-mono;
+  font-size: $font-size-2xs;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+.fusionStaticGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-md;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fusionCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-lg;
+  border-radius: 10px;
+  border: 1px solid var(--color-divider);
+}
+
+.fusionImg {
+  max-height: 100px;
+  width: auto;
+  object-fit: contain;
+  // Recolour dark (#333) paths to Volta accent
+  filter: invert(42%) sepia(90%) saturate(600%) hue-rotate(230deg) brightness(1.1);
+
+  :global([data-theme="dark"]) & {
+    filter: invert(100%);
+  }
+}
+
+// ── Business Cards ────────────────────────────────────────────────────────────
+
+.bcGrid {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xxl;
+}
+
+.bcVariant {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.bcLabel {
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.bcPair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-md;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bcCard {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--color-divider);
+}
+
+.bcImg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.bcSide {
+  font-family: $font-family-mono;
+  font-size: $font-size-2xs;
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  padding: $spacing-xs $spacing-sm;
+}
+
+.bcDownload {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  color: var(--color-accent);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  align-self: flex-start;
+  padding: $spacing-xs 0;
+
+  &:hover { opacity: 1; }
+}
+
+// ── Assets ────────────────────────────────────────────────────────────────────
+
+.assetList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.assetItem {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-sm $spacing-md;
+  border-radius: 8px;
+  border: 1px solid var(--color-divider);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+
+  &:hover {
+    border-color: var(--color-accent);
+    background: rgba(139, 92, 246, 0.04);
+  }
+}
+
+.assetIcon {
+  font-family: $font-family-mono;
+  font-size: $font-size-base;
+  color: var(--color-accent);
+  text-align: center;
+}
+
+.assetLabel {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  color: var(--color-text);
+  letter-spacing: 0.04em;
+}
+
+.assetExt {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+}

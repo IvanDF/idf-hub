@@ -1,0 +1,151 @@
+"use client";
+
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import React, { useState } from "react";
+import styles from "./GalleryViewer.module.scss";
+
+interface GalleryViewerProps {
+  images: string[];
+  projectTitle: string;
+  mediaFit?: "cover" | "contain";
+}
+
+/**
+ * Image gallery with thumbnail-strip navigation; renders a side-by-side compare layout for exactly two images.
+ * Uses next/image with fill - objectFit must be passed via style prop (required for fill to work).
+ * @param images - Array of image URLs to display
+ * @param projectTitle - Used as alt text and fallback labels
+ * @param mediaFit - Reserved for future use (currently defaults to "contain")
+ */
+export default function GalleryViewer({
+  images,
+  projectTitle,
+}: GalleryViewerProps) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const isCompareMode = images.length === 2;
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") {
+      setSelectedIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    }
+
+    if (e.key === "ArrowRight") {
+      setSelectedIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    }
+  };
+
+  const currentImageName =
+    images[selectedIndex].split("/").pop()?.split(".")[0]?.replace(/-/g, " ") ||
+    projectTitle;
+
+  if (!images || images.length === 0) return null;
+
+  if (isCompareMode) {
+    return (
+      <div className={styles.galleryContainer}>
+        <div className={styles.galleryHeader}>
+          <h3>Project Lenses</h3>
+          <span>Compare A // B</span>
+        </div>
+
+        <div className={styles.compareGrid}>
+          {images.map((image, index) => (
+            <figure key={`${image}-${index}`} className={styles.compareCard}>
+              <figcaption className={styles.compareLabel}>
+                {index === 0
+                  ? "Frame A // Base Context"
+                  : "Frame B // Focus View"}
+              </figcaption>
+              <div className={styles.compareImageWrap}>
+                <Image
+                  src={image}
+                  alt={`${projectTitle} compare frame ${index + 1}`}
+                  fill
+                  sizes="(max-width: 900px) 100vw, 50vw"
+                  style={{ objectFit: "contain" }}
+                  priority={index === 0}
+                />
+              </div>
+            </figure>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={styles.galleryContainer}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+    >
+      <div className={styles.galleryHeader}>
+        <h3>Storyboard</h3>
+        <span>
+          {(selectedIndex + 1).toString().padStart(2, "0")}
+          {" // "}
+          {images.length.toString().padStart(2, "0")}
+        </span>
+      </div>
+
+      <div className={styles.viewerLayout}>
+        <div className={styles.stage}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedIndex}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.02 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className={styles.stageImageWrap}
+            >
+              <Image
+                src={images[selectedIndex]}
+                alt={`${projectTitle} - frame ${selectedIndex + 1}`}
+                fill
+                sizes="(max-width: 900px) 100vw, 75vw"
+                style={{ objectFit: "contain" }}
+                priority={selectedIndex === 0}
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          <span className={styles.stageBadge}>
+            Focus Frame // {currentImageName}
+          </span>
+        </div>
+
+        <div className={styles.thumbnailStrip}>
+          {images.map((image, index) => (
+            <button
+              key={`${image}-${index}`}
+              className={`${styles.thumbnail} ${
+                index === selectedIndex ? styles.active : ""
+              }`}
+              onClick={() => setSelectedIndex(index)}
+              aria-label={`View frame ${index + 1}`}
+            >
+              <div className={styles.thumbPreview}>
+                <Image
+                  src={image}
+                  alt={`${projectTitle} thumbnail ${index + 1}`}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 20vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+              <div className={styles.thumbInfo}>
+                <span>Frame {index + 1}</span>
+                <strong>
+                  {image.split("/").pop()?.split(".")[0]?.replace(/-/g, " ") ||
+                    "Detail"}
+                </strong>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
