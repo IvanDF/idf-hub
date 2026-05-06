@@ -35,6 +35,7 @@ export default function TerminalQuickCommands({
   onCommand,
 }: TerminalQuickCommandsProps) {
   const commands = context === "admin" ? ADMIN_COMMANDS : SITE_COMMANDS;
+
   return (
     <div className={styles.quickCommands} onClick={(e) => e.stopPropagation()}>
       {commands.map((cmd) => (
