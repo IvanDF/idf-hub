@@ -2,7 +2,7 @@ import type { Preview } from '@storybook/nextjs-vite';
 import React from 'react';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { AudioProvider } from '@/context/AudioContext';
-import { VoiceShoutProvider } from '@/context/VoiceShoutContext';
+import GlobalBackground from '@/components/organisms/Background';
 import '@/styles/globals.scss';
 
 const preview: Preview = {
@@ -28,15 +28,16 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (Story) => {
-      return React.createElement(ThemeProvider, null,
-        React.createElement(AudioProvider, null,
-          React.createElement(VoiceShoutProvider, null,
-            React.createElement(Story)
-          )
-        )
-      );
-    },
+    (Story) => (
+      <ThemeProvider>
+        <AudioProvider>
+          <GlobalBackground />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <Story />
+          </div>
+        </AudioProvider>
+      </ThemeProvider>
+    ),
   ],
   tags: ['autodocs'],
 };

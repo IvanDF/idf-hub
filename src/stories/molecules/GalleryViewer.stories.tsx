@@ -20,7 +20,7 @@ type Story = StoryObj<typeof GalleryViewer>;
 
 export const SingleImage: Story = {
   args: {
-    images: ['https://raw.githubusercontent.com/IvanDF/proj-gabberg-icard/main/public/screenshot.png'],
+    images: ['/assets/placeholder.svg'],
     projectTitle: 'Example Project',
   },
 };
@@ -28,8 +28,8 @@ export const SingleImage: Story = {
 export const TwoImages: Story = {
   args: {
     images: [
-      'https://raw.githubusercontent.com/IvanDF/proj-gabberg-icard/main/public/screenshot.png',
-      'https://raw.githubusercontent.com/IvanDF/proj-gabberg-icard/main/public/screenshot.png',
+      '/assets/placeholder.svg',
+      '/assets/placeholder.svg',
     ],
     projectTitle: 'Compare Mode',
   },
@@ -38,9 +38,9 @@ export const TwoImages: Story = {
 export const MultipleImages: Story = {
   args: {
     images: [
-      'https://raw.githubusercontent.com/IvanDF/proj-gabberg-icard/main/public/screenshot.png',
-      'https://raw.githubusercontent.com/IvanDF/proj-gabberg-icard/main/public/screenshot.png',
-      'https://raw.githubusercontent.com/IvanDF/proj-gabberg-icard/main/public/screenshot.png',
+      '/assets/placeholder.svg',
+      '/assets/placeholder.svg',
+      '/assets/placeholder.svg',
     ],
     projectTitle: 'Gallery Demo',
   },

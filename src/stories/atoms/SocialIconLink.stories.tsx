@@ -21,7 +21,7 @@ type Story = StoryObj<typeof SocialIconLink>;
 export const GitHub: Story = {
   args: {
     href: 'https://github.com/IvanDF',
-    src: '/icons/github.svg',
+    src: '/assets/github.svg',
     alt: 'GitHub',
   },
 };
@@ -29,7 +29,7 @@ export const GitHub: Story = {
 export const LargeIcon: Story = {
   args: {
     href: 'https://github.com/IvanDF',
-    src: '/icons/github.svg',
+    src: '/assets/github.svg',
     alt: 'GitHub',
     iconSize: 32,
   },
@@ -37,9 +37,9 @@ export const LargeIcon: Story = {
 
 export const InvertedOnDark: Story = {
   args: {
-    href: 'https://dribbble.com/',
-    src: '/icons/dribbble.svg',
-    alt: 'Dribbble',
+    href: 'https://www.figma.com/@ivandf',
+    src: '/assets/figma.svg',
+    alt: 'Figma',
     invertOnDark: true,
   },
 };
