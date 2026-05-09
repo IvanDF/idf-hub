@@ -4,6 +4,7 @@ import { Canvas, useFrame, ThreeEvent } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
+import styles from './LiquidSurface.module.scss';
 
 const LiquidShader = () => {
   const mesh = useRef<THREE.Mesh>(null!);
@@ -197,10 +198,10 @@ const LiquidShader = () => {
  */
 export default function LiquidSurface() {
   return (
-    <div className="w-full h-screen bg-black overflow-hidden relative">
-      <div className="absolute top-8 left-8 z-10 text-white font-mono pointer-events-none mix-blend-difference">
-        <h1 className="text-4xl font-bold tracking-tighter mb-2">LIQUID_MATRIX</h1>
-        <p className="opacity-70 text-sm">Interactive Vertex Displacement // Hover to Interact</p>
+    <div className={styles.wrapper}>
+      <div className={styles.overlay}>
+        <h1 className={styles.title}>LIQUID_MATRIX</h1>
+        <p className={styles.subtitle}>Interactive Vertex Displacement // Hover to Interact</p>
       </div>
       
       <Canvas>

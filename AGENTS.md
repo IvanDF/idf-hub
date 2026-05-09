@@ -271,8 +271,28 @@ export { default as FusRoDah, default as FusRoDahWrapper } from './fus-ro-dah';
 | GSAP | Timeline / scroll animations |
 | Three.js + R3F | 3D / WebGL scenes |
 | Lucide React | Icons |
+| Storybook 10 | Component library / design system |
+| Vite | Storybook bundler |
 | Vercel | Hosting + Analytics |
 | Jest | Testing |
+| Vitest + Playwright | Storybook visual testing |
+
+---
+
+---
+
+## 15. Storybook
+
+- Stories live in `src/stories/` organized by atomic level: `atoms/`, `molecules/`, `organisms/`
+- Every new component should have at least one story covering its default state
+- Use `autodocs` tag for auto-generated documentation
+- Design token documentation lives in `src/stories/tokens/DesignTokens.mdx`
+- **Commands**: `npm run storybook` (dev on port 6006), `npm run build:storybook` (builds to `public/storybook/`)
+- The `/design-system` route (available via terminal command `storybook`/`design`/`ds`) serves as the design system hub (public)
+- In production, Storybook is built into `public/storybook/` and served from `/storybook/index.html`
+- In development, Storybook runs on port 6006 alongside `next dev`
+- Always wrap stories in appropriate decorators (ThemeProvider, AudioProvider) when components depend on context
+- For Three.js/R3F organisms, prefer creating simplified canvas-free stories or skip if too complex
 
 ---
 

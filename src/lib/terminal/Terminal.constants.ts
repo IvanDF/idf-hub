@@ -160,6 +160,9 @@ export const VALID_COMMANDS = [
   "snake",
   "play",
   "brand",
+  "storybook",
+  "design",
+  "ds",
 ];
 
 // Admin terminal commands

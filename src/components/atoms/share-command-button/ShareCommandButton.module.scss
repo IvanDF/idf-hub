@@ -33,15 +33,15 @@
 
 // ── Inline variant (icon-only, for toolbars) ──────────────────────────────────
 .inline {
-  min-width: 44px;
-  min-height: 44px;
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
   padding: $spacing-xs;
 }
 
 // ── Standalone variant (icon + label) ────────────────────────────────────────
 .standalone {
-  min-width: 44px;
-  min-height: 44px;
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
   padding: $spacing-sm $spacing-md;
   border-color: var(--color-divider);
   background: rgba(var(--color-accent-rgb), 0.08);

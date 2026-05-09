@@ -22,8 +22,8 @@
   &::after {
     content: "";
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: $spacing-xs;
+    height: $spacing-xs;
     transition: all 0.3s ease;
     opacity: 0.5;
   }
@@ -87,7 +87,7 @@
   }
 
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-$spacing-2xs);
     box-shadow: 0 10px 30px -10px color.adjust($color-black, $alpha: -0.5);
     border-color: var(--accent-color);
 
@@ -163,7 +163,7 @@
   font-family: monospace;
   font-size: 0.62rem;
   padding: 0.22rem 0.5rem;
-  border-radius: 999px;
+  border-radius: $radius-full;
   border: 1px solid color-mix(in srgb, var(--accent-color) 55%, transparent);
   color: var(--accent-color);
   text-transform: uppercase;
@@ -177,7 +177,7 @@
   display: flex;
   flex-direction: column;
 
-  @media (max-width: 768px) {
+  @media (max-width: $breakpoint-xl) {
     padding: 1.25rem;
   }
 
@@ -199,15 +199,15 @@
     font-size: 0.62rem;
     border: 1px solid color-mix(in srgb, var(--accent-color) 50%, transparent);
     color: var(--accent-color);
-    border-radius: 999px;
-    padding: 2px 6px;
+    border-radius: $radius-full;
+    padding: $spacing-3xs 6px;
     letter-spacing: 0.08em;
     line-height: 1.2;
   }
 
   .status {
     font-size: 0.6rem;
-    border-radius: 999px;
+    border-radius: $radius-full;
     padding: 0.18rem 0.45rem;
     border: 1px solid var(--color-divider);
     letter-spacing: 0.08em;
@@ -227,7 +227,7 @@
       top: 50%;
       width: 0.32rem;
       height: 0.32rem;
-      border-radius: 999px;
+      border-radius: $radius-full;
       background: currentColor;
       transform: translateY(-50%);
       box-shadow: 0 0 0 rgba(var(--color-live-rgb), 0.5);
@@ -248,7 +248,7 @@
     color: var(--color-text);
     transition: color 0.3s ease;
 
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-xl) {
       font-size: 1.1rem;
     }
   }
@@ -264,7 +264,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-xl) {
       -webkit-line-clamp: 2;
       margin-bottom: 1rem;
     }
@@ -282,13 +282,13 @@
       color: var(--color-text);
       opacity: 0.7;
       background: var(--color-divider);
-      padding: 2px 6px;
-      border-radius: 2px;
+      padding: $spacing-3xs 6px;
+      border-radius: $radius-xs;
       border: 1px solid var(--color-divider);
 
-      @media (max-width: 768px) {
+      @media (max-width: $breakpoint-xl) {
         font-size: 0.72rem;
-        padding: 4px 8px;
+        padding: $spacing-2xs $spacing-xs;
       }
     }
   }

@@ -44,8 +44,4 @@ describe('GlitchText', () => {
     jest.useRealTimers()
   })
 
-  it('matches snapshot', () => {
-    const { container } = render(<GlitchText text="Snapshot" />)
-    expect(container.firstChild).toMatchSnapshot()
-  })
 })

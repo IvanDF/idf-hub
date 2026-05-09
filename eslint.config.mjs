@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from "eslint-plugin-storybook";
+
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
@@ -14,6 +17,9 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Seed scripts are exempt from component rules
     "src/scripts/**",
+    // Built Storybook output
+    "public/storybook/**",
+    "storybook-static/**",
   ]),
   {
     // File length limits — enforced for all source files.
@@ -29,6 +35,7 @@ const eslintConfig = defineConfig([
       "src/data/**",
       "src/lib/ascii/**",
       "src/types/**",
+      "src/stories/**",
     ],
     rules: {
       "max-lines": [
@@ -41,6 +48,7 @@ const eslintConfig = defineConfig([
       ],
     },
   },
+  ...storybook.configs["flat/recommended"]
 ]);
 
 export default eslintConfig;

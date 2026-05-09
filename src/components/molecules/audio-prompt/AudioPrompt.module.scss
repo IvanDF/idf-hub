@@ -14,7 +14,7 @@
 .modal {
   background: var(--color-card-bg);
   border: 1px solid var(--color-card-border);
-  border-radius: 16px;
+  border-radius: $radius-xl;
   padding: 40px;
   max-width: 400px;
   width: 90%;
@@ -22,8 +22,8 @@
   box-shadow: 0 25px 50px -12px rgba(var(--color-silk-rgb), 0.6);
 
   .icon {
-    width: 56px;
-    height: 56px;
+    width: $spacing-3xl;
+    height: $spacing-3xl;
     margin: 0 auto 20px;
     color: var(--color-accent);
 
@@ -38,7 +38,7 @@
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-text);
-    margin: 0 0 12px;
+    margin: 0 0 $spacing-sm;
     text-transform: uppercase;
     letter-spacing: 2px;
   }
@@ -47,14 +47,14 @@
     font-size: 0.9rem;
     color: var(--color-text);
     opacity: 0.75;
-    margin: 0 0 24px;
+    margin: 0 0 $spacing-lg;
     line-height: 1.6;
   }
 
   .features {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: $spacing-sm;
     margin-bottom: 28px;
 
     span {
@@ -69,12 +69,12 @@
 
   .buttons {
     display: flex;
-    gap: 12px;
+    gap: $spacing-sm;
     justify-content: center;
 
     button {
-      padding: 12px 24px;
-      border-radius: 8px;
+      padding: $spacing-sm $spacing-lg;
+      border-radius: $radius-md;
       font-family: var(--font-josefin-sans);
       font-size: 0.85rem;
       font-weight: 600;

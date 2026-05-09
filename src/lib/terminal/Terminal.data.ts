@@ -68,6 +68,7 @@ export const HELP_OUTPUT: CommandOutput[] = [
   { type: "system", content: "── FUN ──" },
   { type: "text", content: "snake / play — ASCII snake game 🐍", cta: { label: "→ play", cmd: "snake" } },
   { type: "text", content: "brand — identity system + companion", cta: { label: "→ run", cmd: "brand" } },
+  { type: "text", content: "storybook / design — design system & component library", cta: { label: "→ open", cmd: "storybook" } },
   { type: "text", content: "guide / tour — platform tour", cta: { label: "→ start", cmd: "guide" } },
   { type: "text", content: "eggs — easter egg tracker" },
   { type: "text", content: "shortcuts / keys — keyboard shortcuts" },
