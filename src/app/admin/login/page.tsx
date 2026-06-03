@@ -3,18 +3,15 @@
 import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
 import { useTheme } from '@/context/ThemeContext'
 import styles from './page.module.scss'
 
-const DEMO_EMAIL = 'morty@c-137.com'
 const DEMO_PASSWORD = 'wubbalubbadubdub'
 
 export default function AdminLoginPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { theme, toggleTheme } = useTheme()
-  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -24,11 +21,15 @@ export default function AdminLoginPage() {
     setLoading(true)
     setError(null)
 
-    const supabase = createClient()
-    const { error: authError } = await supabase.auth.signInWithPassword({ email, password })
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    })
 
-    if (authError) {
-      setError(authError.message)
+    if (!res.ok) {
+      const data = await res.json()
+      setError(data.error || 'Login failed')
       setLoading(false)
       return
     }
@@ -39,7 +40,6 @@ export default function AdminLoginPage() {
   }
 
   function fillDemo() {
-    setEmail(DEMO_EMAIL)
     setPassword(DEMO_PASSWORD)
   }
 
@@ -57,22 +57,6 @@ export default function AdminLoginPage() {
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.field}>
-            <label htmlFor="email" className={styles.label}>
-              EMAIL
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              className={styles.input}
-              placeholder="admin@example.com"
-              required
-              autoComplete="email"
-            />
-          </div>
-
           <div className={styles.field}>
             <label htmlFor="password" className={styles.label}>
               PASSWORD
@@ -112,7 +96,6 @@ export default function AdminLoginPage() {
             <span className={styles.demoLabel}>Morty-level access</span>
           </div>
           <div className={styles.demoCredentials}>
-            <div><span className={styles.demoKey}>email</span><span className={styles.demoVal}>{DEMO_EMAIL}</span></div>
             <div><span className={styles.demoKey}>pass</span><span className={styles.demoVal}>{DEMO_PASSWORD}</span></div>
           </div>
           <p className={styles.demoNote}>Read-write, but changes self-destruct at session end.<br/>Wubba lubba dub dub!</p>

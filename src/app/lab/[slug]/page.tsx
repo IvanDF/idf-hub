@@ -1,7 +1,5 @@
 import GalleryViewer from "@/components/molecules/gallery-viewer";
-import { mapDbRowToProject } from "@/lib/mappers/project";
-import { createAdminClient } from "@/lib/supabase/admin";
-import { createClient } from "@/lib/supabase/server";
+import { PROJECTS } from "@/data/projects";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,18 +14,7 @@ import { ProjectDetailSidebar } from "./ProjectDetailSidebar";
 import styles from "./ProjectDetail.module.scss";
 
 export async function generateStaticParams() {
-  // Graceful fallback: if env vars are missing (e.g. first Vercel build before
-  // env vars are set), return [] and let Next.js render pages on demand (SSR).
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    return [];
-  }
-  try {
-    const supabase = createAdminClient();
-    const { data } = await supabase.from("projects").select("id");
-    return (data ?? []).map((row) => ({ slug: row.id }));
-  } catch {
-    return [];
-  }
+  return PROJECTS.map((project) => ({ slug: project.id }));
 }
 
 export default async function ProjectPage({
@@ -41,15 +28,9 @@ export default async function ProjectPage({
   const resolvedSearchParams = await searchParams;
 
   const decodedSlug = decodeURIComponent(slug);
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("projects")
-    .select("*")
-    .eq("id", decodedSlug)
-    .single();
+  const project = PROJECTS.find((p) => p.id === decodedSlug);
 
-  if (error || !data) notFound();
-  const project = mapDbRowToProject(data);
+  if (!project) notFound();
 
   const detailHighlights =
     project.highlights && project.highlights.length > 0

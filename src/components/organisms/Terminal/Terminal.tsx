@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useVoiceShoutContext } from "@/context/VoiceShoutContext";
-import { createClient } from "@/lib/supabase/client";
 import { ASCII_ART, ADMIN_COMMANDS, OPEN_COMMANDS, PROJECT_CATEGORIES, SEARCH_COMMANDS, VALID_COMMANDS } from "@/lib/terminal/Terminal.constants";
 import type { HistoryItem } from "@/types/terminal";
 import TerminalHeader from "./TerminalHeader";
@@ -155,11 +154,11 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
     setHistoryIndex, setLastEasterEgg, setAsciiFrame, setIsOpen,
     context, setGameActive,
     getAuthUser: async () => {
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
+      const res = await fetch("/api/auth/me");
+      const { user } = await res.json();
       return user ? { email: user.email } : null;
     },
-    signOut: async () => { const supabase = createClient(); await supabase.auth.signOut(); },
+    signOut: async () => { await fetch("/api/auth/logout", { method: "POST" }); },
   });
 
   // Deep link: parse ?cmd= on mount and auto-execute
