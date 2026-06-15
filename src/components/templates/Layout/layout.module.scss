@@ -21,7 +21,7 @@
   bottom: 0;
   width: 328px;
   z-index: 50;
-  padding: 80px 40px;
+  padding: $spacing-xxl 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -76,12 +76,12 @@
 }
 
 // Hide columns on mobile; show when toggle is active
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-xl) {
   .leftColumn,
   .rightColumn {
     display: none;
     width: min(280px, 80vw);
-    padding: 80px 24px 40px;
+    padding: $spacing-xxl $spacing-lg 40px;
     background: rgba(var(--color-bg-rgb), 0.97);
     backdrop-filter: blur(16px);
   }
@@ -123,13 +123,13 @@
 .navbar {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: $spacing-lg;
 }
 
 .navLink {
   font-family: $font-family-primary;
   font-weight: 700;
-  font-size: 12px;
+  font-size: $font-size-sm;
   text-transform: uppercase;
   color: var(--color-text);
   text-decoration: none;
@@ -149,16 +149,16 @@
 .terminalLink {
   background: rgba(var(--color-bg-rgb), 0.82);
   border: 1px solid var(--color-divider);
-  border-radius: 10px;
-  padding: 10px 14px;
-  min-height: 40px;
+  border-radius: $radius-lg;
+  padding: $spacing-sm $spacing-md;
+  min-height: $touch-target-min;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: $spacing-xs;
   font-family: $font-family-primary;
   font-weight: 700;
-  font-size: 12px;
+  font-size: $font-size-sm;
   text-transform: uppercase;
   color: var(--color-text);
   letter-spacing: 0.1em;
@@ -184,9 +184,10 @@
 .themeToggle {
   background: rgba(var(--color-bg-rgb), 0.82);
   border: 1px solid var(--color-divider);
-  border-radius: 10px;
-  padding: 10px 12px;
-  min-height: 40px;
+  border-radius: $radius-lg;
+  padding: $spacing-sm $spacing-md;
+  min-height: $touch-target-min;
+  min-width: $touch-target-min;
   opacity: 0.92;
   transition:
     opacity 0.2s,
@@ -204,7 +205,7 @@
 
 .prompt {
   font-family: $font-family-mono;
-  font-size: 16px;
+  font-size: $font-size-md;
   font-weight: 400;
   color: var(--color-accent);
 }
@@ -217,30 +218,30 @@
   width: 1px;
   background-color: var(--color-divider);
   flex-grow: 1;
-  margin: 32px 0;
+  margin: $spacing-xl 0;
   opacity: 0.75;
 }
 
 .footer {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: $spacing-2xs;
 
   .name {
     font-weight: 700;
-    font-size: 14px;
+    font-size: $font-size-base;
     letter-spacing: 0.05em;
   }
 
   .role {
-    font-size: 12px;
+    font-size: $font-size-sm;
     opacity: 0.6;
   }
 }
 
 .socials {
   display: flex;
-  gap: 16px;
+  gap: $spacing-md;
   align-items: center;
 }
 
@@ -248,8 +249,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: $touch-target-min;
+  height: $touch-target-min;
   border: 1px solid var(--color-divider);
   border-radius: 50%;
   opacity: 0.7;
@@ -274,16 +275,17 @@
   display: none;
   position: fixed;
   top: 20px;
-  right: 24px;
-  width: 24px;
-  height: 24px;
+  right: $spacing-lg;
+  width: $touch-target-min;
+  height: $touch-target-min;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
   background: none;
   border: none;
   cursor: pointer;
   z-index: 200;
-  padding: 0;
+  padding: $spacing-xs;
   transition: all 0.3s ease;
 
   span {
@@ -298,17 +300,17 @@
   &.open {
     top: 29px;
     span:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
+      transform: translateY($spacing-xs) rotate(45deg);
     }
     span:nth-child(2) {
       opacity: 0;
     }
     span:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
+      transform: translateY(-$spacing-xs) rotate(-45deg);
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: $breakpoint-xl) {
     display: flex;
   }
 }
@@ -323,9 +325,9 @@
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   flex-direction: column;
-  padding: 20px 24px 32px;
+  padding: 20px $spacing-lg $spacing-xl;
 
-  @media (max-width: 768px) {
+  @media (max-width: $breakpoint-xl) {
     display: flex;
   }
 }
@@ -334,24 +336,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 44px;
-  padding-right: 44px;
+  min-height: $touch-target-min;
+  padding-right: $touch-target-min;
   flex-shrink: 0;
 }
 
 .mobileCmdBtn {
   background: rgba(var(--color-bg-rgb), 0.9);
   border: 1px solid var(--color-divider);
-  border-radius: 10px;
-  padding: 10px 14px;
-  min-height: 40px;
+  border-radius: $radius-lg;
+  padding: $spacing-sm $spacing-md;
+  min-height: $touch-target-min;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: $spacing-xs;
   font-family: $font-family-primary;
   font-weight: 700;
-  font-size: 12px;
+  font-size: $font-size-sm;
   text-transform: uppercase;
   color: var(--color-text);
   letter-spacing: 0.1em;
@@ -382,13 +384,14 @@
 .mobileThemeToggle {
   background: rgba(var(--color-bg-rgb), 0.9);
   border: 1px solid var(--color-divider);
-  border-radius: 10px;
-  padding: 10px 12px;
-  min-height: 40px;
+  border-radius: $radius-lg;
+  padding: $spacing-sm $spacing-md;
+  min-height: $touch-target-min;
+  min-width: $touch-target-min;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: $spacing-xs;
   font-family: $font-family-mono;
   font-size: 11px;
   text-transform: uppercase;
@@ -408,13 +411,13 @@
 }
 
 .mobileThemePill {
-  width: 32px;
-  height: 16px;
-  border-radius: 16px;
+  width: $spacing-xl;
+  height: $spacing-md;
+  border-radius: $radius-xl;
   border: 1px solid var(--color-divider);
   display: flex;
   align-items: center;
-  padding: 0 2px;
+  padding: 0 $spacing-3xs;
   justify-content: flex-start;
 
   &[data-dark="true"] {
@@ -440,29 +443,29 @@
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: $spacing-lg;
 }
 
 .mobileOverlayMeta {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 16px;
+  gap: $spacing-md;
 }
 
 .mobileAudioToggle {
-  margin-bottom: 2px;
+  margin-bottom: $spacing-3xs;
 }
 
 .mobileOverlayName {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 4px;
+  gap: $spacing-2xs;
 }
 
 .mobileOverlayRole {
-  font-size: 12px;
+  font-size: $font-size-sm;
   opacity: 0.6;
 }
 
@@ -476,8 +479,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: $spacing-2xl;
+  height: $spacing-2xl;
   border: 1px solid var(--color-divider);
   border-radius: 50%;
   opacity: 0.7;

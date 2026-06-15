@@ -102,7 +102,8 @@ export default function MobileNav({
         type="button"
         className={`${styles.burger} ${isOpen ? styles.open : ""}`}
         onClick={onToggle}
-        aria-label="Toggle Menu"
+        aria-label={isOpen ? "Close Menu" : "Open Menu"}
+        aria-expanded={isOpen}
       >
         <span></span>
         <span></span>
@@ -111,7 +112,7 @@ export default function MobileNav({
 
       {/* Full-screen overlay */}
       {isOpen && (
-        <div className={styles.mobileOverlay}>
+        <div className={styles.mobileOverlay} role="dialog" aria-modal="true">
           {/* Top bar */}
           <div className={styles.mobileOverlayTop}>
             <button

@@ -2,8 +2,7 @@
 
 import AudioToggle from "@/components/atoms/audio-toggle";
 import GlitchText from "@/components/atoms/glitch-text";
-import Magnetic from "@/components/atoms/Magnetic";
-import MagneticStyles from "@/components/atoms/Magnetic/Magnetic.module.scss";
+import Magnetic from "@/components/atoms/magnetic";
 import RotatingTitle from "@/components/atoms/rotating-title";
 import { useIsLabRoute } from "@/hooks/useIsLabRoute";
 import styles from "./layout.module.scss";

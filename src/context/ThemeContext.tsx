@@ -19,7 +19,7 @@ interface ThemeContextType {
   clickHint: number;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 /**
  * Internal component for the spotlight effect.

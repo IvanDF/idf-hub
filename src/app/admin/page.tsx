@@ -1,7 +1,6 @@
 "use client";
 
 import { useTheme } from "@/context/ThemeContext";
-import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -66,13 +65,13 @@ export default function AdminPage() {
   }, []);
 
   useEffect(() => {
-    createClient()
-      .auth.getUser()
-      .then(({ data }) => setIsDemo(data.user?.email === "morty@c-137.com"));
+    fetch("/api/auth/me")
+      .then((res) => res.json())
+      .then(({ user }) => setIsDemo(Boolean(user)));
   }, []);
 
   async function handleLogout() {
-    await createClient().auth.signOut();
+    await fetch("/api/auth/logout", { method: "POST" });
     router.push("/admin/login");
   }
 
@@ -165,8 +164,8 @@ export default function AdminPage() {
 
       {isDemo && (
         <div className={styles.demoBanner}>
-          [C-137 MODE] Morty-level access — changes exist only in this dimension
-          (session-only, nothing saved to DB)
+          [LOCAL MODE] Session-only storage — changes exist only in this session
+          (no database — data resets on reload)
         </div>
       )}
 

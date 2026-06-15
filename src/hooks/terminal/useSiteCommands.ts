@@ -255,6 +255,16 @@ export function useSiteCommands({
           break;
         }
 
+        case "storybook":
+        case "design":
+        case "ds":
+          outputs = [
+            { type: "success", content: "Opening Design System..." },
+            { type: "text", content: "Component library, tokens, and style guide." },
+          ];
+          setTimeout(() => { router.push("/design-system"); setIsOpen(false); }, 600);
+          break;
+
         case "brand":
         case "identity":
           outputs = BRAND_OUTPUT;

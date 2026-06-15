@@ -2,7 +2,6 @@
 
 import LogoMorph from "@/components/atoms/logo-morph";
 import { useTheme } from "@/context/ThemeContext";
-import { createClient } from "@/lib/supabase/client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -59,15 +58,16 @@ export default function BrandPage() {
   const [authed, setAuthed] = useState(false);
 
   useEffect(() => {
-    const supabase = createClient();
-    supabase.auth.getUser().then(({ data }) => {
-      if (data.user) {
-        setAuthed(true);
-      } else {
-        router.replace(`/admin/login?next=/brand`);
-      }
-      setLoading(false);
-    });
+    fetch("/api/auth/me")
+      .then((res) => res.json())
+      .then(({ user }) => {
+        if (user) {
+          setAuthed(true);
+        } else {
+          router.replace("/admin/login?next=/brand");
+        }
+        setLoading(false);
+      });
   }, [router]);
 
   if (loading) {

@@ -13,7 +13,7 @@
   flex-direction: column;
   --project-accent: var(--color-secondary);
 
-  @media (max-width: 768px) {
+  @media (max-width: $breakpoint-xl) {
     padding: 5.5rem 1rem 2rem;
   }
 }
@@ -97,7 +97,7 @@
     content: "";
     position: absolute;
     inset: -0.4rem;
-    border-radius: 12px;
+    border-radius: $radius-lg;
     z-index: -1;
     background: radial-gradient(
         circle at 1px 1px,
@@ -154,14 +154,14 @@
   transition: color 0.2s;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: $spacing-xs;
   z-index: 2;
 
   &:hover {
     color: var(--project-accent);
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: $breakpoint-xl) {
     position: static;
     margin-bottom: 1rem;
   }
@@ -213,7 +213,7 @@
 
 .categoryLens {
   padding: 0.2rem 0.5rem;
-  border-radius: 999px;
+  border-radius: $radius-full;
   font-size: 0.62rem;
   font-family: $font-family-mono;
   text-transform: uppercase;
@@ -225,7 +225,7 @@
 
 .platform {
   padding: 0.2rem 0.55rem;
-  border-radius: 999px;
+  border-radius: $radius-full;
   border: 1px solid color-mix(in srgb, var(--project-accent) 55%, transparent);
   color: var(--project-accent);
   font-size: 0.64rem;
@@ -237,7 +237,7 @@
   margin-left: auto;
   padding: 0.25rem 0.5rem;
   border: 1px solid color-mix(in srgb, var(--project-accent) 40%, transparent);
-  border-radius: 999px;
+  border-radius: $radius-full;
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -257,7 +257,7 @@
     top: 50%;
     width: 0.36rem;
     height: 0.36rem;
-    border-radius: 999px;
+    border-radius: $radius-full;
     background: currentColor;
     transform: translateY(-50%);
     box-shadow: 0 0 0 rgba(var(--color-live-rgb), 0.5);
@@ -273,42 +273,16 @@
 
 .tag {
   background: var(--color-surface-glass);
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: $spacing-2xs $spacing-xs;
+  border-radius: $radius-sm;
   font-size: 0.75rem;
   color: var(--color-text-soft);
-}
-
-.mainContent {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 4rem;
-
-  @media (min-width: $breakpoint-lg) {
-    grid-template-columns: 2fr 1fr;
-  }
-}
-
-.leftColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.detailGrid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
 }
 
 .infoBlock {
   background: var(--color-surface-glass);
   border: 1px solid var(--color-divider);
-  border-radius: 8px;
+  border-radius: $radius-md;
   padding: 1rem;
 
   h3 {
@@ -405,7 +379,7 @@
   font-size: 0.62rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  border-radius: 999px;
+  border-radius: $radius-full;
   padding: 0.2rem 0.5rem;
   border: 1px solid color-mix(in srgb, var(--project-accent) 55%, transparent);
   color: var(--project-accent);
@@ -482,7 +456,7 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.75rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: $breakpoint-xl) {
     grid-template-columns: 1fr;
   }
 }
@@ -490,7 +464,7 @@
 .metricItem {
   border: 1px solid var(--color-divider);
   background: var(--color-surface-glass);
-  border-radius: 8px;
+  border-radius: $radius-md;
   padding: 0.75rem;
   display: grid;
   gap: 0.35rem;
@@ -520,7 +494,7 @@
     margin-bottom: 1.5rem;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: $breakpoint-xl) {
     font-size: 1.05rem;
   }
 }
@@ -535,7 +509,7 @@
   background: var(--color-surface-card-strong);
   backdrop-filter: blur(12px);
   border: 1px solid var(--color-divider);
-  border-radius: 8px;
+  border-radius: $radius-md;
   height: fit-content;
 
   @media (max-width: $breakpoint-lg) {
@@ -569,7 +543,7 @@
     font-family: $font-family-mono;
     color: var(--color-text-soft);
     border: 1px solid var(--color-divider);
-    border-radius: 999px;
+    border-radius: $radius-full;
     padding: 0.25rem 0.55rem;
   }
 }
@@ -578,9 +552,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 16px 24px;
-  border-radius: 4px;
+  gap: $spacing-sm;
+  padding: $spacing-md $spacing-lg;
+  border-radius: $radius-sm;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -588,7 +562,7 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
 
-  @media (max-width: 768px) {
+  @media (max-width: $breakpoint-xl) {
     padding: 0.75rem 1rem;
     font-size: 0.72rem;
   }
@@ -627,11 +601,11 @@
   width: 100%;
   aspect-ratio: 16/9;
   background: color-mix(in srgb, var(--color-bg) 80%, black);
-  border-radius: 8px;
+  border-radius: $radius-md;
   overflow: hidden;
   border: 1px solid var(--color-divider);
 
-  @media (max-width: 768px) {
+  @media (max-width: $breakpoint-xl) {
     aspect-ratio: 4/3;
   }
 
@@ -649,7 +623,7 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.6rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: $breakpoint-xl) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -704,7 +678,7 @@
   font-family: $font-family-mono;
   font-size: 0.68rem;
   padding: 0.28rem 0.6rem;
-  border-radius: 999px;
+  border-radius: $radius-full;
   border: 1px solid color-mix(in srgb, var(--project-accent) 55%, transparent);
   color: var(--project-accent);
   letter-spacing: 0.09em;

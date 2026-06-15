@@ -1,0 +1,119 @@
+# iDF Design System
+
+> **Palette "Lario & Volta"** — inspired by Lake Como (Lario) and Alessandro Volta.
+
+This is the living style guide for the iDF Hub. Every token is defined in
+`src/styles/_variables.scss` and enforced across all components.
+
+---
+
+## Colors
+
+### Primary — Volta (Violet)
+
+- `$color-volta-light`: **#8b5cf6**
+- `$color-volta-dark`: **#a78bfa**
+
+### Secondary — Lario (Blue)
+
+- `$color-lario-light`: **#3b82f6**
+- `$color-lario-dark`: **#60a5fa**
+
+### Background — Silk
+
+- `$color-silk-light`: **#fafafa**
+- `$color-silk-dark`: **#0a0a0a**
+
+### Text — Slate
+
+- `$color-slate-light`: **#111827**
+- `$color-slate-dark`: **#f3f4f6**
+- `$color-slate-muted`: **#64748b**
+
+### Category Badges
+
+- `$color-category-maker`: **#f59e0b**
+- `$color-category-design`: **#ec4899**
+- `$color-category-experiment`: **#10b981**
+
+### Semantic
+
+- `$color-success`: **#4ade80** (Success)
+- `$color-error`: **#ef4444** (Error)
+- `$color-warning`: **#facc15** (Warning)
+
+---
+
+## Typography
+
+### Font Families
+
+| Token | Font | Usage |
+|---|---|---|
+| `$font-family-primary` | Josefin Sans | Display / headings |
+| `$font-family-mono` | Geist Mono | Code / terminal |
+
+### Type Scale
+
+| Token | Size | Context |
+|---|---|---|
+| `$font-size-xs` | 0.625rem (10px) | Small labels |
+| `$font-size-sm` | 0.75rem (12px) | Small text |
+| `$font-size-base` | 0.875rem (14px) | Body |
+| `$font-size-md` | 1rem (16px) | Large body |
+| `$font-size-lg` | 1.5rem (24px) | Heading |
+| `$font-size-xl` | 2rem (32px) | Large heading |
+| `$font-size-2xl` | 2.5rem (40px) | Display |
+
+---
+
+## Spacing
+
+Base unit: **4px**. Scale: 4, 8, 12, 16, 24, 32, 48, 56, 80px.
+
+| Token | Value | Example |
+|---|---|---|
+| `$spacing-2xs` | 4px | Icons, badges |
+| `$spacing-xs` | 8px | Small gaps |
+| `$spacing-sm` | 12px | Tight padding |
+| `$spacing-md` | 16px | Standard padding |
+| `$spacing-lg` | 24px | Section gaps |
+| `$spacing-xl` | 32px | Large sections |
+| `$spacing-2xl` | 48px | Page sections |
+
+---
+
+## Border Radius
+
+| Token | Value | Use |
+|---|---|---|
+| `$radius-sm` | 4px | Buttons, inputs |
+| `$radius-md` | 8px | Cards |
+| `$radius-lg` | 12px | Modals |
+| `$radius-xl` | 16px | Large containers |
+| `$radius-full` | 999px | Pills, avatars |
+
+---
+
+## Breakpoints
+
+Mobile-first scale:
+
+| Token | Value |
+|---|---|
+| `$breakpoint-xs` | 400px |
+| `$breakpoint-sm` | 480px |
+| `$breakpoint-md` | 576px |
+| `$breakpoint-lg` | 700px |
+| `$breakpoint-xl` | 768px |
+| `$breakpoint-2xl` | 992px |
+| `$breakpoint-3xl` | 1200px |
+
+---
+
+## Design Rules
+
+- **Icons**: Lucide React, 24px base, 2px stroke, rounded caps
+- **Touch targets**: minimum 44×44px (WCAG AA)
+- **Animations**: respect `prefers-reduced-motion`
+- **Mobile-first**: design for 375px, enhance for desktop

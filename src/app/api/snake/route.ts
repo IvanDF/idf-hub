@@ -1,16 +1,35 @@
-import { createAdminClient } from '@/lib/supabase/admin'
 import { NextResponse } from 'next/server'
+import { promises as fs } from 'fs'
+import path from 'path'
+
+const SCORES_FILE = path.join(process.cwd(), 'src/data/snake-scores.json')
+
+interface ScoreEntry {
+  name: string
+  score: number
+  created_at: string
+}
+
+async function readScores(): Promise<ScoreEntry[]> {
+  try {
+    const data = await fs.readFile(SCORES_FILE, 'utf-8')
+    return JSON.parse(data)
+  } catch {
+    return []
+  }
+}
+
+async function writeScores(scores: ScoreEntry[]) {
+  await fs.writeFile(SCORES_FILE, JSON.stringify(scores, null, 2))
+}
 
 export async function GET() {
-  const supabase = createAdminClient()
-  const { data, error } = await supabase
-    .from('snake_scores')
-    .select('id, name, score, created_at')
-    .order('score', { ascending: false })
-    .limit(10)
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json(data ?? [])
+  const scores = await readScores()
+  const top10 = scores
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 10)
+    .map((s, i) => ({ id: i + 1, name: s.name, score: s.score, created_at: s.created_at }))
+  return NextResponse.json(top10)
 }
 
 export async function POST(request: Request) {
@@ -22,13 +41,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid score' }, { status: 400 })
   }
 
-  const supabase = createAdminClient()
-  const { data, error } = await supabase
-    .from('snake_scores')
-    .insert({ name, score })
-    .select()
-    .single()
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json(data, { status: 201 })
+  const scores = await readScores()
+  const entry: ScoreEntry = { name, score, created_at: new Date().toISOString() }
+  scores.push(entry)
+  await writeScores(scores)
+  return NextResponse.json(entry, { status: 201 })
 }

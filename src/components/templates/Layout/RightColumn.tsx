@@ -1,6 +1,6 @@
 "use client";
 
-import Magnetic from "@/components/atoms/Magnetic";
+import Magnetic from "@/components/atoms/magnetic";
 import SocialIconLink from "@/components/atoms/social-icon-link";
 import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
@@ -67,14 +67,21 @@ export default function RightColumn() {
     <aside className={`${styles.rightColumn} ${isLab ? styles.autoHide : ""}`}>
       {/* 1. Theme Toggle */}
       <Magnetic>
-        <div
+        <button
+          type="button"
           className={styles.themeToggle}
           onClick={() => {
             playLightOn();
             toggleTheme();
           }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              playLightOn();
+              toggleTheme();
+            }
+          }}
           style={{
-            cursor: "pointer",
             display: "flex",
             alignItems: "center",
             gap: "8px",
@@ -130,7 +137,7 @@ export default function RightColumn() {
               }}
             ></div>
           </div>
-        </div>
+        </button>
       </Magnetic>
 
       {/* 2. Divider */}
