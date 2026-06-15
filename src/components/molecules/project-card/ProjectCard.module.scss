@@ -372,3 +372,21 @@
     opacity: 1;
   }
 }
+
+/* ─── Compact variant (bento small cards, archive) ─── */
+
+.compact {
+  .description,
+  .tags {
+    display: none;
+  }
+
+  .info {
+    padding: 1rem 1.25rem;
+  }
+
+  .title {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+}
