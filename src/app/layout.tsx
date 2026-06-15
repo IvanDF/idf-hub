@@ -26,7 +26,7 @@ const josefinSans = Josefin_Sans({
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://idf-hub.vercel.app";
-const siteName = "iDF 2.0";
+const siteName = "iDF";
 const siteDescription =
   "Portfolio hub with interactive experiments, polished micro-effects, and playful digital craftsmanship.";
 const socialImagePath = "/opengraph-image";
