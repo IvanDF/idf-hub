@@ -142,7 +142,7 @@ export function useSiteCommands({
             : [
                 { type: "system", content: "Accessing admin panel..." },
                 { type: "success", content: "→ /admin" },
-                { type: "text", content: "demo: morty@c-137.com / wubbalubbadubdub" },
+                { type: "text", content: "demo: admin@idf.dev / wubbalubbadubdub" },
               ];
           setTimeout(() => { router.push("/admin"); setIsOpen(false); }, 900);
           break;
@@ -165,7 +165,7 @@ export function useSiteCommands({
         case "whoami": {
           const user = await getAuthUser();
           if (user?.email) {
-            const isDemo = user.email === "morty@c-137.com";
+            const isDemo = user.email === "admin@idf.dev";
             outputs = [
               { type: "system", content: `User: ${user.email}` },
               {

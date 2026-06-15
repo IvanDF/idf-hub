@@ -95,7 +95,7 @@ export default async function ProjectPage({
     <main className={`${styles.container} ${styles[platform]}`}>
       <Link href={backHref} className={styles.backLink}>
         <ArrowLeft size={16} />
-        Return to Lab
+        Return to Work
       </Link>
 
       <header className={styles.header}>

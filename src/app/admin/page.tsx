@@ -164,8 +164,7 @@ export default function AdminPage() {
 
       {isDemo && (
         <div className={styles.demoBanner}>
-          [LOCAL MODE] Session-only storage — changes exist only in this session
-          (no database — data resets on reload)
+          [DEMO MODE] Session-only storage — changes exist only in this session and reset on reload
         </div>
       )}
 
