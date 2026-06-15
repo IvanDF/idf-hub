@@ -19,6 +19,7 @@ interface ProjectCardProps {
   project: Project;
   onClick: () => void;
   className?: string;
+  compact?: boolean;
 }
 
 /**
@@ -33,6 +34,7 @@ export default function ProjectCard({
   project,
   onClick,
   className = "",
+  compact = false,
 }: ProjectCardProps) {
   const platform = project.platform || "web";
   const mediaFit = project.media.fit || "contain";
@@ -147,7 +149,7 @@ export default function ProjectCard({
   return (
     <motion.div
       ref={cardRef}
-      className={`${styles.card} ${styles[project.interaction || "default"]} ${styles[project.category.toLowerCase()]} ${styles[platform]} ${className}`}
+      className={`${styles.card} ${styles[project.interaction || "default"]} ${styles[project.category.toLowerCase()]} ${styles[platform]} ${compact ? styles.compact : ""} ${className}`}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       role="button"
