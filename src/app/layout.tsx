@@ -1,5 +1,6 @@
 import MainLayout, { SiteChrome } from "@/components/templates/Layout";
 import FusRoDahWrapper from "@/components/organisms/fus-ro-dah";
+import RouteTracker from "@/components/atoms/route-tracker/RouteTracker";
 import { AudioProvider } from "@/context/AudioContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { VoiceShoutProvider } from "@/context/VoiceShoutContext";
@@ -131,6 +132,7 @@ export default function RootLayout({
         <ThemeProvider>
           <AudioProvider>
             <VoiceShoutProvider>
+              <RouteTracker />
               <SiteChrome />
               <MainLayout>{children}</MainLayout>
               <FusRoDahWrapper />

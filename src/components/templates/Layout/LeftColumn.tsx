@@ -5,10 +5,16 @@ import GlitchText from "@/components/atoms/glitch-text";
 import Magnetic from "@/components/atoms/magnetic";
 import RotatingTitle from "@/components/atoms/rotating-title";
 import { useIsLabRoute } from "@/hooks/useIsLabRoute";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "./layout.module.scss";
 
 export default function LeftColumn() {
   const isLab = useIsLabRoute();
+  const pathname = usePathname();
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <aside className={`${styles.leftColumn} ${isLab ? styles.autoHide : ""}`}>
@@ -29,12 +35,36 @@ export default function LeftColumn() {
             <span className={styles.label}>cmd</span>
           </button>
         </Magnetic>
+
+        {/* Site nav */}
+        <div className={styles.siteNav}>
+          <Link
+            href="/"
+            className={`${styles.navLink} ${isActive("/") ? styles.navLinkActive : ""}`}
+          >
+            Home
+          </Link>
+          <Link
+            href="/lab"
+            className={`${styles.navLink} ${isActive("/lab") ? styles.navLinkActive : ""}`}
+          >
+            Work
+          </Link>
+          <Link
+            href="/about"
+            className={`${styles.navLink} ${isActive("/about") ? styles.navLinkActive : ""}`}
+          >
+            About
+          </Link>
+        </div>
+
+        <span className={styles.cmdHint}>⌘K to explore</span>
       </nav>
 
-      {/* 2. Divider */}
+      {/* Divider */}
       <div className={styles.divider}></div>
 
-      {/* 3. Footer: Name + Role + Audio */}
+      {/* Footer: Name + Role + Audio */}
       <footer className={styles.footer}>
         <AudioToggle />
 

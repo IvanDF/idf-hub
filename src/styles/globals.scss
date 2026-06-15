@@ -1,5 +1,6 @@
 @use "variables" as *;
 @use "sass:color";
+@use "adaptive";
 
 // Glitch effect for body when .glitch-active is present
 body.glitch-active {

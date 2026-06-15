@@ -184,11 +184,14 @@ export default function MobileNav({
           {/* Center: nav links */}
           <nav className={styles.mobileOverlayCenter} aria-label="Mobile navigation">
             <div className={styles.mobileNavLinks}>
-              <Link href="/lab" className={styles.mobileNavLink} onClick={onClose}>
+              <Link href="/" className={`${styles.mobileNavLink} ${pathname === "/" ? styles.mobileNavLinkActive : ""}`} onClick={onClose}>
+                Home
+              </Link>
+              <Link href="/lab" className={`${styles.mobileNavLink} ${pathname.startsWith("/lab") ? styles.mobileNavLinkActive : ""}`} onClick={onClose}>
                 Work
               </Link>
-              <Link href="/time-machine" className={styles.mobileNavLink} onClick={onClose}>
-                Time Machine
+              <Link href="/about" className={`${styles.mobileNavLink} ${pathname.startsWith("/about") ? styles.mobileNavLinkActive : ""}`} onClick={onClose}>
+                About
               </Link>
             </div>
           </nav>

@@ -1,0 +1,79 @@
+// Adaptive design system — per-route visual personality.
+// Defines CSS variables only. Components consume via var(--route-*).
+// Mobile-first: base values apply at all sizes; breakpoints add above.
+@use "variables" as *;
+
+// ── Defaults (picked up by :root so all routes start from here) ───────────────
+:root {
+  --route-stroke:                    1px;
+  --route-radius-sm:                 #{$radius-sm};
+  --route-radius-lg:                 #{$radius-xl};
+  --route-terminal-radius:           #{$radius-xl};
+  --route-terminal-radius-mobile:    #{$radius-xl};
+  --route-terminal-border-width:     1px;
+  --route-terminal-border-color:     var(--color-divider);
+  --route-terminal-shadow:
+    0 0 0 1px rgba(var(--color-text-rgb), 0.08) inset,
+    0 25px 50px -12px rgba(var(--color-silk-rgb), 0.5),
+    0 0 100px rgba(var(--color-accent-rgb), 0.1);
+  --route-chrome-border-color:       var(--color-divider);
+  --route-chrome-border-width:       0px;
+  --route-divider-style:             solid;
+  --route-nav-link-transform:        none;
+  --route-nav-link-weight:           700;
+}
+
+// ── HOME — minimal, generative ───────────────────────────────────────────────
+// Keeps base defaults. The particle canvas is the wow.
+body[data-route="home"] {
+  --route-terminal-shadow:
+    0 0 0 1px rgba(var(--color-text-rgb), 0.08) inset,
+    0 25px 50px -12px rgba(var(--color-silk-rgb), 0.5),
+    0 0 100px rgba(var(--color-accent-rgb), 0.15);
+}
+
+// ── WORK — carved-brutalism ───────────────────────────────────────────────────
+body[data-route="work"] {
+  --route-stroke:                    1.5px;
+  --route-radius-sm:                 #{$radius-xs};
+  --route-radius-lg:                 #{$radius-sm};
+  --route-terminal-radius:           #{$radius-sm};
+  --route-terminal-radius-mobile:    #{$radius-sm};
+  --route-terminal-border-width:     1.5px;
+  --route-terminal-border-color:     var(--color-text);
+  --route-terminal-shadow:           4px 4px 0 var(--color-text);
+  --route-chrome-border-color:       var(--color-text);
+  --route-chrome-border-width:       1.5px;
+  --route-divider-style:             solid;
+  --route-nav-link-transform:        uppercase;
+  --route-nav-link-weight:           700;
+}
+
+// ── ABOUT — typographic / modular ────────────────────────────────────────────
+body[data-route="about"] {
+  --route-stroke:                    1px;
+  --route-radius-sm:                 0px;
+  --route-radius-lg:                 0px;
+  --route-terminal-radius:           0px;
+  --route-terminal-radius-mobile:    0px;
+  --route-terminal-border-width:     1px;
+  --route-terminal-border-color:     var(--color-accent);
+  --route-terminal-shadow:           0 0 0 1px var(--color-accent);
+  --route-chrome-border-color:       var(--color-accent);
+  --route-divider-style:             dashed;
+  --route-nav-link-weight:           400;
+}
+
+// ── ADMIN — terminal ─────────────────────────────────────────────────────────
+body[data-route="admin"] {
+  --route-stroke:                    1px;
+  --route-radius-sm:                 #{$radius-xs};
+  --route-radius-lg:                 #{$radius-sm};
+  --route-terminal-radius:           #{$radius-xs};
+  --route-terminal-radius-mobile:    #{$radius-xs};
+  --route-terminal-border-width:     1px;
+  --route-terminal-border-color:     #{$effect-terminal-green};
+  --route-terminal-shadow:           0 0 24px rgba(0, 255, 0, 0.12);
+  --route-chrome-border-color:       #{$effect-terminal-green};
+  --route-nav-link-transform:        none;
+}

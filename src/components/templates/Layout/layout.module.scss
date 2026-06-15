@@ -27,12 +27,21 @@
   justify-content: space-between;
   transition:
     transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.4s ease;
+    opacity 0.4s ease,
+    border-color 0.4s ease;
   pointer-events: none;
 
   & > * {
     pointer-events: auto;
   }
+}
+
+.leftColumn {
+  border-right: var(--route-chrome-border-width, 0px) var(--route-divider-style, solid) var(--route-chrome-border-color, transparent);
+}
+
+.rightColumn {
+  border-left: var(--route-chrome-border-width, 0px) var(--route-divider-style, solid) var(--route-chrome-border-color, transparent);
 }
 
 .rightColumn {
@@ -124,6 +133,58 @@
   display: flex;
   flex-direction: column;
   gap: $spacing-lg;
+}
+
+.siteNav {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  margin-top: $spacing-xs;
+}
+
+.navLink {
+  font-family: $font-family-primary;
+  font-weight: var(--route-nav-link-weight, 700);
+  font-size: $font-size-sm;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  opacity: 0.4;
+  transition:
+    opacity 0.25s ease,
+    color 0.25s ease,
+    letter-spacing 0.25s ease;
+
+  &:hover {
+    opacity: 0.85;
+    color: var(--color-text);
+  }
+}
+
+.navLinkActive {
+  opacity: 1;
+  color: var(--color-accent);
+
+  &:hover {
+    color: var(--color-accent);
+    opacity: 1;
+  }
+}
+
+.cmdHint {
+  font-family: $font-family-mono;
+  font-size: $font-size-2xs;
+  letter-spacing: 0.08em;
+  color: var(--color-text);
+  opacity: 0.3;
+  text-transform: uppercase;
+  margin-top: $spacing-2xs;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.6;
+  }
 }
 
 .navLink {
@@ -454,16 +515,23 @@
   text-transform: uppercase;
   text-decoration: none;
   color: var(--color-text);
+  opacity: 0.45;
   transition: color 0.2s ease, opacity 0.2s ease;
   line-height: 1;
 
   &:hover {
     color: var(--color-accent);
+    opacity: 1;
   }
 
   &:active {
     opacity: 0.6;
   }
+}
+
+.mobileNavLinkActive {
+  color: var(--color-accent);
+  opacity: 1;
 }
 
 .mobileOverlayBottom {
