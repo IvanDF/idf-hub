@@ -11,7 +11,7 @@ jest.mock('next/navigation', () => ({
 jest.mock('framer-motion', () => ({
   AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   motion: {
-    span: ({ children, ...props }: Record<string, unknown>) =>
+    span: ({ children, ...props }: { children?: React.ReactNode } & Record<string, unknown>) =>
       React.createElement('span', props, children),
   },
 }));

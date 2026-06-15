@@ -439,6 +439,33 @@
   justify-content: center;
 }
 
+.mobileNavLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-xl;
+}
+
+.mobileNavLink {
+  font-family: var(--font-josefin-sans);
+  font-size: clamp(2.5rem, 12vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-text);
+  transition: color 0.2s ease, opacity 0.2s ease;
+  line-height: 1;
+
+  &:hover {
+    color: var(--color-accent);
+  }
+
+  &:active {
+    opacity: 0.6;
+  }
+}
+
 .mobileOverlayBottom {
   flex-shrink: 0;
   display: flex;

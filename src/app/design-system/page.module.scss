@@ -1,10 +1,9 @@
-@use '../../styles/variables' as *;
+@use "../../styles/variables" as *;
 
 .page {
   min-height: 100vh;
   padding: $spacing-2xl;
-  background: $color-bg;
-  color: $color-text;
+  color: var(--color-text);
 }
 
 .hero {
@@ -13,15 +12,19 @@
 }
 
 .title {
-  font-family: $font-family-primary;
+  font-family: var(--font-josefin-sans);
   font-size: $font-size-2xl;
-  color: $color-accent;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
   margin: 0;
 }
 
 .subtitle {
-  font-size: $font-size-md;
-  color: $color-slate-muted;
+  font-size: $font-size-base;
+  color: var(--color-text);
+  opacity: 0.55;
   margin: $spacing-sm 0 0;
 }
 
@@ -32,96 +35,198 @@
   max-width: 960px;
   margin: 0 auto;
 
-  @media (min-width: $breakpoint-xl) {
+  @media (min-width: $breakpoint-lg) {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 .card {
-  background: $color-bg;
-  border: 1px solid $color-divider;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-divider);
   border-radius: $radius-lg;
   padding: $spacing-lg;
-
-  &:last-child:nth-child(odd) {
-    @media (min-width: $breakpoint-xl) {
-      grid-column: 1 / -1;
-      max-width: 50%;
-      justify-self: center;
-    }
-  }
 }
 
 .cardTitle {
-  font-family: $font-family-primary;
-  font-size: $font-size-lg;
-  color: $color-accent;
-  margin: 0 0 $spacing-sm;
-}
-
-.cardDescription {
-  font-size: $font-size-base;
-  color: $color-text;
-  margin: 0 0 $spacing-md;
-  line-height: 1.6;
-}
-
-.storybookActions {
-  margin-top: $spacing-md;
-}
-
-.primaryBtn {
-  display: inline-block;
-  padding: $spacing-sm $spacing-lg;
-  background: $color-accent;
-  color: $color-white;
-  border: none;
-  border-radius: $radius-md;
-  font-family: $font-family-primary;
-  font-size: $font-size-md;
-  cursor: pointer;
-  transition: opacity 0.2s;
-
-  &:hover {
-    opacity: 0.9;
-  }
-}
-
-.hint {
+  font-family: var(--font-josefin-sans);
   font-size: $font-size-sm;
-  color: $color-slate-muted;
-  margin: $spacing-sm 0 0;
-
-  code {
-    font-family: $font-family-mono;
-    font-size: $font-size-sm;
-    background: $color-divider;
-    padding: 2px 6px;
-    border-radius: $radius-sm;
-  }
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 $spacing-md;
 }
 
-.linkList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* ─── Color swatches ─────────────────────────────────────────── */
 
-  li {
-    padding: $spacing-xs 0;
-    font-size: $font-size-base;
-    line-height: 1.5;
-    color: $color-text;
-  }
-
-  a {
-    color: $color-secondary;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+.swatches {
+  display: flex;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
 }
+
+.swatch {
+  flex: 1;
+  min-width: 72px;
+  aspect-ratio: 1;
+  border-radius: $radius-md;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: $spacing-xs;
+  box-sizing: border-box;
+}
+
+.swatchLabel {
+  font-family: var(--font-josefin-sans);
+  font-size: $font-size-2xs;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1;
+}
+
+.swatchValue {
+  font-family: var(--font-geist-mono);
+  font-size: $font-size-2xs;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 2px;
+}
+
+/* ─── Typography ─────────────────────────────────────────────── */
+
+.typeStack {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.typeRow {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xs;
+  padding-bottom: $spacing-sm;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.typeLabel {
+  font-family: var(--font-geist-mono);
+  font-size: $font-size-2xs;
+  color: var(--color-text);
+  opacity: 0.4;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.typeSample {
+  color: var(--color-text);
+}
+
+.typeScale {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  margin-top: $spacing-xs;
+}
+
+.typeScaleRow {
+  display: grid;
+  grid-template-columns: 3rem 1fr 3rem;
+  align-items: baseline;
+  gap: $spacing-sm;
+}
+
+.typeScaleCode {
+  font-family: var(--font-geist-mono);
+  font-size: $font-size-2xs;
+  color: var(--color-accent);
+  opacity: 0.8;
+}
+
+.typeScaleSize {
+  font-family: var(--font-geist-mono);
+  font-size: $font-size-2xs;
+  color: var(--color-text);
+  opacity: 0.35;
+  text-align: right;
+}
+
+/* ─── Spacing ─────────────────────────────────────────────────── */
+
+.spacingStack {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.spacingRow {
+  display: grid;
+  grid-template-columns: 10rem 1fr 3rem;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.spacingName {
+  font-family: var(--font-geist-mono);
+  font-size: $font-size-2xs;
+  color: var(--color-accent);
+  opacity: 0.8;
+}
+
+.spacingBar {
+  height: 6px;
+  background: var(--color-accent);
+  border-radius: $radius-full;
+  opacity: 0.6;
+}
+
+.spacingPx {
+  font-family: var(--font-geist-mono);
+  font-size: $font-size-2xs;
+  color: var(--color-text);
+  opacity: 0.35;
+  text-align: right;
+}
+
+/* ─── Border radius ───────────────────────────────────────────── */
+
+.radiusGrid {
+  display: flex;
+  gap: $spacing-md;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.radiusItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.radiusBox {
+  width: 56px;
+  height: 56px;
+  background: var(--color-accent);
+  opacity: 0.35;
+}
+
+.radiusLabel {
+  font-family: var(--font-geist-mono);
+  font-size: $font-size-2xs;
+  color: var(--color-accent);
+}
+
+.radiusValue {
+  font-family: var(--font-geist-mono);
+  font-size: $font-size-2xs;
+  color: var(--color-text);
+  opacity: 0.35;
+}
+
+/* ─── Footer ──────────────────────────────────────────────────── */
 
 .footer {
   text-align: center;
@@ -131,14 +236,17 @@
 
   p {
     font-size: $font-size-sm;
-    color: $color-slate-muted;
+    color: var(--color-text);
+    opacity: 0.4;
 
     code {
-      font-family: $font-family-mono;
-      font-size: $font-size-sm;
-      background: $color-divider;
-      padding: $spacing-3xs 6px;
+      font-family: var(--font-geist-mono);
+      font-size: $font-size-xs;
+      background: var(--color-divider);
+      padding: 2px 6px;
       border-radius: $radius-sm;
+      opacity: 1;
+      color: var(--color-accent);
     }
   }
 }

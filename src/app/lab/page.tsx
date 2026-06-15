@@ -71,14 +71,14 @@ export default function Lab() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          Lab
+          Work
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          Experiments, prototypes, and finished work.
+          Design, code, and craft — selected projects.
         </motion.p>
         <div className={styles.headerMeta}>
           <span>{LIVE.length} live</span>

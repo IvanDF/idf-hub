@@ -69,7 +69,7 @@ export function useAdminCommands({ router, setIsOpen }: UseAdminCommandsOptions)
             const count = (s: string) =>
               projects.filter((p: { status?: string }) => p.status === s).length;
             outputs = [
-              { type: "system", content: "── DB STATUS ──" },
+              { type: "system", content: "── PROJECTS STATUS ──" },
               { type: "success", content: `total:       ${projects.length}` },
               { type: "text", content: `live:        ${count("live")}` },
               { type: "text", content: `in-progress: ${count("in-progress")}` },
@@ -89,7 +89,7 @@ export function useAdminCommands({ router, setIsOpen }: UseAdminCommandsOptions)
           break;
 
         case "ping":
-          outputs = [{ type: "success", content: "pong. DB is alive." }];
+          outputs = [{ type: "success", content: "pong. API is alive." }];
           handled = true;
           break;
       }

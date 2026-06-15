@@ -9,7 +9,7 @@ jest.mock('@/context/AudioContext');
 jest.mock('framer-motion', () => ({
   AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   motion: {
-    div: ({ children, ...props }: Record<string, unknown>) =>
+    div: ({ children, ...props }: { children?: React.ReactNode } & Record<string, unknown>) =>
       React.createElement('div', props, children),
   },
 }));

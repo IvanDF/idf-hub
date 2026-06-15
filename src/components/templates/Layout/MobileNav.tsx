@@ -6,6 +6,7 @@ import RotatingTitle from "@/components/atoms/rotating-title";
 import SocialIconLink from "@/components/atoms/social-icon-link";
 import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo } from "react";
 import styles from "./layout.module.scss";
@@ -180,8 +181,17 @@ export default function MobileNav({
             </div>
           </div>
 
-          {/* Center: big logo */}
-          <div className={styles.mobileOverlayCenter} />
+          {/* Center: nav links */}
+          <nav className={styles.mobileOverlayCenter} aria-label="Mobile navigation">
+            <div className={styles.mobileNavLinks}>
+              <Link href="/lab" className={styles.mobileNavLink} onClick={onClose}>
+                Work
+              </Link>
+              <Link href="/time-machine" className={styles.mobileNavLink} onClick={onClose}>
+                Time Machine
+              </Link>
+            </div>
+          </nav>
 
           {/* Bottom: name+role + socials */}
           <div className={styles.mobileOverlayBottom}>

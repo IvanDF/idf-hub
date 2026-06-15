@@ -14,7 +14,6 @@
   "dependencies": {
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
-    "@types/three": "^0.183.1",
     "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.35.2",
     "lucide-react": "^0.577.0",
@@ -29,6 +28,7 @@
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
+    "@types/three": "^0.183.1",
     "@types/node": "^20.19.39",
     "@types/react": "^19",
     "@types/react-dom": "^19",

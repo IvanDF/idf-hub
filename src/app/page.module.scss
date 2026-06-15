@@ -1,36 +1,112 @@
 @use "@/styles/variables" as *;
 @use "sass:color";
 
-.cmdKHint {
+/* ─── Hero ────────────────────────────────────────────────────── */
+
+.hero {
   position: absolute;
-  bottom: $spacing-xl;
+  bottom: $spacing-xxl;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  opacity: 0.9;
-  pointer-events: none;
   z-index: 100;
-  background-color: var(--color-bg);
-  padding: $spacing-xs $spacing-md;
-  border-radius: $radius-xl;
-  border: 1px solid var(--color-divider);
-  box-shadow: 0 4px 12px color.adjust($color-black, $alpha: -0.9);
+  width: max-content;
+  max-width: min(520px, calc(100vw - 2.5rem));
 
-  p {
-    font-family: var(--font-josefin-sans);
-    font-size: $font-size-sm;
-    color: var(--color-text);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin: 0;
-
-    span {
-      color: var(--color-accent);
-      font-weight: bold;
-    }
+  @media (max-width: $breakpoint-xl) {
+    bottom: $spacing-2xl;
+    max-width: calc(100vw - 3rem);
   }
 }
+
+.heroName {
+  display: none;
+  font-family: var(--font-josefin-sans);
+  font-size: $font-size-xs;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 $spacing-sm;
+  pointer-events: none;
+
+  @media (max-width: $breakpoint-xl) {
+    display: block;
+  }
+}
+
+.heroTagline {
+  font-family: var(--font-josefin-sans);
+  font-size: $font-size-sm;
+  color: var(--color-text);
+  letter-spacing: 0.04em;
+  line-height: 1.65;
+  margin: 0 0 $spacing-lg;
+  opacity: 0.7;
+  pointer-events: none;
+
+  @media (max-width: $breakpoint-xl) {
+    font-size: $font-size-xs;
+    margin-bottom: $spacing-md;
+  }
+}
+
+.heroCtas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+}
+
+.ctaPrimary {
+  font-family: var(--font-josefin-sans);
+  font-size: $font-size-xs;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-bg);
+  background: var(--color-accent);
+  padding: $spacing-xs $spacing-xl;
+  border-radius: $radius-full;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  min-height: $touch-target-min;
+  display: inline-flex;
+  align-items: center;
+
+  &:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+}
+
+.ctaSecondary {
+  font-family: var(--font-josefin-sans);
+  font-size: $font-size-xs;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-text);
+  border: 1px solid var(--color-divider);
+  padding: $spacing-xs $spacing-xl;
+  border-radius: $radius-full;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  min-height: $touch-target-min;
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.65;
+
+  &:hover {
+    opacity: 1;
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+}
+
+/* ─── Keyboard shortcuts hint ─────────────────────────────────── */
 
 .shortcutsHint {
   position: absolute;
@@ -41,19 +117,23 @@
   gap: $spacing-xs;
   pointer-events: none;
   z-index: 100;
-  opacity: 0.6;
+  opacity: 0.45;
   transition: opacity 0.3s ease;
 
   &:hover {
     opacity: 1;
   }
+
+  @media (max-width: $breakpoint-md) {
+    display: none;
+  }
 }
 
 .shortcut {
   font-family: var(--font-josefin-sans);
-  font-size: $font-size-xs;
+  font-size: $font-size-2xs;
   color: var(--color-text);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   display: flex;
   align-items: center;
@@ -65,14 +145,8 @@
     background: var(--color-card-bg);
     border: 1px solid var(--color-divider);
     border-radius: $radius-sm;
-    padding: $spacing-3xs $spacing-sm;
+    padding: $spacing-3xs $spacing-xs;
     color: var(--color-accent);
     box-shadow: 0 1px 2px color.adjust($color-black, $alpha: -0.9);
-  }
-}
-
-@media (max-width: $breakpoint-md) {
-  .shortcutsHint {
-    display: none;
   }
 }

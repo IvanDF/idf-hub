@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 
 const SESSION_COOKIE = 'idf_session'
 
-export async function proxy(request: NextRequest) {
+export default function middleware(request: NextRequest) {
   const session = request.cookies.get(SESSION_COOKIE)
   const isAuthenticated = session?.value === 'authenticated'
 
