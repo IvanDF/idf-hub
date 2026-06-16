@@ -1,0 +1,411 @@
+@use "@/styles/variables" as *;
+
+// ── Page shell ────────────────────────────────────────────────────────────────
+.page {
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: $font-family-primary;
+  color: var(--color-text);
+  overflow-x: hidden;
+
+  // Typographic grid: everything aligns to a strict horizontal rule
+  border-top: 1px solid var(--color-divider);
+
+  @media (min-width: $breakpoint-xl) {
+    padding-left: 328px; // clear left chrome
+    padding-right: 328px; // clear right chrome
+  }
+}
+
+// ── Hero ──────────────────────────────────────────────────────────────────────
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xl;
+  padding: $spacing-2xl $spacing-lg;
+  border-bottom: 1px solid var(--color-divider);
+
+  @media (min-width: $breakpoint-xl) {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: $spacing-xxl 60px;
+    gap: $spacing-xxl;
+  }
+}
+
+.heroText {
+  flex: 1;
+}
+
+.heroName {
+  display: block;
+  font-size: clamp(2.5rem, 10vw, 7rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  line-height: 0.92;
+  color: var(--color-text);
+  margin: 0 0 $spacing-lg;
+  font-family: $font-family-primary;
+}
+
+.heroRole {
+  font-size: clamp($font-size-base, 2.5vw, $font-size-lg);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  opacity: 0.55;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.heroMeta {
+  display: flex;
+  flex-direction: row;
+  gap: $spacing-2xl;
+  flex-shrink: 0;
+
+  @media (min-width: $breakpoint-xl) {
+    flex-direction: column;
+    gap: $spacing-lg;
+    align-items: flex-end;
+    padding-bottom: $spacing-xs;
+  }
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xs;
+
+  @media (min-width: $breakpoint-xl) {
+    align-items: flex-end;
+  }
+}
+
+.metaLabel {
+  font-size: $font-size-xs;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  font-weight: 700;
+}
+
+.metaValue {
+  font-size: $font-size-sm;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.metaValueAccent {
+  font-size: $font-size-sm;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+// ── Ticker ────────────────────────────────────────────────────────────────────
+.tickerWrap {
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-divider);
+  padding: $spacing-sm 0;
+  background: transparent;
+}
+
+.tickerTrack {
+  display: flex;
+  width: max-content;
+  animation: tickerScroll 22s linear infinite;
+  gap: 0;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.tickerItem {
+  font-size: $font-size-xs;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0 $spacing-lg;
+  opacity: 0.45;
+}
+
+.tickerDot {
+  opacity: 0.6;
+  margin-left: $spacing-lg;
+}
+
+// ── Manifesto ─────────────────────────────────────────────────────────────────
+.manifesto {
+  padding: $spacing-2xl $spacing-lg;
+  border-bottom: 1px solid var(--color-divider);
+
+  @media (min-width: $breakpoint-xl) {
+    padding: $spacing-xxl 60px;
+    max-width: 780px;
+  }
+}
+
+.manifestoText {
+  font-size: clamp($font-size-md, 2.8vw, $font-size-xl);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  margin: 0;
+  opacity: 0.85;
+}
+
+// ── Grid ──────────────────────────────────────────────────────────────────────
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-bottom: 1px solid var(--color-divider);
+
+  @media (min-width: $breakpoint-xl) {
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: auto auto;
+  }
+}
+
+.cell {
+  padding: $spacing-2xl $spacing-lg;
+  border-bottom: 1px solid var(--color-divider);
+
+  @media (min-width: $breakpoint-xl) {
+    padding: $spacing-xxl 60px;
+    border-bottom: none;
+    border-right: 1px solid var(--color-divider);
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
+
+.cellLabel {
+  display: block;
+  font-size: $font-size-xs;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin-bottom: $spacing-xl;
+}
+
+// Interests
+.cellInterests {
+  @media (min-width: $breakpoint-xl) {
+    grid-column: 1;
+    grid-row: 1;
+    border-right: 1px solid var(--color-divider);
+  }
+}
+
+.interestList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.interestItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: $spacing-md;
+  padding: $spacing-sm 0;
+  border-bottom: 1px solid var(--color-divider);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.interestName {
+  font-size: $font-size-base;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.interestNote {
+  font-size: $font-size-xs;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  text-align: right;
+}
+
+// Stat
+.cellStat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: $spacing-sm;
+
+  @media (min-width: $breakpoint-xl) {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-right: none;
+  }
+}
+
+.statNumber {
+  font-size: clamp(3.5rem, 12vw, 7rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--color-accent);
+  font-family: $font-family-primary;
+}
+
+.statLabel {
+  font-size: $font-size-xs;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  max-width: 12ch;
+  line-height: 1.4;
+}
+
+// Quote
+.cellQuote {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: $spacing-sm;
+
+  @media (min-width: $breakpoint-xl) {
+    grid-column: 1;
+    grid-row: 2;
+    border-right: 1px solid var(--color-divider);
+    border-top: 1px solid var(--color-divider);
+  }
+}
+
+.quote {
+  font-size: clamp($font-size-md, 2.5vw, $font-size-xl);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  margin: 0;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.quoteAuthor {
+  font-size: $font-size-xs;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.35;
+  font-style: normal;
+}
+
+// Stack
+.cellStack {
+  @media (min-width: $breakpoint-xl) {
+    display: none; // absorbed into stat column on desktop
+  }
+}
+
+.stackGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+.stackTag {
+  font-size: $font-size-xs;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: $spacing-xs $spacing-md;
+  border: var(--route-stroke, 1px) solid var(--color-divider);
+  color: var(--color-text);
+  opacity: 0.7;
+  transition: opacity 0.2s, border-color 0.2s;
+
+  &:hover {
+    opacity: 1;
+    border-color: var(--color-accent);
+  }
+}
+
+// ── Contact ───────────────────────────────────────────────────────────────────
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xl;
+  padding: $spacing-2xl $spacing-lg;
+
+  @media (min-width: $breakpoint-xl) {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: $spacing-xxl 60px;
+  }
+}
+
+.contactText {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.92;
+}
+
+.contactHeading {
+  display: block;
+  font-size: clamp(2.5rem, 9vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  font-family: $font-family-primary;
+  color: var(--color-text);
+}
+
+.contactLinks {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  align-items: flex-start;
+
+  @media (min-width: $breakpoint-xl) {
+    align-items: flex-end;
+  }
+}
+
+.contactLink {
+  font-size: $font-size-base;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-text);
+  opacity: 0.5;
+  transition: opacity 0.2s, color 0.2s;
+
+  &:hover {
+    opacity: 1;
+    color: var(--color-accent);
+  }
+}

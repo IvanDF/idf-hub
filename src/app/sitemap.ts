@@ -4,7 +4,7 @@ const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://idf-hub.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["/", "/lab", "/time-machine", "/design-system", "/brand", "/secrets"];
+  const routes = ["/", "/lab", "/about", "/time-machine", "/design-system", "/brand", "/secrets"];
 
   return routes.map((route, index) => ({
     url: `${siteUrl}${route}`,
