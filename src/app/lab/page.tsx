@@ -67,16 +67,18 @@ export default function Lab() {
     <main className={styles.container}>
       <header className={styles.header}>
         <motion.h1
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className={styles.pageTitle}
+          initial={{ scaleY: 1.08, y: -14, opacity: 0 }}
+          animate={{ scaleY: 1, y: 0, opacity: 1 }}
+          transition={{ duration: 0.55, ease: [0.34, 1.56, 0.64, 1] }}
         >
           Work
         </motion.h1>
         <motion.p
+          className={styles.pageSubtitle}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
+          transition={{ delay: 0.18, duration: 0.5 }}
         >
           Design, code, and craft — selected projects.
         </motion.p>

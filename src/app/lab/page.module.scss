@@ -1,49 +1,49 @@
 @use "@/styles/variables" as *;
-@use "@/styles/mixins" as *;
 
+// ── Container ─────────────────────────────────────────────────────────────────
 .container {
   min-height: 100vh;
-  padding: 8rem 2rem 6rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 5.5rem 1rem 6rem;
   position: relative;
   z-index: 10;
 
-  @media (max-width: $breakpoint-xl) {
-    padding: 5.5rem 1rem 4rem;
+  @media (min-width: $breakpoint-xl) {
+    padding: 6rem 60px 6rem;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 }
 
-/* ─── Header ─────────────────────────────────────────────────── */
-
+// ── Header ────────────────────────────────────────────────────────────────────
 .header {
-  margin-bottom: 2.5rem;
-  border-bottom: 1px solid var(--color-divider);
-  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: var(--route-stroke, 1px) solid var(--color-text);
+  padding-bottom: 1.5rem;
+}
 
-  h1 {
-    font-size: clamp(3.5rem, 11vw, 7rem);
-    font-weight: 800;
-    line-height: 0.88;
-    letter-spacing: -0.05em;
-    margin: 0 0 0.75rem;
-    color: var(--color-text);
-    text-transform: uppercase;
-    text-shadow: 3px 3px 0px rgba(var(--color-secondary-rgb), 0.18);
-  }
+.pageTitle {
+  font-size: clamp(3.5rem, 11vw, 7rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+  margin: 0 0 0.75rem;
+  color: var(--color-text);
+  text-transform: uppercase;
+  transform-origin: top center;
+  font-family: $font-family-primary;
+}
 
-  p {
-    font-family: $font-family-mono;
-    font-size: 1rem;
-    color: var(--color-text);
-    opacity: 0.65;
-    margin: 0;
+.pageSubtitle {
+  font-family: $font-family-mono;
+  font-size: 1rem;
+  color: var(--color-text);
+  opacity: 0.65;
+  margin: 0;
 
-    &::before {
-      content: "→ ";
-      color: var(--color-secondary);
-      opacity: 1;
-    }
+  &::before {
+    content: "→ ";
+    color: var(--color-secondary);
+    opacity: 1;
   }
 }
 
@@ -64,8 +64,7 @@
   opacity: 0.4;
 }
 
-/* ─── Filters ─────────────────────────────────────────────────── */
-
+// ── Filters ───────────────────────────────────────────────────────────────────
 .filters {
   display: flex;
   gap: 0.4rem;
@@ -84,61 +83,80 @@
 
 .filterBtn {
   background: transparent;
-  border: 1px solid var(--color-divider);
+  border: var(--route-stroke, 1px) solid var(--color-divider);
   color: var(--color-text);
   opacity: 0.55;
-  font-family: $font-family-mono;
+  font-family: $font-family-primary;
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   padding: 0.45rem 1.1rem;
-  border-radius: $radius-full;
+  border-radius: var(--route-filter-radius, #{$radius-full});
   cursor: pointer;
-  transition: opacity 0.15s ease, border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  transition:
+    opacity 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background 0.15s ease,
+    border-radius 0.4s ease;
   white-space: nowrap;
   min-height: $touch-target-min;
 
   &:hover {
     opacity: 1;
-    border-color: var(--color-secondary);
-    color: var(--color-secondary);
+    border-color: var(--color-text);
+    color: var(--color-text);
   }
 
   &.active {
     opacity: 1;
-    border-color: var(--color-secondary);
-    color: var(--color-secondary);
-    background: rgba(var(--color-secondary-rgb), 0.08);
+    background: var(--color-text);
+    color: var(--color-bg);
+    border-color: var(--color-text);
   }
 }
 
-/* ─── Bento hero ──────────────────────────────────────────────── */
-
+// ── Bento hero ────────────────────────────────────────────────────────────────
 .bento {
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 340px 340px;
-  gap: 1rem;
+  gap: var(--route-stroke, 1px);
+  background: var(--color-text);
+  border: var(--route-stroke, 1px) solid var(--color-text);
   margin-bottom: 3.5rem;
 
   @media (max-width: $breakpoint-xl) {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
+    background: transparent;
+    border: none;
     gap: 0.75rem;
     margin-bottom: 2rem;
   }
 }
 
 .bentoItem {
+  background: var(--color-bg);
   min-height: 0;
 
   > * {
     height: 100%;
+    border-radius: 0 !important;
+    border: none !important;
+  }
+
+  @media (max-width: $breakpoint-xl) {
+    background: transparent;
+
+    > * {
+      border-radius: var(--route-card-radius, #{$radius-sm}) !important;
+      border: var(--route-stroke, 1px) solid var(--color-card-border) !important;
+    }
   }
 }
 
-/* Big card — left column, spans both rows */
 .bentoPos0 {
   grid-column: 1;
   grid-row: 1 / 3;
@@ -149,7 +167,6 @@
   }
 }
 
-/* Small cards — right column */
 .bentoPos1 {
   grid-column: 2;
   grid-row: 1;
@@ -170,8 +187,7 @@
   }
 }
 
-/* ─── Section / grid ──────────────────────────────────────────── */
-
+// ── Section / grid ────────────────────────────────────────────────────────────
 .section {
   margin-bottom: 3rem;
 }
@@ -180,10 +196,23 @@
   font-family: $font-family-mono;
   font-size: 0.65rem;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   color: var(--color-text);
   opacity: 0.35;
-  margin: 0 0 1rem;
+  margin: 0 0 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  &::before {
+    content: "";
+    display: block;
+    height: var(--route-stroke, 1px);
+    width: 1.5rem;
+    background: currentColor;
+    opacity: 0.4;
+    flex-shrink: 0;
+  }
 }
 
 .grid {
@@ -193,11 +222,12 @@
 
   @media (max-width: $breakpoint-xl) {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 }
 
 .gridItem {
-  // Natural height from card content — no fixed rows needed
+  // natural height from card
 }
 
 .empty {
@@ -209,10 +239,9 @@
   text-align: center;
 }
 
-/* ─── Archive ─────────────────────────────────────────────────── */
-
+// ── Archive ───────────────────────────────────────────────────────────────────
 .archive {
-  border-top: 1px solid var(--color-divider);
+  border-top: var(--route-stroke, 1px) solid var(--color-text);
   padding-top: 2rem;
   margin-top: 1rem;
 }
@@ -234,9 +263,7 @@
   transition: opacity 0.15s ease;
   min-height: $touch-target-min;
 
-  &:hover {
-    opacity: 1;
-  }
+  &:hover { opacity: 1; }
 }
 
 .archiveToggleIcon {
@@ -245,8 +272,8 @@
   justify-content: center;
   width: 1.1rem;
   height: 1.1rem;
-  border: 1px solid currentColor;
-  border-radius: $radius-xs;
+  border: var(--route-stroke, 1px) solid currentColor;
+  border-radius: var(--route-card-radius, #{$radius-xs});
   font-size: 0.85rem;
   line-height: 1;
   flex-shrink: 0;
@@ -254,7 +281,7 @@
 
 .archiveCount {
   background: var(--color-divider);
-  border-radius: $radius-full;
+  border-radius: var(--route-filter-radius, #{$radius-full});
   padding: 0.1rem 0.5rem;
   font-size: 0.62rem;
   opacity: 0.9;
@@ -271,8 +298,4 @@
   @media (max-width: $breakpoint-xl) {
     grid-template-columns: 1fr;
   }
-}
-
-.archiveItem {
-  // natural height
 }

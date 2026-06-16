@@ -21,6 +21,11 @@
   --route-divider-style:             solid;
   --route-nav-link-transform:        none;
   --route-nav-link-weight:           700;
+  // Card tokens
+  --route-card-radius:               #{$radius-sm};
+  --route-card-hover-shadow:         0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  --route-card-hover-transform:      translateY(-4px);
+  --route-filter-radius:             #{$radius-full};
 }
 
 // ── HOME — minimal, generative ───────────────────────────────────────────────
@@ -47,6 +52,12 @@ body[data-route="work"] {
   --route-divider-style:             solid;
   --route-nav-link-transform:        uppercase;
   --route-nav-link-weight:           700;
+  // Card tokens — brutalist overrides
+  --route-card-radius:               #{$radius-xs};
+  --route-card-hover-shadow:         4px 4px 0 var(--color-text);
+  --route-card-hover-transform:      translate(-2px, -2px);
+  --route-filter-radius:             0px;
+  --color-card-border:               color-mix(in srgb, var(--color-text) 28%, transparent);
 }
 
 // ── ABOUT — typographic / modular ────────────────────────────────────────────
