@@ -3,8 +3,8 @@
 import { PROJECTS } from "@/data/projects";
 import type React from "react";
 import { useCallback } from "react";
-import { EASTER_EGGS, SHORTCUTS_INFO, TOTAL_EASTER_EGGS } from "@/lib/terminal/Terminal.constants";
-import { BRAND_OUTPUT, GUIDE_OUTPUT, HELP_OUTPUT } from "@/lib/terminal/Terminal.data";
+import { SHORTCUTS_INFO } from "@/lib/terminal/Terminal.constants";
+import { BRAND_OUTPUT, GUIDE_OUTPUT, HELP_OUTPUT, buildEggsOutput } from "@/lib/terminal/Terminal.data";
 import type { CommandOutput, HistoryItem } from "@/types/terminal";
 
 type SiteCommandResult = {
@@ -65,29 +65,9 @@ export function useSiteCommands({
         case "eggs":
         case "easter":
         case "achievements":
-        case "badges": {
-          const discovered = discoveredEggs.size;
-          outputs = [
-            { type: "system", content: "🏆 ACHIEVEMENTS" },
-            { type: "text", content: `${discovered}/${TOTAL_EASTER_EGGS} discovered` },
-            { type: "text", content: "" },
-          ];
-          const catIcon: Record<string, string> = { HIMYM: "💜", "R&M": "🌀", Vikings: "⚔️", Secret: "🔐", Skyrim: "🐉", iDF: "◉" };
-          ["HIMYM", "R&M", "Vikings", "Secret", "iDF", "Skyrim"].forEach((cat) => {
-            const catEggs = EASTER_EGGS.filter((e) => e.category === cat);
-            const found = catEggs.filter((e) => discoveredEggs.has(e.id)).length;
-            outputs.push({ type: "text", content: `${catIcon[cat]} ${cat} ${found}/${catEggs.length}` });
-            catEggs.forEach((egg) => {
-              const isFound = discoveredEggs.has(egg.id);
-              outputs.push({ type: isFound ? "success" : "text", content: isFound ? `   ✓ ${egg.name}` : `   ? ${egg.hint}` });
-            });
-            outputs.push({ type: "text", content: "" });
-          });
-          if (discovered === TOTAL_EASTER_EGGS) {
-            outputs.push({ type: "success", content: "🎉 All achievements unlocked!" });
-          }
+        case "badges":
+          outputs = buildEggsOutput(discoveredEggs);
           break;
-        }
 
         case "shortcuts":
         case "keys":

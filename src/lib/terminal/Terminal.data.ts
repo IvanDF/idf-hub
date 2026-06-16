@@ -1,4 +1,31 @@
+import { EASTER_EGGS, TOTAL_EASTER_EGGS } from "@/lib/terminal/Terminal.constants";
 import type { CommandOutput } from "@/types/terminal";
+
+const CAT_ICON: Record<string, string> = {
+  HIMYM: "💜", "R&M": "🌀", Vikings: "⚔️", Secret: "🔐", Skyrim: "🐉", iDF: "◉",
+};
+const EGG_CATEGORIES = ["HIMYM", "R&M", "Vikings", "Secret", "iDF", "Skyrim"];
+
+export function buildEggsOutput(discoveredEggs: Set<string>): CommandOutput[] {
+  const discovered = discoveredEggs.size;
+  const out: CommandOutput[] = [
+    { type: "system", content: "🏆 ACHIEVEMENTS" },
+    { type: "text", content: `${discovered}/${TOTAL_EASTER_EGGS} discovered` },
+    { type: "text", content: "" },
+  ];
+  for (const cat of EGG_CATEGORIES) {
+    const catEggs = EASTER_EGGS.filter((e) => e.category === cat);
+    const found = catEggs.filter((e) => discoveredEggs.has(e.id)).length;
+    out.push({ type: "text", content: `${CAT_ICON[cat]} ${cat} ${found}/${catEggs.length}` });
+    for (const egg of catEggs) {
+      const isFound = discoveredEggs.has(egg.id);
+      out.push({ type: isFound ? "success" : "text", content: isFound ? `   ✓ ${egg.name}` : `   ? ${egg.hint}` });
+    }
+    out.push({ type: "text", content: "" });
+  }
+  if (discovered === TOTAL_EASTER_EGGS) out.push({ type: "success", content: "🎉 All achievements unlocked!" });
+  return out;
+}
 
 /** Output lines for each easter egg, keyed by egg ID. */
 export const EASTER_EGG_RESPONSES: Record<string, CommandOutput[]> = {
