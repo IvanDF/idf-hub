@@ -4,7 +4,7 @@ import Magnetic from "@/components/atoms/magnetic";
 import SocialIconLink from "@/components/atoms/social-icon-link";
 import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
-import { useIsLabRoute } from "@/hooks/useIsLabRoute";
+import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import styles from "./layout.module.scss";
 
@@ -38,7 +38,8 @@ const socials = [
 ];
 
 export default function RightColumn() {
-  const isLab = useIsLabRoute();
+  const pathname = usePathname();
+  const isLab = pathname.startsWith("/lab") || pathname.startsWith("/about");
   const { theme, toggleTheme, superDarkMode, clickHint } = useTheme();
   const { playLightOn } = useAudio();
 

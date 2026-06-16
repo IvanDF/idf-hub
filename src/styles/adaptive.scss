@@ -53,11 +53,13 @@ body[data-route="work"] {
   --route-nav-link-transform:        uppercase;
   --route-nav-link-weight:           700;
   // Card tokens — brutalist overrides
-  --route-card-radius:               #{$radius-xs};
-  --route-card-hover-shadow:         4px 4px 0 var(--color-text);
-  --route-card-hover-transform:      translate(-2px, -2px);
+  --route-card-radius:               0px;
+  --route-card-shadow:               2px 2px 0 color-mix(in srgb, var(--color-text) 35%, transparent);
+  --route-card-hover-shadow:         5px 5px 0 var(--color-text);
+  --route-card-hover-transform:      translate(-3px, -3px);
+  --route-card-backdrop-filter:      none;
   --route-filter-radius:             0px;
-  --color-card-border:               color-mix(in srgb, var(--color-text) 28%, transparent);
+  --color-card-border:               color-mix(in srgb, var(--color-text) 45%, transparent);
 }
 
 // ── ABOUT — typographic / modular ────────────────────────────────────────────

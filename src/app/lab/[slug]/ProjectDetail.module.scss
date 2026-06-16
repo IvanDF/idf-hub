@@ -213,20 +213,20 @@
 
 .categoryLens {
   padding: 0.2rem 0.5rem;
-  border-radius: $radius-full;
+  border-radius: var(--route-filter-radius, #{$radius-full});
   font-size: 0.62rem;
   font-family: $font-family-mono;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--color-text-soft);
-  border: 1px solid var(--color-divider);
+  border: var(--route-stroke, 1px) solid var(--color-divider);
   background: color-mix(in srgb, var(--project-accent) 12%, transparent);
 }
 
 .platform {
   padding: 0.2rem 0.55rem;
-  border-radius: $radius-full;
-  border: 1px solid color-mix(in srgb, var(--project-accent) 55%, transparent);
+  border-radius: var(--route-filter-radius, #{$radius-full});
+  border: var(--route-stroke, 1px) solid color-mix(in srgb, var(--project-accent) 55%, transparent);
   color: var(--project-accent);
   font-size: 0.64rem;
   text-transform: uppercase;
@@ -236,8 +236,8 @@
 .status {
   margin-left: auto;
   padding: 0.25rem 0.5rem;
-  border: 1px solid color-mix(in srgb, var(--project-accent) 40%, transparent);
-  border-radius: $radius-full;
+  border: var(--route-stroke, 1px) solid color-mix(in srgb, var(--project-accent) 40%, transparent);
+  border-radius: var(--route-filter-radius, #{$radius-full});
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -274,15 +274,16 @@
 .tag {
   background: var(--color-surface-glass);
   padding: $spacing-2xs $spacing-xs;
-  border-radius: $radius-sm;
+  border-radius: var(--route-radius-sm, #{$radius-sm});
   font-size: 0.75rem;
   color: var(--color-text-soft);
+  border: var(--route-stroke, 0px) solid var(--color-divider);
 }
 
 .infoBlock {
   background: var(--color-surface-glass);
-  border: 1px solid var(--color-divider);
-  border-radius: $radius-md;
+  border: var(--route-stroke, 1px) solid var(--color-divider);
+  border-radius: var(--route-radius-sm, #{$radius-md});
   padding: 1rem;
 
   h3 {
@@ -337,8 +338,8 @@
 }
 
 .platformPanel {
-  border: 1px solid var(--color-divider);
-  border-radius: 10px;
+  border: var(--route-stroke, 1px) solid var(--color-divider);
+  border-radius: var(--route-radius-sm, 10px);
   padding: 1rem;
   background: var(--color-surface-glass);
   display: grid;
@@ -379,9 +380,9 @@
   font-size: 0.62rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  border-radius: $radius-full;
+  border-radius: var(--route-filter-radius, #{$radius-full});
   padding: 0.2rem 0.5rem;
-  border: 1px solid color-mix(in srgb, var(--project-accent) 55%, transparent);
+  border: var(--route-stroke, 1px) solid color-mix(in srgb, var(--project-accent) 55%, transparent);
   color: var(--project-accent);
 }
 
@@ -391,8 +392,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
-  border: 1px solid color-mix(in srgb, var(--project-accent) 45%, transparent);
+  border-radius: var(--route-radius-sm, 6px);
+  border: var(--route-stroke, 1px) solid color-mix(in srgb, var(--project-accent) 45%, transparent);
   color: var(--project-accent);
   background: color-mix(in srgb, var(--project-accent) 10%, transparent);
 }
@@ -462,9 +463,9 @@
 }
 
 .metricItem {
-  border: 1px solid var(--color-divider);
+  border: var(--route-stroke, 1px) solid var(--color-divider);
   background: var(--color-surface-glass);
-  border-radius: $radius-md;
+  border-radius: var(--route-radius-sm, #{$radius-md});
   padding: 0.75rem;
   display: grid;
   gap: 0.35rem;
@@ -507,9 +508,10 @@
   gap: 2rem;
   padding: 2rem;
   background: var(--color-surface-card-strong);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--color-divider);
-  border-radius: $radius-md;
+  backdrop-filter: var(--route-card-backdrop-filter, blur(12px));
+  border: var(--route-stroke, 1px) solid var(--color-divider);
+  border-radius: var(--route-radius-sm, #{$radius-md});
+  box-shadow: var(--route-card-shadow, none);
   height: fit-content;
 
   @media (max-width: $breakpoint-lg) {
@@ -542,8 +544,8 @@
     font-size: 0.72rem;
     font-family: $font-family-mono;
     color: var(--color-text-soft);
-    border: 1px solid var(--color-divider);
-    border-radius: $radius-full;
+    border: var(--route-stroke, 1px) solid var(--color-divider);
+    border-radius: var(--route-filter-radius, #{$radius-full});
     padding: 0.25rem 0.55rem;
   }
 }
@@ -554,7 +556,7 @@
   justify-content: center;
   gap: $spacing-sm;
   padding: $spacing-md $spacing-lg;
-  border-radius: $radius-sm;
+  border-radius: var(--route-radius-sm, #{$radius-sm});
   font-weight: 600;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -570,7 +572,7 @@
   &.primary {
     background: var(--color-primary-cta);
     color: var(--color-text);
-    border: 1px solid var(--project-accent);
+    border: var(--route-stroke, 1px) solid var(--project-accent);
 
     &:hover {
       background: var(--color-primary-cta-hover);
@@ -582,7 +584,7 @@
   &.secondary {
     background: color-mix(in srgb, var(--color-bg) 72%, transparent);
     color: var(--color-text);
-    border: 1px solid var(--color-divider);
+    border: var(--route-stroke, 1px) solid var(--color-divider);
 
     &:hover {
       background: color-mix(in srgb, var(--color-bg) 60%, transparent);
@@ -601,9 +603,9 @@
   width: 100%;
   aspect-ratio: 16/9;
   background: color-mix(in srgb, var(--color-bg) 80%, black);
-  border-radius: $radius-md;
+  border-radius: var(--route-radius-sm, #{$radius-md});
   overflow: hidden;
-  border: 1px solid var(--color-divider);
+  border: var(--route-stroke, 1px) solid var(--color-divider);
 
   @media (max-width: $breakpoint-xl) {
     aspect-ratio: 4/3;
@@ -633,8 +635,8 @@
   width: 100%;
   aspect-ratio: 16/10;
   overflow: hidden;
-  border-radius: 6px;
-  border: 1px solid var(--color-divider);
+  border-radius: var(--route-radius-sm, 6px);
+  border: var(--route-stroke, 1px) solid var(--color-divider);
 }
 
 .generatedCover {
@@ -678,8 +680,8 @@
   font-family: $font-family-mono;
   font-size: 0.68rem;
   padding: 0.28rem 0.6rem;
-  border-radius: $radius-full;
-  border: 1px solid color-mix(in srgb, var(--project-accent) 55%, transparent);
+  border-radius: var(--route-filter-radius, #{$radius-full});
+  border: var(--route-stroke, 1px) solid color-mix(in srgb, var(--project-accent) 55%, transparent);
   color: var(--project-accent);
   letter-spacing: 0.09em;
   text-transform: uppercase;

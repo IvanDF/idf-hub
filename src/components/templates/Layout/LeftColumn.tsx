@@ -4,14 +4,13 @@ import AudioToggle from "@/components/atoms/audio-toggle";
 import GlitchText from "@/components/atoms/glitch-text";
 import Magnetic from "@/components/atoms/magnetic";
 import RotatingTitle from "@/components/atoms/rotating-title";
-import { useIsLabRoute } from "@/hooks/useIsLabRoute";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./layout.module.scss";
 
 export default function LeftColumn() {
-  const isLab = useIsLabRoute();
   const pathname = usePathname();
+  const isLab = pathname.startsWith("/lab") || pathname.startsWith("/about");
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);

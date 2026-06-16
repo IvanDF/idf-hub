@@ -2,21 +2,18 @@
 
 // ── Page shell ────────────────────────────────────────────────────────────────
 .page {
-  min-height: 100%;
+  min-height: 100vh;
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   font-family: $font-family-primary;
   color: var(--color-text);
   overflow-x: hidden;
-
-  // Typographic grid: everything aligns to a strict horizontal rule
   border-top: 1px solid var(--color-divider);
-
-  @media (min-width: $breakpoint-xl) {
-    padding-left: 328px; // clear left chrome
-    padding-right: 328px; // clear right chrome
-  }
+  position: relative;
+  z-index: 10;
 }
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
