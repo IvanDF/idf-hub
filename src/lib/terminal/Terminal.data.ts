@@ -53,8 +53,9 @@ export const EASTER_EGG_RESPONSES: Record<string, CommandOutput[]> = {
 /** Output lines for the site `help` command. */
 export const HELP_OUTPUT: CommandOutput[] = [
   { type: "system", content: "── NAVIGATE ──" },
-  { type: "text", content: "lab / work", cta: { label: "→ open", cmd: "lab" } },
   { type: "text", content: "home / back", cta: { label: "→ open", cmd: "home" } },
+  { type: "text", content: "lab / work — selected projects", cta: { label: "→ open", cmd: "lab" } },
+  { type: "text", content: "about / me — who is iDF", cta: { label: "→ open", cmd: "about" } },
   { type: "text", content: "time — time machine", cta: { label: "→ open", cmd: "time" } },
   { type: "system", content: "── EXPLORE ──" },
   { type: "text", content: "search [keyword] — find projects", cta: { label: "→ try", cmd: "search shader" } },

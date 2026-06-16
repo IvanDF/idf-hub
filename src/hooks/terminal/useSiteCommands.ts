@@ -113,6 +113,13 @@ export function useSiteCommands({
           setTimeout(() => { router.push("/"); setIsOpen(false); }, 800);
           break;
 
+        case "about":
+        case "chi":
+        case "me":
+          outputs = [{ type: "success", content: "About Ivan Del Fatti..." }];
+          setTimeout(() => { router.push("/about"); setIsOpen(false); }, 800);
+          break;
+
         case "clear":
           setHistory([]);
           return { outputs: [], handled: true, skipHistory: true };
