@@ -1,5 +1,6 @@
 "use client";
 
+import type React from "react";
 import { useEffect, useRef, useState } from "react";
 
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#&";
@@ -8,7 +9,7 @@ interface Props {
   text: string;
   className?: string;
   delay?: number;
-  as?: keyof React.JSX.IntrinsicElements;
+  as?: React.ElementType;
 }
 
 export default function TextScramble({ text, className, delay = 0, as: Tag = "span" }: Props) {
