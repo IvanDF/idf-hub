@@ -97,6 +97,11 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
 
   useTerminalKeyboard({ isOpen, setIsOpen, toggleTheme, playLightOn, router, discoverEgg, playEasterEgg });
 
+  // Admin terminal is always open on mount
+  useEffect(() => {
+    if (context === "admin") setIsOpen(true);
+  }, [context]);
+
   // ASCII art animation for easter eggs
   const getAsciiArt = (eggId: string): string[] => {
     const art = ASCII_ART[getAsciiId(eggId)];
@@ -219,7 +224,7 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
 
   return (
     <TerminalOverlay onClose={() => setIsOpen(false)}>
-      <div className={styles.terminalContainer} onClick={(e) => e.stopPropagation()}>
+      <div className={`${styles.terminalContainer} ${context === "admin" ? styles.admin : ""}`} onClick={(e) => e.stopPropagation()}>
         <TerminalHeader onClose={() => setIsOpen(false)} />
 
         <div className={styles.terminalBody} ref={terminalBodyRef}>

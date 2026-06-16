@@ -84,6 +84,13 @@
   animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.admin {
+  width: 92%;
+  max-width: 1000px;
+  height: 82vh;
+  max-height: none;
+}
+
 @keyframes slideUp {
   from {
     opacity: 0;

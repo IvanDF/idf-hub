@@ -96,7 +96,6 @@ export const HELP_OUTPUT: CommandOutput[] = [
   { type: "system", content: "── FUN ──" },
   { type: "text", content: "snake / play — ASCII snake game 🐍", cta: { label: "→ play", cmd: "snake" } },
   { type: "text", content: "brand — identity system + companion", cta: { label: "→ run", cmd: "brand" } },
-  { type: "text", content: "design / ds — design system & tokens", cta: { label: "→ open", cmd: "design" } },
   { type: "text", content: "guide / tour — platform tour", cta: { label: "→ start", cmd: "guide" } },
   { type: "text", content: "eggs — easter egg tracker" },
   { type: "text", content: "shortcuts / keys — keyboard shortcuts" },
@@ -130,7 +129,7 @@ export const BRAND_OUTPUT: CommandOutput[] = [
   { type: "text", content: "display  Josefin Sans 700  ·  wide tracking" },
   { type: "text", content: "code     Geist Mono 400    ·  14px base" },
   { type: "system", content: "── ASSETS ──" },
-  { type: "text", content: "brand guide →", cta: { label: "→ open /brand", cmd: "brand-page" } },
+  { type: "text", content: "brand — identity, palette, type" },
 ];
 
 /** Output lines for the admin `help` command. */

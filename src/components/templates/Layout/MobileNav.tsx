@@ -116,16 +116,6 @@ export default function MobileNav({
         <div className={styles.mobileOverlay} role="dialog" aria-modal="true">
           {/* Top bar */}
           <div className={styles.mobileOverlayTop}>
-            <button
-              type="button"
-              className={styles.mobileCmdBtn}
-              onClick={openTerminal}
-              aria-label="Open Command Palette"
-            >
-              <span className={styles.prompt}>&lt;_</span>
-              <span className={styles.label}>cmd</span>
-            </button>
-
             <div className={styles.mobileTopActions}>
               <button
                 type="button"
@@ -203,6 +193,15 @@ export default function MobileNav({
 
               <div className={styles.mobileOverlayName}>
                 <GlitchText text="IVAN DEL FATTI" />
+                <button
+                  type="button"
+                  className={styles.mobileCmdHint}
+                  onClick={openTerminal}
+                  aria-label="Open command palette"
+                >
+                  <span className={styles.mobileCmdPromptIcon}>&lt;_</span>
+                  <span>⌘K</span>
+                </button>
                 <RotatingTitle className={styles.mobileOverlayRole} />
               </div>
             </div>
