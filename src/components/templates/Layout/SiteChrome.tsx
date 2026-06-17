@@ -11,6 +11,7 @@ export default function SiteChrome() {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
   const isBusinessCard = pathname?.startsWith("/business-card");
+  const isHome = pathname === "/";
   const hideChrome = isAdmin || isBusinessCard;
 
   return (
@@ -18,7 +19,7 @@ export default function SiteChrome() {
       <CustomCursor />
       {!hideChrome && <SecretGateway />}
       {!hideChrome && <AudioPrompt />}
-      {!hideChrome && <GlobalBackground />}
+      {!hideChrome && !isHome && <GlobalBackground />}
     </>
   );
 }

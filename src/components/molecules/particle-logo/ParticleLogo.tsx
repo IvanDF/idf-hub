@@ -8,11 +8,11 @@ import { useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
 function getParticleCount(): number {
-  if (typeof window === "undefined") return 2000;
+  if (typeof window === "undefined") return 1200;
   const w = window.innerWidth;
-  if (w < 576) return 600;   // mobile
-  if (w < 992) return 1200;  // tablet
-  return 2000;               // desktop
+  if (w < 576) return 350;
+  if (w < 992) return 700;
+  return 1200;
 }
 
 function InteractiveParticles() {
@@ -200,8 +200,8 @@ export default function ParticleLogo() {
     >
       <Canvas
         camera={{ position: [0, 0, 6], fov: 60 }}
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
+        dpr={[1, 1.5]}
+        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
       >
         <InteractiveParticles />
       </Canvas>

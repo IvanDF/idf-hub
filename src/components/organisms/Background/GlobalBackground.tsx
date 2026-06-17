@@ -11,7 +11,7 @@ import styles from './GlobalBackground.module.scss';
 export default function GlobalBackground() {
   return (
     <div className={styles.container}>
-      <Canvas>
+      <Canvas dpr={[1, 1.5]}>
         <ambientLight intensity={0.5} />
         <Suspense fallback={null}>
           <ThreeBackground />
