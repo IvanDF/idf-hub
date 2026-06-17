@@ -53,5 +53,6 @@ export default function TextScramble({ text, className, delay = 0, as: Tag = "sp
     };
   }, [text, delay]);
 
-  return <Tag className={className}>{display}</Tag>;
+  const T = Tag as React.ComponentType<{ className?: string; children: React.ReactNode }>;
+  return <T className={className}>{display}</T>;
 }
