@@ -24,6 +24,7 @@ export const PROJECTS: Project[] = [
       "One-tap contact actions for high-traffic convention flow",
       "Fast React + Vite interface deployed on Netlify",
     ],
+    why: "I needed a way to introduce GabberG — a cosplay persona — at events where you meet hundreds of people in minutes. A paper card or plain link dump wasn't going to cut it.",
     problem:
       "Traditional contact sharing is slow and often forgettable at high-traffic events.",
     solution:
@@ -272,6 +273,7 @@ export const PROJECTS: Project[] = [
       "Semantic token palette tuned for readability",
       "Published and maintained through VS Code Marketplace",
     ],
+    why: "I spent long sessions inside VS Code with themes that looked great in screenshots but were painful to actually read — bad contrast, inconsistent token mapping, colours fighting for attention. I wanted a theme built for the person coding, not the one showing off.",
     problem:
       "Many novelty themes look cool but fail during long coding sessions due to poor contrast and token consistency.",
     solution:
@@ -517,6 +519,7 @@ export const PROJECTS: Project[] = [
       "Supports wrapper-based integration patterns",
       "Published in Figma Community with iterative updates",
     ],
+    why: "Every design-to-code handoff I've done hit the same wall: icons. Export from Figma, rename, wrap in a React component, repeat. I built this to collapse that loop into a single click.",
     links: {
       repo: "https://github.com/IvanDF/icon-builder",
       live: "https://www.figma.com/community/plugin/1489334044911703870/icon-builder",
@@ -788,6 +791,7 @@ export const PROJECTS: Project[] = [
       "Symmetry-based framing to emphasize conflict and balance",
       "Single-subject dual-role technique for narrative cohesion",
     ],
+    why: "I wanted to push cosplay photography beyond the usual 'character standing in a field' format. The Seven Deadly Sins arc has this deep internal conflict — one person carrying both light and dark — and I wanted to show that in a single frame, not a series.",
     problem:
       "How to visually communicate character rivalry and internal conflict in a static image without losing photographic authenticity.",
     solution:

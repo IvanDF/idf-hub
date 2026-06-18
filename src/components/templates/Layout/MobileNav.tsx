@@ -44,6 +44,11 @@ const socials = [
     src: "/assets/figma.svg",
     alt: "Figma",
   },
+  {
+    href: "https://findpenguins.com/idf.travel",
+    src: "/assets/findpenguins.svg",
+    alt: "FindPenguins",
+  },
 ];
 
 export default function MobileNav({

@@ -33,6 +33,14 @@
   font-family: $font-family-primary;
 }
 
+.headerRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .pageSubtitle {
   font-family: $font-family-mono;
   font-size: 1rem;
@@ -47,21 +55,14 @@
   }
 }
 
-.headerMeta {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
+.headerCount {
   font-family: $font-family-mono;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   color: var(--color-text);
-  opacity: 0.4;
-}
-
-.metaDivider {
-  opacity: 0.4;
+  opacity: 0.35;
+  white-space: nowrap;
 }
 
 // ── Filters ───────────────────────────────────────────────────────────────────
@@ -98,15 +99,13 @@
     opacity 0.15s ease,
     border-color 0.15s ease,
     color 0.15s ease,
-    background 0.15s ease,
-    border-radius 0.4s ease;
+    background 0.15s ease;
   white-space: nowrap;
   min-height: $touch-target-min;
 
   &:hover {
     opacity: 1;
     border-color: var(--color-text);
-    color: var(--color-text);
   }
 
   &.active {
@@ -117,117 +116,149 @@
   }
 }
 
-// ── Bento hero ────────────────────────────────────────────────────────────────
-.bento {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 340px 340px;
-  gap: var(--route-stroke, 1px);
-  background: var(--color-text);
-  border: var(--route-stroke, 1px) solid var(--color-text);
-  margin-bottom: 3.5rem;
-
-  @media (max-width: $breakpoint-xl) {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    background: transparent;
-    border: none;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-  }
+// ── Project list ──────────────────────────────────────────────────────────────
+.projectList {
+  display: flex;
+  flex-direction: column;
+  border-top: var(--route-stroke, 1px) solid var(--color-text);
 }
 
-.bentoItem {
-  background: var(--color-bg);
-  min-height: 0;
+.projectRow {
+  all: unset;
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--color-divider);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  width: 100%;
+  box-sizing: border-box;
 
-  > * {
-    height: 100%;
-    border-radius: 0 !important;
-    border: none !important;
+  &:hover {
+    background: var(--color-text);
+    color: var(--color-bg);
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    border-color: var(--color-text);
+
+    .rowNum,
+    .rowTitle,
+    .rowDesc,
+    .rowCategory,
+    .rowYear,
+    .rowArrow {
+      color: var(--color-bg);
+    }
+
+    .rowDesc {
+      opacity: 0.7;
+    }
+
+    .rowArrow {
+      opacity: 1;
+      transform: translate(2px, -2px);
+    }
   }
 
   @media (max-width: $breakpoint-xl) {
-    background: transparent;
+    grid-template-columns: 2rem 1fr auto;
+    gap: 0.75rem;
+    padding: 1rem 0;
 
-    > * {
-      border-radius: var(--route-card-radius, #{$radius-sm}) !important;
-      border: var(--route-stroke, 1px) solid var(--color-card-border) !important;
+    &:hover {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
     }
   }
 }
 
-.bentoPos0 {
-  grid-column: 1;
-  grid-row: 1 / 3;
-
-  @media (max-width: $breakpoint-xl) {
-    grid-column: auto;
-    grid-row: auto;
-  }
-}
-
-.bentoPos1 {
-  grid-column: 2;
-  grid-row: 1;
-
-  @media (max-width: $breakpoint-xl) {
-    grid-column: auto;
-    grid-row: auto;
-  }
-}
-
-.bentoPos2 {
-  grid-column: 2;
-  grid-row: 2;
-
-  @media (max-width: $breakpoint-xl) {
-    grid-column: auto;
-    grid-row: auto;
-  }
-}
-
-// ── Section / grid ────────────────────────────────────────────────────────────
-.section {
-  margin-bottom: 3rem;
-}
-
-.sectionLabel {
+.rowNum {
   font-family: $font-family-mono;
   font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.08em;
   color: var(--color-text);
-  opacity: 0.35;
-  margin: 0 0 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-
-  &::before {
-    content: "";
-    display: block;
-    height: var(--route-stroke, 1px);
-    width: 1.5rem;
-    background: currentColor;
-    opacity: 0.4;
-    flex-shrink: 0;
-  }
+  opacity: 0.3;
+  flex-shrink: 0;
+  align-self: start;
+  padding-top: 0.2rem;
+  transition: color 0.15s ease;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
+.rowMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.rowTitle {
+  font-family: $font-family-primary;
+  font-weight: 700;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  line-height: 1.1;
+  text-transform: uppercase;
+  transition: color 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   @media (max-width: $breakpoint-xl) {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
+    white-space: normal;
   }
 }
 
-.gridItem {
-  // natural height from card
+.rowDesc {
+  font-family: $font-family-mono;
+  font-size: 0.72rem;
+  color: var(--color-text);
+  opacity: 0.5;
+  line-height: 1.4;
+  transition: color 0.15s ease, opacity 0.15s ease;
+
+  @media (max-width: $breakpoint-xl) {
+    display: none;
+  }
+}
+
+.rowMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.rowCategory {
+  font-family: $font-family-mono;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text);
+  opacity: 0.35;
+  transition: color 0.15s ease;
+
+  @media (max-width: $breakpoint-xl) {
+    display: none;
+  }
+}
+
+.rowYear {
+  font-family: $font-family-mono;
+  font-size: 0.65rem;
+  color: var(--color-text);
+  opacity: 0.4;
+  transition: color 0.15s ease;
+}
+
+.rowArrow {
+  font-size: 1rem;
+  color: var(--color-text);
+  opacity: 0.4;
+  transition: opacity 0.15s ease, transform 0.15s ease, color 0.15s ease;
+  line-height: 1;
 }
 
 .empty {
@@ -241,9 +272,9 @@
 
 // ── Archive ───────────────────────────────────────────────────────────────────
 .archive {
-  border-top: var(--route-stroke, 1px) solid var(--color-text);
+  border-top: var(--route-stroke, 1px) solid var(--color-divider);
   padding-top: 2rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 .archiveToggle {
@@ -266,19 +297,6 @@
   &:hover { opacity: 1; }
 }
 
-.archiveToggleIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.1rem;
-  height: 1.1rem;
-  border: var(--route-stroke, 1px) solid currentColor;
-  border-radius: var(--route-card-radius, #{$radius-xs});
-  font-size: 0.85rem;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
 .archiveCount {
   background: var(--color-divider);
   border-radius: var(--route-filter-radius, #{$radius-full});
@@ -287,15 +305,15 @@
   opacity: 0.9;
 }
 
-.archiveGrid {
+.archiveList {
   overflow: hidden;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-  opacity: 0.65;
+  margin-top: 1rem;
+}
 
-  @media (max-width: $breakpoint-xl) {
-    grid-template-columns: 1fr;
+.archivedRow {
+  opacity: 0.6;
+
+  .rowTitle {
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
   }
 }

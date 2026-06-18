@@ -1,6 +1,5 @@
 "use client";
 
-import ProjectCard from "@/components/molecules/project-card";
 import { PROJECTS } from "@/data/projects";
 import type { Project } from "@/types/project";
 import { AnimatePresence, motion } from "framer-motion";
@@ -59,10 +58,6 @@ export default function Lab() {
   const live = LIVE.filter((p) => matchesGroup(p, filter));
   const archived = ARCHIVED.filter((p) => matchesGroup(p, filter));
 
-  const showBento = filter === "all";
-  const bentoProjects = showBento ? live.slice(0, 3) : [];
-  const gridProjects = showBento ? live.slice(3) : live;
-
   return (
     <main className={styles.container}>
       <header className={styles.header}>
@@ -74,18 +69,11 @@ export default function Lab() {
         >
           Work
         </motion.h1>
-        <motion.p
-          className={styles.pageSubtitle}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.18, duration: 0.5 }}
-        >
-          Design, code, and craft — selected projects.
-        </motion.p>
-        <div className={styles.headerMeta}>
-          <span>{LIVE.length} live</span>
-          <span className={styles.metaDivider}>/</span>
-          <span>{ARCHIVED.length} archived</span>
+        <div className={styles.headerRow}>
+          <p className={styles.pageSubtitle}>Design, code, and craft.</p>
+          <span className={styles.headerCount}>
+            {LIVE.length} live · {ARCHIVED.length} archived
+          </span>
         </div>
       </header>
 
@@ -104,49 +92,34 @@ export default function Lab() {
 
       <motion.div
         key={filter}
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.25, ease: "easeOut" }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
       >
-        {/* Bento hero — only on "All" */}
-        {showBento && bentoProjects.length > 0 && (
-          <section className={styles.bento} aria-label="Featured work">
-            {bentoProjects.map((project, i) => (
-              <div
-                key={project.id}
-                className={`${styles.bentoItem} ${styles[`bentoPos${i}`]}`}
-              >
-                <ProjectCard
-                  project={project}
-                  onClick={() => go(project)}
-                  compact={i > 0}
-                />
+        <div className={styles.projectList} role="list">
+          {live.map((project, i) => (
+            <button
+              key={project.id}
+              role="listitem"
+              className={styles.projectRow}
+              onClick={() => go(project)}
+            >
+              <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>
+              <div className={styles.rowMain}>
+                <span className={styles.rowTitle}>{project.title}</span>
+                <span className={styles.rowDesc}>{project.description}</span>
               </div>
-            ))}
-          </section>
-        )}
+              <div className={styles.rowMeta}>
+                <span className={styles.rowCategory}>{project.category}</span>
+                <span className={styles.rowYear}>{project.year}</span>
+                {project.status === "live" && <span className={styles.rowArrow}>↗</span>}
+              </div>
+            </button>
+          ))}
+        </div>
 
-        {/* Main grid */}
-        {gridProjects.length > 0 && (
-          <section className={styles.section}>
-            {showBento && (
-              <p className={styles.sectionLabel}>More work</p>
-            )}
-            <div className={styles.grid}>
-              {gridProjects.map((project) => (
-                <div key={project.id} className={styles.gridItem}>
-                  <ProjectCard project={project} onClick={() => go(project)} />
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+        {live.length === 0 && <p className={styles.empty}>Nothing here yet.</p>}
 
-        {live.length === 0 && archived.length === 0 && (
-          <p className={styles.empty}>Nothing here yet.</p>
-        )}
-
-        {/* Archive */}
         {archived.length > 0 && (
           <div className={styles.archive}>
             <button
@@ -154,30 +127,38 @@ export default function Lab() {
               onClick={() => setShowArchived((v) => !v)}
               aria-expanded={showArchived}
             >
-              <span className={styles.archiveToggleIcon} aria-hidden>
-                {showArchived ? "−" : "+"}
-              </span>
-              {showArchived ? "Hide" : "Show"} archive
+              <span aria-hidden>{showArchived ? "−" : "+"}</span>
+              Archive
               <span className={styles.archiveCount}>{archived.length}</span>
             </button>
 
             <AnimatePresence>
               {showArchived && (
                 <motion.div
-                  className={styles.archiveGrid}
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  transition={{ duration: 0.25, ease: "easeInOut" }}
+                  className={styles.archiveList}
+                  role="list"
                 >
-                  {archived.map((project) => (
-                    <div key={project.id} className={styles.archiveItem}>
-                      <ProjectCard
-                        project={project}
-                        onClick={() => go(project)}
-                        compact
-                      />
-                    </div>
+                  {archived.map((project, i) => (
+                    <button
+                      key={project.id}
+                      role="listitem"
+                      className={`${styles.projectRow} ${styles.archivedRow}`}
+                      onClick={() => go(project)}
+                    >
+                      <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>
+                      <div className={styles.rowMain}>
+                        <span className={styles.rowTitle}>{project.title}</span>
+                        <span className={styles.rowDesc}>{project.description}</span>
+                      </div>
+                      <div className={styles.rowMeta}>
+                        <span className={styles.rowCategory}>{project.category}</span>
+                        <span className={styles.rowYear}>{project.year}</span>
+                      </div>
+                    </button>
                   ))}
                 </motion.div>
               )}

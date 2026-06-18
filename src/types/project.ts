@@ -30,6 +30,7 @@ export interface Project {
   status?: "live" | "in-progress" | "archived" | "concept";
   stack?: string[];
   highlights?: string[];
+  why?: string;
   problem?: string;
   solution?: string;
   metrics?: {

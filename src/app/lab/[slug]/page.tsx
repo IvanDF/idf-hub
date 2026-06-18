@@ -1,16 +1,9 @@
 import GalleryViewer from "@/components/molecules/gallery-viewer";
 import { PROJECTS } from "@/data/projects";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  categoryPanelByCategory,
-  fallbackPanelByPlatform,
-  panelByProjectId,
-} from "./ProjectDetail.data";
-import { ProjectDetailPanel } from "./ProjectDetailPanel";
-import { ProjectDetailSidebar } from "./ProjectDetailSidebar";
 import styles from "./ProjectDetail.module.scss";
 
 export async function generateStaticParams() {
@@ -25,215 +18,139 @@ export default async function ProjectPage({
   searchParams: Promise<{ filter?: string }>;
 }) {
   const { slug } = await params;
-  const resolvedSearchParams = await searchParams;
-
-  const decodedSlug = decodeURIComponent(slug);
-  const project = PROJECTS.find((p) => p.id === decodedSlug);
-
+  const { filter } = await searchParams;
+  const project = PROJECTS.find((p) => p.id === decodeURIComponent(slug));
   if (!project) notFound();
 
-  const detailHighlights =
-    project.highlights && project.highlights.length > 0
-      ? project.highlights
-      : [
-          "Crafted as part of an iterative portfolio R&D process",
-          "Built with focus on visual identity and interaction quality",
-          "Continuously refined based on usability feedback",
-        ];
+  const backHref = filter ? `/lab?filter=${encodeURIComponent(filter)}` : "/lab";
+  const stack = project.stack && project.stack.length > 0 ? project.stack : project.tags;
 
-  const detailStack =
-    project.stack && project.stack.length > 0 ? project.stack : project.tags;
-  const platform = project.platform || "web";
-  const category = project.category;
-
-  const galleryImages = project.media?.gallery || [];
   const mediaFrames = Array.from(
     new Set(
-      [project.media.thumbnail, ...galleryImages].filter(
-        (frame): frame is string =>
-          Boolean(frame) && frame !== "/assets/placeholder.svg",
+      [project.media.thumbnail, ...(project.media.gallery ?? [])].filter(
+        (f): f is string => Boolean(f) && f !== "/assets/placeholder.svg",
       ),
     ),
   );
-  const mediaFit = project.media.fit || "contain";
-  const primaryUrl = project.links?.demo || project.links?.live;
-  const backHref = resolvedSearchParams.filter
-    ? `/lab?filter=${encodeURIComponent(resolvedSearchParams.filter)}`
-    : "/lab";
-  const hasDistinctLiveLink = Boolean(
-    project.links?.live && project.links.live !== primaryUrl,
-  );
-  const hasDistinctFigmaLink = Boolean(
-    project.links?.figma &&
-    project.links.figma !== primaryUrl &&
-    project.links.figma !== project.links?.live,
-  );
+  const mediaFit = project.media.fit ?? "contain";
 
-  const primaryLabelByPlatform: Record<string, string> = {
+  const primaryUrl = project.links?.demo ?? project.links?.live;
+  const platformLabels: Record<string, string> = {
     codepen: "Open Playground",
     notion: "Open Workspace",
     "apple-shortcuts": "Get Shortcut",
-    github: "Launch Project",
-    figma: "Open Figma Plugin",
-    "vscode-marketplace": "Open Extension",
+    github: "View on GitHub",
+    figma: "Open in Figma",
+    "vscode-marketplace": "Get Extension",
   };
-
   const primaryLabel =
-    primaryLabelByPlatform[platform] ||
+    platformLabels[project.platform ?? ""] ??
     (project.links?.demo ? "Launch Experiment" : "Visit Live Site");
 
-  const selectedPanel =
-    panelByProjectId[project.id] ||
-    categoryPanelByCategory[category] ||
-    fallbackPanelByPlatform[platform];
+  const acts: { label: string; body: string }[] = [];
+  if (project.why) acts.push({ label: "The Idea", body: project.why });
+  if (project.problem) acts.push({ label: "The Problem", body: project.problem });
+  if (project.solution) acts.push({ label: "The Craft", body: project.solution });
 
-  const categoryLensPanel = selectedPanel ? (
-    <ProjectDetailPanel panel={selectedPanel} />
-  ) : null;
+  const extraLinks = [
+    project.links?.repo && { href: project.links.repo, label: "Source code" },
+    project.links?.figma && project.links.figma !== primaryUrl && { href: project.links.figma, label: "Figma file" },
+    project.links?.marketplace && { href: project.links.marketplace, label: "Marketplace" },
+    project.links?.caseStudy && { href: project.links.caseStudy, label: "Case study" },
+  ].filter(Boolean) as { href: string; label: string }[];
 
   return (
-    <main className={`${styles.container} ${styles[platform]}`}>
+    <main className={styles.container}>
       <Link href={backHref} className={styles.backLink}>
-        <ArrowLeft size={16} />
-        Return to Work
+        <ArrowLeft size={14} />
+        Work
       </Link>
 
       <header className={styles.header}>
         <div className={styles.meta}>
-          <span className={styles.category}>{project.category}</span>
-          <span className={styles.categoryLens}>{selectedPanel?.badge}</span>
-          <span className={styles.platform}>{platform.replace(/-/g, " ")}</span>
-          <span>{"//"}</span>
-          <span>{project.year}</span>
-          {project.status && (
-            <span
-              className={`${styles.status} ${project.status === "live" ? styles.statusLive : ""}`}
-            >
-              {project.status}
-            </span>
+          <span className={styles.metaChip}>{project.category}</span>
+          <span className={styles.metaSep}>/</span>
+          <span className={styles.metaYear}>{project.year}</span>
+          {project.status === "live" && (
+            <span className={styles.metaLive}>live</span>
           )}
         </div>
-        <h1>{project.title}</h1>
 
-        <p className={styles.lead}>
-          {project.longDescription || project.description}
-        </p>
-
-        <div className={styles.tags}>
-          {project.tags.map((tag) => (
-            <span key={tag} className={styles.tag}>
-              {tag}
-            </span>
-          ))}
-        </div>
+        <h1 className={styles.title}>{project.title}</h1>
+        <p className={styles.lead}>{project.longDescription ?? project.description}</p>
       </header>
 
-      <div className={styles.mainContent}>
-        <div className={styles.leftColumn}>
-          <div className={styles.detailGrid}>
-            {project.problem && (
-              <section className={styles.infoBlock}>
-                <h3>Problem</h3>
-                <p>{project.problem}</p>
-              </section>
-            )}
-
-            {project.solution && (
-              <section className={styles.infoBlock}>
-                <h3>Approach</h3>
-                <p>{project.solution}</p>
-              </section>
-            )}
-
-            {project.role && (
-              <section className={styles.infoBlock}>
-                <h3>Role</h3>
-                <p>{project.role}</p>
-              </section>
-            )}
-
-            {project.duration && (
-              <section className={styles.infoBlock}>
-                <h3>Duration</h3>
-                <p>{project.duration}</p>
-              </section>
-            )}
-          </div>
-
-          <section className={styles.highlights}>
-            <h3>Focus Areas</h3>
-            <ul>
-              {detailHighlights.map((highlight) => (
-                <li key={highlight}>{highlight}</li>
-              ))}
-            </ul>
-          </section>
-
-          {categoryLensPanel}
-
-          {project.metrics && project.metrics.length > 0 && (
-            <section className={styles.metrics}>
-              <h3>Key Metrics</h3>
-              <div className={styles.metricGrid}>
-                {project.metrics.map((metric) => (
-                  <div
-                    key={`${metric.label}-${metric.value}`}
-                    className={styles.metricItem}
-                  >
-                    <span>{metric.label}</span>
-                    <strong>{metric.value}</strong>
-                  </div>
-                ))}
+      {acts.length > 0 && (
+        <section className={styles.acts}>
+          {acts.map((act, i) => (
+            <div key={act.label} className={styles.act}>
+              <div className={styles.actNum}>{String(i + 1).padStart(2, "0")}</div>
+              <div className={styles.actBody}>
+                <h2 className={styles.actTitle}>{act.label}</h2>
+                <p className={styles.actText}>{act.body}</p>
               </div>
-            </section>
-          )}
+            </div>
+          ))}
+        </section>
+      )}
 
-          <div className={styles.mediaSection}>
-            {mediaFrames.length > 1 ? (
-              <GalleryViewer
-                images={mediaFrames}
-                projectTitle={project.title}
-                mediaFit={mediaFit}
+      {mediaFrames.length > 0 && (
+        <div className={styles.media}>
+          {mediaFrames.length > 1 ? (
+            <GalleryViewer
+              images={mediaFrames}
+              projectTitle={project.title}
+              mediaFit={mediaFit}
+            />
+          ) : (
+            <div className={styles.mediaFrame}>
+              <Image
+                src={mediaFrames[0]}
+                alt={project.title}
+                fill
+                className={styles.mediaImg}
+                style={{ objectFit: mediaFit }}
+                sizes="(max-width: 768px) 100vw, 900px"
+                priority
               />
-            ) : mediaFrames.length === 1 ? (
-              <div className={styles.mediaContainer}>
-                <Image
-                  src={mediaFrames[0]}
-                  alt={`${project.title} media`}
-                  fill
-                  className={styles.image}
-                  style={{ objectFit: mediaFit }}
-                  sizes="(max-width: 768px) 100vw, 900px"
-                  priority
-                />
-              </div>
-            ) : (
-              <div className={styles.mediaContainer}>
-                <div className={`${styles.generatedCover} ${styles[platform]}`}>
-                  <span className={styles.coverPlatform}>
-                    {platform.replace(/-/g, " ")}
-                  </span>
-                  <strong>{project.title}</strong>
-                  <p>{project.longDescription || project.description}</p>
-                </div>
-              </div>
-            )}
-          </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      <footer className={styles.footer}>
+        <div className={styles.stack}>
+          {stack.map((t) => (
+            <span key={t} className={styles.stackTag}>{t}</span>
+          ))}
         </div>
 
-        <ProjectDetailSidebar
-            detailStack={detailStack}
-            primaryUrl={primaryUrl}
-            primaryLabel={primaryLabel}
-            repoUrl={project.links?.repo}
-            figmaUrl={project.links?.figma}
-            liveUrl={project.links?.live}
-            marketplaceUrl={project.links?.marketplace}
-            caseStudyUrl={project.links?.caseStudy}
-            hasDistinctFigmaLink={hasDistinctFigmaLink}
-            hasDistinctLiveLink={hasDistinctLiveLink}
-          />
-      </div>
+        <div className={styles.links}>
+          {primaryUrl && (
+            <a
+              href={primaryUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.primaryLink}
+            >
+              {primaryLabel}
+              <ExternalLink size={13} />
+            </a>
+          )}
+          {extraLinks.map(({ href, label }) => (
+            <a
+              key={href}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.secondaryLink}
+            >
+              {label}
+              <ExternalLink size={12} />
+            </a>
+          ))}
+        </div>
+      </footer>
     </main>
   );
 }
