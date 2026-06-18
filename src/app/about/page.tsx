@@ -24,11 +24,9 @@ const ticker = [
 ];
 
 const interests = [
-  { label: "Design systems", note: "that breathe and scale" },
-  { label: "Motion & interaction", note: "micro to macro" },
   { label: "Creative coding", note: "canvas, WebGL, particles" },
-  { label: "Typography", note: "type as visual language" },
-  { label: "Open source", note: "tools I wish existed" },
+  { label: "Type & visual systems", note: "type as visual language" },
+  { label: "Fitness & neuroscience", note: "the hardware side" },
   { label: "Music", note: "making noise while making things" },
 ];
 
@@ -46,7 +44,7 @@ export default function AboutPage() {
         <div className={styles.heroMeta}>
           <div className={styles.metaItem}>
             <span className={styles.metaLabel}>Based</span>
-            <span className={styles.metaValue}>Italy</span>
+            <span className={styles.metaValue}>Madrid, Spain</span>
           </div>
           <div className={styles.metaItem}>
             <span className={styles.metaLabel}>Focus</span>
@@ -100,7 +98,7 @@ export default function AboutPage() {
           <span className={styles.statNumber}>
             <TextScramble text="10+" delay={600} />
           </span>
-          <span className={styles.statLabel}>Years building on the web</span>
+          <span className={styles.statLabel}>Years creating & solving</span>
         </div>
 
         {/* Quote block */}

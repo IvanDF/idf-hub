@@ -140,21 +140,27 @@ export function useSnakeGame({ onExit }: SnakeGameOptions) {
   };
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (phaseRef.current !== "game") return;
-      if (e.key === "Escape") { stopLoop(); onExit(g.current.score); return; }
-      const newDir = KEY_MAP[e.key];
-      if (newDir) {
-        e.preventDefault();
-        queueDir(newDir);
-      } else if (!g.current.started && !g.current.dead) {
-        g.current.started = true;
-        render();
-        startLoop();
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => { window.removeEventListener("keydown", onKey); stopLoop(); };
+    // Delay prevents the Enter keydown that triggered "snake" from instantly starting the game
+    let removeListener: (() => void) | null = null;
+    const tid = setTimeout(() => {
+      const onKey = (e: KeyboardEvent) => {
+        if (phaseRef.current !== "game") return;
+        if (e.key === "Escape") { stopLoop(); onExit(g.current.score); return; }
+        const newDir = KEY_MAP[e.key];
+        if (newDir) {
+          e.preventDefault();
+          queueDir(newDir);
+        } else if ((e.key === " " || e.key === "Enter") && !g.current.started && !g.current.dead) {
+          e.preventDefault();
+          g.current.started = true;
+          render();
+          startLoop();
+        }
+      };
+      window.addEventListener("keydown", onKey);
+      removeListener = () => window.removeEventListener("keydown", onKey);
+    }, 150);
+    return () => { clearTimeout(tid); stopLoop(); removeListener?.(); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onExit]);
 

@@ -6,31 +6,10 @@ import { useEffect, useState } from "react";
 import styles from "./RotatingTitle.module.scss";
 
 const ROLES = [
-  { text: "CREATIVO", duration: 4000, action: "glitch" },
-  {
-    text: "FRONT-END DEV",
-    duration: 2000,
-    action: "link",
-    value: "https://github.com/IvanDF",
-  },
-  {
-    text: "GRAPHIC DESIGNER",
-    duration: 2000,
-    action: "link",
-    value: "https://dribbble.com/",
-  }, // Placeholder
-  {
-    text: "UI/UX DESIGNER",
-    duration: 2000,
-    action: "link",
-    value: "https://www.figma.com/@ivandf",
-  },
-  {
-    text: "PROBLEM SOLVER",
-    duration: 2000,
-    action: "route",
-    value: "/secrets",
-  },
+  { text: "CREATIVE BY CRAFT", duration: 4000, action: "glitch" },
+  { text: "FULL-STACK DEV", duration: 2500, action: "link", value: "https://github.com/IvanDF" },
+  { text: "UI/UX DESIGNER", duration: 2500, action: "link", value: "https://www.figma.com/@ivandf" },
+  { text: "PROBLEM SOLVER", duration: 2500, action: "route", value: "/secrets" },
 ];
 
 /**

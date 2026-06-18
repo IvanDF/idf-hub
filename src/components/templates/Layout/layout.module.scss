@@ -173,17 +173,23 @@
 }
 
 .cmdHint {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2xs;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
   font-family: $font-family-mono;
   font-size: $font-size-2xs;
   letter-spacing: 0.08em;
   color: var(--color-text);
   opacity: 0.3;
   text-transform: uppercase;
-  margin-top: $spacing-2xs;
   transition: opacity 0.2s ease;
 
   &:hover {
-    opacity: 0.6;
+    opacity: 0.65;
   }
 }
 
