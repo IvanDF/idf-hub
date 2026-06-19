@@ -1,4 +1,3 @@
-import GalleryViewer from "@/components/molecules/gallery-viewer";
 import { PROJECTS } from "@/data/projects";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import Image from "next/image";
@@ -95,26 +94,23 @@ export default async function ProjectPage({
       )}
 
       {mediaFrames.length > 0 && (
-        <div className={styles.media}>
-          {mediaFrames.length > 1 ? (
-            <GalleryViewer
-              images={mediaFrames}
-              projectTitle={project.title}
-              mediaFit={mediaFit}
-            />
-          ) : (
-            <div className={styles.mediaFrame}>
+        <div className={`${styles.media} ${mediaFrames.length > 1 ? styles.mediaMulti : ""}`}>
+          {mediaFrames.map((src, i) => (
+            <div
+              key={src}
+              className={`${styles.mediaFrame} ${i === 0 && mediaFrames.length > 1 ? styles.mediaFrameHero : ""}`}
+            >
               <Image
-                src={mediaFrames[0]}
-                alt={project.title}
+                src={src}
+                alt={`${project.title} — frame ${i + 1}`}
                 fill
                 className={styles.mediaImg}
                 style={{ objectFit: mediaFit }}
-                sizes="(max-width: 768px) 100vw, 900px"
-                priority
+                sizes={i === 0 ? "(max-width: 768px) 100vw, 860px" : "(max-width: 768px) 50vw, 430px"}
+                priority={i === 0}
               />
             </div>
-          )}
+          ))}
         </div>
       )}
 

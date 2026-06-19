@@ -2,7 +2,6 @@
 
 import AudioToggle from "@/components/atoms/audio-toggle";
 import GlitchText from "@/components/atoms/glitch-text";
-import RotatingTitle from "@/components/atoms/rotating-title";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./layout.module.scss";
@@ -54,11 +53,10 @@ export default function LeftColumn() {
           className={styles.cmdHint}
           onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}
         >
-          <span className={styles.prompt}>&lt;_</span>
-          <span>⌘K</span>
+          <GlitchText text="<_" className={styles.prompt} />
+          <span className={styles.cmdKey}>⌘K</span>
+          <span className={styles.cmdLabel}>to explore</span>
         </button>
-
-        <RotatingTitle className={styles.role} />
       </footer>
     </aside>
   );

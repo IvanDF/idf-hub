@@ -175,22 +175,39 @@
 .cmdHint {
   display: inline-flex;
   align-items: center;
-  gap: $spacing-2xs;
+  gap: $spacing-xs;
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
   font-family: $font-family-mono;
-  font-size: $font-size-2xs;
-  letter-spacing: 0.08em;
+  font-size: $font-size-xs;
+  letter-spacing: 0.1em;
   color: var(--color-text);
-  opacity: 0.3;
+  opacity: 0.62;
   text-transform: uppercase;
   transition: opacity 0.2s ease;
 
   &:hover {
-    opacity: 0.65;
+    opacity: 1;
   }
+}
+
+.cmdKey {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+}
+
+.cmdLabel {
+  font-family: $font-family-mono;
+  font-size: $font-size-2xs;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  opacity: 0.5;
+  text-transform: uppercase;
 }
 
 .terminalLink {
