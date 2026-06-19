@@ -94,7 +94,6 @@
   text-transform: uppercase;
   margin: 0 0 1.25rem;
   color: var(--color-text);
-  filter: var(--ink, none);
 }
 
 .lead {
@@ -253,8 +252,7 @@
   padding: 0.65rem 1.25rem;
   border-radius: 0;
   border: 1.5px solid var(--color-text);
-  filter: var(--ink-fine, none);
-  box-shadow: var(--depth-sm, none);
+  box-shadow: var(--depth-sm);
   transition: box-shadow 0.12s ease, transform 0.12s ease, opacity 0.15s ease;
 
   &:hover {

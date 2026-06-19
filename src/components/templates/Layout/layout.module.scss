@@ -25,6 +25,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  filter: var(--ink-fine);
   transition:
     transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.4s ease,
@@ -113,6 +114,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  filter: var(--ink);
 
   // Custom Scrollbar
   &::-webkit-scrollbar {
@@ -151,7 +153,6 @@
   text-decoration: none;
   letter-spacing: 0.12em;
   opacity: 0.4;
-  filter: var(--ink-fine, none);
   transition:
     opacity 0.25s ease,
     color 0.25s ease,
@@ -178,38 +179,40 @@
   align-items: center;
   gap: $spacing-xs;
   background: none;
-  border: none;
-  padding: 0;
+  border: 1.5px solid var(--color-text);
+  padding: $spacing-xs $spacing-sm;
   cursor: pointer;
   font-family: $font-family-mono;
-  font-size: $font-size-xs;
+  font-size: $font-size-base; // 14px — readable
+  font-weight: 700;
   letter-spacing: 0.1em;
   color: var(--color-text);
-  opacity: 0.62;
   text-transform: uppercase;
-  filter: var(--ink-fine, none);
-  transition: opacity 0.2s ease;
+  box-shadow: var(--depth-sm);
+  transition:
+    box-shadow 0.12s ease,
+    transform 0.12s ease;
 
   &:hover {
-    opacity: 1;
+    box-shadow: var(--depth-md);
+    transform: translate(-2px, -2px);
+  }
+
+  &:active {
+    box-shadow: none;
+    transform: translate(4px, 4px);
   }
 }
 
 .cmdKey {
   font-family: $font-family-mono;
-  font-size: $font-size-xs;
   font-weight: 700;
   color: var(--color-accent);
-  letter-spacing: 0.05em;
 }
 
 .cmdLabel {
   font-family: $font-family-mono;
-  font-size: $font-size-2xs;
-  letter-spacing: 0.1em;
-  color: var(--color-text);
-  opacity: 0.5;
-  text-transform: uppercase;
+  opacity: 0.6;
 }
 
 .terminalLink {

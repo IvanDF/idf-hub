@@ -186,15 +186,30 @@ canvas {
 }
 
 /* ── Carved Brutalism — Ink wobble utilities ─────────────────────────────────
-   Apply to UI chrome (headings, buttons, labels, dividers).
-   Never on body copy, captions, or canvas elements. */
-@media (prefers-reduced-motion: no-preference) {
-  .ink       { filter: var(--ink); }
-  .ink-fine  { filter: var(--ink-fine); }
-  .ink-draft { filter: var(--ink-draft); }
+   Utility classes for one-off ink application outside the main regions. */
+.ink       { filter: var(--ink); }
+.ink-fine  { filter: var(--ink-fine); }
+.ink-draft { filter: var(--ink-draft); }
 
-  // Display headings always get the standard wobble — they are scribed, not set
-  h1 { filter: var(--ink); }
+/* ── Carved Brutalism — Global stamp shadow on all bordered buttons ──────────
+   Every button/pill with a border gets the depth-sm stamp by default.
+   Hover lifts to depth-md with an offset move. Press snaps back. */
+button:not([data-no-stamp]),
+[role="button"]:not([data-no-stamp]) {
+  box-shadow: var(--depth-sm);
+  transition:
+    box-shadow 0.12s ease,
+    transform 0.12s ease;
+
+  &:hover {
+    box-shadow: var(--depth-md);
+    transform: translate(-2px, -2px);
+  }
+
+  &:active {
+    box-shadow: none;
+    transform: translate(4px, 4px);
+  }
 }
 
 /* ── Fus Ro Dah content-scatter ────────────────────────────────────────────── */

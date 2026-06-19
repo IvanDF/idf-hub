@@ -1,89 +1,44 @@
-// Adaptive design system — per-route visual personality.
-// Carved Brutalism is the global base: flat, bordered, stamped, sharp.
-// Each route overrides only its "key point" — the one thing that makes it distinct.
-// Components consume via var(--route-*) and var(--depth-*).
+// Carved Brutalism — single global system. No per-route variations.
+// One look everywhere: flat, stamped, scribed, sharp.
 @use "variables" as *;
 
-// ── Global base — Carved Brutalism defaults ────────────────────────────────────
 :root {
-  // Stamp depth — 3-level ink offset system (no blur, no soft shadows)
+  // ── Stamp depth (the three levels) ──────────────────────────────────────────
   --depth-0:  none;
   --depth-sm: 4px 4px 0 var(--color-text);
   --depth-md: 8px 8px 0 var(--color-text);
 
-  // Ink wobble filter references (SVG from InkFilters component)
+  // ── Ink filters (SVG from InkFilters) ───────────────────────────────────────
   --ink:       url(#idf-ink-wobble);
   --ink-fine:  url(#idf-ink-wobble-fine);
   --ink-draft: url(#idf-ink-wobble-draft);
 
-  // Stroke — 1.5px scribed lines everywhere
-  --route-stroke: 1.5px;
-
-  // Radius — 0px everywhere, no rounded corners in carved brutalism
+  // ── Shape — 0px radius everywhere ───────────────────────────────────────────
   --route-card-radius:   0px;
   --route-filter-radius: 0px;
   --route-radius-sm:     0px;
   --route-radius-lg:     0px;
 
-  // Terminal — stamp shadow is the default
+  // ── Stroke — 1.5px scribed lines ────────────────────────────────────────────
+  --route-stroke:        1.5px;
+  --route-divider-style: solid;
+
+  // ── Terminal ─────────────────────────────────────────────────────────────────
   --route-terminal-radius:        0px;
   --route-terminal-radius-mobile: 0px;
   --route-terminal-border-width:  1.5px;
   --route-terminal-border-color:  var(--color-text);
   --route-terminal-shadow:        var(--depth-sm);
 
-  // Chrome columns — no border by default (each route decides)
+  // ── Chrome columns — always bordered ────────────────────────────────────────
   --route-chrome-border-color: var(--color-text);
-  --route-chrome-border-width: 0px;
-  --route-divider-style:       solid;
-
-  // Nav
+  --route-chrome-border-width: 1.5px;
   --route-nav-link-weight:     700;
 
-  // Cards — stamp shadow
+  // ── Cards ────────────────────────────────────────────────────────────────────
   --route-card-shadow:          var(--depth-sm);
   --route-card-hover-shadow:    var(--depth-md);
   --route-card-hover-transform: translate(-4px, -4px);
   --route-card-backdrop-filter: none;
-
-  --color-card-border: color-mix(in srgb, var(--color-text) 35%, transparent);
-}
-
-// ── HOME — the particle canvas is the key ─────────────────────────────────────
-// Chrome (nav, terminal, ⌘K) follows carved rules.
-// Terminal gets a glow instead of stamp — it floats above the particle field.
-body[data-route="home"] {
-  --route-terminal-border-width:  1px;
-  --route-terminal-border-color:  var(--color-divider);
-  --route-terminal-shadow:
-    0 0 0 1px rgba(var(--color-text-rgb), 0.08) inset,
-    0 25px 50px -12px rgba(var(--color-silk-rgb), 0.5),
-    0 0 100px rgba(var(--color-accent-rgb), 0.15);
-  --route-terminal-radius:        #{$radius-sm};
-  --route-terminal-radius-mobile: #{$radius-sm};
-}
-
-// ── WORK — editorial list, heaviest chrome ────────────────────────────────────
-// Key point: strong column borders frame the catalogue.
-body[data-route="work"] {
-  --route-chrome-border-width: 1.5px;
-  --route-terminal-shadow:     var(--depth-md);
-}
-
-// ── ABOUT — typographic, accent ink ──────────────────────────────────────────
-// Key point: accent-colored dividers and terminal; dashed rhythm.
-body[data-route="about"] {
-  --route-divider-style:        dashed;
-  --route-chrome-border-width:  1px;
-  --route-chrome-border-color:  var(--color-accent);
-  --route-terminal-border-color: var(--color-accent);
-  --route-terminal-shadow:      0 0 0 1px var(--color-accent);
-  --color-card-border: color-mix(in srgb, var(--color-accent) 35%, transparent);
-}
-
-// ── ADMIN — terminal green, hacker aesthetic ──────────────────────────────────
-body[data-route="admin"] {
-  --route-terminal-border-color: #{$effect-terminal-green};
-  --route-terminal-shadow:       0 0 24px rgba(0, 255, 0, 0.12);
-  --route-chrome-border-color:   #{$effect-terminal-green};
+  --color-card-border: color-mix(in srgb, var(--color-text) 40%, transparent);
 }
