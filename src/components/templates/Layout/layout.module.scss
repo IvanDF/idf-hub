@@ -294,7 +294,7 @@
 .footer {
   display: flex;
   flex-direction: column;
-  gap: $spacing-2xs;
+  gap: $spacing-sm;
 
   .name {
     font-weight: 700;
@@ -330,6 +330,29 @@
   &:hover {
     opacity: 1;
     border-color: var(--color-accent);
+  }
+}
+
+.socialLinks {
+  display: flex;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+}
+
+.socialLink {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-text);
+  opacity: 0.4;
+  transition: opacity 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+    color: var(--color-accent);
   }
 }
 

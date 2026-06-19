@@ -1,12 +1,3 @@
-/**
- * Injects three static SVG displacement filters into the DOM — one per distress level.
- * Referenced via CSS: filter: url(#idf-ink-wobble) etc.
- * Static (computed once, never animated) — cartographer's hand, not a CAD edge.
- *
- * idf-ink-wobble       scale 4 — display headings, large surfaces, CTA borders
- * idf-ink-wobble-fine  scale 2 — nav links, small labels, dividers, icon strokes
- * idf-ink-wobble-draft scale 7 — draft/tentative/in-progress states
- */
 export default function InkFilters() {
   return (
     <svg
@@ -26,7 +17,7 @@ export default function InkFilters() {
           <feDisplacementMap
             in="SourceGraphic"
             in2="noise"
-            scale="4"
+            scale="2.5"
             xChannelSelector="R"
             yChannelSelector="G"
           />
@@ -43,7 +34,7 @@ export default function InkFilters() {
           <feDisplacementMap
             in="SourceGraphic"
             in2="noise"
-            scale="2"
+            scale="1.5"
             xChannelSelector="R"
             yChannelSelector="G"
           />
@@ -60,7 +51,7 @@ export default function InkFilters() {
           <feDisplacementMap
             in="SourceGraphic"
             in2="noise"
-            scale="7"
+            scale="4.5"
             xChannelSelector="R"
             yChannelSelector="G"
           />

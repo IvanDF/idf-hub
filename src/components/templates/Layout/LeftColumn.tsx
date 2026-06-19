@@ -6,6 +6,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./layout.module.scss";
 
+const socials = [
+  { href: "https://www.instagram.com/idf.me/", label: "IG" },
+  { href: "https://www.linkedin.com/in/ivandf/", label: "LI" },
+  { href: "https://github.com/IvanDF", label: "GH" },
+  { href: "https://www.figma.com/@ivandf", label: "FIG" },
+  { href: "https://findpenguins.com/idf.travel", label: "FP" },
+];
+
 export default function LeftColumn() {
   const pathname = usePathname();
   const isLab = pathname.startsWith("/lab") || pathname.startsWith("/about");
@@ -38,7 +46,6 @@ export default function LeftColumn() {
         </div>
       </nav>
 
-      {/* Divider */}
       <div className={styles.divider}></div>
 
       <footer className={styles.footer}>
@@ -48,10 +55,28 @@ export default function LeftColumn() {
           <GlitchText text="IVAN DEL FATTI" />
         </div>
 
+        <nav className={styles.socialLinks}>
+          {socials.map(({ href, label }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.socialLink}
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+
         <button
           type="button"
           className={styles.cmdHint}
-          onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}
+          onClick={() =>
+            window.dispatchEvent(
+              new KeyboardEvent("keydown", { key: "k", metaKey: true })
+            )
+          }
         >
           <GlitchText text="<_" className={styles.prompt} />
           <span className={styles.cmdKey}>⌘K</span>
