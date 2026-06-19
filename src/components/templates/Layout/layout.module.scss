@@ -151,6 +151,7 @@
   text-decoration: none;
   letter-spacing: 0.12em;
   opacity: 0.4;
+  filter: var(--ink-fine, none);
   transition:
     opacity 0.25s ease,
     color 0.25s ease,
@@ -186,6 +187,7 @@
   color: var(--color-text);
   opacity: 0.62;
   text-transform: uppercase;
+  filter: var(--ink-fine, none);
   transition: opacity 0.2s ease;
 
   &:hover {

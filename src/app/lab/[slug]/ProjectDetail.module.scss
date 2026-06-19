@@ -94,6 +94,7 @@
   text-transform: uppercase;
   margin: 0 0 1.25rem;
   color: var(--color-text);
+  filter: var(--ink, none);
 }
 
 .lead {
@@ -250,13 +251,16 @@
   letter-spacing: 0.12em;
   text-decoration: none;
   padding: 0.65rem 1.25rem;
-  border-radius: var(--route-filter-radius, #{$radius-full});
-  border: 1px solid var(--color-text);
-  transition: opacity 0.15s ease, box-shadow 0.15s ease;
+  border-radius: 0;
+  border: 1.5px solid var(--color-text);
+  filter: var(--ink-fine, none);
+  box-shadow: var(--depth-sm, none);
+  transition: box-shadow 0.12s ease, transform 0.12s ease, opacity 0.15s ease;
 
   &:hover {
-    opacity: 0.8;
-    box-shadow: var(--route-card-shadow, none);
+    box-shadow: var(--depth-md, none);
+    transform: translate(-2px, -2px);
+    opacity: 0.9;
   }
 }
 

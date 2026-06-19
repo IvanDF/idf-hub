@@ -185,6 +185,18 @@ canvas {
   color: var(--color-secondary);
 }
 
+/* ── Carved Brutalism — Ink wobble utilities ─────────────────────────────────
+   Apply to UI chrome (headings, buttons, labels, dividers).
+   Never on body copy, captions, or canvas elements. */
+@media (prefers-reduced-motion: no-preference) {
+  .ink       { filter: var(--ink); }
+  .ink-fine  { filter: var(--ink-fine); }
+  .ink-draft { filter: var(--ink-draft); }
+
+  // Display headings always get the standard wobble — they are scribed, not set
+  h1 { filter: var(--ink); }
+}
+
 /* ── Fus Ro Dah content-scatter ────────────────────────────────────────────── */
 @media (prefers-reduced-motion: no-preference) {
   html[data-fus-level="3"] [data-fus-target="main"] {

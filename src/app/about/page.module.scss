@@ -273,6 +273,7 @@
   line-height: 1;
   color: var(--color-accent);
   font-family: $font-family-primary;
+  filter: var(--ink, none);
 }
 
 .statLabel {
