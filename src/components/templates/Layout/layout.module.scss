@@ -38,11 +38,11 @@
 }
 
 .leftColumn {
-  border-right: var(--route-chrome-border-width, 0px) var(--route-divider-style, solid) var(--route-chrome-border-color, transparent);
+  border-left: var(--route-chrome-border-width, 0px) var(--route-divider-style, solid) var(--route-chrome-border-color, transparent);
 }
 
 .rightColumn {
-  border-left: var(--route-chrome-border-width, 0px) var(--route-divider-style, solid) var(--route-chrome-border-color, transparent);
+  border-right: var(--route-chrome-border-width, 0px) var(--route-divider-style, solid) var(--route-chrome-border-color, transparent);
 }
 
 .rightColumn {
@@ -218,8 +218,8 @@
 
 .terminalLink {
   background: rgba(var(--color-bg-rgb), 0.82);
-  border: 1px solid var(--color-divider);
-  border-radius: $radius-lg;
+  border: 2px solid color-mix(in srgb, var(--color-text) 30%, transparent);
+  border-radius: var(--route-card-radius, #{$radius-xl});
   padding: $spacing-sm $spacing-md;
   min-height: $touch-target-min;
   cursor: pointer;
@@ -253,8 +253,8 @@
 
 .themeToggle {
   background: rgba(var(--color-bg-rgb), 0.82);
-  border: 1px solid var(--color-divider);
-  border-radius: $radius-lg;
+  border: 2px solid color-mix(in srgb, var(--color-text) 30%, transparent);
+  border-radius: var(--route-card-radius, #{$radius-xl});
   padding: $spacing-sm $spacing-md;
   min-height: $touch-target-min;
   min-width: $touch-target-min;
@@ -437,8 +437,8 @@
 
 .mobileCmdBtn {
   background: rgba(var(--color-bg-rgb), 0.9);
-  border: 1px solid var(--color-divider);
-  border-radius: $radius-lg;
+  border: 2px solid color-mix(in srgb, var(--color-text) 30%, transparent);
+  border-radius: var(--route-card-radius, #{$radius-xl});
   padding: $spacing-sm $spacing-md;
   min-height: $touch-target-min;
   cursor: pointer;
@@ -477,8 +477,8 @@
 
 .mobileThemeToggle {
   background: rgba(var(--color-bg-rgb), 0.9);
-  border: 1px solid var(--color-divider);
-  border-radius: $radius-lg;
+  border: 2px solid color-mix(in srgb, var(--color-text) 30%, transparent);
+  border-radius: var(--route-card-radius, #{$radius-xl});
   padding: $spacing-sm $spacing-md;
   min-height: $touch-target-min;
   min-width: $touch-target-min;
@@ -601,20 +601,28 @@
   display: inline-flex;
   align-items: center;
   gap: $spacing-xs;
-  background: transparent;
-  border: none;
-  padding: $spacing-2xs 0;
+  background: none;
+  border: 2px solid var(--color-text);
+  border-radius: var(--route-radius-sm, 8px);
+  padding: $spacing-xs $spacing-sm;
   cursor: pointer;
   font-family: $font-family-mono;
-  font-size: $font-size-xs;
-  letter-spacing: 0.12em;
+  font-size: $font-size-sm;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-text);
-  opacity: 0.35;
-  transition: opacity 0.2s ease;
+  box-shadow: var(--depth-sm);
+  transition: box-shadow 0.12s ease, transform 0.12s ease;
 
   &:hover {
-    opacity: 0.75;
+    box-shadow: var(--depth-md);
+    transform: translate(-2px, -2px);
+  }
+
+  &:active {
+    box-shadow: none;
+    transform: translate(4px, 4px);
   }
 }
 
@@ -626,25 +634,24 @@
 
 .mobileOverlaySocials {
   display: flex;
-  justify-content: space-between;
+  gap: $spacing-lg;
   align-items: center;
+  flex-wrap: wrap;
 }
 
-.mobileOverlaySocialIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: $spacing-2xl;
-  height: $spacing-2xl;
-  border: 1px solid var(--color-divider);
-  border-radius: 50%;
-  opacity: 0.7;
-  transition:
-    opacity 0.2s,
-    border-color 0.2s;
+.mobileSocialLink {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-text);
+  opacity: 0.4;
+  transition: opacity 0.2s ease, color 0.2s ease;
 
   &:hover {
     opacity: 1;
-    border-color: var(--color-accent);
+    color: var(--color-accent);
   }
 }
