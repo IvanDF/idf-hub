@@ -179,7 +179,8 @@
   align-items: center;
   gap: $spacing-xs;
   background: none;
-  border: 1.5px solid var(--color-text);
+  border: 2px solid var(--color-text);
+  border-radius: var(--route-radius-sm, 8px);
   padding: $spacing-xs $spacing-sm;
   cursor: pointer;
   font-family: $font-family-mono;
@@ -335,8 +336,9 @@
 
 .socialLinks {
   display: flex;
-  gap: $spacing-sm;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: $spacing-xs;
+  align-items: flex-end;
 }
 
 .socialLink {

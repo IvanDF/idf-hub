@@ -250,8 +250,8 @@
   letter-spacing: 0.12em;
   text-decoration: none;
   padding: 0.65rem 1.25rem;
-  border-radius: 0;
-  border: 1.5px solid var(--color-text);
+  border-radius: var(--route-card-radius, 0px);
+  border: 2px solid var(--color-text);
   box-shadow: var(--depth-sm);
   transition: box-shadow 0.12s ease, transform 0.12s ease, opacity 0.15s ease;
 

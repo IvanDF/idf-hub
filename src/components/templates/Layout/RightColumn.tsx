@@ -1,45 +1,18 @@
 "use client";
 
 import Magnetic from "@/components/atoms/magnetic";
-import SocialIconLink from "@/components/atoms/social-icon-link";
 import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import styles from "./layout.module.scss";
 
-/**
- * Right sidebar column containing theme toggle and social links.
- * Contains inline styles for dynamic animations (scale, rotate, transform)
- * that depend on runtime state values - these cannot be achieved via CSS modules.
- */
-
 const socials = [
-  {
-    href: "https://www.instagram.com/idf.me/",
-    src: "/assets/instagram.svg",
-    alt: "Instagram",
-  },
-  {
-    href: "https://www.linkedin.com/in/ivandf/",
-    src: "/assets/linkedin.svg",
-    alt: "LinkedIn",
-  },
-  {
-    href: "https://github.com/IvanDF",
-    src: "/assets/github.svg",
-    alt: "GitHub",
-  },
-  {
-    href: "https://www.figma.com/@ivandf",
-    src: "/assets/figma.svg",
-    alt: "Figma",
-  },
-  {
-    href: "https://findpenguins.com/idf.travel",
-    src: "/assets/findpenguins.svg",
-    alt: "FindPenguins",
-  },
+  { href: "https://www.instagram.com/idf.me/", label: "IG" },
+  { href: "https://www.linkedin.com/in/ivandf/", label: "LI" },
+  { href: "https://github.com/IvanDF", label: "GH" },
+  { href: "https://www.figma.com/@ivandf", label: "FIG" },
+  { href: "https://findpenguins.com/idf.travel", label: "FP" },
 ];
 
 export default function RightColumn() {
@@ -60,7 +33,6 @@ export default function RightColumn() {
     return quotes[index];
   }, [superDarkMode, clickHint]);
 
-  // Determine button text
   let buttonText = theme === "light" ? "DARK-MODE" : "LIGHT-MODE";
   if (superDarkMode) {
     buttonText = exitQuote;
@@ -149,21 +121,20 @@ export default function RightColumn() {
       {/* 2. Divider */}
       <div className={styles.divider}></div>
 
-      {/* 3. Social List */}
-      <div className={styles.socials}>
-        {socials.map(({ href, src, alt }) => (
-          <Magnetic key={alt}>
-            <SocialIconLink
-              href={href}
-              src={src}
-              alt={alt}
-              className={styles.socialIcon}
-              iconSize={20}
-              invertOnDark={theme === "dark"}
-            />
-          </Magnetic>
+      {/* 3. Social List — typographic */}
+      <nav className={styles.socialLinks}>
+        {socials.map(({ href, label }) => (
+          <a
+            key={label}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.socialLink}
+          >
+            {label}
+          </a>
         ))}
-      </div>
+      </nav>
     </aside>
   );
 }
