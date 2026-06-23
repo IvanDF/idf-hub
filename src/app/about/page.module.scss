@@ -50,13 +50,15 @@
 }
 
 .heroRole {
-  font-size: clamp($font-size-base, 2.5vw, $font-size-lg);
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  line-height: 1.4;
-  opacity: 0.55;
-  margin: 0;
+  display: block;
+  font-size: clamp(1rem, 3.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
   text-transform: uppercase;
+  color: var(--color-text);
+  margin: 0;
+  opacity: 0.55;
 }
 
 .heroMeta {
@@ -67,7 +69,7 @@
 
   @media (min-width: $breakpoint-xl) {
     flex-direction: column;
-    gap: $spacing-lg;
+    gap: $spacing-sm;
     align-items: flex-end;
     padding-bottom: $spacing-xs;
   }
@@ -127,8 +129,12 @@
 }
 
 @keyframes tickerScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .tickerItem {
@@ -278,11 +284,11 @@
 .statLabel {
   font-size: $font-size-xs;
   font-weight: 700;
+  line-height: 1.4;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0.45;
-  max-width: 12ch;
-  line-height: 1.4;
+  text-align: center;
 }
 
 // Quote
@@ -319,39 +325,41 @@
   font-style: normal;
 }
 
-.quoteBlock + .quoteBlock {
-  padding-top: $spacing-lg;
-  border-top: 1px solid var(--color-divider);
-}
-
-// Stack
-.cellStack {
-  @media (min-width: $breakpoint-xl) {
-    display: none; // absorbed into stat column on desktop
-  }
-}
-
-.stackGrid {
+// ── Tagline Manifesto ─────────────────────────────────────────────────────────
+.tagline {
+  padding: $spacing-xxl $spacing-lg;
   display: flex;
-  flex-wrap: wrap;
-  gap: $spacing-xs;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px solid var(--color-divider);
+
+  @media (min-width: $breakpoint-xl) {
+    padding: 120px 60px;
+  }
 }
 
-.stackTag {
-  font-size: $font-size-xs;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: $spacing-xs $spacing-md;
-  border: var(--route-stroke, 1px) solid var(--color-divider);
-  color: var(--color-text);
-  opacity: 0.7;
-  transition: opacity 0.2s, border-color 0.2s;
+.taglineInner {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
 
-  &:hover {
-    opacity: 1;
-    border-color: var(--color-accent);
-  }
+.taglineLine {
+  display: block;
+  font-size: clamp(2rem, 8vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--color-text);
+  font-family: $font-family-primary;
+  margin: 0;
+}
+
+.taglineLineAccent {
+  composes: taglineLine;
+  color: var(--color-accent);
 }
 
 // ── Contact ───────────────────────────────────────────────────────────────────
@@ -404,7 +412,10 @@
   text-decoration: none;
   color: var(--color-text);
   opacity: 0.5;
-  transition: opacity 0.2s, color 0.2s;
+  white-space: nowrap;
+  transition:
+    opacity 0.2s,
+    color 0.2s;
 
   &:hover {
     opacity: 1;

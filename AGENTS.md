@@ -5,6 +5,14 @@
 
 ---
 
+## Brand & Voice
+
+- The **Tone of Voice** reference is at `ai_rules/Personal Brand Tone of Voice.md` — read it before writing any copy.
+- The core tagline is: **"Different angles. Better questions."**
+- Ivan is positioned as a **curious problem solver** who uses design as a tool, never as a "visual designer" or "web developer".
+- Copy must prioritise: clarity > cleverness, substance > buzzwords, confidence > self-promotion, insight > decoration.
+- Avoid startup clichés, marketing jargon, and generic portfolio language.
+
 ## 1. Language
 
 - All code, comments, JSDoc, variable names, commit messages, and documentation must be written in **English**.

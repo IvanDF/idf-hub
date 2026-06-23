@@ -24,25 +24,9 @@ const ticker = [
 ];
 
 const interests = [
-  { label: "Creative coding", note: "canvas, WebGL, particles" },
-  { label: "Type & visual systems", note: "type as visual language" },
-  { label: "Fitness & neuroscience", note: "the hardware side" },
+  { label: "Systems & visual thinking", note: "patterns, clarity, structure" },
+  { label: "Fitness & human performance", note: "the hardware side" },
   { label: "Exploration & photography", note: "capturing moments and places" },
-];
-
-const quotes = [
-  {
-    text: "Detail is not the details. It\u2019s the design.",
-    author: "Charles Eames",
-  },
-  {
-    text: "God is in the details.",
-    author: "Mies van der Rohe",
-  },
-  {
-    text: "Simplicity is complexity resolved.",
-    author: "Constantin Brancusi",
-  },
 ];
 
 export default function AboutPage() {
@@ -58,8 +42,8 @@ export default function AboutPage() {
             delay={100}
           />
           <p className={styles.heroRole}>
-            Driven by curiosity, <br />
-            refined through design.
+            DRIVEN BY CURIOSITY.<br />
+            REFINED THROUGH DESIGN.
           </p>
         </div>
 
@@ -90,12 +74,11 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* ── MANIFESTO ────────────────────────────────────────────────── */}
+      {/* ── INTRO ────────────────────────────────────────────────────── */}
       <section className={styles.manifesto}>
         <p className={styles.manifestoText}>
-          I build interactive web experiences with precision and personality.
-          Not just functional — felt. The kind of interface that makes someone
-          pause, notice, and remember.
+          Driven by curiosity, refined through design. Exploring patterns,
+          questioning assumptions, and solving problems from unexpected angles.
         </p>
       </section>
 
@@ -119,38 +102,33 @@ export default function AboutPage() {
           <span className={styles.statNumber}>
             <TextScramble text="10+" delay={600} />
           </span>
-          <span className={styles.statLabel}>Years creating & solving</span>
+          <span className={styles.statLabel}>YEARS<br />OBSERVING PATTERNS</span>
         </div>
 
-        {/* Quote blocks */}
+        {/* Personal quote */}
         <div className={`${styles.cell} ${styles.cellQuote}`}>
-          {quotes.map((q, i) => (
-            <div key={i} className={styles.quoteBlock}>
-              <blockquote className={styles.quote}>
-                &ldquo;{q.text}&rdquo;
-              </blockquote>
-              <cite className={styles.quoteAuthor}>&mdash; {q.author}</cite>
-            </div>
-          ))}
+          <blockquote className={styles.quote}>
+            &ldquo;Good design starts where assumptions end.&rdquo;
+          </blockquote>
         </div>
 
-        {/* Stack block */}
-        <div className={`${styles.cell} ${styles.cellStack}`}>
-          <span className={styles.cellLabel}>Current stack</span>
-          <div className={styles.stackGrid}>
-            {[
-              "Next.js",
-              "React",
-              "TypeScript",
-              "SCSS",
-              "Three.js",
-              "Figma",
-            ].map((tool) => (
-              <span key={tool} className={styles.stackTag}>
-                {tool}
-              </span>
-            ))}
-          </div>
+      </section>
+
+      {/* ── BRAND TAGLINE ────────────────────────────────────────────── */}
+      <section className={styles.tagline}>
+        <div className={styles.taglineInner}>
+          <TextScramble
+            as="p"
+            text="DIFFERENT ANGLES."
+            className={styles.taglineLine}
+            delay={200}
+          />
+          <TextScramble
+            as="p"
+            text="BETTER QUESTIONS."
+            className={styles.taglineLineAccent}
+            delay={800}
+          />
         </div>
       </section>
 
@@ -159,15 +137,9 @@ export default function AboutPage() {
         <div className={styles.contactText}>
           <TextScramble
             as="p"
-            text="WHAT PROBLEM"
+            text="WHAT'S THE REAL PROBLEM?"
             className={styles.contactHeading}
             delay={400}
-          />
-          <TextScramble
-            as="p"
-            text="DO YOU WANT TO SOLVE?"
-            className={styles.contactHeading}
-            delay={700}
           />
         </div>
 
