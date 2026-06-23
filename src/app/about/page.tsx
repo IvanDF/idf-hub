@@ -27,7 +27,22 @@ const interests = [
   { label: "Creative coding", note: "canvas, WebGL, particles" },
   { label: "Type & visual systems", note: "type as visual language" },
   { label: "Fitness & neuroscience", note: "the hardware side" },
-  { label: "Music", note: "making noise while making things" },
+  { label: "Exploration & photography", note: "capturing moments and places" },
+];
+
+const quotes = [
+  {
+    text: "Detail is not the details. It\u2019s the design.",
+    author: "Charles Eames",
+  },
+  {
+    text: "God is in the details.",
+    author: "Mies van der Rohe",
+  },
+  {
+    text: "Simplicity is complexity resolved.",
+    author: "Constantin Brancusi",
+  },
 ];
 
 export default function AboutPage() {
@@ -43,8 +58,8 @@ export default function AboutPage() {
             delay={100}
           />
           <p className={styles.heroRole}>
-            Full-stack developer
-            <br />& digital designer
+            Driven by curiosity, <br />
+            refined through design.
           </p>
         </div>
 
@@ -55,7 +70,7 @@ export default function AboutPage() {
           </div>
           <div className={styles.metaItem}>
             <span className={styles.metaLabel}>Focus</span>
-            <span className={styles.metaValue}>Web & interactive</span>
+            <span className={styles.metaValue}>Solving problems</span>
           </div>
           <div className={styles.metaItem}>
             <span className={styles.metaLabel}>Status</span>
@@ -107,12 +122,16 @@ export default function AboutPage() {
           <span className={styles.statLabel}>Years creating & solving</span>
         </div>
 
-        {/* Quote block */}
+        {/* Quote blocks */}
         <div className={`${styles.cell} ${styles.cellQuote}`}>
-          <blockquote className={styles.quote}>
-            &ldquo;Detail is not the details. It&rsquo;s the design.&rdquo;
-          </blockquote>
-          <cite className={styles.quoteAuthor}>— Charles Eames</cite>
+          {quotes.map((q, i) => (
+            <div key={i} className={styles.quoteBlock}>
+              <blockquote className={styles.quote}>
+                &ldquo;{q.text}&rdquo;
+              </blockquote>
+              <cite className={styles.quoteAuthor}>&mdash; {q.author}</cite>
+            </div>
+          ))}
         </div>
 
         {/* Stack block */}
@@ -140,13 +159,13 @@ export default function AboutPage() {
         <div className={styles.contactText}>
           <TextScramble
             as="p"
-            text="LET'S WORK"
+            text="WHAT PROBLEM"
             className={styles.contactHeading}
             delay={400}
           />
           <TextScramble
             as="p"
-            text="TOGETHER"
+            text="DO YOU WANT TO SOLVE?"
             className={styles.contactHeading}
             delay={700}
           />

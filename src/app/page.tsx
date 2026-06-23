@@ -11,8 +11,8 @@ export default function Home() {
       <div className={styles.hero}>
         <p className={styles.heroName}>IVAN DEL FATTI</p>
         <p className={styles.heroTagline}>
-          Full-stack developer &amp; digital designer.<br />
-          Crafting interactive web experiences with precision and personality.
+          Driven by curiosity, &amp; refined through design.
+          <br />
         </p>
         <div className={styles.heroCtas}>
           <Link href="/lab" className={styles.ctaPrimary}>
