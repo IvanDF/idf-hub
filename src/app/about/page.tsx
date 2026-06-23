@@ -5,7 +5,7 @@ import styles from "./page.module.scss";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Ivan Del Fatti — full-stack developer & digital designer. Building interactive web experiences with precision and personality.",
+  description: "Ivan Del Fatti — Driven by curiosity, refined through design.",
 };
 
 const ticker = [
@@ -33,12 +33,19 @@ const interests = [
 export default function AboutPage() {
   return (
     <main className={styles.page}>
-
       {/* ── HERO ──────────────────────────────────────────────────────── */}
       <section className={styles.hero}>
         <div className={styles.heroText}>
-          <TextScramble as="h1" text="IVAN DEL FATTI" className={styles.heroName} delay={100} />
-          <p className={styles.heroRole}>Full-stack developer<br />& digital designer</p>
+          <TextScramble
+            as="h1"
+            text="IVAN DEL FATTI"
+            className={styles.heroName}
+            delay={100}
+          />
+          <p className={styles.heroRole}>
+            Full-stack developer
+            <br />& digital designer
+          </p>
         </div>
 
         <div className={styles.heroMeta}>
@@ -79,7 +86,6 @@ export default function AboutPage() {
 
       {/* ── GRID ─────────────────────────────────────────────────────── */}
       <section className={styles.grid}>
-
         {/* Interests block */}
         <div className={`${styles.cell} ${styles.cellInterests}`}>
           <span className={styles.cellLabel}>Interests</span>
@@ -113,19 +119,37 @@ export default function AboutPage() {
         <div className={`${styles.cell} ${styles.cellStack}`}>
           <span className={styles.cellLabel}>Current stack</span>
           <div className={styles.stackGrid}>
-            {["Next.js", "React", "TypeScript", "SCSS", "Three.js", "Figma"].map((tool) => (
-              <span key={tool} className={styles.stackTag}>{tool}</span>
+            {[
+              "Next.js",
+              "React",
+              "TypeScript",
+              "SCSS",
+              "Three.js",
+              "Figma",
+            ].map((tool) => (
+              <span key={tool} className={styles.stackTag}>
+                {tool}
+              </span>
             ))}
           </div>
         </div>
-
       </section>
 
       {/* ── CONTACT ──────────────────────────────────────────────────── */}
       <section className={styles.contact}>
         <div className={styles.contactText}>
-          <TextScramble as="p" text="LET'S WORK" className={styles.contactHeading} delay={400} />
-          <TextScramble as="p" text="TOGETHER" className={styles.contactHeading} delay={700} />
+          <TextScramble
+            as="p"
+            text="LET'S WORK"
+            className={styles.contactHeading}
+            delay={400}
+          />
+          <TextScramble
+            as="p"
+            text="TOGETHER"
+            className={styles.contactHeading}
+            delay={700}
+          />
         </div>
 
         <div className={styles.contactLinks}>
@@ -150,7 +174,6 @@ export default function AboutPage() {
           </Link>
         </div>
       </section>
-
     </main>
   );
 }

@@ -12,7 +12,12 @@ interface Props {
   as?: React.ElementType;
 }
 
-export default function TextScramble({ text, className, delay = 0, as: Tag = "span" }: Props) {
+export default function TextScramble({
+  text,
+  className,
+  delay = 0,
+  as: Tag = "span",
+}: Props) {
   const [display, setDisplay] = useState(() => text.replace(/\S/g, CHARS[0]));
   const frameRef = useRef(0);
   const resolvedRef = useRef<boolean[]>([]);
@@ -20,7 +25,7 @@ export default function TextScramble({ text, className, delay = 0, as: Tag = "sp
   useEffect(() => {
     resolvedRef.current = Array(text.length).fill(false);
     let iteration = 0;
-    let timeoutId: ReturnType<typeof setTimeout>;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
     const step = () => {
       let allDone = true;
@@ -53,6 +58,9 @@ export default function TextScramble({ text, className, delay = 0, as: Tag = "sp
     };
   }, [text, delay]);
 
-  const T = Tag as React.ComponentType<{ className?: string; children: React.ReactNode }>;
+  const T = Tag as React.ComponentType<{
+    className?: string;
+    children: React.ReactNode;
+  }>;
   return <T className={className}>{display}</T>;
 }

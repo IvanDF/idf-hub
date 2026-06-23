@@ -41,10 +41,10 @@ describe('AudioToggle', () => {
     expect(screen.getByRole('button', { name: 'Enable audio' })).toBeInTheDocument();
   });
 
-  it('has correct aria-label and title on enable button', () => {
+  it('has correct aria-label on enable button', () => {
     render(<AudioToggle />);
     const btn = screen.getByRole('button', { name: 'Enable audio' });
-    expect(btn).toHaveAttribute('title', 'Enable audio');
+    expect(btn).toHaveAttribute('aria-label', 'Enable audio');
   });
 
   it('calls playClick and toggleAudio on enable click', async () => {

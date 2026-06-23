@@ -10,6 +10,10 @@ jest.mock('@/context/ThemeContext');
 jest.mock('@/hooks/useIsLabRoute', () => ({
   useIsLabRoute: () => false,
 }));
+jest.mock('next/navigation', () => ({
+  usePathname: () => '/',
+  useRouter: () => ({ push: jest.fn(), back: jest.fn() }),
+}));
 jest.mock('next/image', () => ({
   __esModule: true,
   default: (props: Record<string, unknown>) => {
@@ -92,25 +96,29 @@ describe('RightColumn', () => {
 
   it('renders Instagram link', () => {
     render(<RightColumn />);
-    const link = screen.getByRole('link', { name: /instagram/i });
+    expect(screen.getByText('IG')).toBeInTheDocument();
+    const link = screen.getByText('IG').closest('a');
     expect(link).toHaveAttribute('href', 'https://www.instagram.com/idf.me/');
   });
 
   it('renders LinkedIn link', () => {
     render(<RightColumn />);
-    const link = screen.getByRole('link', { name: /linkedin/i });
+    expect(screen.getByText('LI')).toBeInTheDocument();
+    const link = screen.getByText('LI').closest('a');
     expect(link).toHaveAttribute('href', 'https://www.linkedin.com/in/ivandf/');
   });
 
   it('renders GitHub link', () => {
     render(<RightColumn />);
-    const link = screen.getByRole('link', { name: /github/i });
+    expect(screen.getByText('GH')).toBeInTheDocument();
+    const link = screen.getByText('GH').closest('a');
     expect(link).toHaveAttribute('href', 'https://github.com/IvanDF');
   });
 
   it('renders Figma link', () => {
     render(<RightColumn />);
-    const link = screen.getByRole('link', { name: /figma/i });
+    expect(screen.getByText('FIG')).toBeInTheDocument();
+    const link = screen.getByText('FIG').closest('a');
     expect(link).toHaveAttribute('href', 'https://www.figma.com/@ivandf');
   });
 

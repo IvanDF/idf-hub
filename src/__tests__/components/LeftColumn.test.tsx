@@ -21,6 +21,7 @@ jest.mock('@/context/AudioContext', () => ({
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({ push: jest.fn(), back: jest.fn() }),
+  usePathname: () => '/',
 }));
 
 jest.mock('@/hooks/useIsLabRoute', () => ({
@@ -40,9 +41,9 @@ describe('LeftColumn', () => {
     expect(nav).toBeInTheDocument();
   });
 
-  it('renders cmd button in nav', () => {
+  it('renders cmd hint button', () => {
     render(<LeftColumn />);
-    expect(screen.getByText('cmd')).toBeInTheDocument();
+    expect(screen.getByText('⌘K')).toBeInTheDocument();
     expect(screen.getByText('<_')).toBeInTheDocument();
   });
 
@@ -60,11 +61,6 @@ describe('LeftColumn', () => {
   it('renders name text', () => {
     render(<LeftColumn />);
     expect(screen.getByText('IVAN DEL FATTI')).toBeInTheDocument();
-  });
-
-  it('renders rotating title with initial role', () => {
-    render(<LeftColumn />);
-    expect(screen.getByText('CREATIVO')).toBeInTheDocument();
   });
 
   it('applies leftColumn CSS class', () => {

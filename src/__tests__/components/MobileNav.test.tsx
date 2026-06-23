@@ -86,14 +86,14 @@ describe('MobileNav', () => {
 
   it('renders cmd button in overlay', () => {
     render(<MobileNav isOpen={true} onToggle={mockOnToggle} onClose={mockOnClose} />);
-    const cmdBtn = screen.getByRole('button', { name: 'Open Command Palette' });
+    const cmdBtn = screen.getByRole('button', { name: 'Open command palette' });
     expect(cmdBtn).toBeInTheDocument();
   });
 
   it('renders name and role in overlay', () => {
     render(<MobileNav isOpen={true} onToggle={mockOnToggle} onClose={mockOnClose} />);
     expect(screen.getByText('IVAN DEL FATTI')).toBeInTheDocument();
-    expect(screen.getByText('CREATIVO')).toBeInTheDocument();
+    expect(screen.getByText('⌘K')).toBeInTheDocument();
   });
 
   it('renders audio toggle in overlay', () => {
