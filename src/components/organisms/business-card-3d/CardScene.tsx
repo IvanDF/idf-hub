@@ -4,6 +4,7 @@ import { useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
+import { DESIGN_SYSTEM } from '@/styles/design-system';
 
 /** Business card dimensions in Three.js units — maintains 85×54 mm ratio. */
 const CARD_W = 8.56;
@@ -22,7 +23,7 @@ const STIFFNESS = 0.12;
 const DAMPING = 0.8;
 
 /** Edge colour for the card — matches the Ink / Slate-light design token (#111827). */
-const CARD_EDGE_COLOR = '#111827';
+const CARD_EDGE_COLOR = DESIGN_SYSTEM.color.slateLight;
 
 /** Lerp factor for tilt smoothing. */
 const TILT_LERP = 0.08;
@@ -147,7 +148,7 @@ export default function CardScene(props: CardSceneProps) {
     <>
       <ambientLight intensity={0.6} />
       <directionalLight position={[5, 5, 5]} intensity={1.2} />
-      <pointLight position={[-4, -3, 3]} intensity={0.4} color="#a78bfa" />
+      <pointLight position={[-4, -3, 3]} intensity={0.4} color={DESIGN_SYSTEM.color.voltaDark} />
       <BusinessCardMesh {...props} />
     </>
   );

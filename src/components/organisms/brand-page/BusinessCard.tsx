@@ -1,5 +1,6 @@
 "use client";
 
+import { DESIGN_SYSTEM } from "@/styles/design-system";
 import styles from "./BusinessCard.module.scss";
 
 export type CardVariant = "dev" | "creative" | "general" | "maker";
@@ -69,7 +70,7 @@ function PatternDev() {
           transform={`translate(${x},${y}) scale(0.29)`}
           opacity="0.14"
         >
-          <LogoPaths color="#8b5cf6" />
+          <LogoPaths color={DESIGN_SYSTEM.color.voltaLight} />
         </g>
       ))}
     </g>
@@ -80,24 +81,24 @@ function PatternDev() {
 function PatternCreative() {
   const logo = (
     <>
-      <circle cx="86.58" cy="53.83" r="16.05" fill="#8b5cf6" />
+      <circle cx="86.58" cy="53.83" r="16.05" fill={DESIGN_SYSTEM.color.voltaLight} />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M121.17 0.19L37.24 0C16.74 0 0.09 16.6 0.09 37.05L0 112.79C0 119.61 24.77 133.24 24.77 112.79L24.86 37.05C24.86 30.23 30.41 24.7 37.24 24.7L121.17 24.89C128.01 24.89 133.57 19.35 133.57 12.53C133.57 5.7 128.01 0.17 121.17 0.17V0.19Z"
-        fill="#8b5cf6"
+        fill={DESIGN_SYSTEM.color.voltaLight}
       />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M114.79 78.56L108 78.37C87.5 78.37 70.86 94.97 70.86 115.42L70.76 149.68C70.76 156.5 65.21 162.03 58.38 162.03H52.99V162C46.06 162 40.61 167.54 40.61 174.36C40.61 181.19 46.06 186.73 52.99 186.73H58.38C78.88 186.73 95.53 170.13 95.53 149.68L95.62 115.42C95.62 108.6 101.17 103.07 108 103.07L114.79 103.26C121.63 103.26 127.19 97.72 127.19 90.9C127.19 84.08 121.63 78.54 114.79 78.54V78.56Z"
-        fill="#8b5cf6"
+        fill={DESIGN_SYSTEM.color.voltaLight}
       />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M51.85 155.03L37.24 155.22C16.74 155.22 0.09 138.62 0.09 118.18L0 81.16C0 74.35 24.77 60.72 24.77 81.16L24.86 118.18C24.86 124.99 30.41 130.52 37.24 130.52L51.85 130.33C58.69 130.33 64.25 135.87 64.25 142.7C64.25 149.52 58.69 155.06 51.85 155.06V155.03Z"
-        fill="#8b5cf6"
+        fill={DESIGN_SYSTEM.color.voltaLight}
       />
     </>
   );
@@ -113,7 +114,7 @@ function PatternCreative() {
 function PatternGeneral() {
   return (
     <g transform="translate(92, 6) scale(0.84)" opacity="0.08">
-      <LogoPaths color="#8b5cf6" />
+      <LogoPaths color={DESIGN_SYSTEM.color.voltaLight} />
     </g>
   );
 }
@@ -127,12 +128,12 @@ function PatternMaker() {
       {[60, 220].map((dx) => (
         <g key={dx}>
           <g transform={`translate(${dx}, 10) scale(${s})`}>
-            <LogoPaths color="#8b5cf6" />
+            <LogoPaths color={DESIGN_SYSTEM.color.voltaLight} />
           </g>
           <g
             transform={`translate(${dx}, ${10 + h}) scale(${s},${-s}) translate(0,-187)`}
           >
-            <LogoPaths color="#8b5cf6" />
+            <LogoPaths color={DESIGN_SYSTEM.color.voltaLight} />
           </g>
         </g>
       ))}
@@ -198,11 +199,11 @@ export default function BusinessCard({
           </g>
 
           {/* Accent bottom bar */}
-          <rect x="0" y={H - 4} width={W} height="4" fill="#8b5cf6" />
+          <rect x="0" y={H - 4} width={W} height="4" fill={DESIGN_SYSTEM.color.voltaLight} />
 
           {/* Logo mark — top left */}
           <g transform="translate(20,16) scale(0.115)">
-            <LogoPaths color="#8b5cf6" />
+            <LogoPaths color={DESIGN_SYSTEM.color.voltaLight} />
           </g>
 
           {/* iDF wordmark */}
@@ -213,7 +214,7 @@ export default function BusinessCard({
             fontWeight="700"
             fontSize="13"
             letterSpacing="4"
-            fill="#8b5cf6"
+            fill={DESIGN_SYSTEM.color.voltaLight}
           >
             iDF
           </text>
@@ -224,7 +225,7 @@ export default function BusinessCard({
             y1="50"
             x2={W - 20}
             y2="50"
-            stroke="#8b5cf6"
+            stroke={DESIGN_SYSTEM.color.voltaLight}
             strokeOpacity="0.12"
             strokeWidth="0.5"
           />
@@ -237,7 +238,7 @@ export default function BusinessCard({
             fontWeight="700"
             fontSize="11"
             letterSpacing="2.5"
-            fill="#111827"
+            fill={DESIGN_SYSTEM.color.slateLight}
           >
             {name}
           </text>
@@ -249,7 +250,7 @@ export default function BusinessCard({
             fontFamily="Josefin Sans, sans-serif"
             fontSize="7.5"
             letterSpacing="1.5"
-            fill="#64748b"
+            fill={DESIGN_SYSTEM.color.slateMuted}
           >
             {title}
           </text>
@@ -261,7 +262,7 @@ export default function BusinessCard({
             fontFamily="Josefin Sans, sans-serif"
             fontSize="7.5"
             letterSpacing="1"
-            fill="#64748b"
+            fill={DESIGN_SYSTEM.color.slateMuted}
             textAnchor="end"
           >
             {email}
@@ -274,7 +275,7 @@ export default function BusinessCard({
             fontFamily="Josefin Sans, sans-serif"
             fontSize="7.5"
             letterSpacing="1"
-            fill="#8b5cf6"
+            fill={DESIGN_SYSTEM.color.voltaLight}
             textAnchor="end"
           >
             {website}

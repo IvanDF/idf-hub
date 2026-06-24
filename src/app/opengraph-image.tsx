@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { DESIGN_SYSTEM } from "@/styles/design-system";
 
 export const size = {
   width: 1200,
@@ -10,18 +11,17 @@ export const contentType = "image/png";
 export default function OpenGraphImage() {
   return new ImageResponse(
     <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        background:
-          "radial-gradient(circle at 8% 18%, #2f8dff 0%, rgba(47,141,255,0) 36%), radial-gradient(circle at 92% 82%, #13c5a3 0%, rgba(19,197,163,0) 40%), linear-gradient(135deg, #06080d 0%, #0b1220 100%)",
-        color: "#f2f6ff",
-        padding: "72px",
-        fontFamily: "Segoe UI",
-      }}
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          background: DESIGN_SYSTEM.gradient.openGraph,
+          color: DESIGN_SYSTEM.color.opengraphText,
+          padding: "72px",
+          fontFamily: DESIGN_SYSTEM.font.ui,
+        }}
     >
       <div
         style={{
@@ -43,7 +43,7 @@ export default function OpenGraphImage() {
             padding: "8px 14px",
             letterSpacing: 3,
             fontSize: 24,
-            color: "#ffffff",
+            color: DESIGN_SYSTEM.color.white,
             background: "rgba(10,18,30,0.45)",
           }}
         >

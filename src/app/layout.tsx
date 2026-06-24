@@ -5,6 +5,7 @@ import RouteTracker from "@/components/atoms/route-tracker/RouteTracker";
 import { AudioProvider } from "@/context/AudioContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { VoiceShoutProvider } from "@/context/VoiceShoutContext";
+import { DESIGN_SYSTEM } from "@/styles/design-system";
 import "@/styles/globals.scss";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
@@ -32,14 +33,14 @@ const siteName = "iDF";
 const siteDescription =
   "Portfolio hub with interactive experiments, polished micro-effects, and playful digital craftsmanship.";
 const socialImagePath = "/opengraph-image";
-const brandColor = "#05070b";
+const brandColor = DESIGN_SYSTEM.color.brandDark;
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f4f5f7" },
-    { media: "(prefers-color-scheme: dark)", color: "#05070b" },
+    { media: "(prefers-color-scheme: dark)", color: DESIGN_SYSTEM.color.brandDark },
   ],
 };
 

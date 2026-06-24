@@ -18,6 +18,7 @@ This project uses SCSS modules and shared tokens as the default styling layer.
 ## Allowed Exceptions
 
 - `next/og` image response routes can use inline styles because they render static image trees, not DOM nodes.
+- Static asset routes and SVG/image generators should read shared runtime tokens from `src/styles/design-system.ts` instead of duplicating palette values.
 - Motion libraries may keep style bindings for live transform values when the API requires them.
 - Extremely dynamic runtime values should be bridged through CSS custom properties rather than JSX style objects whenever possible.
 

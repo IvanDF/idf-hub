@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { DESIGN_SYSTEM } from "@/styles/design-system";
 
 export const size = {
   width: 1200,
@@ -10,18 +11,17 @@ export const contentType = "image/png";
 export default function TwitterImage() {
   return new ImageResponse(
     <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        background:
-          "linear-gradient(150deg, #041f38 0%, #0a111b 48%, #132b33 100%)",
-        color: "#f7fbff",
-        padding: "64px",
-        fontFamily: "Segoe UI",
-      }}
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          background: DESIGN_SYSTEM.gradient.twitter,
+          color: DESIGN_SYSTEM.color.twitterText,
+          padding: "64px",
+          fontFamily: DESIGN_SYSTEM.font.ui,
+        }}
     >
       <div
         style={{

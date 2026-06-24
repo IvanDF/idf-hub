@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { DESIGN_SYSTEM } from "@/styles/design-system";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -10,8 +11,8 @@ export default function manifest(): MetadataRoute.Manifest {
     scope: "/",
     display: "standalone",
     orientation: "portrait",
-    background_color: "#05070b",
-    theme_color: "#05070b",
+    background_color: DESIGN_SYSTEM.color.brandDark,
+    theme_color: DESIGN_SYSTEM.color.brandDark,
     lang: "en",
     categories: ["portfolio", "design", "art", "technology"],
     icons: [
