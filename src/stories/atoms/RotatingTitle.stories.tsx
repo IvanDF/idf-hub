@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import RotatingTitle from '@/components/atoms/rotating-title';
+import styles from '../story-frame.module.scss';
 
 const meta: Meta<typeof RotatingTitle> = {
   title: 'Atoms/RotatingTitle',
@@ -15,7 +16,7 @@ const meta: Meta<typeof RotatingTitle> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div style={{ display: 'flex', justifyContent: 'center', padding: 40 }}>
+      <div className={styles.centered}>
         <Story />
       </div>
     ),

@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/atoms/button";
 import { useState } from "react";
 import { Share2 } from "lucide-react";
 import styles from "./ShareCommandButton.module.scss";
@@ -53,9 +54,11 @@ export default function ShareCommandButton({
   };
 
   return (
-    <button
-      type="button"
-      className={`${styles.shareButton} ${styles[variant]} ${copied ? styles.copied : ""}`}
+    <Button
+      variant={variant === "inline" ? "ghost" : "secondary"}
+      iconOnly={variant === "inline"}
+      stamp={false}
+      className={copied ? styles.copied : ""}
       onClick={handleShare}
       aria-label={`Copy shareable link for command: ${command.trim()}`}
       title={copied ? "Link copied!" : `Share "${command.trim()}" link`}
@@ -70,6 +73,6 @@ export default function ShareCommandButton({
       <span role="status" aria-live="polite" className={styles.srOnly}>
         {copied ? "Link copied to clipboard" : ""}
       </span>
-    </button>
+    </Button>
   );
 }

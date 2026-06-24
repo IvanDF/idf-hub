@@ -3,14 +3,15 @@
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import styles from "./CustomCursor.module.scss";
 
 /**
  * CustomCursor Component
  *
  * Replaces the default system cursor with an interactive, animated cursor.
  * Uses Framer Motion's motion values for GPU-accelerated cursor tracking.
- * Inline styles are required for motion values (translateX, translateY) that
- * update on every frame - CSS cannot achieve this performance.
+ * Live transform bindings stay in the motion style prop; static presentation
+ * lives in the CSS module to keep the visual system consistent.
  * Features:
  * - Central dot that follows mouse instantly
  * - Outer ring with spring physics (magnetic feel)
@@ -171,22 +172,8 @@ export default function CustomCursor() {
     <>
       {/* Central Dot (Instant Follow) */}
       <motion.div
-        style={{
-          translateX: mouseX,
-          translateY: mouseY,
-          x: "-50%",
-          y: "-50%",
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: 8,
-          height: 8,
-          backgroundColor: "#FFFFFF", // Force white for difference mode
-          borderRadius: "50%",
-          pointerEvents: "none",
-          zIndex: 1000001,
-          mixBlendMode: "difference", // Ensure visibility on all backgrounds
-        }}
+        className={styles.cursorDot}
+        style={{ translateX: mouseX, translateY: mouseY, x: "-50%", y: "-50%" }}
         animate={{
           scale: isClicking ? 0.8 : isHovering ? 0.5 : 1, // Shrink slightly on hover/click
         }}
@@ -195,23 +182,8 @@ export default function CustomCursor() {
 
       {/* Outer Ring (Spring Follow) */}
       <motion.div
-        style={{
-          translateX: ringX,
-          translateY: ringY,
-          x: "-50%",
-          y: "-50%",
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: 40,
-          height: 40,
-          border: "1px solid #FFFFFF", // Force white for difference mode
-          borderRadius: "50%",
-          pointerEvents: "none",
-          zIndex: 1000000,
-          mixBlendMode: "difference",
-          backgroundColor: "transparent",
-        }}
+        className={styles.cursorRing}
+        style={{ translateX: ringX, translateY: ringY, x: "-50%", y: "-50%" }}
         animate={{
           scale: isClicking ? 0.8 : isHovering ? 1.5 : 1, // Expand on hover
           opacity: isHovering ? 0.8 : 0.4,

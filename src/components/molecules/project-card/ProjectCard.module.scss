@@ -111,6 +111,10 @@
   }
 }
 
+.card3d {
+  perspective: 1000px;
+}
+
 .imageContainer {
   position: relative;
   width: 100%;
@@ -125,6 +129,14 @@
   &:hover .image {
     transform: scale(1.05);
   }
+}
+
+.imageContain {
+  object-fit: contain;
+}
+
+.imageCover {
+  object-fit: cover;
 }
 
 .generatedCover {

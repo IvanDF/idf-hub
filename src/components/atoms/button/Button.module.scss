@@ -1,0 +1,133 @@
+@use "@/styles/variables" as *;
+
+.button {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  min-height: $touch-target-min;
+  padding: $spacing-sm $spacing-md;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: $radius-xl;
+  text-decoration: none;
+  color: var(--color-text);
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  user-select: none;
+  transition:
+    opacity 0.2s,
+    border-color 0.2s,
+    background 0.2s,
+    box-shadow 0.2s,
+    transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: translate(2px, 2px);
+  }
+}
+
+.primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-bg);
+  box-shadow: var(--depth-sm);
+
+  &:hover {
+    opacity: 0.88;
+    box-shadow: var(--depth-md);
+  }
+}
+
+.secondary {
+  background: transparent;
+  border-color: var(--color-divider);
+  color: var(--color-text);
+  opacity: 0.78;
+  box-shadow: none;
+
+  &:hover {
+    opacity: 1;
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    box-shadow: var(--depth-md);
+  }
+}
+
+.chrome {
+  background: rgba(var(--color-bg-rgb), 0.82);
+  border-color: color-mix(in srgb, var(--color-text) 30%, transparent);
+  color: var(--color-text);
+  opacity: 0.92;
+  box-shadow: var(--depth-sm);
+
+  &:hover {
+    opacity: 1;
+    border-color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.1);
+    box-shadow: 0 0 0 1px rgba(var(--color-accent-rgb), 0.18);
+  }
+
+  &[data-super-dark="true"] {
+    color: var(--color-super-dark);
+    border-color: var(--color-super-dark);
+    background: rgba(var(--color-super-dark-rgb), 0.1);
+  }
+
+  &[data-hint="1"] {
+    transform: scale(1.05) rotate(2deg);
+  }
+
+  &[data-hint="2"] {
+    transform: scale(1.1) rotate(-2deg);
+  }
+
+  &[data-hint="3"] {
+    transform: scale(1.15) rotate(2deg);
+  }
+
+  &[data-hint="4"] {
+    transform: scale(1.2) rotate(-2deg);
+  }
+}
+
+.ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-text);
+  opacity: 0.45;
+  box-shadow: none;
+
+  &:hover {
+    opacity: 1;
+    color: var(--color-accent);
+  }
+}
+
+.iconOnly {
+  min-width: $touch-target-min;
+  padding: $spacing-xs;
+}
+
+.noStamp {
+  box-shadow: none;
+
+  &:hover {
+    box-shadow: none;
+    transform: none;
+  }
+
+  &:active {
+    transform: none;
+  }
+}

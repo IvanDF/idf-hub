@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import ParticleLogo from '@/components/molecules/particle-logo';
+import styles from '../story-frame.module.scss';
 
 const meta: Meta<typeof ParticleLogo> = {
   title: 'Molecules/ParticleLogo',
@@ -15,7 +16,7 @@ const meta: Meta<typeof ParticleLogo> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div style={{ width: '100%', height: 400, position: 'relative' }}>
+      <div className={styles.frameMedium}>
         <Story />
       </div>
     ),

@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/atoms/button";
 import { useAudio } from "@/context/AudioContext";
 import styles from "./AudioToggle.module.scss";
 
@@ -33,38 +34,41 @@ export default function AudioToggle({ className }: AudioToggleProps) {
 
   if (!isEnabled) {
     return (
-      <button
-        data-no-stamp
+      <Button
+        variant="ghost"
+        stamp={false}
         onClick={handleMainClick}
-        className={`${styles.toggle} ${className || ""}`}
+        className={className}
         aria-label="Enable audio"
       >
         PLAY
-      </button>
+      </Button>
     );
   }
 
   return (
     <div className={`${styles.container} ${className || ""}`}>
-      <button
-        data-no-stamp
+      <Button
+        variant="ghost"
+        stamp={false}
         onClick={handleMainClick}
-        className={`${styles.toggle} ${isActuallyPlaying ? styles.playing : ""}`}
+        className={isActuallyPlaying ? styles.playing : ""}
         aria-label={isActuallyPlaying ? "Pause music" : "Play music"}
       >
         {isActuallyPlaying ? "PAUSE" : "PLAY"}
-      </button>
+      </Button>
 
       <span className={styles.sep}>/</span>
 
-      <button
-        data-no-stamp
+      <Button
+        variant="ghost"
+        stamp={false}
         onClick={handleMuteClick}
-        className={`${styles.muteBtn} ${isMuted ? styles.muted : ""}`}
+        className={isMuted ? styles.muted : ""}
         aria-label={isMuted ? "Unmute" : "Mute"}
       >
         {isMuted ? "SOUND" : "MUTE"}
-      </button>
+      </Button>
     </div>
   );
 }

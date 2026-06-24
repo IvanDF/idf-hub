@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useState } from 'react';
 import BusinessCard3D from '@/components/organisms/business-card-3d';
+import styles from '../story-frame.module.scss';
 
 const BusinessCard3DWrapper = (args: { style: 'normal' | 'code' | 'design' }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   return (
-    <div style={{ width: '100%', height: 500, position: 'relative' }}>
+    <div className={styles.frameWide}>
       <BusinessCard3D
         style={args.style}
         isFlipped={isFlipped}

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import LiquidSurface from '@/components/organisms/liquid-surface';
+import styles from '../story-frame.module.scss';
 
 const meta: Meta<typeof LiquidSurface> = {
   title: 'Organisms/LiquidSurface',
@@ -15,7 +16,7 @@ const meta: Meta<typeof LiquidSurface> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div style={{ width: '100%', height: 500, position: 'relative' }}>
+      <div className={styles.frameWide}>
         <Story />
       </div>
     ),

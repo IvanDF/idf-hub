@@ -203,6 +203,14 @@
   object-fit: contain;
 }
 
+.mediaContain {
+  object-fit: contain;
+}
+
+.mediaCover {
+  object-fit: cover;
+}
+
 // ── Footer ────────────────────────────────────────────────────────────────────
 .footer {
   border-top: 2px solid var(--color-text);

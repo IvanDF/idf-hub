@@ -1,9 +1,14 @@
+import styles from "./InkFilters.module.scss";
+
+/**
+ * Provides the shared SVG ink filters used across the visual system.
+ */
 export default function InkFilters() {
   return (
     <svg
       aria-hidden="true"
       focusable="false"
-      style={{ position: "absolute", width: 0, height: 0, overflow: "hidden" }}
+      className={styles.inkFilters}
     >
       <defs>
         <filter id="idf-ink-wobble" x="-3%" y="-3%" width="106%" height="106%">

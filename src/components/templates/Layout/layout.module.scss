@@ -174,37 +174,6 @@
   }
 }
 
-.cmdHint {
-  display: inline-flex;
-  align-items: center;
-  gap: $spacing-xs;
-  background: none;
-  border: 2px solid var(--color-text);
-  border-radius: var(--route-radius-sm, 8px);
-  padding: $spacing-xs $spacing-sm;
-  cursor: pointer;
-  font-family: $font-family-mono;
-  font-size: $font-size-base; // 14px — readable
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--color-text);
-  text-transform: uppercase;
-  box-shadow: var(--depth-sm);
-  transition:
-    box-shadow 0.12s ease,
-    transform 0.12s ease;
-
-  &:hover {
-    box-shadow: var(--depth-md);
-    transform: translate(-2px, -2px);
-  }
-
-  &:active {
-    box-shadow: none;
-    transform: translate(4px, 4px);
-  }
-}
-
 .cmdKey {
   font-family: $font-family-mono;
   font-weight: 700;
@@ -237,7 +206,8 @@
     opacity 0.2s,
     border-color 0.2s,
     background 0.2s,
-    box-shadow 0.2s;
+    box-shadow 0.2s,
+    transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   &:hover {
     opacity: 1;
@@ -251,25 +221,39 @@
   }
 }
 
-.themeToggle {
-  background: rgba(var(--color-bg-rgb), 0.82);
-  border: 2px solid color-mix(in srgb, var(--color-text) 30%, transparent);
-  border-radius: var(--route-card-radius, #{$radius-xl});
-  padding: $spacing-sm $spacing-md;
-  min-height: $touch-target-min;
-  min-width: $touch-target-min;
-  opacity: 0.92;
-  transition:
-    opacity 0.2s,
-    border-color 0.2s,
-    background 0.2s,
-    box-shadow 0.2s;
+.themeLabel {
+  font-weight: 400;
+}
 
-  &:hover {
-    opacity: 1;
-    border-color: var(--color-accent);
-    background: rgba(var(--color-accent-rgb), 0.1);
-    box-shadow: 0 0 0 1px rgba(var(--color-accent-rgb), 0.18);
+.themePill {
+  width: $spacing-xl;
+  height: $spacing-md;
+  border-radius: $radius-xl;
+  border: 1px solid var(--color-divider);
+  display: flex;
+  align-items: center;
+  padding: 0 $spacing-3xs;
+  justify-content: flex-start;
+
+  &[data-dark="true"] {
+    justify-content: flex-end;
+  }
+
+  &[data-super-dark="true"] {
+    border-color: var(--color-super-dark);
+    background: rgba(var(--color-super-dark-rgb), 0.1);
+  }
+}
+
+.themeDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-text);
+
+  .themePill[data-super-dark="true"] & {
+    background: var(--color-super-dark);
+    box-shadow: 0 0 8px var(--color-super-dark);
   }
 }
 
@@ -472,36 +456,7 @@
 .mobileTopActions {
   display: flex;
   align-items: center;
-  gap: 10px;
-}
-
-.mobileThemeToggle {
-  background: rgba(var(--color-bg-rgb), 0.9);
-  border: 2px solid color-mix(in srgb, var(--color-text) 30%, transparent);
-  border-radius: var(--route-card-radius, #{$radius-xl});
-  padding: $spacing-sm $spacing-md;
-  min-height: $touch-target-min;
-  min-width: $touch-target-min;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
   gap: $spacing-xs;
-  font-family: $font-family-mono;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-text);
-  opacity: 0.95;
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease,
-    opacity 0.2s ease;
-
-  &:hover {
-    opacity: 1;
-    border-color: var(--color-accent);
-    background: rgba(var(--color-accent-rgb), 0.12);
-  }
 }
 
 .mobileThemePill {
@@ -517,6 +472,11 @@
   &[data-dark="true"] {
     justify-content: flex-end;
   }
+
+  &[data-super-dark="true"] {
+    border-color: var(--color-super-dark);
+    background: rgba(var(--color-super-dark-rgb), 0.1);
+  }
 }
 
 .mobileThemeDot {
@@ -524,6 +484,15 @@
   height: 10px;
   border-radius: 50%;
   background: var(--color-text);
+
+  .mobileThemePill[data-super-dark="true"] & {
+    background: var(--color-super-dark);
+    box-shadow: 0 0 8px var(--color-super-dark);
+  }
+}
+
+.mobileThemeLabel {
+  font-weight: 400;
 }
 
 .mobileOverlayCenter {
@@ -595,35 +564,6 @@
 .mobileOverlayRole {
   font-size: $font-size-sm;
   opacity: 0.6;
-}
-
-.mobileCmdHint {
-  display: inline-flex;
-  align-items: center;
-  gap: $spacing-xs;
-  background: none;
-  border: 2px solid var(--color-text);
-  border-radius: var(--route-radius-sm, 8px);
-  padding: $spacing-xs $spacing-sm;
-  cursor: pointer;
-  font-family: $font-family-mono;
-  font-size: $font-size-sm;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-text);
-  box-shadow: var(--depth-sm);
-  transition: box-shadow 0.12s ease, transform 0.12s ease;
-
-  &:hover {
-    box-shadow: var(--depth-md);
-    transform: translate(-2px, -2px);
-  }
-
-  &:active {
-    box-shadow: none;
-    transform: translate(4px, 4px);
-  }
 }
 
 .mobileCmdPromptIcon {

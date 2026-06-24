@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/atoms/button";
 import AudioToggle from "@/components/atoms/audio-toggle";
 import GlitchText from "@/components/atoms/glitch-text";
 import Link from "next/link";
@@ -47,9 +48,8 @@ export default function LeftColumn() {
           <GlitchText text="IVAN DEL FATTI" />
         </div>
 
-        <button
-          type="button"
-          className={styles.cmdHint}
+        <Button
+          variant="chrome"
           onClick={() =>
             window.dispatchEvent(
               new KeyboardEvent("keydown", { key: "k", metaKey: true })
@@ -59,7 +59,7 @@ export default function LeftColumn() {
           <GlitchText text="<_" className={styles.prompt} />
           <span className={styles.cmdKey}>⌘K</span>
           <span className={styles.cmdLabel}>to explore</span>
-        </button>
+        </Button>
       </footer>
     </aside>
   );

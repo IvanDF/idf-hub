@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import TimeVortex from '@/components/organisms/time-vortex';
+import styles from '../story-frame.module.scss';
 
 const meta: Meta<typeof TimeVortex> = {
   title: 'Organisms/TimeVortex',
@@ -15,7 +16,7 @@ const meta: Meta<typeof TimeVortex> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div style={{ width: '100%', height: 500, position: 'relative' }}>
+      <div className={styles.frameWide}>
         <Story />
       </div>
     ),

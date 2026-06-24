@@ -1,4 +1,5 @@
 export { default as AudioToggle, audioToggleStyles } from "./audio-toggle";
+export { default as Button } from "./button";
 export { default as CustomCursor } from "./custom-cursor";
 export { default as GlitchText, glitchTextStyles } from "./glitch-text";
 export { default as LogoMorph, logoMorphStyles } from "./logo-morph";

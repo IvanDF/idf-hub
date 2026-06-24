@@ -75,6 +75,14 @@
   }
 }
 
+.imageContain {
+  object-fit: contain;
+}
+
+.imageCover {
+  object-fit: cover;
+}
+
 .stageBadge {
   position: absolute;
   left: 0.65rem;

@@ -1,0 +1,89 @@
+@use "@/styles/variables" as *;
+
+.frameWide {
+  position: relative;
+  width: 100%;
+  height: 500px;
+}
+
+.frameMedium {
+  position: relative;
+  width: 100%;
+  height: 400px;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  padding: $spacing-xl;
+}
+
+.centeredAligned {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: $spacing-xl;
+}
+
+.centeredTall {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding: $spacing-xl;
+}
+
+.pageContent {
+  padding: $spacing-2xl;
+  color: var(--color-text);
+}
+
+.projectPreview {
+  max-width: 380px;
+  margin: 0 auto;
+  padding: $spacing-lg;
+}
+
+.terminalShell {
+  max-width: 600px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: $radius-sm;
+  background: $terminal-panel-bg;
+}
+
+.terminalShellSm {
+  padding: $spacing-xs;
+}
+
+.terminalShellMd {
+  padding: $spacing-md;
+  font-family: $font-family-mono;
+  font-size: $font-size-base;
+}
+
+.buttonVolta,
+.buttonVoltaSoft,
+.buttonBlue {
+  padding: $spacing-sm $spacing-lg;
+  border: 2px solid;
+  border-radius: $radius-md;
+  background: transparent;
+  cursor: pointer;
+  font-size: $font-size-md;
+}
+
+.buttonVolta {
+  border-color: $color-volta-light;
+  color: $color-volta-light;
+}
+
+.buttonVoltaSoft {
+  border-color: $color-volta-dark;
+  color: $color-volta-dark;
+}
+
+.buttonBlue {
+  border-color: $color-lario-light;
+  color: $color-lario-light;
+}

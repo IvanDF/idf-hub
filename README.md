@@ -1,4 +1,11 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# iDF Hub
+
+Design-led portfolio and experiments hub for Ivan Del Fatti.
+
+## Design System
+
+- Tokens and usage rules: [docs/design-system.md](/var/home/yggdrasil/Projects/idf/idf-hub/docs/design-system.md)
+- Token reference: [src/stories/tokens/DesignTokens.mdx](/var/home/yggdrasil/Projects/idf/idf-hub/src/stories/tokens/DesignTokens.mdx)
 
 ## Getting Started
 

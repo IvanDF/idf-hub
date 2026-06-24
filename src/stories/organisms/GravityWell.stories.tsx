@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import GravityWell from '@/components/organisms/gravity-well';
+import styles from '../story-frame.module.scss';
 
 const meta: Meta<typeof GravityWell> = {
   title: 'Organisms/GravityWell',
@@ -15,7 +16,7 @@ const meta: Meta<typeof GravityWell> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div style={{ width: '100%', height: 500, position: 'relative' }}>
+      <div className={styles.frameWide}>
         <Story />
       </div>
     ),

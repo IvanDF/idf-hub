@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/atoms/button";
 import Magnetic from "@/components/atoms/magnetic";
 import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
@@ -15,6 +16,9 @@ const socials = [
   { href: "https://findpenguins.com/idf.travel", label: "FP" },
 ];
 
+/**
+ * Renders the desktop right-side rail with theme controls and social links.
+ */
 export default function RightColumn() {
   const pathname = usePathname();
   const isLab = pathname.startsWith("/lab") || pathname.startsWith("/about");
@@ -45,9 +49,10 @@ export default function RightColumn() {
     <aside className={`${styles.rightColumn} ${isLab ? styles.autoHide : ""}`}>
       {/* 1. Theme Toggle */}
       <Magnetic>
-        <button
-          type="button"
-          className={styles.themeToggle}
+        <Button
+          variant="chrome"
+          data-super-dark={superDarkMode}
+          data-hint={clickHint >= 2 && !superDarkMode ? Math.min(clickHint - 1, 4) : undefined}
           onClick={() => {
             playLightOn();
             toggleTheme();
@@ -59,63 +64,14 @@ export default function RightColumn() {
               toggleTheme();
             }
           }}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            transition:
-              "transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
-            transform:
-              clickHint > 0 && !superDarkMode
-                ? `scale(${1 + clickHint * 0.05}) rotate(${
-                    clickHint % 2 === 0 ? 2 : -2
-                  }deg)`
-                : "none",
-            color: superDarkMode ? "var(--color-super-dark)" : "inherit",
-          }}
         >
-          <span
-            style={{
-              fontSize: "12px",
-              fontWeight: superDarkMode ? "bold" : "normal",
-            }}
-          >
+          <span className={styles.themeLabel}>
             {buttonText}
           </span>
-          <div
-            style={{
-              width: 32,
-              height: 16,
-              borderRadius: 16,
-              border: `1px solid ${
-                superDarkMode
-                  ? "var(--color-super-dark)"
-                  : "var(--color-divider)"
-              }`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: theme === "dark" ? "flex-end" : "flex-start",
-              padding: "0 2px",
-              background: superDarkMode
-                ? "rgba(var(--color-super-dark-rgb), 0.1)"
-                : "transparent",
-            }}
-          >
-            <div
-              style={{
-                width: 10,
-                height: 10,
-                background: superDarkMode
-                  ? "var(--color-super-dark)"
-                  : "var(--color-text)",
-                borderRadius: "50%",
-                boxShadow: superDarkMode
-                  ? "0 0 8px var(--color-super-dark)"
-                  : "none",
-              }}
-            ></div>
+          <div className={styles.themePill} data-dark={theme === "dark"} data-super-dark={superDarkMode}>
+            <div className={styles.themeDot}></div>
           </div>
-        </button>
+        </Button>
       </Magnetic>
 
       {/* 2. Divider */}

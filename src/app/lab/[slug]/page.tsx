@@ -104,8 +104,11 @@ export default async function ProjectPage({
                 src={src}
                 alt={`${project.title} — frame ${i + 1}`}
                 fill
-                className={styles.mediaImg}
-                style={{ objectFit: mediaFit }}
+                className={`${styles.mediaImg} ${
+                  mediaFit === "cover"
+                    ? styles.mediaCover
+                    : styles.mediaContain
+                }`}
                 sizes={i === 0 ? "(max-width: 768px) 100vw, 860px" : "(max-width: 768px) 50vw, 430px"}
                 priority={i === 0}
               />

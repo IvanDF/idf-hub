@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import LogoMorph from '@/components/atoms/logo-morph';
+import styles from '../story-frame.module.scss';
 
 const meta: Meta<typeof LogoMorph> = {
   title: 'Atoms/LogoMorph',
@@ -15,7 +16,7 @@ const meta: Meta<typeof LogoMorph> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 40 }}>
+      <div className={styles.centeredAligned}>
         <Story />
       </div>
     ),

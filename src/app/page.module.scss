@@ -1,6 +1,12 @@
 @use "@/styles/variables" as *;
 @use "sass:color";
 
+.shell {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+}
+
 /* ─── Hero ────────────────────────────────────────────────────── */
 
 .hero {
@@ -56,53 +62,6 @@
   justify-content: center;
   gap: $spacing-sm;
   flex-wrap: wrap;
-}
-
-.ctaPrimary {
-  font-family: var(--font-josefin-sans);
-  font-size: $font-size-xs;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--color-bg);
-  background: var(--color-accent);
-  padding: $spacing-xs $spacing-xl;
-  border-radius: $radius-full;
-  transition: opacity 0.2s ease, transform 0.15s ease;
-  min-height: $touch-target-min;
-  display: inline-flex;
-  align-items: center;
-
-  &:hover {
-    opacity: 0.85;
-    transform: translateY(-2px);
-  }
-}
-
-.ctaSecondary {
-  font-family: var(--font-josefin-sans);
-  font-size: $font-size-xs;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--color-text);
-  border: 1px solid var(--color-divider);
-  padding: $spacing-xs $spacing-xl;
-  border-radius: $radius-full;
-  transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
-  min-height: $touch-target-min;
-  display: inline-flex;
-  align-items: center;
-  opacity: 0.65;
-
-  &:hover {
-    opacity: 1;
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-    transform: translateY(-2px);
-  }
 }
 
 /* ─── Keyboard shortcuts hint ─────────────────────────────────── */

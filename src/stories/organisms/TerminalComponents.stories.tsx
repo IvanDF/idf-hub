@@ -3,6 +3,7 @@ import TerminalHeader from '@/components/organisms/Terminal/TerminalHeader';
 import TerminalInput from '@/components/organisms/Terminal/TerminalInput';
 import TerminalHistoryItem from '@/components/organisms/Terminal/TerminalHistoryItem';
 import TerminalQuickCommands from '@/components/organisms/Terminal/TerminalQuickCommands';
+import styles from '../story-frame.module.scss';
 
 const meta = {
   tags: ['autodocs'],
@@ -15,7 +16,7 @@ export const TerminalHeaderStory: StoryObj<typeof TerminalHeader> = {
   render: () => <TerminalHeader onClose={() => {}} />,
   decorators: [
     (Story) => (
-      <div style={{ maxWidth: 600, margin: '0 auto', background: '#0d1117', borderRadius: 8, overflow: 'hidden' }}>
+      <div className={`${styles.terminalShell}`}>
         <Story />
       </div>
     ),
@@ -44,7 +45,7 @@ export const TerminalInputStory: StoryObj<typeof TerminalInput> = {
   ),
   decorators: [
     (Story) => (
-      <div style={{ maxWidth: 600, margin: '0 auto', background: '#0d1117', borderRadius: 8, overflow: 'hidden', padding: 8 }}>
+      <div className={`${styles.terminalShell} ${styles.terminalShellSm}`}>
         <Story />
       </div>
     ),
@@ -77,7 +78,7 @@ export const TerminalHistoryItemStory: StoryObj<typeof TerminalHistoryItem> = {
   ),
   decorators: [
     (Story) => (
-      <div style={{ maxWidth: 600, margin: '0 auto', background: '#0d1117', borderRadius: 8, overflow: 'hidden', padding: 16, fontFamily: 'Geist Mono, monospace', fontSize: 14 }}>
+      <div className={`${styles.terminalShell} ${styles.terminalShellMd}`}>
         <Story />
       </div>
     ),
@@ -97,7 +98,7 @@ export const TerminalQuickCommandsStory: StoryObj<typeof TerminalQuickCommands> 
   render: () => <TerminalQuickCommands context="site" onCommand={() => {}} />,
   decorators: [
     (Story) => (
-      <div style={{ maxWidth: 600, margin: '0 auto', background: '#0d1117', borderRadius: 8, overflow: 'hidden', padding: 8 }}>
+      <div className={`${styles.terminalShell} ${styles.terminalShellSm}`}>
         <Story />
       </div>
     ),

@@ -149,7 +149,7 @@ export default function ProjectCard({
   return (
     <motion.div
       ref={cardRef}
-      className={`${styles.card} ${styles[project.interaction || "default"]} ${styles[project.category.toLowerCase()]} ${styles[platform]} ${compact ? styles.compact : ""} ${className}`}
+      className={`${styles.card} ${styles.card3d} ${styles[project.interaction || "default"]} ${styles[project.category.toLowerCase()]} ${styles[platform]} ${compact ? styles.compact : ""} ${className}`}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       role="button"
@@ -160,7 +160,6 @@ export default function ProjectCard({
         }
       }}
       style={{
-        perspective: 1000,
         rotateX: !isTouchDevice && project.interaction === "tilt" ? rotateX : 0,
         rotateY: !isTouchDevice && project.interaction === "tilt" ? rotateY : 0,
       }}
@@ -195,8 +194,11 @@ export default function ProjectCard({
             src={project.media.thumbnail}
             alt={project.title}
             fill
-            className={styles.image}
-            style={{ objectFit: mediaFit }}
+            className={`${styles.image} ${
+              mediaFit === "cover"
+                ? styles.imageCover
+                : styles.imageContain
+            }`}
             unoptimized={project.media.thumbnail.endsWith(".svg")}
           />
         ) : (

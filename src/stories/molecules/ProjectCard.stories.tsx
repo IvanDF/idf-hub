@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import ProjectCard from '@/components/molecules/project-card';
 import type { Project } from '@/types/project';
+import styles from '../story-frame.module.scss';
 
 const mockProject: Project = {
   id: 'example-project',
@@ -33,7 +34,7 @@ const meta: Meta<typeof ProjectCard> = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div style={{ maxWidth: 380, margin: '0 auto', padding: 20 }}>
+      <div className={styles.projectPreview}>
         <Story />
       </div>
     ),

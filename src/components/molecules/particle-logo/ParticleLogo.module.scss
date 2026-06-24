@@ -1,0 +1,37 @@
+@use "@/styles/variables" as *;
+
+.stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.logoFrame {
+  pointer-events: none;
+  user-select: none;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+  transition:
+    filter 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.logoFrameDark {
+  filter: drop-shadow(0 0 20px rgba(var(--color-accent-rgb), 0.4));
+}
+
+.logoFrameLight {
+  filter: invert(1) drop-shadow(0 0 20px rgba(var(--color-secondary-rgb), 0.4));
+}
+
+.logoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

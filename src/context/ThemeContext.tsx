@@ -8,6 +8,7 @@
  */
 
 import { createContext, useContext, useEffect, useRef, useState } from "react";
+import styles from "./ThemeContext.module.scss";
 
 type Theme = "light" | "dark";
 
@@ -26,6 +27,7 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(undefine
  */
 function SpotlightOverlay() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -35,19 +37,14 @@ function SpotlightOverlay() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  useEffect(() => {
+    if (!overlayRef.current) return;
+    overlayRef.current.style.setProperty("--spotlight-x", `${position.x}px`);
+    overlayRef.current.style.setProperty("--spotlight-y", `${position.y}px`);
+  }, [position]);
+
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-        pointerEvents: "none",
-        zIndex: 9999,
-        background: `radial-gradient(circle 350px at ${position.x}px ${position.y}px, transparent 0%, rgba(0,0,0,0.98) 100%)`,
-      }}
-    />
+    <div ref={overlayRef} className={styles.spotlightOverlay} />
   );
 }
 

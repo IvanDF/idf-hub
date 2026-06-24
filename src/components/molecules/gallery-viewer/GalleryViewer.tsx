@@ -63,7 +63,7 @@ export default function GalleryViewer({
                   alt={`${projectTitle} compare frame ${index + 1}`}
                   fill
                   sizes="(max-width: 900px) 100vw, 50vw"
-                  style={{ objectFit: "contain" }}
+                  className={styles.imageContain}
                   priority={index === 0}
                 />
               </div>
@@ -105,7 +105,7 @@ export default function GalleryViewer({
                 alt={`${projectTitle} - frame ${selectedIndex + 1}`}
                 fill
                 sizes="(max-width: 900px) 100vw, 75vw"
-                style={{ objectFit: "contain" }}
+                className={styles.imageContain}
                 priority={selectedIndex === 0}
               />
             </motion.div>
@@ -132,7 +132,7 @@ export default function GalleryViewer({
                   alt={`${projectTitle} thumbnail ${index + 1}`}
                   fill
                   sizes="(max-width: 768px) 50vw, 20vw"
-                  style={{ objectFit: "cover" }}
+                  className={styles.imageCover}
                 />
               </div>
               <div className={styles.thumbInfo}>

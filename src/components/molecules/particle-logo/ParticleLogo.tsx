@@ -6,6 +6,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
 import * as THREE from "three";
+import styles from "./ParticleLogo.module.scss";
 
 function getParticleCount(): number {
   if (typeof window === "undefined") return 1200;
@@ -148,32 +149,16 @@ function InteractiveParticles() {
 
       <Html center position={[0, 0, 0]} zIndexRange={[100, 0]}>
         <div
-          style={{
-            pointerEvents: "none",
-            userSelect: "none",
-            width: "180px",
-            height: "180px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            opacity: 0.9,
-            filter:
-              theme === "dark"
-                ? "drop-shadow(0 0 20px rgba(167, 139, 250, 0.4))"
-                : "invert(1) drop-shadow(0 0 20px rgba(59, 130, 246, 0.4))",
-            transition: "filter 0.3s ease, opacity 0.3s ease",
-          }}
+          className={`${styles.logoFrame} ${
+            theme === "dark" ? styles.logoFrameDark : styles.logoFrameLight
+          }`}
         >
           <Image
             src="/assets/idf-logo.svg"
             alt="iDF Logo"
             width={180}
             height={180}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-            }}
+            className={styles.logoImage}
           />
         </div>
       </Html>
@@ -188,16 +173,7 @@ function InteractiveParticles() {
  */
 export default function ParticleLogo() {
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100vh",
-        position: "absolute",
-        top: 0,
-        left: 0,
-        zIndex: 0,
-      }}
-    >
+    <div className={styles.stage}>
       <Canvas
         camera={{ position: [0, 0, 6], fov: 60 }}
         dpr={[1, 1.5]}

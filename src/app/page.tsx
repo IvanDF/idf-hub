@@ -1,10 +1,13 @@
+import Button from "@/components/atoms/button";
 import ParticleLogo from "@/components/molecules/particle-logo";
-import Link from "next/link";
 import styles from "./page.module.scss";
 
+/**
+ * Renders the homepage hero and interactive particle logo.
+ */
 export default function Home() {
   return (
-    <div style={{ width: "100%", height: "100%", position: "relative" }}>
+    <div className={styles.shell}>
       <ParticleLogo />
 
       {/* Hero — tagline + CTAs */}
@@ -15,17 +18,18 @@ export default function Home() {
           <br />
         </p>
         <div className={styles.heroCtas}>
-          <Link href="/lab" className={styles.ctaPrimary}>
+          <Button href="/lab" variant="primary">
             View Work →
-          </Link>
-          <a
+          </Button>
+          <Button
             href="https://www.linkedin.com/in/ivandf/"
+            external
             target="_blank"
             rel="noreferrer"
-            className={styles.ctaSecondary}
+            variant="secondary"
           >
             Get in Touch
-          </a>
+          </Button>
         </div>
       </div>
 

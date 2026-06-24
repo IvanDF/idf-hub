@@ -5,6 +5,8 @@
 This is the living style guide for the iDF Hub. Every token is defined in
 `src/styles/_variables.scss` and enforced across all components.
 
+For implementation rules, see [docs/design-system.md](/var/home/yggdrasil/Projects/idf/idf-hub/docs/design-system.md).
+
 ---
 
 ## Colors
@@ -117,3 +119,4 @@ Mobile-first scale:
 - **Touch targets**: minimum 44×44px (WCAG AA)
 - **Animations**: respect `prefers-reduced-motion`
 - **Mobile-first**: design for 375px, enhance for desktop
+- **Styling**: use SCSS modules first; avoid inline `style={{}}` except for documented exceptions

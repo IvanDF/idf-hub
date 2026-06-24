@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/atoms/button";
 import AudioToggle from "@/components/atoms/audio-toggle";
 import GlitchText from "@/components/atoms/glitch-text";
 import { useAudio } from "@/context/AudioContext";
@@ -23,6 +24,9 @@ const socials = [
   { href: "https://findpenguins.com/idf.travel", label: "FP" },
 ];
 
+/**
+ * Renders the mobile navigation overlay and burger toggle.
+ */
 export default function MobileNav({
   isOpen,
   onToggle,
@@ -90,43 +94,26 @@ export default function MobileNav({
           {/* Top: theme toggle */}
           <div className={styles.mobileOverlayTop}>
             <div className={styles.mobileTopActions}>
-              <button
-                type="button"
-                className={styles.mobileThemeToggle}
+              <Button
+                variant="chrome"
+                data-super-dark={superDarkMode}
+                data-hint={clickHint >= 2 && !superDarkMode ? Math.min(clickHint - 1, 4) : undefined}
                 onClick={() => {
                   playLightOn();
                   toggleTheme();
                 }}
-                style={{
-                  transition: "transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
-                  transform:
-                    clickHint > 0 && !superDarkMode
-                      ? `scale(${1 + clickHint * 0.05}) rotate(${clickHint % 2 === 0 ? 2 : -2}deg)`
-                      : "none",
-                  color: superDarkMode ? "var(--color-super-dark)" : undefined,
-                }}
               >
-                <span style={{ fontWeight: superDarkMode ? "bold" : "normal" }}>
+                <span className={styles.mobileThemeLabel}>
                   {buttonText}
                 </span>
                 <div
                   className={styles.mobileThemePill}
                   data-dark={theme === "dark"}
-                  style={{
-                    borderColor: superDarkMode ? "var(--color-super-dark)" : undefined,
-                    background: superDarkMode ? "rgba(var(--color-super-dark-rgb), 0.1)" : undefined,
-                    justifyContent: theme === "dark" ? "flex-end" : "flex-start",
-                  }}
+                  data-super-dark={superDarkMode}
                 >
-                  <div
-                    className={styles.mobileThemeDot}
-                    style={{
-                      background: superDarkMode ? "var(--color-super-dark)" : undefined,
-                      boxShadow: superDarkMode ? "0 0 8px var(--color-super-dark)" : undefined,
-                    }}
-                  />
+                  <div className={styles.mobileThemeDot} />
                 </div>
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -163,15 +150,14 @@ export default function MobileNav({
               <AudioToggle className={styles.mobileAudioToggle} />
               <div className={styles.mobileOverlayName}>
                 <GlitchText text="IVAN DEL FATTI" />
-                <button
-                  type="button"
-                  className={styles.mobileCmdHint}
+                <Button
+                  variant="chrome"
                   onClick={openTerminal}
                   aria-label="Open command palette"
                 >
                   <span className={styles.mobileCmdPromptIcon}>&lt;_</span>
                   <span>⌘K</span>
-                </button>
+                </Button>
               </div>
             </div>
 

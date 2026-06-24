@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import PageTransition from '@/components/templates/Layout/PageTransition';
+import styles from '../story-frame.module.scss';
 
 const meta: Meta<typeof PageTransition> = {
   title: 'Templates/PageTransition',
@@ -20,6 +21,6 @@ type Story = StoryObj<typeof PageTransition>;
 
 export const Default: Story = {
   args: {
-    children: <div style={{ padding: 40, color: 'var(--color-text)' }}>Page content with fade-in animation</div>,
+    children: <div className={styles.pageContent}>Page content with fade-in animation</div>,
   },
 };
