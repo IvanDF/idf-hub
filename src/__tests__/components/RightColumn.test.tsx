@@ -1,24 +1,24 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import RightColumn from '@/components/templates/Layout/RightColumn';
-import { useAudio } from '@/context/AudioContext';
-import { useTheme } from '@/context/ThemeContext';
+import RightColumn from "@/components/templates/Layout/RightColumn";
+import { useAudio } from "@/context/AudioContext";
+import { useTheme } from "@/context/ThemeContext";
+import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import React from "react";
 
-jest.mock('@/context/AudioContext');
-jest.mock('@/context/ThemeContext');
-jest.mock('@/hooks/useIsLabRoute', () => ({
+jest.mock("@/context/AudioContext");
+jest.mock("@/context/ThemeContext");
+jest.mock("@/hooks/useIsLabRoute", () => ({
   useIsLabRoute: () => false,
 }));
-jest.mock('next/navigation', () => ({
-  usePathname: () => '/',
+jest.mock("next/navigation", () => ({
+  usePathname: () => "/",
   useRouter: () => ({ push: jest.fn(), back: jest.fn() }),
 }));
-jest.mock('next/image', () => ({
+jest.mock("next/image", () => ({
   __esModule: true,
   default: (props: Record<string, unknown>) => {
     const { ...rest } = props;
-    return React.createElement('img', rest);
+    return React.createElement("img", rest);
   },
 }));
 
@@ -31,7 +31,7 @@ beforeEach(() => {
     playLightOn: mockPlayLightOn,
   });
   (useTheme as jest.Mock).mockReturnValue({
-    theme: 'dark',
+    theme: "dark",
     toggleTheme: mockToggleTheme,
     superDarkMode: false,
     toggleSuperDarkMode: jest.fn(),
@@ -39,92 +39,92 @@ beforeEach(() => {
   });
 });
 
-describe('RightColumn', () => {
-  it('renders aside element', () => {
+describe("RightColumn", () => {
+  it("renders aside element", () => {
     const { container } = render(<RightColumn />);
-    const aside = container.querySelector('aside');
+    const aside = container.querySelector("aside");
     expect(aside).toBeInTheDocument();
   });
 
-  it('renders theme toggle button with DARK-MODE text when theme is light', () => {
+  it("renders theme toggle button with DARK-MODE text when theme is light", () => {
     (useTheme as jest.Mock).mockReturnValue({
-      theme: 'light',
+      theme: "light",
       toggleTheme: mockToggleTheme,
       clickHint: 0,
       superDarkMode: false,
       toggleSuperDarkMode: jest.fn(),
     });
     render(<RightColumn />);
-    expect(screen.getByText('DARK-MODE')).toBeInTheDocument();
+    expect(screen.getByText("DARK-MODE")).toBeInTheDocument();
   });
 
-  it('renders theme toggle button with LIGHT-MODE text when theme is dark', () => {
+  it("renders theme toggle button with LIGHT-MODE text when theme is dark", () => {
     render(<RightColumn />);
-    expect(screen.getByText('LIGHT-MODE')).toBeInTheDocument();
+    expect(screen.getByText("LIGHT-MODE")).toBeInTheDocument();
   });
 
-  it('calls playLightOn and toggleTheme on button click', async () => {
+  it("calls playLightOn and toggleTheme on button click", async () => {
     const user = userEvent.setup();
     render(<RightColumn />);
-    const btn = screen.getByText('LIGHT-MODE');
+    const btn = screen.getByText("LIGHT-MODE");
     await user.click(btn);
     expect(mockPlayLightOn).toHaveBeenCalledTimes(1);
     expect(mockToggleTheme).toHaveBeenCalledTimes(1);
   });
 
-  it('calls playLightOn and toggleTheme on Enter key', () => {
+  it("calls playLightOn and toggleTheme on Enter key", () => {
     render(<RightColumn />);
-    const btn = screen.getByText('LIGHT-MODE');
-    fireEvent.keyDown(btn, { key: 'Enter' });
+    const btn = screen.getByText("LIGHT-MODE");
+    fireEvent.keyDown(btn, { key: "Enter" });
     expect(mockPlayLightOn).toHaveBeenCalled();
     expect(mockToggleTheme).toHaveBeenCalled();
   });
 
-  it('calls playLightOn and toggleTheme on Space key', () => {
+  it("calls playLightOn and toggleTheme on Space key", () => {
     render(<RightColumn />);
-    const btn = screen.getByText('LIGHT-MODE');
-    fireEvent.keyDown(btn, { key: ' ' });
+    const btn = screen.getByText("LIGHT-MODE");
+    fireEvent.keyDown(btn, { key: " " });
     expect(mockPlayLightOn).toHaveBeenCalled();
     expect(mockToggleTheme).toHaveBeenCalled();
   });
 
-  it('renders social links', () => {
+  it("renders social links", () => {
     render(<RightColumn />);
-    const links = screen.getAllByRole('link');
+    const links = screen.getAllByRole("link");
     expect(links.length).toBeGreaterThanOrEqual(4);
   });
 
-  it('renders Instagram link', () => {
+  it("renders Instagram link", () => {
     render(<RightColumn />);
-    expect(screen.getByText('IG')).toBeInTheDocument();
-    const link = screen.getByText('IG').closest('a');
-    expect(link).toHaveAttribute('href', 'https://www.instagram.com/idf.me/');
+    expect(screen.getByText("IG")).toBeInTheDocument();
+    const link = screen.getByText("IG").closest("a");
+    expect(link).toHaveAttribute("href", "https://www.instagram.com/idf.me/");
   });
 
-  it('renders LinkedIn link', () => {
+  it("renders LinkedIn link", () => {
     render(<RightColumn />);
-    expect(screen.getByText('LI')).toBeInTheDocument();
-    const link = screen.getByText('LI').closest('a');
-    expect(link).toHaveAttribute('href', 'https://www.linkedin.com/in/ivandf/');
+    expect(screen.getByText("LI")).toBeInTheDocument();
+    const link = screen.getByText("LI").closest("a");
+    expect(link).toHaveAttribute("href", "https://www.linkedin.com/in/ivandf/");
   });
 
-  it('renders GitHub link', () => {
+  it("renders GitHub link", () => {
     render(<RightColumn />);
-    expect(screen.getByText('GH')).toBeInTheDocument();
-    const link = screen.getByText('GH').closest('a');
-    expect(link).toHaveAttribute('href', 'https://github.com/IvanDF');
+    expect(screen.getByText("GH")).toBeInTheDocument();
+    const link = screen.getByText("GH").closest("a");
+    expect(link).toHaveAttribute("href", "https://github.com/IvanDF");
   });
 
-  it('renders Figma link', () => {
+  it("renders Figma link", () => {
     render(<RightColumn />);
-    expect(screen.getByText('FIG')).toBeInTheDocument();
-    const link = screen.getByText('FIG').closest('a');
-    expect(link).toHaveAttribute('href', 'https://www.figma.com/@ivandf');
+    expect(screen.getByText("FG")).toBeInTheDocument();
+    const link = screen.getByText("FG").closest("a");
+    expect(link).toHaveAttribute("href", "https://www.figma.com/@ivandf");
   });
 
-  it('applies rightColumn CSS class', () => {
+  it("applies rightColumn CSS class", () => {
     const { container } = render(<RightColumn />);
-    const aside = container.querySelector('aside');
-    expect(aside?.className).toContain('rightColumn');
+    const aside = container.querySelector("aside");
+    expect(aside?.className).toContain("rightColumn");
   });
 });

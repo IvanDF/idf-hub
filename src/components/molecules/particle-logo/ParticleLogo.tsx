@@ -154,7 +154,11 @@ function InteractiveParticles() {
           }`}
         >
           <Image
-            src="/assets/idf-logo.svg"
+            src={
+              theme === "dark"
+                ? "/assets/idf-logo-light.svg"
+                : "/assets/idf-logo-dark.svg"
+            }
             alt="iDF Logo"
             width={180}
             height={180}
@@ -177,7 +181,11 @@ export default function ParticleLogo() {
       <Canvas
         camera={{ position: [0, 0, 6], fov: 60 }}
         dpr={[1, 1.5]}
-        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
+        gl={{
+          antialias: false,
+          alpha: true,
+          powerPreference: "high-performance",
+        }}
       >
         <InteractiveParticles />
       </Canvas>

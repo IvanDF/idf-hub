@@ -12,7 +12,7 @@ const socials = [
   { href: "https://www.instagram.com/idf.me/", label: "IG" },
   { href: "https://www.linkedin.com/in/ivandf/", label: "LI" },
   { href: "https://github.com/IvanDF", label: "GH" },
-  { href: "https://www.figma.com/@ivandf", label: "FIG" },
+  { href: "https://www.figma.com/@ivandf", label: "FG" },
   { href: "https://findpenguins.com/idf.travel", label: "FP" },
 ];
 
@@ -52,7 +52,11 @@ export default function RightColumn() {
         <Button
           variant="chrome"
           data-super-dark={superDarkMode}
-          data-hint={clickHint >= 2 && !superDarkMode ? Math.min(clickHint - 1, 4) : undefined}
+          data-hint={
+            clickHint >= 2 && !superDarkMode
+              ? Math.min(clickHint - 1, 4)
+              : undefined
+          }
           onClick={() => {
             playLightOn();
             toggleTheme();
@@ -65,10 +69,12 @@ export default function RightColumn() {
             }
           }}
         >
-          <span className={styles.themeLabel}>
-            {buttonText}
-          </span>
-          <div className={styles.themePill} data-dark={theme === "dark"} data-super-dark={superDarkMode}>
+          <span className={styles.themeLabel}>{buttonText}</span>
+          <div
+            className={styles.themePill}
+            data-dark={theme === "dark"}
+            data-super-dark={superDarkMode}
+          >
             <div className={styles.themeDot}></div>
           </div>
         </Button>

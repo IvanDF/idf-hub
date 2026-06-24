@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/atoms/button";
 import AudioToggle from "@/components/atoms/audio-toggle";
+import Button from "@/components/atoms/button";
 import GlitchText from "@/components/atoms/glitch-text";
 import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
@@ -20,7 +20,7 @@ const socials = [
   { href: "https://www.instagram.com/idf.me/", label: "IG" },
   { href: "https://www.linkedin.com/in/ivandf/", label: "LI" },
   { href: "https://github.com/IvanDF", label: "GH" },
-  { href: "https://www.figma.com/@ivandf", label: "FIG" },
+  { href: "https://www.figma.com/@ivandf", label: "FG" },
   { href: "https://findpenguins.com/idf.travel", label: "FP" },
 ];
 
@@ -70,7 +70,9 @@ export default function MobileNav({
 
   const openTerminal = () => {
     onClose();
-    window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }));
+    window.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "k", metaKey: true }),
+    );
   };
 
   return (
@@ -97,15 +99,17 @@ export default function MobileNav({
               <Button
                 variant="chrome"
                 data-super-dark={superDarkMode}
-                data-hint={clickHint >= 2 && !superDarkMode ? Math.min(clickHint - 1, 4) : undefined}
+                data-hint={
+                  clickHint >= 2 && !superDarkMode
+                    ? Math.min(clickHint - 1, 4)
+                    : undefined
+                }
                 onClick={() => {
                   playLightOn();
                   toggleTheme();
                 }}
               >
-                <span className={styles.mobileThemeLabel}>
-                  {buttonText}
-                </span>
+                <span className={styles.mobileThemeLabel}>{buttonText}</span>
                 <div
                   className={styles.mobileThemePill}
                   data-dark={theme === "dark"}
@@ -118,7 +122,10 @@ export default function MobileNav({
           </div>
 
           {/* Center: nav links */}
-          <nav className={styles.mobileOverlayCenter} aria-label="Mobile navigation">
+          <nav
+            className={styles.mobileOverlayCenter}
+            aria-label="Mobile navigation"
+          >
             <div className={styles.mobileNavLinks}>
               <Link
                 href="/"

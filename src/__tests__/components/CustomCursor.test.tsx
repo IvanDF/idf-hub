@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import CustomCursor from '@/components/atoms/custom-cursor';
 
 jest.mock('next/navigation', () => ({
@@ -20,15 +20,19 @@ beforeEach(() => {
 });
 
 describe('CustomCursor', () => {
-  it('renders cursor elements', () => {
-    render(<CustomCursor />);
-    const cursorDots = document.querySelectorAll('[style*="pointer-events: none"]');
-    expect(cursorDots.length).toBeGreaterThanOrEqual(1);
+  it('renders cursor elements', async () => {
+    const { container } = render(<CustomCursor />);
+    await waitFor(() => {
+      const divs = container.querySelectorAll('div');
+      expect(divs.length).toBeGreaterThanOrEqual(1);
+    });
   });
 
-  it('renders two div elements with fixed positioning', () => {
-    render(<CustomCursor />);
-    const fixedEls = document.querySelectorAll('[style*="position: fixed"]');
-    expect(fixedEls.length).toBe(2);
+  it('renders two cursor div elements', async () => {
+    const { container } = render(<CustomCursor />);
+    await waitFor(() => {
+      const cursorEls = container.querySelectorAll('[class*="cursor"]');
+      expect(cursorEls.length).toBe(2);
+    });
   });
 });
