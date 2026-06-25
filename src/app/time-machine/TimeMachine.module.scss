@@ -195,7 +195,7 @@ border: 1px solid color.adjust($color-lario-light, $alpha: -0.7);
   color: color.adjust($color-slate-dark, $alpha: -0.15);
   line-height: 1.6;
   margin-bottom: $spacing-xl;
-  font-size: 1.1rem;
+  font-size: $font-size-md;
   border-left: 2px solid $color-lario-light;
   padding-left: $spacing-md;
 }
@@ -311,7 +311,7 @@ border: 1px solid color.adjust($color-white, $alpha: -0.8);
   left: 50%;
   transform: translateX(-50%);
   font-family: $font-family-mono;
-  font-size: 9px;
+  font-size: $font-size-2xs;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: rgba($color-silk-light, 0.15);

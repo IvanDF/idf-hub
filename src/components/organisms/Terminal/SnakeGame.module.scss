@@ -126,20 +126,20 @@
 }
 
 .panelScore {
-  font-size: 0.8rem;
+  font-size: $font-size-sm;
   color: var(--color-secondary);
   strong { color: var(--color-text); font-size: $font-size-md; }
 }
 
 .panelHint {
-  font-size: 0.68rem;
+  font-size: $font-size-xs;
   color: var(--color-secondary);
   margin: 0;
 }
 
 .nameInput {
   font-family: $font-family-mono;
-  font-size: 0.8rem;
+  font-size: $font-size-sm;
   background: transparent;
   border: none;
   border-bottom: 1px solid var(--color-accent);
@@ -164,7 +164,7 @@
 
 .btn {
   font-family: $font-family-mono;
-  font-size: 0.72rem;
+  font-size: $font-size-xs;
   background: transparent;
   border: 1px solid var(--color-accent);
   color: var(--color-accent);
@@ -195,7 +195,7 @@
 .board {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.7rem;
+  font-size: $font-size-xs;
 
   th, td {
     padding: $spacing-3xs $spacing-xs;
