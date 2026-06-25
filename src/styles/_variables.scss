@@ -4,15 +4,11 @@
 // Balances soft pastel aesthetics with high-contrast readability.
 // All external platform colors are also defined for brand consistency.
 
-@use 'sass:color';
+@use "sass:color";
 
 // RGB channels for alpha support via color.adjust()
-$color-volta-rgb: 139 92 246;
 $color-lario-rgb: 59 130 246;
 $color-silk-rgb: 10 10 10;
-$color-slate-rgb: 243 244 246;
-$color-white-rgb: 255 255 255;
-$color-black-rgb: 0 0 0;
 $color-error-rgb: 239 68 68;
 $color-success-rgb: 74 222 128;
 $color-warning-rgb: 250 204 21;
@@ -63,9 +59,9 @@ $platform-web-dark: #94a3b8;
 
 // Effect Colors
 $effect-live: #ff5f57;
+$effect-live-rgb: 255 95 87;
 $effect-super-dark: #ff4d4d;
-$effect-glitch-cyan: #00ffff;
-$effect-glitch-magenta: #ff00ff;
+$effect-super-dark-rgb: 255 77 77;
 
 // Terminal Colors
 $effect-terminal-green: #0f0;
@@ -87,14 +83,6 @@ $color-secondary-dark: $color-lario-dark;
 $color-divider-dark: color.adjust($color-slate-dark, $alpha: -0.9);
 
 $color-destructive-light: #ff6b6b;
-$color-destructive-dark: #ff5050;
-
-// CSS Variables (used in runtime theme)
-$color-bg: var(--color-bg);
-$color-text: var(--color-text);
-$color-accent: var(--color-accent);
-$color-secondary: var(--color-secondary);
-$color-divider: var(--color-divider);
 
 // Typography — Font Families
 $font-family-display: var(--font-josefin-slab), serif;
@@ -106,24 +94,18 @@ $font-size-3xs: 0.375rem; // 6px
 $font-size-2xs: 0.5rem;   // 8px
 $font-size-xs: 0.625rem; // 10px
 $font-size-sm: 0.75rem;  // 12px
-$font-size-2sm: 0.8125rem; // 13px
+
 $font-size-base: 0.875rem; // 14px
 $font-size-md: 1rem;     // 16px
 $font-size-lg: 1.5rem;   // 24px
 $font-size-xl: 2rem;     // 32px
-$font-size-xxl: 2.5rem;  // 40px
+
 $font-size-3xl: 3rem;    // 48px
 $font-size-4xl: 4rem;    // 64px
 $font-size-2xl: 2.5rem;  // 40px (alias for xxl)
 
 // Type Scale — Semantic (PDF spec: Typefaces Details.pdf)
 // Headings use Josefin Slab for display (h1) and Josefin Sans (h2–h6)
-$font-size-h1: 3.0625rem;  // 49px
-$font-size-h2: 2.4375rem;  // 39px
-$font-size-h3: 1.9375rem;  // 31px
-$font-size-h4: 1.5625rem;  // 25px
-$font-size-h5: 1.25rem;    // 20px
-$font-size-h6: 1.125rem;   // 18px
 $font-size-body: $font-size-md; // 16px
 $font-size-small: $font-size-base; // 14px
 $font-size-label: $font-size-sm; // 12px
@@ -191,15 +173,8 @@ $radius-lg: 12px;
 $radius-xl: 16px;
 $radius-full: 999px;
 
-// Layout
-$sidebar-width: 328px;
-$header-width: 448px;
-
 // Breakpoints (mobile-first)
-$breakpoint-xs: 400px;
 $breakpoint-sm: 480px;
 $breakpoint-md: 576px;
 $breakpoint-lg: 700px;
 $breakpoint-xl: 768px;
-$breakpoint-2xl: 992px;
-$breakpoint-3xl: 1200px;

@@ -32,13 +32,11 @@
     "@types/node": "^20.19.39",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
-    "ts-jest": "^29.4.9",
     "typescript": "^5"
   }
 }

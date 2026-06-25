@@ -63,6 +63,7 @@
   max-height: 600px;
 
   color: var(--color-text);
+  font-family: $font-family-mono;
   padding: $spacing-lg 28px;
 
   background: rgba(var(--color-bg-rgb), 0.98);
@@ -136,10 +137,8 @@
 }
 
 .asciiArt {
-  font: {
-    family: "JetBrains Mono", "Fira Code", "SF Mono", "Consolas", monospace;
-    size: $font-size-xs;
-  }
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
   line-height: 1;
   letter-spacing: $letter-spacing-tightest;
   color: rgba(var(--color-success-rgb), 0.9);
