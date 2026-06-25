@@ -1,3 +1,4 @@
+import Text from "@/components/atoms/text";
 import { PROJECTS } from "@/data/projects";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import Image from "next/image";
@@ -67,16 +68,16 @@ export default async function ProjectPage({
 
       <header className={styles.header}>
         <div className={styles.meta}>
-          <span className={styles.metaChip}>{project.category}</span>
-          <span className={styles.metaSep}>/</span>
-          <span className={styles.metaYear}>{project.year}</span>
+          <Text as="span" variant="label" className={styles.metaChip}>{project.category}</Text>
+          <Text as="span" variant="label" className={styles.metaSep}>/</Text>
+          <Text as="span" variant="label" className={styles.metaYear}>{project.year}</Text>
           {project.status === "live" && (
-            <span className={styles.metaLive}>live</span>
+            <Text as="span" variant="label" className={styles.metaLive}>live</Text>
           )}
         </div>
 
-        <h1 className={styles.title}>{project.title}</h1>
-        <p className={styles.lead}>{project.longDescription ?? project.description}</p>
+        <Text as="h1" variant="h1" className={styles.title}>{project.title}</Text>
+        <Text as="p" variant="mono" className={styles.lead}>{project.longDescription ?? project.description}</Text>
       </header>
 
       {acts.length > 0 && (
@@ -85,8 +86,8 @@ export default async function ProjectPage({
             <div key={act.label} className={styles.act}>
               <div className={styles.actNum}>{String(i + 1).padStart(2, "0")}</div>
               <div className={styles.actBody}>
-                <h2 className={styles.actTitle}>{act.label}</h2>
-                <p className={styles.actText}>{act.body}</p>
+                <Text as="h2" variant="h2" className={styles.actTitle}>{act.label}</Text>
+                <Text as="p" variant="body" className={styles.actText}>{act.body}</Text>
               </div>
             </div>
           ))}
@@ -120,7 +121,7 @@ export default async function ProjectPage({
       <footer className={styles.footer}>
         <div className={styles.stack}>
           {stack.map((t) => (
-            <span key={t} className={styles.stackTag}>{t}</span>
+            <Text as="span" key={t} variant="label" className={styles.stackTag}>{t}</Text>
           ))}
         </div>
 

@@ -171,7 +171,7 @@ export default function AdminPage() {
 
       <main className={styles.main}>
         <div className={styles.toolbar}>
-          <span className={styles.count}>{loading ? "..." : `${projects.length} projects`}</span>
+          <Text as="span" variant="mono" className={styles.count}>{loading ? "..." : `${projects.length} projects`}</Text>
           <button className={styles.addBtn} onClick={openAdd}>[ + add project ]</button>
         </div>
 

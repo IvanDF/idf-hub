@@ -27,7 +27,7 @@ export default function TimeMachinePage() {
         <div className={styles.header}>
           <div className={styles.glitchWrapper}>
             <h1 className={styles.glitch} data-text="TEMPORAL_ARCHIVE">
-              TEMPORAL_ARCHIVE
+              <Text as="span" variant="inherit">TEMPORAL_ARCHIVE</Text>
             </h1>
           </div>
           <Text variant="body" as="p">
@@ -40,10 +40,10 @@ export default function TimeMachinePage() {
           <div className={styles.artifactCard}>
             <div className={styles.artifactHeader}>
               <History size={24} className={styles.icon} />
-              <span className={styles.idBadge}>ARTIFACT_ID: idf-old</span>
+              <Text as="span" variant="label" className={styles.idBadge}>ARTIFACT_ID: idf-old</Text>
             </div>
 
-            <h2 className={styles.artifactTitle}>LEGACY_SYSTEM_V1</h2>
+            <Text as="h2" variant="h2" className={styles.artifactTitle}>LEGACY_SYSTEM_V1</Text>
             <Text variant="mono" className={styles.artifactMeta}>
               <span>2023 – 2025</span>
               <span className={styles.separator}>|</span>

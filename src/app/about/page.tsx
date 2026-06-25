@@ -50,16 +50,16 @@ export default function AboutPage() {
 
         <div className={styles.heroMeta}>
           <div className={styles.metaItem}>
-            <span className={styles.metaLabel}>Based</span>
-            <span className={styles.metaValue}>Madrid, Spain</span>
+            <Text as="span" variant="label" className={styles.metaLabel}>Based</Text>
+            <Text as="span" variant="body" className={styles.metaValue}>Madrid, Spain</Text>
           </div>
           <div className={styles.metaItem}>
-            <span className={styles.metaLabel}>Focus</span>
-            <span className={styles.metaValue}>Solving problems</span>
+            <Text as="span" variant="label" className={styles.metaLabel}>Focus</Text>
+            <Text as="span" variant="body" className={styles.metaValue}>Solving problems</Text>
           </div>
           <div className={styles.metaItem}>
-            <span className={styles.metaLabel}>Status</span>
-            <span className={styles.metaValueAccent}>Available</span>
+            <Text as="span" variant="label" className={styles.metaLabel}>Status</Text>
+            <Text as="span" variant="body" className={styles.metaValueAccent}>Available</Text>
           </div>
         </div>
       </section>
@@ -77,22 +77,22 @@ export default function AboutPage() {
 
       {/* ── INTRO ────────────────────────────────────────────────────── */}
       <section className={styles.manifesto}>
-        <p className={styles.manifestoText}>
+        <Text as="p" variant="body" className={styles.manifestoText}>
           Driven by curiosity, refined through design. Exploring patterns,
           questioning assumptions, and solving problems from unexpected angles.
-        </p>
+        </Text>
       </section>
 
       {/* ── GRID ─────────────────────────────────────────────────────── */}
       <section className={styles.grid}>
         {/* Interests block */}
         <div className={`${styles.cell} ${styles.cellInterests}`}>
-          <span className={styles.cellLabel}>Interests</span>
+          <Text as="span" variant="label" className={styles.cellLabel}>Interests</Text>
           <ul className={styles.interestList}>
             {interests.map(({ label, note }) => (
               <li key={label} className={styles.interestItem}>
-                <span className={styles.interestName}>{label}</span>
-                <span className={styles.interestNote}>{note}</span>
+                <Text as="span" variant="body" className={styles.interestName}>{label}</Text>
+                <Text as="span" variant="label" className={styles.interestNote}>{note}</Text>
               </li>
             ))}
           </ul>
@@ -103,7 +103,7 @@ export default function AboutPage() {
           <span className={styles.statNumber}>
             <TextScramble text="10+" delay={600} />
           </span>
-          <span className={styles.statLabel}>YEARS<br />OBSERVING PATTERNS</span>
+          <Text as="span" variant="label" className={styles.statLabel}>YEARS<br />OBSERVING PATTERNS</Text>
         </div>
 
         {/* Personal quote */}

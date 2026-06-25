@@ -2,6 +2,7 @@
 
 import { PROJECTS } from "@/data/projects";
 import type { Project } from "@/types/project";
+import Text from "@/components/atoms/text";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -67,13 +68,13 @@ export default function Lab() {
           animate={{ scaleY: 1, y: 0, opacity: 1 }}
           transition={{ duration: 0.55, ease: [0.34, 1.56, 0.64, 1] }}
         >
-          Work
+          <Text as="span" variant="inherit">Work</Text>
         </motion.h1>
         <div className={styles.headerRow}>
-          <p className={styles.pageSubtitle}>Design, code, and craft.</p>
-          <span className={styles.headerCount}>
+          <Text as="p" variant="mono" className={styles.pageSubtitle}>Design, code, and craft.</Text>
+          <Text as="span" variant="label" className={styles.headerCount}>
             {LIVE.length} live · {ARCHIVED.length} archived
-          </span>
+          </Text>
         </div>
       </header>
 
@@ -118,7 +119,7 @@ export default function Lab() {
           ))}
         </div>
 
-        {live.length === 0 && <p className={styles.empty}>Nothing here yet.</p>}
+        {live.length === 0 && <Text as="p" variant="body" className={styles.empty}>Nothing here yet.</Text>}
 
         {archived.length > 0 && (
           <div className={styles.archive}>

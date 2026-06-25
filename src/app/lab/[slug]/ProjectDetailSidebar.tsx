@@ -1,3 +1,4 @@
+import Text from "@/components/atoms/text";
 import { ExternalLink, Github, Play } from "lucide-react";
 import Link from "next/link";
 import styles from "./ProjectDetail.module.scss";
@@ -32,13 +33,13 @@ export function ProjectDetailSidebar({
 }: ProjectDetailSidebarProps) {
   return (
     <aside className={styles.sidebar}>
-      <h3>Project Links</h3>
+      <Text as="h3" variant="h3">Project Links</Text>
 
       <div className={styles.stackSection}>
-        <h4>Stack</h4>
+        <Text as="h4" variant="h4">Stack</Text>
         <div className={styles.stackTags}>
           {detailStack.map((item) => (
-            <span key={item}>{item}</span>
+            <Text as="span" key={item} variant="label">{item}</Text>
           ))}
         </div>
       </div>
