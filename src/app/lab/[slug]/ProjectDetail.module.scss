@@ -75,7 +75,7 @@
 
 .metaLive {
   font-family: $font-family-mono;
-  font-size: 0.58rem;
+  font-size: $font-size-2xs;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-lg;
   background: color-mix(in srgb, var(--color-accent) 15%, transparent);

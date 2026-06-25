@@ -30,8 +30,6 @@
   position: fixed;
   top: 1.25rem;
   right: 1.25rem;
-  font-family: $font-family-mono;
-  font-size: 0.7rem;
   color: var(--color-accent);
   background: transparent;
   border: 1px solid var(--color-accent);
@@ -49,8 +47,6 @@
   position: fixed;
   top: 1.25rem;
   left: 1.25rem;
-  font-family: $font-family-mono;
-  font-size: 0.7rem;
   color: var(--color-secondary);
   text-decoration: none;
   border: 1px solid var(--color-divider);
@@ -86,20 +82,14 @@
 }
 
 .prompt {
-  font-family: $font-family-mono;
-  font-size: 0.7rem;
   color: var(--color-accent);
   display: block;
   margin-bottom: 0.5rem;
-  letter-spacing: $letter-spacing-sm;
 }
 
 .title {
-  font-family: $font-family-primary;
-  font-size: $font-size-xl;
   font-weight: 700;
   color: var(--color-text);
-  letter-spacing: 0.15em;
   text-transform: uppercase;
   margin: 0;
 }
@@ -117,16 +107,11 @@
 }
 
 .label {
-  font-family: $font-family-primary;
-  font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: $letter-spacing-xl;
   color: var(--color-secondary);
 }
 
 .input {
-  font-family: $font-family-mono;
-  font-size: 0.85rem;
   color: var(--color-text);
   background-color: transparent;
   border: 1px solid var(--color-divider);
@@ -147,8 +132,6 @@
 }
 
 .error {
-  font-family: $font-family-mono;
-  font-size: $font-size-xs;
   color: rgb(var(--color-error-rgb, 239, 68, 68));
   background-color: rgba(var(--color-error-rgb, 239, 68, 68), 0.08);
   border: 1px solid rgba(var(--color-error-rgb, 239, 68, 68), 0.25);
@@ -160,10 +143,7 @@
 }
 
 .button {
-  font-family: $font-family-mono;
-  font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: $letter-spacing-sm;
   color: var(--color-bg);
   background-color: var(--color-accent);
   border: none;
@@ -214,24 +194,17 @@
 }
 
 .demoTag {
-  font-family: $font-family-mono;
-  font-size: 0.65rem;
   color: var(--color-bg);
   background-color: var(--color-accent);
   padding: 0.1rem 0.4rem;
 }
 
 .demoLabel {
-  font-family: $font-family-primary;
-  font-size: 0.7rem;
-  letter-spacing: $letter-spacing-lg;
   color: var(--color-secondary);
   text-transform: uppercase;
 }
 
 .demoCredentials {
-  font-family: $font-family-mono;
-  font-size: $font-size-xs;
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
@@ -252,8 +225,6 @@
 }
 
 .demoBtn {
-  font-family: $font-family-mono;
-  font-size: $font-size-xs;
   color: var(--color-secondary);
   background: transparent;
   border: 1px solid var(--color-divider);
@@ -269,10 +240,7 @@
 }
 
 .demoNote {
-  font-family: $font-family-mono;
-  font-size: 0.7rem;
   color: var(--color-secondary);
   opacity: 0.7;
   margin: 0 0 0.5rem;
-  line-height: 1.4;
 }

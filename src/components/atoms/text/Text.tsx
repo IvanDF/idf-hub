@@ -61,10 +61,16 @@ export default function Text({
 }: TextProps & Record<string, unknown>) {
   const tag = as ?? variantTag[variant] ?? 'span';
 
+  const classes = [styles.text, styles[variant]];
+  if (variant === 'mono' && as && ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(as)) {
+    classes.push(styles[`mono-${as}`]);
+  }
+  if (className) classes.push(className);
+
   return createElement(
     tag,
     {
-      className: `${styles.text} ${styles[variant]} ${className}`,
+      className: classes.join(' '),
       ...(variant === 'label' && !rest.role ? { role: 'label' } : {}),
       ...rest,
     },

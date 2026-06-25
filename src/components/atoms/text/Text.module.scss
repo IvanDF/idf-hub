@@ -51,6 +51,36 @@
   font-weight: 400;
 }
 
+.mono-h1 {
+  font-size: $font-size-xl;
+  font-weight: 700;
+}
+
+.mono-h2 {
+  font-size: $font-size-lg;
+  font-weight: 600;
+}
+
+.mono-h3 {
+  font-size: $font-size-md;
+  font-weight: 600;
+}
+
+.mono-h4 {
+  font-size: $font-size-base;
+  font-weight: 600;
+}
+
+.mono-h5 {
+  font-size: $font-size-sm;
+  font-weight: 500;
+}
+
+.mono-h6 {
+  font-size: $font-size-sm;
+  font-weight: 500;
+}
+
 .inherit {
   font-family: inherit;
   font-size: inherit;

@@ -14,8 +14,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: $font-family-mono;
-  font-size: 0.68rem;
   color: var(--color-secondary);
   text-transform: uppercase;
   letter-spacing: $letter-spacing-md;
@@ -48,7 +46,7 @@
 // ── Start message ─────────────────────────────────────
 .startMsg {
   font-family: $font-family-mono;
-  font-size: 0.65rem;
+  font-size: $font-size-sm;
   color: var(--color-secondary);
   text-align: center;
   padding: $spacing-2xs 0;

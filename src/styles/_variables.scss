@@ -86,6 +86,9 @@ $color-accent-dark: $color-volta-dark;
 $color-secondary-dark: $color-lario-dark;
 $color-divider-dark: color.adjust($color-slate-dark, $alpha: -0.9);
 
+$color-destructive-light: #ff6b6b;
+$color-destructive-dark: #ff5050;
+
 // CSS Variables (used in runtime theme)
 $color-bg: var(--color-bg);
 $color-text: var(--color-text);
@@ -102,12 +105,16 @@ $font-family-mono: var(--font-geist-mono), monospace;
 $font-size-3xs: 0.375rem; // 6px
 $font-size-2xs: 0.5rem;   // 8px
 $font-size-xs: 0.625rem; // 10px
-$font-size-sm: 0.75rem;  // 12px — matches Label
-$font-size-base: 0.875rem; // 14px — matches Small
-$font-size-md: 1rem;     // 16px — matches Body
+$font-size-sm: 0.75rem;  // 12px
+$font-size-2sm: 0.8125rem; // 13px
+$font-size-base: 0.875rem; // 14px
+$font-size-md: 1rem;     // 16px
 $font-size-lg: 1.5rem;   // 24px
 $font-size-xl: 2rem;     // 32px
-$font-size-2xl: 2.5rem;  // 40px
+$font-size-xxl: 2.5rem;  // 40px
+$font-size-3xl: 3rem;    // 48px
+$font-size-4xl: 4rem;    // 64px
+$font-size-2xl: 2.5rem;  // 40px (alias for xxl)
 
 // Type Scale — Semantic (PDF spec: Typefaces Details.pdf)
 // Headings use Josefin Slab for display (h1) and Josefin Sans (h2–h6)

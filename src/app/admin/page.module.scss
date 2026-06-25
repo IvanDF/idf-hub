@@ -283,11 +283,11 @@
 }
 
 .deleteBtn {
-  color: rgb(255, 107, 107);
-  border-color: rgba(255, 107, 107, 0.4);
+  color: $color-destructive-light;
+  border-color: rgba($color-destructive-light, 0.4);
 
   &:hover {
-    background-color: rgb(255, 107, 107);
+    background-color: $color-destructive-light;
     color: var(--color-bg);
   }
 }
@@ -466,8 +466,8 @@
 /* ── Delete confirm ── */
 .confirm {
   background-color: var(--color-card-bg);
-  border: 1px solid rgba(255, 107, 107, 0.4);
-  border-top: 2px solid rgb(255, 107, 107);
+  border: 1px solid rgba($color-destructive-light, 0.4);
+  border-top: 2px solid $color-destructive-light;
   padding: 1.75rem 2rem;
   width: 100%;
   max-width: 380px;
@@ -483,7 +483,7 @@
 }
 
 .confirmId {
-  color: rgb(255, 107, 107);
+  color: $color-destructive-light;
   font-weight: 600;
 }
 
@@ -497,7 +497,7 @@
   font-family: $font-family-mono;
   font-size: $font-size-sm;
   color: var(--color-bg);
-  background-color: rgb(255, 107, 107);
+  background-color: $color-destructive-light;
   border: none;
   padding: 0.5rem 1rem;
   cursor: pointer;

@@ -61,14 +61,14 @@
 }
 
 .glitch {
-  font-size: 3rem;
+  font-size: $font-size-3xl;
   font-weight: 700;
   color: $color-silk-light;
   letter-spacing: $letter-spacing-tightest;
   position: relative;
   
   @media (min-width: $breakpoint-md) {
-    font-size: 4rem;
+    font-size: $font-size-4xl;
   }
 
   &::before,
