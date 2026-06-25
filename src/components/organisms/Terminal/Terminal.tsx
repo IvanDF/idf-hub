@@ -218,8 +218,7 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
 
   const executeQuickCommand = (cmd: string) => {
     setInput(cmd);
-    if (cmd.endsWith(" ")) { requestAnimationFrame(() => inputRef.current?.focus()); return; }
-    setTimeout(() => executeCommand(cmd), 0);
+    requestAnimationFrame(() => inputRef.current?.focus());
   };
 
   return (

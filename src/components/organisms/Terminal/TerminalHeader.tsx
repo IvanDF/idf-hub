@@ -19,9 +19,8 @@ export default function TerminalHeader({
           type="button" 
           className={styles.closeButton}
           onClick={onClose}
-        >
-          ✕
-        </button>
+          aria-label="Close terminal"
+        />
       )}
     </div>
   );

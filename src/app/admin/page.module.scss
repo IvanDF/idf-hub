@@ -64,6 +64,7 @@
   color: var(--color-secondary);
   background: transparent;
   border: 1px solid var(--color-divider);
+  border-radius: $radius-sm;
   padding: 0.4rem 0.75rem;
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s;
@@ -80,6 +81,7 @@
   color: var(--color-accent);
   background: transparent;
   border: 1px solid var(--color-accent);
+  border-radius: $radius-sm;
   padding: 0.4rem 0.75rem;
   cursor: pointer;
   transition: opacity 0.2s;
@@ -104,6 +106,7 @@
   color: var(--color-accent);
   background: transparent;
   border: 1px solid var(--color-accent);
+  border-radius: $radius-sm;
   padding: 0.4rem 0.75rem;
   cursor: pointer;
   transition: opacity 0.2s;
@@ -151,6 +154,7 @@
   color: var(--color-bg);
   background-color: var(--color-accent);
   border: none;
+  border-radius: $radius-sm;
   padding: 0.5rem 1rem;
   cursor: pointer;
   transition: opacity 0.2s;
@@ -165,6 +169,7 @@
   color: $color-error;
   background: color.adjust($color-error, $alpha: -0.92);
   border: 1px solid color.adjust($color-error, $alpha: -0.75);
+  border-radius: $radius-sm;
   padding: 0.6rem 0.75rem;
   margin-bottom: 1rem;
 }
@@ -193,6 +198,7 @@
   overflow-y: auto;
   max-height: calc(100vh - 220px);
   border: 1px solid var(--color-divider);
+  border-radius: $radius-md;
 }
 
 .table {
@@ -242,6 +248,7 @@
   letter-spacing: $letter-spacing-md;
   padding: 0.15rem 0.4rem;
   border: 1px solid currentColor;
+  border-radius: $radius-sm;
   color: var(--color-accent);
 }
 
@@ -267,6 +274,7 @@
   font-size: $font-size-xs;
   padding: 0.25rem 0.5rem;
   border: 1px solid;
+  border-radius: $radius-xs;
   background: transparent;
   cursor: pointer;
   transition: background-color 0.15s, color 0.15s;
@@ -312,6 +320,7 @@
   background-color: var(--color-card-bg);
   border: 1px solid var(--color-divider);
   border-top: 2px solid var(--color-accent);
+  border-radius: $radius-xl;
   position: relative;
 }
 
@@ -335,6 +344,7 @@
   color: var(--color-secondary);
   background: transparent;
   border: none;
+  border-radius: $radius-sm;
   cursor: pointer;
   padding: 0.2rem 0.4rem;
   transition: color 0.15s;
@@ -387,6 +397,7 @@
   color: var(--color-text);
   background-color: transparent;
   border: 1px solid var(--color-divider);
+  border-radius: $radius-sm;
   padding: 0.5rem 0.65rem;
   outline: none;
   width: 100%;
@@ -433,6 +444,7 @@
   color: var(--color-secondary);
   background: transparent;
   border: 1px solid var(--color-divider);
+  border-radius: $radius-sm;
   padding: 0.5rem 0.9rem;
   cursor: pointer;
   transition: color 0.15s, border-color 0.15s;
@@ -449,6 +461,7 @@
   color: var(--color-bg);
   background-color: var(--color-accent);
   border: none;
+  border-radius: $radius-sm;
   padding: 0.5rem 1rem;
   cursor: pointer;
   transition: opacity 0.15s;
@@ -468,6 +481,7 @@
   background-color: var(--color-card-bg);
   border: 1px solid rgba($color-destructive-light, 0.4);
   border-top: 2px solid $color-destructive-light;
+  border-radius: $radius-xl;
   padding: 1.75rem 2rem;
   width: 100%;
   max-width: 380px;

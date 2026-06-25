@@ -93,7 +93,7 @@
   text-transform: uppercase;
   letter-spacing: $letter-spacing-xl;
   padding: 0.4rem 1rem;
-  border-radius: var(--route-filter-radius, 0px);
+  border-radius: var(--route-filter-radius, #{$radius-md});
   cursor: pointer;
   transition:
     opacity 0.15s ease,

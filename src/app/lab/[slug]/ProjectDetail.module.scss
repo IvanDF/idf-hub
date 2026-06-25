@@ -173,6 +173,7 @@
 .media {
   margin-bottom: 3.5rem;
   border: 2px solid var(--color-text);
+  border-radius: $radius-md;
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr;
@@ -258,7 +259,7 @@
   letter-spacing: $letter-spacing-xl;
   text-decoration: none;
   padding: 0.65rem 1.25rem;
-  border-radius: var(--route-card-radius, 0px);
+  border-radius: var(--route-card-radius, #{$radius-xl});
   border: 2px solid var(--color-text);
   box-shadow: var(--depth-sm);
   transition: box-shadow 0.12s ease, transform 0.12s ease, opacity 0.15s ease;
