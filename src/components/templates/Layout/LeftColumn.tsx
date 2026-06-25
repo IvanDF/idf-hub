@@ -1,9 +1,9 @@
 "use client";
 
-import Text from "@/components/atoms/text";
-import Button from "@/components/atoms/button";
 import AudioToggle from "@/components/atoms/audio-toggle";
+import Button from "@/components/atoms/button";
 import GlitchText from "@/components/atoms/glitch-text";
+import Text from "@/components/atoms/text";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./layout.module.scss";
@@ -23,19 +23,19 @@ export default function LeftColumn() {
             href="/"
             className={`${styles.navLink} ${isActive("/") ? styles.navLinkActive : ""}`}
           >
-            Home
+            1. Home
           </Link>
           <Link
             href="/lab"
             className={`${styles.navLink} ${isActive("/lab") ? styles.navLinkActive : ""}`}
           >
-            Work
+            2. Work
           </Link>
           <Link
             href="/about"
             className={`${styles.navLink} ${isActive("/about") ? styles.navLinkActive : ""}`}
           >
-            About
+            3. About
           </Link>
         </div>
       </nav>
@@ -50,16 +50,21 @@ export default function LeftColumn() {
         </div>
 
         <Button
-          variant="chrome"
+          variant="ghost"
+          stamp={false}
           onClick={() =>
             window.dispatchEvent(
-              new KeyboardEvent("keydown", { key: "k", metaKey: true })
+              new KeyboardEvent("keydown", { key: "k", metaKey: true }),
             )
           }
         >
           <GlitchText text="<_" className={styles.prompt} />
-          <Text as="span" variant="label" className={styles.cmdKey}>⌘K</Text>
-          <Text as="span" variant="label" className={styles.cmdLabel}>to explore</Text>
+          <Text as="span" variant="label" className={styles.cmdKey}>
+            ⌘K
+          </Text>
+          <Text as="span" variant="label" className={styles.cmdLabel}>
+            to explore
+          </Text>
         </Button>
       </footer>
     </aside>

@@ -200,9 +200,15 @@ canvas {
 
 /* ── Carved Brutalism — Ink wobble utilities ─────────────────────────────────
    Utility classes for one-off ink application outside the main regions. */
-.ink       { filter: var(--ink); }
-.ink-fine  { filter: var(--ink-fine); }
-.ink-draft { filter: var(--ink-draft); }
+.ink {
+  filter: var(--ink);
+}
+.ink-fine {
+  filter: var(--ink-fine);
+}
+.ink-draft {
+  filter: var(--ink-draft);
+}
 
 /* ── Carved Brutalism — Global stamp shadow on all bordered buttons ──────────
    Every button/pill with a border gets the depth-sm stamp by default.

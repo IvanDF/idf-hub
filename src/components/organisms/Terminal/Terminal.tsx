@@ -1,33 +1,46 @@
 "use client";
 
-import type React from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useVoiceShoutContext } from "@/context/VoiceShoutContext";
-import { ASCII_ART, ADMIN_COMMANDS, OPEN_COMMANDS, PROJECT_CATEGORIES, SEARCH_COMMANDS, VALID_COMMANDS } from "@/lib/terminal/Terminal.constants";
+import { useCommandDeepLink } from "@/hooks/terminal/useCommandDeepLink";
+import { useTerminalCommands } from "@/hooks/terminal/useTerminalCommands";
+import { useTerminalInput } from "@/hooks/terminal/useTerminalInput";
+import { useTerminalKeyboard } from "@/hooks/terminal/useTerminalKeyboard";
+import {
+  ADMIN_COMMANDS,
+  ASCII_ART,
+  OPEN_COMMANDS,
+  PROJECT_CATEGORIES,
+  SEARCH_COMMANDS,
+  VALID_COMMANDS,
+} from "@/lib/terminal/Terminal.constants";
 import type { HistoryItem } from "@/types/terminal";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
+import SnakeGame from "./SnakeGame";
+import styles from "./Terminal.module.scss";
 import TerminalHeader from "./TerminalHeader";
+import TerminalHistoryItem from "./TerminalHistoryItem";
 import TerminalInput from "./TerminalInput";
 import TerminalOverlay from "./TerminalOverlay";
 import TerminalQuickCommands from "./TerminalQuickCommands";
-import SnakeGame from "./SnakeGame";
-import TerminalHistoryItem from "./TerminalHistoryItem";
-import { useTerminalCommands } from "@/hooks/terminal/useTerminalCommands";
-import { useCommandDeepLink } from "@/hooks/terminal/useCommandDeepLink";
-import { useTerminalInput } from "@/hooks/terminal/useTerminalInput";
-import { useTerminalKeyboard } from "@/hooks/terminal/useTerminalKeyboard";
-import styles from "./Terminal.module.scss";
 
 /** Returns false on mobile (≤768 px) to avoid force-opening the software keyboard. */
 function shouldAutoFocus(): boolean {
-  return typeof window !== "undefined" && !window.matchMedia("(max-width: 768px)").matches;
+  return (
+    typeof window !== "undefined" &&
+    !window.matchMedia("(max-width: 768px)").matches
+  );
 }
 
 /** Maps easter egg IDs to ASCII art keys where they differ. */
 function getAsciiId(eggId: string): string {
-  return ({ playbook: "playbook", ragnar: "ragnar" } as Record<string, string>)[eggId] ?? eggId;
+  return (
+    ({ playbook: "playbook", ragnar: "ragnar" } as Record<string, string>)[
+      eggId
+    ] ?? eggId
+  );
 }
 
 /**
@@ -37,7 +50,11 @@ function getAsciiId(eggId: string): string {
  */
 const DEEP_LINK_EXECUTION_DELAY_MS = 200;
 
-export default function Terminal({ context = "site" }: { context?: "site" | "admin" }) {
+export default function Terminal({
+  context = "site",
+}: {
+  context?: "site" | "admin";
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -45,7 +62,10 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [discoveredEggs, setDiscoveredEggs] = useState<Set<string>>(new Set());
-  const [completionData, setCompletionData] = useState<{ ids: string[]; categories: string[] }>({
+  const [completionData, setCompletionData] = useState<{
+    ids: string[];
+    categories: string[];
+  }>({
     ids: [],
     categories: PROJECT_CATEGORIES,
   });
@@ -57,8 +77,15 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
 
   const router = useRouter();
   const { toggleTheme, superDarkMode } = useTheme();
-  const { playType, playCommand, playError, playEasterEgg, playLightOn } = useAudio();
-  const { isListening, transcript, sessionId, error: voiceError, detectedLevel } = useVoiceShoutContext();
+  const { playType, playCommand, playError, playEasterEgg, playLightOn } =
+    useAudio();
+  const {
+    isListening,
+    transcript,
+    sessionId,
+    error: voiceError,
+    detectedLevel,
+  } = useVoiceShoutContext();
 
   const discoverEgg = useCallback((eggId: string) => {
     setDiscoveredEggs((prev) => {
@@ -72,10 +99,19 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
   // Persist / restore discovered eggs
   useEffect(() => {
     const saved = localStorage.getItem("idf-easter-eggs");
-    if (saved) { try { setDiscoveredEggs(new Set(JSON.parse(saved))); } catch { /* ignore */ } }
+    if (saved) {
+      try {
+        setDiscoveredEggs(new Set(JSON.parse(saved)));
+      } catch {
+        /* ignore */
+      }
+    }
   }, []);
   useEffect(() => {
-    localStorage.setItem("idf-easter-eggs", JSON.stringify([...discoveredEggs]));
+    localStorage.setItem(
+      "idf-easter-eggs",
+      JSON.stringify([...discoveredEggs]),
+    );
   }, [discoveredEggs]);
   useEffect(() => {
     if (superDarkMode) discoverEgg("theme_toggle");
@@ -95,7 +131,15 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
       .catch(() => {});
   }, []);
 
-  useTerminalKeyboard({ isOpen, setIsOpen, toggleTheme, playLightOn, router, discoverEgg, playEasterEgg });
+  useTerminalKeyboard({
+    isOpen,
+    setIsOpen,
+    toggleTheme,
+    playLightOn,
+    router,
+    discoverEgg,
+    playEasterEgg,
+  });
 
   // Admin terminal is always open on mount
   useEffect(() => {
@@ -114,34 +158,69 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
     const art = ASCII_ART[asciiId];
     const interval = setInterval(() => {
       setAsciiFrame((prev) => {
-        if (prev >= art.length - 1) { setLastEasterEgg(null); return 0; }
+        if (prev >= art.length - 1) {
+          setLastEasterEgg(null);
+          return 0;
+        }
         return prev + 1;
       });
     }, 250);
     return () => clearInterval(interval);
   }, [lastEasterEgg]);
 
-  const WELCOME_MESSAGE: HistoryItem = context === "admin"
-    ? { command: "", output: [
-        { type: "system", content: "┌── idf-hub :: admin terminal ──" },
-        { type: "text", content: "list — projects  │  add — new  │  status — stats" },
-        { type: "text", content: "logout — sign out  │  site — back to site" },
-        { type: "text", content: "type 'help' for all commands", cta: { label: "→ help", cmd: "help" } },
-      ]}
-    : { command: "", output: [
-        { type: "system", content: "IDF OS v3.0" },
-        { type: "text", content: "Welcome. Tap [→] to run commands.", cta: { label: "→ help", cmd: "help" } },
-        { type: "text", content: "lab — projects  │  search — find  │  theme — toggle" },
-        { type: "text", content: "admin — dashboard  │  whoami — auth status" },
-        { type: "text", content: "⟁  joor zah frul...  ⟁" },
-      ]};
+  const WELCOME_MESSAGE: HistoryItem =
+    context === "admin"
+      ? {
+          command: "",
+          output: [
+            { type: "system", content: "┌── idf-hub :: admin terminal ──" },
+            {
+              type: "text",
+              content: "list — projects  │  add — new  │  status — stats",
+            },
+            {
+              type: "text",
+              content: "logout — sign out  │  site — back to site",
+            },
+            {
+              type: "text",
+              content: "type 'help' for all commands",
+              cta: { label: "→ help", cmd: "help" },
+            },
+          ],
+        }
+      : {
+          command: "",
+          output: [
+            { type: "system", content: "IDF OS v3.0" },
+            {
+              type: "text",
+              content: "Welcome. Tap [→] to run commands.",
+              cta: { label: "→ help", cmd: "help" },
+            },
+            {
+              type: "text",
+              content: "lab — projects  │  search — find  │  theme — toggle",
+            },
+            {
+              type: "text",
+              content: "admin — dashboard  │  whoami — auth status",
+            },
+            { type: "text", content: "⟁  joor zah frul...  ⟁" },
+          ],
+        };
 
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
         if (shouldAutoFocus()) inputRef.current?.focus();
-        if (isFirstOpen) { setHistory([WELCOME_MESSAGE]); setIsFirstOpen(false); }
-        if (terminalBodyRef.current) terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+        if (isFirstOpen) {
+          setHistory([WELCOME_MESSAGE]);
+          setIsFirstOpen(false);
+        }
+        if (terminalBodyRef.current)
+          terminalBodyRef.current.scrollTop =
+            terminalBodyRef.current.scrollHeight;
       }, 100);
     } else {
       setIsFirstOpen(true);
@@ -150,20 +229,34 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
   }, [isOpen, isFirstOpen]);
 
   useEffect(() => {
-    if (terminalBodyRef.current) terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+    if (terminalBodyRef.current)
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
   }, [history, transcript, isListening, voiceError]);
 
   const { executeCommand } = useTerminalCommands({
-    router, toggleTheme, playLightOn, playError, playEasterEgg,
-    discoveredEggs, discoverEgg, setHistory, setCommandHistory,
-    setHistoryIndex, setLastEasterEgg, setAsciiFrame, setIsOpen,
-    context, setGameActive,
+    router,
+    toggleTheme,
+    playLightOn,
+    playError,
+    playEasterEgg,
+    discoveredEggs,
+    discoverEgg,
+    setHistory,
+    setCommandHistory,
+    setHistoryIndex,
+    setLastEasterEgg,
+    setAsciiFrame,
+    setIsOpen,
+    context,
+    setGameActive,
     getAuthUser: async () => {
       const res = await fetch("/api/auth/me");
       const { user } = await res.json();
       return user ? { email: user.email } : null;
     },
-    signOut: async () => { await fetch("/api/auth/logout", { method: "POST" }); },
+    signOut: async () => {
+      await fetch("/api/auth/logout", { method: "POST" });
+    },
   });
 
   // Deep link: parse ?cmd= on mount and auto-execute
@@ -196,12 +289,17 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
       const cmd = lo.slice(0, spaceIdx);
       const partial = lo.slice(spaceIdx + 1);
       if (partial && OPEN_COMMANDS.includes(cmd)) {
-        const match = completionData.ids.find((id) => id.startsWith(partial) && id.length > partial.length);
+        const match = completionData.ids.find(
+          (id) => id.startsWith(partial) && id.length > partial.length,
+        );
         if (match) return `${cmd} ${match}`;
       }
       if (partial && SEARCH_COMMANDS.includes(cmd)) {
         const pool = [...completionData.categories, ...completionData.ids];
-        const match = pool.find((c) => c.toLowerCase().startsWith(partial) && c.length > partial.length);
+        const match = pool.find(
+          (c) =>
+            c.toLowerCase().startsWith(partial) && c.length > partial.length,
+        );
         if (match) return `${cmd} ${match.toLowerCase()}`;
       }
       return "";
@@ -210,8 +308,14 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
   })();
 
   const { submitCurrentInput, handleInputKeyDown } = useTerminalInput({
-    input, setInput, commandHistory, historyIndex, setHistoryIndex,
-    suggestion, executeCommand, playCommand,
+    input,
+    setInput,
+    commandHistory,
+    historyIndex,
+    setHistoryIndex,
+    suggestion,
+    executeCommand,
+    playCommand,
   });
 
   if (!isOpen) return null;
@@ -223,59 +327,118 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
 
   return (
     <TerminalOverlay onClose={() => setIsOpen(false)}>
-      <div className={`${styles.terminalContainer} ${context === "admin" ? styles.admin : ""}`} onClick={(e) => e.stopPropagation()}>
-        <TerminalHeader onClose={() => setIsOpen(false)} />
+      <div
+        className={`${styles.terminalContainer} ${context === "admin" ? styles.admin : ""}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <TerminalHeader />
 
         <div className={styles.terminalBody} ref={terminalBodyRef}>
           {gameActive ? (
-            <SnakeGame onExit={(score) => {
-              setGameActive(false);
-              setHistory((prev) => [...prev, {
-                command: "snake",
-                output: [
-                  { type: "system", content: "Game over." },
-                  { type: score > 0 ? "success" : "text", content: `Final score: ${score}` },
-                  { type: "text", content: "Type 'snake' to play again.", cta: { label: "→ play again", cmd: "snake" } },
-                ],
-              }]);
-            }} />
+            <SnakeGame
+              onExit={(score) => {
+                setGameActive(false);
+                setHistory((prev) => [
+                  // eslint-disable-next-line max-lines
+                  ...prev,
+                  {
+                    command: "snake",
+                    output: [
+                      { type: "system", content: "Game over." },
+                      {
+                        type: score > 0 ? "success" : "text",
+                        content: `Final score: ${score}`,
+                      },
+                      {
+                        type: "text",
+                        content: "Type 'snake' to play again.",
+                        cta: { label: "→ play again", cmd: "snake" },
+                      },
+                    ],
+                  },
+                ]);
+              }}
+            />
           ) : (
             <>
               {history.map((item, index) => (
-                <TerminalHistoryItem key={index} item={item} onExecuteCommand={executeQuickCommand} />
+                <TerminalHistoryItem
+                  key={index}
+                  item={item}
+                  onExecuteCommand={executeQuickCommand}
+                />
               ))}
               {lastEasterEgg && ASCII_ART[getAsciiId(lastEasterEgg)] && (
-                <pre className={styles.asciiArt}>{getAsciiArt(lastEasterEgg).join("\n")}</pre>
+                <pre className={styles.asciiArt}>
+                  {getAsciiArt(lastEasterEgg).join("\n")}
+                </pre>
               )}
 
               {/* ── Voice / Thu'um inline block ─────────────────────── */}
               {(isListening || voiceError) && (
-                <div className={`${styles.voiceBlock}${voiceError ? ` ${styles.voiceBlockError}` : ""}`}>
+                <div
+                  className={`${styles.voiceBlock}${voiceError ? ` ${styles.voiceBlockError}` : ""}`}
+                >
                   <div className={styles.voiceHeader}>
                     {!voiceError && <span className={styles.voiceDot} />}
-                    <span>{voiceError ? "⚠ Thu\u2019um blocked" : "🎙\uFE0F  Speak the Thu\u2019um, Dovahkiin\u2026"}</span>
+                    <span>
+                      {voiceError
+                        ? "⚠ Thu\u2019um blocked"
+                        : "🎙\uFE0F  Speak the Thu\u2019um, Dovahkiin\u2026"}
+                    </span>
                   </div>
 
                   {isListening && (
                     <>
                       <div className={styles.voiceCountdown}>
-                        <div key={sessionId} className={styles.voiceCountdownFill} />
+                        <div
+                          key={sessionId}
+                          className={styles.voiceCountdownFill}
+                        />
                       </div>
 
                       {/* Transcript visible only in admin context for debugging */}
                       {context === "admin" && (
                         <div className={styles.voiceTranscript}>
-                          <span className={styles.voiceTranscriptLabel}>● REC</span>
-                          <span className={styles.voiceTranscriptText}>{transcript || "\u2026"}</span>
+                          <span className={styles.voiceTranscriptLabel}>
+                            ● REC
+                          </span>
+                          <span className={styles.voiceTranscriptText}>
+                            {transcript || "\u2026"}
+                          </span>
                         </div>
                       )}
 
                       <div className={styles.voiceHints}>
-                        <span className={detectedLevel && detectedLevel >= 1 ? styles.voiceHintActive : undefined}>fus</span>
+                        <span
+                          className={
+                            detectedLevel && detectedLevel >= 1
+                              ? styles.voiceHintActive
+                              : undefined
+                          }
+                        >
+                          fus
+                        </span>
                         {" \u00b7 "}
-                        <span className={detectedLevel && detectedLevel >= 2 ? styles.voiceHintActive : undefined}>fus ro</span>
+                        <span
+                          className={
+                            detectedLevel && detectedLevel >= 2
+                              ? styles.voiceHintActive
+                              : undefined
+                          }
+                        >
+                          fus ro
+                        </span>
                         {" \u00b7 "}
-                        <span className={detectedLevel && detectedLevel >= 3 ? styles.voiceHintActive : undefined}>fus ro dah</span>
+                        <span
+                          className={
+                            detectedLevel && detectedLevel >= 3
+                              ? styles.voiceHintActive
+                              : undefined
+                          }
+                        >
+                          fus ro dah
+                        </span>
                       </div>
                     </>
                   )}
@@ -293,13 +456,19 @@ export default function Terminal({ context = "site" }: { context?: "site" | "adm
           )}
         </div>
 
-        <TerminalQuickCommands context={context} onCommand={executeQuickCommand} />
+        <TerminalQuickCommands
+          context={context}
+          onCommand={executeQuickCommand}
+        />
         <TerminalInput
           ref={inputRef}
           value={input}
           suggestion={suggestion}
           context={context}
-          onChange={(v) => { setInput(v); if (v.length > 0) playType(); }}
+          onChange={(v) => {
+            setInput(v);
+            if (v.length > 0) playType();
+          }}
           onKeyDown={handleInputKeyDown}
           onSubmit={submitCurrentInput}
         />

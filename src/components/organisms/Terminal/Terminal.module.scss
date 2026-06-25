@@ -36,7 +36,7 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #ff5f57;
+  background: rgb(var(--color-error-rgb));
   border: none;
   cursor: pointer;
   flex-shrink: 0;
@@ -68,7 +68,8 @@
 
   background: rgba(var(--color-bg-rgb), 0.98);
   backdrop-filter: blur(20px);
-  border: var(--route-terminal-border-width, 1px) solid var(--route-terminal-border-color, var(--color-divider));
+  border: var(--route-terminal-border-width, 1px) solid
+    var(--route-terminal-border-color, var(--color-divider));
   border-radius: var(--route-terminal-radius, #{$radius-xl});
   box-shadow: var(--route-terminal-shadow);
   display: flex;
@@ -327,7 +328,9 @@
   padding: 0.1rem 0.45rem;
   margin-left: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.15s, color 0.15s;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
   vertical-align: middle;
 
   &:hover {
@@ -348,7 +351,8 @@
     max-width: 95dvw;
     height: 85dvh;
     max-height: none;
-    border-radius: var(--route-terminal-radius-mobile, #{$radius-xl}) var(--route-terminal-radius-mobile, #{$radius-xl}) 0 0;
+    border-radius: var(--route-terminal-radius-mobile, #{$radius-xl})
+      var(--route-terminal-radius-mobile, #{$radius-xl}) 0 0;
     padding: $spacing-sm $spacing-md;
     padding-bottom: calc(50px + env(keyboard-inset-height, 12px));
     font-size: $font-size-md;
@@ -478,7 +482,11 @@
 
 .voiceCountdownFill {
   height: 100%;
-  background: linear-gradient(90deg, color.adjust($color-volta-light, $alpha: -0.1), color.adjust($color-lario-dark, $alpha: -0.3));
+  background: linear-gradient(
+    90deg,
+    color.adjust($color-volta-light, $alpha: -0.1),
+    color.adjust($color-lario-dark, $alpha: -0.3)
+  );
   border-radius: $radius-xs;
   animation: voiceCountdown 8s linear forwards;
 }
@@ -512,7 +520,9 @@
   transition: color 0.2s ease;
 
   span {
-    transition: color 0.2s ease, text-shadow 0.2s ease;
+    transition:
+      color 0.2s ease,
+      text-shadow 0.2s ease;
   }
 }
 
@@ -527,13 +537,20 @@
 }
 
 @keyframes voiceBlink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 @keyframes voiceCountdown {
-  from { width: 100%; }
-  to   { width: 0%; }
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
 }
-
-

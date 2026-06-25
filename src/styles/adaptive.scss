@@ -5,40 +5,40 @@
   // ── Stamp depth ──────────────────────────────────────────────────────────────
   // Shadow at 60% opacity so the shadow block is visually distinct from the
   // same-color border that sits on top of it.
-  --depth-0:  none;
+  --depth-0: none;
   --depth-sm: 4px 4px 0 color-mix(in srgb, var(--color-text) 60%, transparent);
   --depth-md: 8px 8px 0 color-mix(in srgb, var(--color-text) 60%, transparent);
 
   // ── Ink filters (SVG from InkFilters) ───────────────────────────────────────
-  --ink:       url(#idf-ink-wobble);
-  --ink-fine:  url(#idf-ink-wobble-fine);
+  --ink: url(#idf-ink-wobble);
+  --ink-fine: url(#idf-ink-wobble-fine);
   --ink-draft: url(#idf-ink-wobble-draft);
 
   // ── Shape — super squircle ───────────────────────────────────────────────────
-  --route-card-radius:   16px;
+  --route-card-radius: 16px;
   --route-filter-radius: 12px;
-  --route-radius-sm:     8px;
-  --route-radius-lg:     24px;
+  --route-radius-sm: 8px;
+  --route-radius-lg: 24px;
 
   // ── Stroke — 2px scribed lines (up from 1.5px for legibility) ───────────────
-  --route-stroke:        2px;
+  --route-stroke: 2px;
   --route-divider-style: solid;
 
   // ── Terminal ─────────────────────────────────────────────────────────────────
-  --route-terminal-radius:        16px;
+  --route-terminal-radius: 16px;
   --route-terminal-radius-mobile: 12px;
-  --route-terminal-border-width:  2px;
-  --route-terminal-border-color:  var(--color-text);
-  --route-terminal-shadow:        var(--depth-sm);
+  --route-terminal-border-width: 2px;
+  --route-terminal-border-color: var(--color-text);
+  --route-terminal-shadow: var(--depth-sm);
 
   // ── Chrome columns ────────────────────────────────────────────────────────────
   --route-chrome-border-color: var(--color-text);
   --route-chrome-border-width: 2px;
-  --route-nav-link-weight:     700;
+  --route-nav-link-weight: 700;
 
   // ── Cards ────────────────────────────────────────────────────────────────────
-  --route-card-shadow:          var(--depth-sm);
-  --route-card-hover-shadow:    var(--depth-md);
+  --route-card-shadow: var(--depth-sm);
+  --route-card-hover-shadow: var(--depth-md);
   --route-card-hover-transform: translate(-4px, -4px);
   --route-card-backdrop-filter: none;
   --color-card-border: color-mix(in srgb, var(--color-text) 55%, transparent);

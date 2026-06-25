@@ -121,7 +121,15 @@ export const EASTER_EGGS: EasterEgg[] = [
   },
   {
     id: "fus_ro_dah",
-    aliases: ["fus", "fus ro dah", "thu'um", "shout", "dragonborn", "skyrim", "dovahkiin"],
+    aliases: [
+      "fus",
+      "fus ro dah",
+      "thu'um",
+      "shout",
+      "dragonborn",
+      "skyrim",
+      "dovahkiin",
+    ],
     hint: "The Greybeards whisper of a power hidden in words. Speak the ancient Thu'um.",
     category: "Skyrim",
     name: "Unrelenting Force",
@@ -200,7 +208,8 @@ export const SHORTCUTS_INFO = [
   { key: "CMD+K", action: "Open Terminal" },
   { key: "D", action: "Toggle Dark/Light Mode" },
   { key: "1", action: "Go to Home" },
-  { key: "2", action: "Go to Lab" },
+  { key: "2", action: "Go to Works" },
+  { key: "3", action: "Go to About" },
   { key: "ESC", action: "Close/Exit" },
   { key: "?", action: "Show this help" },
 ];

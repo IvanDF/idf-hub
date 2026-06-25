@@ -28,7 +28,18 @@ export function useTerminalKeyboard({
 }: UseTerminalKeyboardOptions): void {
   // Konami code
   useEffect(() => {
-    const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+    const KONAMI = [
+      "ArrowUp",
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowDown",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowLeft",
+      "ArrowRight",
+      "b",
+      "a",
+    ];
     let pos = 0;
     const handleKonami = (e: KeyboardEvent) => {
       if (e.key === KONAMI[pos]) {
@@ -49,12 +60,21 @@ export function useTerminalKeyboard({
   // Global shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      )
+        return;
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         setIsOpen((prev) => !prev);
       }
-      if ((e.key === "d" || e.key === "D") && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      if (
+        (e.key === "d" || e.key === "D") &&
+        !e.metaKey &&
+        !e.ctrlKey &&
+        !e.altKey
+      ) {
         e.preventDefault();
         playLightOn();
         toggleTheme();
@@ -62,6 +82,7 @@ export function useTerminalKeyboard({
       if (e.key === "Escape" && isOpen) setIsOpen(false);
       if (e.key === "1" && !e.metaKey && !e.ctrlKey) router.push("/");
       if (e.key === "2" && !e.metaKey && !e.ctrlKey) router.push("/lab");
+      if (e.key === "3" && !e.metaKey && !e.ctrlKey) router.push("/about");
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
