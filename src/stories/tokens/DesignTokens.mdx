@@ -1,11 +1,10 @@
 # iDF Design System
 
 > **Palette "Lario & Volta"** — inspired by Lake Como (Lario) and Alessandro Volta.
+> Type scale follows **Typefaces Details.pdf** — the canonical design reference.
 
 This is the living style guide for the iDF Hub. Every token is defined in
-`src/styles/_variables.scss` and enforced across all components.
-
-For implementation rules, see [docs/design-system.md](/var/home/yggdrasil/Projects/idf/idf-hub/docs/design-system.md).
+`src/styles/_variables.scss` and enforced via the `<Text>` component.
 
 ---
 
@@ -40,9 +39,9 @@ For implementation rules, see [docs/design-system.md](/var/home/yggdrasil/Projec
 
 ### Semantic
 
-- `$color-success`: **#4ade80** (Success)
-- `$color-error`: **#ef4444** (Error)
-- `$color-warning`: **#facc15** (Warning)
+- `$color-success`: **#4ade80**
+- `$color-error`: **#ef4444**
+- `$color-warning`: **#facc15**
 
 ---
 
@@ -52,20 +51,73 @@ For implementation rules, see [docs/design-system.md](/var/home/yggdrasil/Projec
 
 | Token | Font | Usage |
 |---|---|---|
-| `$font-family-primary` | Josefin Sans | Display / headings |
-| `$font-family-mono` | Geist Mono | Code / terminal |
+| `$font-family-display` | Josefin Slab 700 | Display / H1 / Small captions |
+| `$font-family-primary` | Josefin Sans 400/500/600/700 | Headings H2–H6, Body, Labels |
+| `$font-family-mono` | Geist Mono | Code, terminal, data |
+
+### Text Component
+
+Use the `<Text>` atom instead of raw `<h1>` / `<p>` / `<span>` tags:
+
+```tsx
+import Text from '@/components/atoms/text';
+
+<Text variant="h1">Page Title</Text>
+<Text variant="body">This is body copy with proper line-height and letter-spacing.</Text>
+<Text variant="mono">npm run dev</Text>
+<Text variant="label">BUTTON LABEL</Text>
+```
+
+Override the semantic HTML element with the `as` prop:
+```tsx
+<Text variant="h1" as="p">Styled like H1, semantic as P</Text>
+```
 
 ### Type Scale
 
-| Token | Size | Context |
-|---|---|---|
-| `$font-size-xs` | 0.625rem (10px) | Small labels |
-| `$font-size-sm` | 0.75rem (12px) | Small text |
-| `$font-size-base` | 0.875rem (14px) | Body |
-| `$font-size-md` | 1rem (16px) | Large body |
-| `$font-size-lg` | 1.5rem (24px) | Heading |
-| `$font-size-xl` | 2rem (32px) | Large heading |
-| `$font-size-2xl` | 2.5rem (40px) | Display |
+| Variant | Family | Size | Line-height | Letter-spacing | Weight | Semantic tag |
+|---|---|---|---|---|---|---|
+| `h1` | Josefin Slab | 49px | 1.2 | -0.01em | 700 | `<h1>` |
+| `h2` | Josefin Sans | 39px | 1.25 | -0.006em | 600 | `<h2>` |
+| `h3` | Josefin Sans | 31px | 1.3 | 0 | 400 | `<h3>` |
+| `h4` | Josefin Sans | 25px | 1.3 | 0 | 700 | `<h4>` |
+| `h5` | Josefin Sans | 20px | 1.4 | 0 | 500 | `<h5>` |
+| `h6` | Josefin Sans | 18px | 1.35 | 0.014em | 500 | `<h6>` |
+| `body` | Josefin Sans | 16px | 1.5 | 0.016em | 400 | `<p>` |
+| `small` | Josefin Slab | 14px | 1.45 | 0.036em | 700 | `<small>` |
+| `label` | Josefin Sans | 12px | 1.35 | 0.042em | 700 | `<span>` |
+| `mono` | Geist Mono | 14px | 1.5 | 0 | 400 | `<span>` |
+
+### SCSS Mixins
+
+For use in `.module.scss` files, import typography mixins:
+
+```scss
+@use '@/styles/mixins' as *;
+
+.title {
+  @include heading-h1;
+}
+
+.caption {
+  @include text-small;
+}
+```
+
+Or use the dynamic `heading()` mixin:
+
+```scss
+.sectionTitle {
+  @include heading('h2');
+}
+```
+
+### Deprecated Numeric Tokens
+
+The old `$font-size-*` tokens (3xs through 2xl) remain available for
+terminal, micro-text, and special use cases but are **not** part of the
+canonical type scale. Use the semantic tokens (h1–h6, body, small, label)
+for all new work.
 
 ---
 
@@ -115,8 +167,10 @@ Mobile-first scale:
 
 ## Design Rules
 
+- **Typography**: Always use `<Text>` component. Never hardcode font sizes.
 - **Icons**: Lucide React, 24px base, 2px stroke, rounded caps
 - **Touch targets**: minimum 44×44px (WCAG AA)
 - **Animations**: respect `prefers-reduced-motion`
 - **Mobile-first**: design for 375px, enhance for desktop
-- **Styling**: use SCSS modules first; avoid inline `style={{}}` except for documented exceptions
+- **Styling**: use SCSS modules first; for typography, prefer the `<Text>` component or `@include` mixins
+- **Font loading**: Josefin Sans (400/500/600/700), Josefin Slab (700), Geist Mono — all via `next/font`

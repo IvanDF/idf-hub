@@ -18,3 +18,91 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+// ── Typography Mixins ─────────────────────────────────────────────────────────
+// Usage: @include heading-h1;
+
+@mixin heading-h1 {
+  font-family: $font-family-display;
+  font-size: $font-size-h1-fluid;
+  line-height: $line-height-h1;
+  letter-spacing: $letter-spacing-h1;
+  font-weight: 700;
+}
+
+@mixin heading-h2 {
+  font-family: $font-family-primary;
+  font-size: $font-size-h2-fluid;
+  line-height: $line-height-h2;
+  letter-spacing: $letter-spacing-h2;
+  font-weight: 600;
+}
+
+@mixin heading-h3 {
+  font-family: $font-family-primary;
+  font-size: $font-size-h3-fluid;
+  line-height: $line-height-h3;
+  letter-spacing: $letter-spacing-h3;
+  font-weight: 400;
+}
+
+@mixin heading-h4 {
+  font-family: $font-family-primary;
+  font-size: $font-size-h4-fluid;
+  line-height: $line-height-h4;
+  letter-spacing: $letter-spacing-h4;
+  font-weight: 700;
+}
+
+@mixin heading-h5 {
+  font-family: $font-family-primary;
+  font-size: $font-size-h5-fluid;
+  line-height: $line-height-h5;
+  letter-spacing: $letter-spacing-h5;
+  font-weight: 500;
+}
+
+@mixin heading-h6 {
+  font-family: $font-family-primary;
+  font-size: $font-size-h6-fluid;
+  line-height: $line-height-h6;
+  letter-spacing: $letter-spacing-h6;
+  font-weight: 500;
+}
+
+@mixin text-body {
+  font-family: $font-family-primary;
+  font-size: $font-size-body;
+  line-height: $line-height-body;
+  letter-spacing: $letter-spacing-body;
+  font-weight: 400;
+}
+
+@mixin text-small {
+  font-family: $font-family-display;
+  font-size: $font-size-small;
+  line-height: $line-height-small;
+  letter-spacing: $letter-spacing-small;
+  font-weight: 700;
+}
+
+@mixin text-label {
+  font-family: $font-family-primary;
+  font-size: $font-size-label;
+  line-height: $line-height-label;
+  letter-spacing: $letter-spacing-label;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+// Utility: apply any heading level by name
+// @include heading('h1');
+@mixin heading($level) {
+  @if $level == 'h1' { @include heading-h1; }
+  @else if $level == 'h2' { @include heading-h2; }
+  @else if $level == 'h3' { @include heading-h3; }
+  @else if $level == 'h4' { @include heading-h4; }
+  @else if $level == 'h5' { @include heading-h5; }
+  @else if $level == 'h6' { @include heading-h6; }
+  @else { @include text-body; }
+}

@@ -9,22 +9,23 @@ import { DESIGN_SYSTEM } from "@/styles/design-system";
 import "@/styles/globals.scss";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Josefin_Sans } from "next/font/google";
+import { Geist_Mono, Josefin_Sans, Josefin_Slab } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const josefinSans = Josefin_Sans({
+  variable: "--font-josefin-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const josefinSlab = Josefin_Slab({
+  variable: "--font-josefin-slab",
+  subsets: ["latin"],
+  weight: ["700"],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
-
-const josefinSans = Josefin_Sans({
-  variable: "--font-josefin-sans",
-  subsets: ["latin"],
-  weight: ["400", "700"],
 });
 
 const siteUrl =
@@ -129,7 +130,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${josefinSans.variable}`}
+        className={`${josefinSans.variable} ${josefinSlab.variable} ${geistMono.variable}`}
       >
         <ThemeProvider>
           <AudioProvider>

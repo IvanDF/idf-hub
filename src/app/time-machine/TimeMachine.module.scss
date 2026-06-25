@@ -159,7 +159,7 @@ border: 1px solid color.adjust($color-lario-light, $alpha: -0.7);
 }
 
 .idBadge {
-  font-size: 0.75rem;
+  font-size: $font-size-sm;
   color: $color-lario-dark;
   letter-spacing: 0.1em;
   background: color.adjust($color-lario-light, $alpha: -0.9);
@@ -169,7 +169,7 @@ border: 1px solid color.adjust($color-lario-light, $alpha: -0.7);
 }
 
 .artifactTitle {
-  font-size: 2.5rem;
+  font-size: $font-size-2xl;
   font-weight: 700;
   color: $color-silk-light;
   margin-bottom: $spacing-sm;
@@ -182,7 +182,7 @@ border: 1px solid color.adjust($color-lario-light, $alpha: -0.7);
   align-items: center;
   gap: $spacing-sm;
   color: $color-slate-muted;
-  font-size: 0.875rem;
+  font-size: $font-size-base;
   margin-bottom: $spacing-lg;
   font-family: $font-family-mono;
 }
@@ -220,7 +220,7 @@ border: 1px solid color.adjust($color-lario-light, $alpha: -0.7);
   transition: all 0.2s;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-size: 0.875rem;
+  font-size: $font-size-base;
 
   &:hover {
     background: color.adjust($color-lario-light, $lightness: -8%);
@@ -340,7 +340,7 @@ border: 1px solid color.adjust($color-white, $alpha: -0.8);
   display: block;
   text-align: center;
   margin-top: $spacing-sm;
-  font-size: 0.7rem;
+  font-size: $font-size-xs;
   letter-spacing: 0.15em;
   color: $color-slate-muted;
   text-decoration: none;
@@ -358,7 +358,7 @@ border: 1px solid color.adjust($color-white, $alpha: -0.8);
 .backLink {
   color: $color-slate-muted;
   text-transform: uppercase;
-  font-size: 0.75rem;
+  font-size: $font-size-sm;
   letter-spacing: 0.2em;
   text-decoration: none;
   transition: color 0.2s;

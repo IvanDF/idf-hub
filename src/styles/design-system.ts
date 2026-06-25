@@ -35,7 +35,6 @@ export const DESIGN_SYSTEM = {
     twitter:
       "linear-gradient(150deg, #041f38 0%, #0a111b 48%, #132b33 100%)",
   },
-  font: {
-    ui: "Segoe UI",
-  },
+  // Font families are loaded via next/font in layout.tsx
+  // and exposed through SCSS variables / the Text component
 } as const;

@@ -6,3 +6,6 @@ export { default as LogoMorph, logoMorphStyles } from "./logo-morph";
 export { default as Magnetic, magneticStyles } from "./magnetic";
 export { default as RotatingTitle, rotatingTitleStyles } from "./rotating-title";
 export { default as SocialIconLink, socialIconStyles } from "./social-icon-link";
+export { default as Text } from "./text";
+export type { TextVariant } from "./text";
+export { default as TextScramble } from "./text-scramble";

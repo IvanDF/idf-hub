@@ -20,7 +20,7 @@ export default function TwitterImage() {
           background: DESIGN_SYSTEM.gradient.twitter,
           color: DESIGN_SYSTEM.color.twitterText,
           padding: "64px",
-          fontFamily: DESIGN_SYSTEM.font.ui,
+          fontFamily: "Josefin Sans, sans-serif",
         }}
     >
       <div

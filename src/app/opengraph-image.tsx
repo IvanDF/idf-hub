@@ -20,7 +20,7 @@ export default function OpenGraphImage() {
           background: DESIGN_SYSTEM.gradient.openGraph,
           color: DESIGN_SYSTEM.color.opengraphText,
           padding: "72px",
-          fontFamily: DESIGN_SYSTEM.font.ui,
+          fontFamily: "Josefin Sans, sans-serif",
         }}
     >
       <div

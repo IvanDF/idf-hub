@@ -160,14 +160,14 @@
     );
 
   strong {
-    font-size: 1rem;
+    font-size: $font-size-md;
     line-height: 1.1;
     color: var(--color-text);
   }
 
   small {
-    font-family: monospace;
-    font-size: 0.7rem;
+    font-family: $font-family-mono;
+    font-size: $font-size-xs;
     color: var(--color-text-soft);
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -176,8 +176,8 @@
 
 .coverPlatform {
   align-self: flex-start;
-  font-family: monospace;
-  font-size: 0.62rem;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
   padding: 0.22rem 0.5rem;
   border-radius: var(--route-filter-radius, #{$radius-full});
   border: var(--route-stroke, 1px) solid color-mix(in srgb, var(--accent-color) 55%, transparent);
@@ -203,8 +203,8 @@
     gap: 0.45rem;
     flex-wrap: wrap;
     margin-bottom: 0.75rem;
-    font-family: monospace;
-    font-size: 0.75rem;
+    font-family: $font-family-mono;
+    font-size: $font-size-sm;
     color: var(--color-text);
     opacity: 0.7;
     text-transform: uppercase;
@@ -212,7 +212,7 @@
   }
 
   .platform {
-    font-size: 0.62rem;
+    font-size: $font-size-xs;
     border: var(--route-stroke, 1px) solid color-mix(in srgb, var(--accent-color) 50%, transparent);
     color: var(--accent-color);
     border-radius: var(--route-filter-radius, #{$radius-full});
@@ -222,7 +222,7 @@
   }
 
   .status {
-    font-size: 0.6rem;
+    font-size: $font-size-xs;
     border-radius: var(--route-filter-radius, #{$radius-full});
     padding: 0.18rem 0.45rem;
     border: var(--route-stroke, 1px) solid var(--color-divider);
@@ -257,7 +257,7 @@
 
   .title {
     margin: 0;
-    font-size: 1.25rem;
+    font-size: $font-size-lg;
     font-weight: 700;
     margin-bottom: 0.5rem;
     line-height: 1.2;
@@ -270,8 +270,8 @@
   }
 
   .description {
-    font-size: 0.875rem;
-    line-height: 1.6;
+    font-size: $font-size-base;
+    line-height: $line-height-body;
     color: var(--color-text);
     opacity: 0.8;
     margin-bottom: 1.5rem;
@@ -293,8 +293,8 @@
     margin-top: auto; // Push to bottom
 
     .tag {
-      font-family: monospace;
-      font-size: 0.7rem;
+      font-family: $font-family-mono;
+      font-size: $font-size-xs;
       color: var(--color-text);
       opacity: 0.7;
       background: var(--color-divider);
@@ -303,7 +303,7 @@
       border: var(--route-stroke, 1px) solid var(--color-divider);
 
       @media (max-width: $breakpoint-xl) {
-        font-size: 0.72rem;
+        font-size: $font-size-xs;
         padding: $spacing-2xs $spacing-xs;
       }
     }
@@ -402,7 +402,7 @@
   }
 
   .title {
-    font-size: 1rem;
+    font-size: $font-size-md;
     margin-bottom: 0.25rem;
   }
 }

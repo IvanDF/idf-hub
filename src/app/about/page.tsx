@@ -1,3 +1,4 @@
+import Text from "@/components/atoms/text";
 import TextScramble from "@/components/atoms/text-scramble/TextScramble";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -41,10 +42,10 @@ export default function AboutPage() {
             className={styles.heroName}
             delay={100}
           />
-          <p className={styles.heroRole}>
+          <Text as="h2" className={styles.heroRole}>
             DRIVEN BY CURIOSITY.<br />
             REFINED THROUGH DESIGN.
-          </p>
+          </Text>
         </div>
 
         <div className={styles.heroMeta}>

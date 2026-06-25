@@ -43,7 +43,7 @@
 
 .pageSubtitle {
   font-family: $font-family-mono;
-  font-size: 1rem;
+  font-size: $font-size-md;
   color: var(--color-text);
   opacity: 0.65;
   margin: 0;
@@ -57,7 +57,7 @@
 
 .headerCount {
   font-family: $font-family-mono;
-  font-size: 0.65rem;
+  font-size: $font-size-xs;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: var(--color-text);
@@ -88,7 +88,7 @@
   color: var(--color-text);
   opacity: 0.7;
   font-family: $font-family-primary;
-  font-size: 0.72rem;
+  font-size: $font-size-xs;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -176,7 +176,7 @@
 
 .rowNum {
   font-family: $font-family-mono;
-  font-size: 0.65rem;
+  font-size: $font-size-xs;
   letter-spacing: 0.08em;
   color: var(--color-text);
   opacity: 0.3;
@@ -213,7 +213,7 @@
 
 .rowDesc {
   font-family: $font-family-mono;
-  font-size: 0.72rem;
+  font-size: $font-size-xs;
   color: var(--color-text);
   opacity: 0.5;
   line-height: 1.4;
@@ -233,7 +233,7 @@
 
 .rowCategory {
   font-family: $font-family-mono;
-  font-size: 0.6rem;
+  font-size: $font-size-xs;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: var(--color-text);
@@ -247,14 +247,14 @@
 
 .rowYear {
   font-family: $font-family-mono;
-  font-size: 0.65rem;
+  font-size: $font-size-xs;
   color: var(--color-text);
   opacity: 0.4;
   transition: color 0.15s ease;
 }
 
 .rowArrow {
-  font-size: 1rem;
+  font-size: $font-size-md;
   color: var(--color-text);
   opacity: 0.4;
   transition: opacity 0.15s ease, transform 0.15s ease, color 0.15s ease;
@@ -263,7 +263,7 @@
 
 .empty {
   font-family: $font-family-mono;
-  font-size: 0.85rem;
+  font-size: $font-size-base;
   color: var(--color-text);
   opacity: 0.4;
   padding: 3rem 0;
@@ -286,7 +286,7 @@
   color: var(--color-text);
   opacity: 0.45;
   font-family: $font-family-mono;
-  font-size: 0.72rem;
+  font-size: $font-size-xs;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   cursor: pointer;
@@ -301,7 +301,7 @@
   background: var(--color-divider);
   border-radius: var(--route-filter-radius, #{$radius-full});
   padding: 0.1rem 0.5rem;
-  font-size: 0.62rem;
+  font-size: $font-size-xs;
   opacity: 0.9;
 }
 

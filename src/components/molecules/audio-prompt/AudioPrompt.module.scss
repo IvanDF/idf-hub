@@ -34,8 +34,8 @@
   }
 
   h2 {
-    font-family: var(--font-josefin-sans);
-    font-size: 1.5rem;
+    font-family: $font-family-primary;
+    font-size: $font-size-lg;
     font-weight: 700;
     color: var(--color-text);
     margin: 0 0 $spacing-sm;
@@ -58,8 +58,8 @@
     margin-bottom: 28px;
 
     span {
-      font-family: var(--font-geist-mono);
-      font-size: 0.7rem;
+      font-family: $font-family-mono;
+      font-size: $font-size-xs;
       color: var(--color-accent);
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -75,8 +75,8 @@
     button {
       padding: $spacing-sm $spacing-lg;
       border-radius: $radius-md;
-      font-family: var(--font-josefin-sans);
-      font-size: 0.85rem;
+      font-family: $font-family-primary;
+      font-size: $font-size-base;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;

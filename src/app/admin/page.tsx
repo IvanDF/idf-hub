@@ -1,5 +1,6 @@
 "use client";
 
+import Text from "@/components/atoms/text";
 import { useTheme } from "@/context/ThemeContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -150,8 +151,8 @@ export default function AdminPage() {
     <div className={styles.page}>
       <header className={styles.header}>
         <div className={styles.headerLeft}>
-          <span className={styles.prompt}>root@idf-hub:~$</span>
-          <h1 className={styles.title}>projects dashboard</h1>
+          <Text variant="mono" className={styles.prompt}>root@idf-hub:~$</Text>
+          <Text as="h1" variant="h6" className={styles.title}>projects dashboard</Text>
         </div>
         <div className={styles.headerRight}>
           <Link href="/" className={styles.backBtn}>← site</Link>

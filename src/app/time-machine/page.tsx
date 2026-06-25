@@ -1,5 +1,6 @@
 "use client";
 
+import Text from "@/components/atoms/text";
 import { Github, History } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -29,7 +30,9 @@ export default function TimeMachinePage() {
               TEMPORAL_ARCHIVE
             </h1>
           </div>
-          <p>Artifacts retrieved from the timeline.</p>
+          <Text variant="body" as="p">
+            Artifacts retrieved from the timeline.
+          </Text>
         </div>
 
         <div className={styles.artifactContainer}>
@@ -41,16 +44,16 @@ export default function TimeMachinePage() {
             </div>
 
             <h2 className={styles.artifactTitle}>LEGACY_SYSTEM_V1</h2>
-            <div className={styles.artifactMeta}>
+            <Text variant="mono" className={styles.artifactMeta}>
               <span>2023 – 2025</span>
               <span className={styles.separator}>|</span>
               <span>HTML5 // SCSS // VANILLA JS</span>
-            </div>
+            </Text>
 
-            <p className={styles.artifactDescription}>
+            <Text variant="body" as="p" className={styles.artifactDescription}>
               The original portfolio artifact. A snapshot of the digital identity prior to the
               Neural Interface upgrade. Preserved for historical analysis.
-            </p>
+            </Text>
 
             <div className={styles.artifactActions}>
               <button
