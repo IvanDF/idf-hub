@@ -26,9 +26,9 @@ export default function TimeMachinePage() {
       <div className={styles.content}>
         <div className={styles.header}>
           <div className={styles.glitchWrapper}>
-            <h1 className={styles.glitch} data-text="TEMPORAL_ARCHIVE">
-              <Text as="span" variant="inherit">TEMPORAL_ARCHIVE</Text>
-            </h1>
+            <Text as="h1" variant="inherit" className={styles.glitch} data-text="TEMPORAL_ARCHIVE">
+              TEMPORAL_ARCHIVE
+            </Text>
           </div>
           <Text variant="body" as="p">
             Artifacts retrieved from the timeline.

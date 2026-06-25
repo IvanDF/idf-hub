@@ -1,5 +1,6 @@
 "use client";
 
+import Text from "@/components/atoms/text";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAudio } from "@/context/AudioContext";
@@ -59,13 +60,13 @@ export default function AudioPrompt() {
             </svg>
           </div>
 
-          <h2>Immersive Audio</h2>
-          <p>Enable ambient soundscapes and interactive audio feedback for a complete experience.</p>
+          <Text as="h2" variant="h2">Immersive Audio</Text>
+          <Text as="p" variant="body">Enable ambient soundscapes and interactive audio feedback for a complete experience.</Text>
 
           <div className={styles.features}>
-            <span>4 Ambient Tracks</span>
-            <span>•</span>
-            <span>Sound Effects</span>
+            <Text as="span" variant="label">4 Ambient Tracks</Text>
+            <Text as="span" variant="label">•</Text>
+            <Text as="span" variant="label">Sound Effects</Text>
           </div>
 
           <div className={styles.buttons}>

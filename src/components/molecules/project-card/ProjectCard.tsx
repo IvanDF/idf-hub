@@ -2,6 +2,7 @@
 
 "use client";
 
+import Text from "@/components/atoms/text";
 import { useAudio } from "@/context/AudioContext";
 import { Project } from "@/types/project";
 import {
@@ -203,9 +204,9 @@ export default function ProjectCard({
           />
         ) : (
           <div className={`${styles.generatedCover} ${styles[platform]}`}>
-            <span className={styles.coverPlatform}>
+            <Text as="span" variant="label" className={styles.coverPlatform}>
               {platform.replace(/-/g, " ")}
-            </span>
+            </Text>
             <strong>{project.title}</strong>
             <small>{project.category}</small>
           </div>
@@ -214,24 +215,22 @@ export default function ProjectCard({
 
       <div className={styles.info}>
         <div className={styles.header}>
-          <span className={styles.category}>{project.category}</span>
-          <span className={styles.platform}>{platform.replace(/-/g, " ")}</span>
+          <Text as="span" variant="label" className={styles.category}>{project.category}</Text>
+          <Text as="span" variant="label" className={styles.platform}>{platform.replace(/-/g, " ")}</Text>
           {project.status && (
-            <span
-              className={`${styles.status} ${project.status === "live" ? styles.live : ""}`}
-            >
+            <Text as="span" variant="label" className={`${styles.status} ${project.status === "live" ? styles.live : ""}`}>
               {project.status}
-            </span>
+            </Text>
           )}
-          <span className={styles.year}>{project.year}</span>
+          <Text as="span" variant="label" className={styles.year}>{project.year}</Text>
         </div>
-        <h3 className={styles.title}>{project.title}</h3>
-        <p className={styles.description}>{project.description}</p>
+        <Text as="h3" variant="h3" className={styles.title}>{project.title}</Text>
+        <Text as="p" variant="body" className={styles.description}>{project.description}</Text>
         <div className={styles.tags}>
           {project.tags.map((tag) => (
-            <span key={tag} className={styles.tag}>
+            <Text key={tag} as="span" variant="label" className={styles.tag}>
               #{tag}
-            </span>
+            </Text>
           ))}
         </div>
       </div>

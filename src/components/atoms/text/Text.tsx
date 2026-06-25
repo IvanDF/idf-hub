@@ -24,6 +24,9 @@ interface TextProps {
   variant?: TextVariant;
   as?: TextTag;
   className?: string;
+  onClick?: React.MouseEventHandler<HTMLElement>;
+  role?: string;
+  'aria-hidden'?: boolean | 'true' | 'false';
 }
 
 const variantTag: Record<TextVariant, TextTag> = {
@@ -54,14 +57,16 @@ export default function Text({
   variant = 'body',
   as,
   className = '',
-}: TextProps) {
+  ...rest
+}: TextProps & Record<string, unknown>) {
   const tag = as ?? variantTag[variant] ?? 'span';
 
   return createElement(
     tag,
     {
       className: `${styles.text} ${styles[variant]} ${className}`,
-      ...(variant === 'label' ? { role: 'label' } : {}),
+      ...(variant === 'label' && !rest.role ? { role: 'label' } : {}),
+      ...rest,
     },
     children,
   );

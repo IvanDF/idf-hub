@@ -16,7 +16,7 @@
 .badge {
   font-family: $font-family-mono;
   font-size: $font-size-xs;
-  letter-spacing: 0.1em;
+  letter-spacing: $letter-spacing-lg;
   text-transform: uppercase;
   color: var(--color-accent);
   background: color.adjust($color-volta-light, $alpha: -0.92);
@@ -29,7 +29,7 @@
   font-family: $font-family-mono;
   font-size: $font-size-2xs;
   color: var(--color-text-muted);
-  letter-spacing: 0.05em;
+  letter-spacing: $letter-spacing-sm;
 }
 
 .cardOuter {

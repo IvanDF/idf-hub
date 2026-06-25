@@ -45,7 +45,7 @@
 .prompt {
   font-size: $font-size-xs;
   color: var(--color-accent);
-  letter-spacing: 0.05em;
+  letter-spacing: $letter-spacing-sm;
 }
 
 .title {
@@ -122,7 +122,7 @@
   border-top: 1px solid rgba(250, 204, 21, 0.35);
   border-bottom: 1px solid rgba(250, 204, 21, 0.35);
   padding: 0.45rem 2rem;
-  letter-spacing: 0.05em;
+  letter-spacing: $letter-spacing-sm;
   text-align: center;
 }
 
@@ -204,7 +204,7 @@
     font-family: $font-family-primary;
     font-size: $font-size-xs;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: $letter-spacing-xl;
     text-transform: uppercase;
     color: var(--color-secondary);
     text-align: left;
@@ -221,7 +221,7 @@
     border-bottom: 1px dashed var(--color-divider);
     color: var(--color-text);
     vertical-align: middle;
-    letter-spacing: 0.05em;
+    letter-spacing: $letter-spacing-sm;
   }
 
   tr:hover td {
@@ -239,7 +239,7 @@
   font-family: $font-family-primary;
   font-size: $font-size-xs;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: $letter-spacing-md;
   padding: 0.15rem 0.4rem;
   border: 1px solid currentColor;
   color: var(--color-accent);
@@ -326,7 +326,7 @@
 .modalPrompt {
   font-size: $font-size-xs;
   color: var(--color-accent);
-  letter-spacing: 0.05em;
+  letter-spacing: $letter-spacing-sm;
 }
 
 .closeBtn {
@@ -366,7 +366,7 @@
   font-family: $font-family-primary;
   font-size: $font-size-xs;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: $letter-spacing-xl;
   text-transform: uppercase;
   color: var(--color-secondary);
 }
@@ -376,7 +376,7 @@
   font-size: $font-size-xs;
   font-weight: 400;
   text-transform: none;
-  letter-spacing: 0;
+  letter-spacing: $letter-spacing-h3;
   color: var(--color-text-muted, var(--color-secondary));
   opacity: 0.7;
 }

@@ -13,7 +13,7 @@
   top: $spacing-md;
   left: $spacing-md;
   z-index: 10;
-  color: #fff;
+  color: $color-silk-light;
   font-family: $font-family-mono;
   pointer-events: none;
   mix-blend-mode: difference;
@@ -22,7 +22,7 @@
 .title {
   font-size: $font-size-2xl;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: $letter-spacing-tighter;
   margin-bottom: $spacing-xs;
 }
 

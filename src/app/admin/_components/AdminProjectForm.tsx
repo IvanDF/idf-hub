@@ -1,5 +1,6 @@
 "use client";
 
+import Text from "@/components/atoms/text";
 import styles from "../page.module.scss";
 import { CATEGORIES, INTERACTIONS, LAYOUTS, PLATFORMS, STATUSES } from "./admin.constants";
 import type { FormState } from "./admin.types";
@@ -33,7 +34,7 @@ function Field({ label, hint, wide, children }: {
   return (
     <div className={`${styles.field} ${wide ? styles.wide : ""}`}>
       <label className={styles.label}>
-        {label}{hint && <span className={styles.hint}> — {hint}</span>}
+        {label}{hint && <Text as="span" variant="small" className={styles.hint}> — {hint}</Text>}
       </label>
       {children}
     </div>
@@ -62,9 +63,9 @@ export function AdminProjectForm({ form, editingId, saving, formError, onChange,
     <div className={styles.overlay} onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div className={styles.modal}>
         <div className={styles.modalHeader}>
-          <span className={styles.modalPrompt}>
+          <Text as="span" variant="mono" className={styles.modalPrompt}>
             {editingId ? `editing: ${editingId}` : "┌── new project ──"}
-          </span>
+          </Text>
           <button className={styles.closeBtn} onClick={onClose}>✕</button>
         </div>
 

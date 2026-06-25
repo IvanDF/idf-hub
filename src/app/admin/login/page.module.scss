@@ -30,7 +30,7 @@
   position: fixed;
   top: 1.25rem;
   right: 1.25rem;
-  font-family: var(--font-geist-mono);
+  font-family: $font-family-mono;
   font-size: 0.7rem;
   color: var(--color-accent);
   background: transparent;
@@ -49,7 +49,7 @@
   position: fixed;
   top: 1.25rem;
   left: 1.25rem;
-  font-family: var(--font-geist-mono);
+  font-family: $font-family-mono;
   font-size: 0.7rem;
   color: var(--color-secondary);
   text-decoration: none;
@@ -86,17 +86,17 @@
 }
 
 .prompt {
-  font-family: var(--font-geist-mono);
+  font-family: $font-family-mono;
   font-size: 0.7rem;
   color: var(--color-accent);
   display: block;
   margin-bottom: 0.5rem;
-  letter-spacing: 0.05em;
+  letter-spacing: $letter-spacing-sm;
 }
 
 .title {
-  font-family: var(--font-josefin-sans);
-  font-size: 1.5rem;
+  font-family: $font-family-primary;
+  font-size: $font-size-xl;
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: 0.15em;
@@ -117,15 +117,15 @@
 }
 
 .label {
-  font-family: var(--font-josefin-sans);
+  font-family: $font-family-primary;
   font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: $letter-spacing-xl;
   color: var(--color-secondary);
 }
 
 .input {
-  font-family: var(--font-geist-mono);
+  font-family: $font-family-mono;
   font-size: 0.85rem;
   color: var(--color-text);
   background-color: transparent;
@@ -147,8 +147,8 @@
 }
 
 .error {
-  font-family: var(--font-geist-mono);
-  font-size: 0.75rem;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
   color: rgb(var(--color-error-rgb, 239, 68, 68));
   background-color: rgba(var(--color-error-rgb, 239, 68, 68), 0.08);
   border: 1px solid rgba(var(--color-error-rgb, 239, 68, 68), 0.25);
@@ -160,10 +160,10 @@
 }
 
 .button {
-  font-family: var(--font-geist-mono);
+  font-family: $font-family-mono;
   font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: $letter-spacing-sm;
   color: var(--color-bg);
   background-color: var(--color-accent);
   border: none;
@@ -214,7 +214,7 @@
 }
 
 .demoTag {
-  font-family: var(--font-geist-mono);
+  font-family: $font-family-mono;
   font-size: 0.65rem;
   color: var(--color-bg);
   background-color: var(--color-accent);
@@ -222,16 +222,16 @@
 }
 
 .demoLabel {
-  font-family: var(--font-josefin-sans);
+  font-family: $font-family-primary;
   font-size: 0.7rem;
-  letter-spacing: 0.1em;
+  letter-spacing: $letter-spacing-lg;
   color: var(--color-secondary);
   text-transform: uppercase;
 }
 
 .demoCredentials {
-  font-family: var(--font-geist-mono);
-  font-size: 0.75rem;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
@@ -252,8 +252,8 @@
 }
 
 .demoBtn {
-  font-family: var(--font-geist-mono);
-  font-size: 0.75rem;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
   color: var(--color-secondary);
   background: transparent;
   border: 1px solid var(--color-divider);
@@ -269,7 +269,7 @@
 }
 
 .demoNote {
-  font-family: var(--font-geist-mono);
+  font-family: $font-family-mono;
   font-size: 0.7rem;
   color: var(--color-secondary);
   opacity: 0.7;

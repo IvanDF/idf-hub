@@ -1,5 +1,6 @@
 "use client";
 
+import Text from "@/components/atoms/text";
 import { renderGrid, useSnakeGame } from "@/hooks/terminal/useSnakeGame";
 import styles from "./SnakeGame.module.scss";
 
@@ -31,7 +32,7 @@ export default function SnakeGame({ onExit }: SnakeGameProps) {
           <div className={styles.panelScore}>score: <strong>{score}</strong></div>
           {score > 0 ? (
             <>
-              <p className={styles.panelHint}>Enter your name for the leaderboard (optional)</p>
+              <Text as="p" variant="mono" className={styles.panelHint}>Enter your name for the leaderboard (optional)</Text>
               <input
                 className={styles.nameInput}
                 type="text"
@@ -97,10 +98,10 @@ export default function SnakeGame({ onExit }: SnakeGameProps) {
   return (
     <div className={styles.game} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
       <div className={styles.hud}>
-        <span>SNAKE</span>
-        <span>score: <strong>{score}</strong></span>
-        <span>best: {highScore}</span>
-        <span className={styles.hudEsc} onClick={exit}>ESC</span>
+        <Text as="span" variant="mono">SNAKE</Text>
+        <Text as="span" variant="mono">score: <strong>{score}</strong></Text>
+        <Text as="span" variant="mono">best: {highScore}</Text>
+        <Text as="span" variant="mono" className={styles.hudEsc} onClick={exit}>ESC</Text>
       </div>
 
       <pre className={styles.grid}>{renderGrid(snake, food)}</pre>

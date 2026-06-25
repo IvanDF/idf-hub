@@ -1,5 +1,6 @@
 "use client";
 
+import Text from "@/components/atoms/text";
 import styles from "../page.module.scss";
 
 /** Props for the `AdminDeleteConfirm` modal. */
@@ -29,9 +30,9 @@ export function AdminDeleteConfirm({
   return (
     <div className={styles.overlay}>
       <div className={styles.confirm}>
-        <p className={styles.confirmText}>
-          delete <span className={styles.confirmId}>{targetId}</span>?
-        </p>
+        <Text as="p" variant="mono" className={styles.confirmText}>
+          delete <Text as="span" variant="mono" className={styles.confirmId}>{targetId}</Text>?
+        </Text>
         <div className={styles.confirmActions}>
           <button
             className={styles.cancelBtn}

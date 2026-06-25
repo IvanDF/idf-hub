@@ -1,5 +1,6 @@
 'use client'
 
+import Text from '@/components/atoms/text'
 import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
@@ -52,8 +53,8 @@ export default function AdminLoginPage() {
 
       <div className={styles.card}>
         <div className={styles.header}>
-          <span className={styles.prompt}>root@idf-hub:~$</span>
-          <h1 className={styles.title}>admin access</h1>
+          <Text as="span" variant="mono" className={styles.prompt}>root@idf-hub:~$</Text>
+          <Text as="h1" variant="h1" className={styles.title}>admin access</Text>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -75,15 +76,15 @@ export default function AdminLoginPage() {
 
           {error && (
             <div className={styles.error}>
-              <span className={styles.errorIcon}>✗</span> {error}
+              <Text as="span" variant="mono" className={styles.errorIcon}>✗</Text> {error}
             </div>
           )}
 
           <button type="submit" className={styles.button} disabled={loading}>
             {loading ? (
-              <span className={styles.loading}>
-                <span className={styles.cursor}>_</span> authenticating...
-              </span>
+                <Text as="span" variant="mono" className={styles.loading}>
+                  <Text as="span" variant="mono" className={styles.cursor}>_</Text> authenticating...
+                </Text>
             ) : (
               '> login'
             )}
@@ -92,13 +93,13 @@ export default function AdminLoginPage() {
 
         <div className={styles.demo}>
           <div className={styles.demoHeader}>
-            <span className={styles.demoTag}>[C-137]</span>
-            <span className={styles.demoLabel}>Morty-level access</span>
+            <Text as="span" variant="mono" className={styles.demoTag}>[C-137]</Text>
+            <Text as="span" variant="mono" className={styles.demoLabel}>Morty-level access</Text>
           </div>
           <div className={styles.demoCredentials}>
-            <div><span className={styles.demoKey}>pass</span><span className={styles.demoVal}>{DEMO_PASSWORD}</span></div>
+            <div><Text as="span" variant="mono" className={styles.demoKey}>pass</Text><Text as="span" variant="mono" className={styles.demoVal}>{DEMO_PASSWORD}</Text></div>
           </div>
-          <p className={styles.demoNote}>Read-write, but changes self-destruct at session end.<br/>Wubba lubba dub dub!</p>
+          <Text as="p" variant="body" className={styles.demoNote}>Read-write, but changes self-destruct at session end.<br/>Wubba lubba dub dub!</Text>
           <button className={styles.demoBtn} onClick={fillDemo} type="button">
             &gt; use Morty credentials
           </button>

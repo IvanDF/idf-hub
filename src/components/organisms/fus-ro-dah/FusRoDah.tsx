@@ -1,5 +1,6 @@
 "use client";
 
+import Text from "@/components/atoms/text";
 import { useVoiceShoutContext } from "@/context/VoiceShoutContext";
 import { useEffect, useRef } from "react";
 import styles from "./FusRoDah.module.scss";
@@ -50,11 +51,11 @@ export default function FusRoDah() {
         {shoutLevel >= 3 && <div className={styles.windStreaks} />}
         {shoutLevel >= 3 ? (
           <>
-            <p className={styles.shoutText}>{SHOUT_LABELS[shoutLevel]}</p>
-            <p className={styles.translation}>Unrelenting Force</p>
+            <Text as="p" variant="inherit" className={styles.shoutText}>{SHOUT_LABELS[shoutLevel]}</Text>
+            <Text as="p" variant="inherit" className={styles.translation}>Unrelenting Force</Text>
           </>
         ) : (
-          <p className={styles.shoutTextSm}>{SHOUT_LABELS[shoutLevel]}</p>
+          <Text as="p" variant="inherit" className={styles.shoutTextSm}>{SHOUT_LABELS[shoutLevel]}</Text>
         )}
       </div>
     </div>

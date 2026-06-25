@@ -1,5 +1,6 @@
 "use client";
 
+import Text from "@/components/atoms/text";
 import Button from "@/components/atoms/button";
 import Magnetic from "@/components/atoms/magnetic";
 import { useAudio } from "@/context/AudioContext";
@@ -69,7 +70,7 @@ export default function RightColumn() {
             }
           }}
         >
-          <span className={styles.themeLabel}>{buttonText}</span>
+          <Text as="span" variant="label" className={styles.themeLabel}>{buttonText}</Text>
           <div
             className={styles.themePill}
             data-dark={theme === "dark"}

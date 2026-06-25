@@ -1,5 +1,6 @@
 "use client";
 
+import Text from "@/components/atoms/text";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -76,9 +77,9 @@ export default function BusinessCardPage() {
 
       {/* Tap-to-flip hint — disappears after first flip */}
       {hintVisible && (
-        <p className={styles.hint} aria-hidden="true">
+        <Text as="p" variant="body" className={styles.hint} aria-hidden="true">
           tap to flip
-        </p>
+        </Text>
       )}
 
       {/* Back to main site */}

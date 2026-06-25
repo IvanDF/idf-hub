@@ -28,7 +28,7 @@
   font-family: $font-family-mono;
   font-size: $font-size-xs;
   color: rgba($color-slate-dark, 0.4);
-  letter-spacing: 0.12em;
+  letter-spacing: $letter-spacing-xl;
   text-transform: uppercase;
   pointer-events: none;
   white-space: nowrap;
@@ -70,12 +70,12 @@
   font-family: $font-family-primary;
   font-weight: 700;
   font-size: $font-size-sm;
-  letter-spacing: 0.12em;
+  letter-spacing: $letter-spacing-xl;
   text-transform: uppercase;
   padding: $spacing-sm $spacing-md;
   min-height: $touch-target-min;
   min-width: $touch-target-min;
-  border-radius: 100px;
+  border-radius: $radius-full;
   border: 1px solid rgba($color-slate-dark, 0.2);
   background: transparent;
   color: rgba($color-slate-dark, 0.5);
@@ -110,7 +110,7 @@
   left: $spacing-xl;
   font-family: $font-family-mono;
   font-size: $font-size-xs;
-  letter-spacing: 0.08em;
+  letter-spacing: $letter-spacing-md;
   color: rgba($color-slate-dark, 0.4);
   text-decoration: none;
   z-index: 10;

@@ -41,7 +41,7 @@
   display: block;
   font-size: clamp(2.5rem, 10vw, 7rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: $letter-spacing-tighter;
   text-transform: uppercase;
   line-height: 0.92;
   color: var(--color-text);
@@ -53,7 +53,7 @@
   display: block;
   font-size: clamp(1rem, 3.5vw, 2rem);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: $letter-spacing-base;
   line-height: 1.2;
   text-transform: uppercase;
   color: var(--color-text);
@@ -87,7 +87,7 @@
 
 .metaLabel {
   font-size: $font-size-xs;
-  letter-spacing: 0.14em;
+  letter-spacing: $letter-spacing-xxl;
   text-transform: uppercase;
   opacity: 0.4;
   font-weight: 700;
@@ -96,14 +96,14 @@
 .metaValue {
   font-size: $font-size-sm;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: $letter-spacing-base;
   text-transform: uppercase;
 }
 
 .metaValueAccent {
   font-size: $font-size-sm;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: $letter-spacing-base;
   text-transform: uppercase;
   color: var(--color-accent);
 }
@@ -242,13 +242,13 @@
 .interestName {
   font-size: $font-size-base;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: $letter-spacing-base;
   text-transform: uppercase;
 }
 
 .interestNote {
   font-size: $font-size-xs;
-  letter-spacing: 0.08em;
+  letter-spacing: $letter-spacing-md;
   text-transform: uppercase;
   opacity: 0.4;
   text-align: right;
@@ -285,7 +285,7 @@
   font-size: $font-size-xs;
   font-weight: 700;
   line-height: 1.4;
-  letter-spacing: 0.14em;
+  letter-spacing: $letter-spacing-xxl;
   text-transform: uppercase;
   opacity: 0.45;
   text-align: center;
@@ -349,7 +349,7 @@
   display: block;
   font-size: clamp(2rem, 8vw, 5rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: $letter-spacing-tighter;
   line-height: 0.95;
   text-transform: uppercase;
   color: var(--color-text);
@@ -387,7 +387,7 @@
   display: block;
   font-size: clamp(2.5rem, 9vw, 6rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: $letter-spacing-tighter;
   text-transform: uppercase;
   font-family: $font-family-primary;
   color: var(--color-text);
@@ -407,7 +407,7 @@
 .contactLink {
   font-size: $font-size-base;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: $letter-spacing-lg;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--color-text);

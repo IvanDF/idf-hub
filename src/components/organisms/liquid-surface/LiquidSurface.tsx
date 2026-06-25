@@ -1,5 +1,6 @@
 'use client';
 
+import Text from '@/components/atoms/text';
 import { Canvas, useFrame, ThreeEvent } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useMemo, useRef, useState } from 'react';
@@ -200,8 +201,8 @@ export default function LiquidSurface() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.overlay}>
-        <h1 className={styles.title}>LIQUID_MATRIX</h1>
-        <p className={styles.subtitle}>Interactive Vertex Displacement // Hover to Interact</p>
+        <Text as="h1" variant="h1" className={styles.title}>LIQUID_MATRIX</Text>
+        <Text as="p" variant="body" className={styles.subtitle}>Interactive Vertex Displacement // Hover to Interact</Text>
       </div>
       
       <Canvas>

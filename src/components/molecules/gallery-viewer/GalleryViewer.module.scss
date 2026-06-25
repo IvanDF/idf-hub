@@ -26,7 +26,7 @@
     margin: 0;
     font-family: $font-family-mono;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: $letter-spacing-md;
     font-size: $font-size-sm;
     color: var(--color-text-soft);
   }
@@ -91,7 +91,7 @@
   font-family: $font-family-mono;
   font-size: $font-size-xs;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: $letter-spacing-md;
   color: var(--color-text-soft);
   border: 1px solid var(--color-divider);
   border-radius: $radius-full;
@@ -126,7 +126,7 @@
 
 .thumbnail {
   border: 1px solid var(--color-divider);
-  border-radius: 10px;
+  border-radius: $radius-md;
   overflow: hidden;
   background: rgba(var(--color-bg-rgb), 0.4);
   cursor: pointer;
@@ -174,7 +174,7 @@
     font-size: $font-size-xs;
     text-transform: uppercase;
     color: var(--color-text-muted);
-    letter-spacing: 0.05em;
+    letter-spacing: $letter-spacing-sm;
   }
 
   strong {
@@ -212,7 +212,7 @@
   font-family: $font-family-mono;
   font-size: $font-size-xs;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: $letter-spacing-md;
   color: var(--color-text-soft);
 }
 

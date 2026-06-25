@@ -59,7 +59,7 @@
 .listenText {
   font-family: $font-family-primary;
   font-size: $font-size-sm;
-  letter-spacing: 0.2em;
+  letter-spacing: $letter-spacing-wide;
   text-transform: uppercase;
   color: $color-white;
   margin: 0;
@@ -87,7 +87,7 @@
   font-size: $font-size-2xs;
   color: color.scale($color-white, $lightness: -65%);
   margin: 0;
-  letter-spacing: 0.1em;
+  letter-spacing: $letter-spacing-lg;
 }
 
 .errorText {
@@ -104,7 +104,7 @@
   gap: $spacing-sm;
   background: color.adjust($color-white, $alpha: -0.95);
   border: 1px solid color.adjust($color-white, $alpha: -0.9);
-  border-radius: 6px;
+  border-radius: $radius-sm;
   padding: $spacing-xs $spacing-sm;
   width: 100%;
   min-height: 28px;
@@ -118,7 +118,7 @@
   font-size: $font-size-2xs;
   color: color.scale($color-error, $lightness: -10%);
   white-space: nowrap;
-  letter-spacing: 0.1em;
+  letter-spacing: $letter-spacing-lg;
   flex-shrink: 0;
 }
 
@@ -275,7 +275,7 @@
 }
 
 @keyframes textShout {
-  0%   { opacity: 0; transform: scale(0.65); letter-spacing: 0.1em; }
+  0%   { opacity: 0; transform: scale(0.65); letter-spacing: $letter-spacing-lg; }
   18%  { opacity: 1; transform: scale(1.06); }
   40%  { transform: scale(1); }
   80%  { opacity: 1; }

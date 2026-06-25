@@ -142,6 +142,15 @@ $letter-spacing-h6: 0.014em;
 $letter-spacing-body: 0.016em;
 $letter-spacing-small: 0.036em;
 $letter-spacing-label: 0.042em;
+$letter-spacing-tightest: -0.05em;
+$letter-spacing-tighter: -0.02em;
+$letter-spacing-sm: 0.05em;
+$letter-spacing-base: 0.06em;
+$letter-spacing-md: 0.08em;
+$letter-spacing-lg: 0.1em;
+$letter-spacing-xl: 0.12em;
+$letter-spacing-xxl: 0.14em;
+$letter-spacing-wide: 0.2em;
 
 // Fluid Type Scale — responsive clamp() values for headings
 // Scales smoothly between mobile (375px) and desktop (1200px+)

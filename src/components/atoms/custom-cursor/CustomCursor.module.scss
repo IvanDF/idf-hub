@@ -1,3 +1,5 @@
+@use "@/styles/variables" as *;
+
 .cursorDot {
   position: fixed;
   top: 0;
@@ -7,7 +9,7 @@
   border-radius: 50%;
   pointer-events: none;
   z-index: 1000001;
-  background-color: #fff;
+  background-color: $color-silk-light;
   mix-blend-mode: difference;
 }
 

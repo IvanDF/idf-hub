@@ -1,5 +1,6 @@
 "use client";
 
+import Text from "@/components/atoms/text";
 import Button from "@/components/atoms/button";
 import AudioToggle from "@/components/atoms/audio-toggle";
 import GlitchText from "@/components/atoms/glitch-text";
@@ -57,8 +58,8 @@ export default function LeftColumn() {
           }
         >
           <GlitchText text="<_" className={styles.prompt} />
-          <span className={styles.cmdKey}>⌘K</span>
-          <span className={styles.cmdLabel}>to explore</span>
+          <Text as="span" variant="label" className={styles.cmdKey}>⌘K</Text>
+          <Text as="span" variant="label" className={styles.cmdLabel}>to explore</Text>
         </Button>
       </footer>
     </aside>

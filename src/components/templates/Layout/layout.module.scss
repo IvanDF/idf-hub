@@ -127,7 +127,7 @@
 
   &::-webkit-scrollbar-thumb {
     background: var(--color-surface-glass);
-    border-radius: 3px;
+    border-radius: $radius-xs;
   }
 }
 
@@ -151,7 +151,7 @@
   text-transform: uppercase;
   color: var(--color-text);
   text-decoration: none;
-  letter-spacing: 0.12em;
+  letter-spacing: $letter-spacing-xl;
   opacity: 0.4;
   transition:
     opacity 0.25s ease,
@@ -200,7 +200,7 @@
   font-size: $font-size-sm;
   text-transform: uppercase;
   color: var(--color-text);
-  letter-spacing: 0.1em;
+  letter-spacing: $letter-spacing-lg;
   opacity: 0.9;
   transition:
     opacity 0.2s,
@@ -284,7 +284,7 @@
   .name {
     font-weight: 700;
     font-size: $font-size-base;
-    letter-spacing: 0.05em;
+    letter-spacing: $letter-spacing-sm;
   }
 
   .role {
@@ -329,7 +329,7 @@
   font-family: $font-family-mono;
   font-size: $font-size-xs;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: $letter-spacing-xxl;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--color-text);
@@ -434,7 +434,7 @@
   font-size: $font-size-sm;
   text-transform: uppercase;
   color: var(--color-text);
-  letter-spacing: 0.1em;
+  letter-spacing: $letter-spacing-lg;
   opacity: 0.95;
   transition: all 0.2s ease;
 
@@ -510,10 +510,10 @@
 }
 
 .mobileNavLink {
-  font-family: var(--font-josefin-sans);
+  font-family: $font-family-primary;
   font-size: clamp(2.5rem, 12vw, 4rem);
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: $letter-spacing-md;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--color-text);

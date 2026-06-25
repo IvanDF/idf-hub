@@ -1,5 +1,6 @@
 "use client";
 
+import Text from "@/components/atoms/text";
 import AudioToggle from "@/components/atoms/audio-toggle";
 import Button from "@/components/atoms/button";
 import GlitchText from "@/components/atoms/glitch-text";
@@ -109,7 +110,7 @@ export default function MobileNav({
                   toggleTheme();
                 }}
               >
-                <span className={styles.mobileThemeLabel}>{buttonText}</span>
+                <Text as="span" variant="label" className={styles.mobileThemeLabel}>{buttonText}</Text>
                 <div
                   className={styles.mobileThemePill}
                   data-dark={theme === "dark"}
@@ -162,8 +163,8 @@ export default function MobileNav({
                   onClick={openTerminal}
                   aria-label="Open command palette"
                 >
-                  <span className={styles.mobileCmdPromptIcon}>&lt;_</span>
-                  <span>⌘K</span>
+                  <Text as="span" variant="mono" className={styles.mobileCmdPromptIcon}>&lt;_</Text>
+                  <Text as="span" variant="label">⌘K</Text>
                 </Button>
               </div>
             </div>

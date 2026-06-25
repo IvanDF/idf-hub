@@ -1,5 +1,6 @@
 "use client";
 
+import Text from "@/components/atoms/text";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -45,8 +46,8 @@ export default function GalleryViewer({
     return (
       <div className={styles.galleryContainer}>
         <div className={styles.galleryHeader}>
-          <h3>Project Lenses</h3>
-          <span>Compare A // B</span>
+          <Text as="h3" variant="h3">Project Lenses</Text>
+          <Text as="span" variant="label">Compare A // B</Text>
         </div>
 
         <div className={styles.compareGrid}>
@@ -81,12 +82,12 @@ export default function GalleryViewer({
       tabIndex={0}
     >
       <div className={styles.galleryHeader}>
-        <h3>Storyboard</h3>
-        <span>
+        <Text as="h3" variant="h3">Storyboard</Text>
+        <Text as="span" variant="label">
           {(selectedIndex + 1).toString().padStart(2, "0")}
           {" // "}
           {images.length.toString().padStart(2, "0")}
-        </span>
+        </Text>
       </div>
 
       <div className={styles.viewerLayout}>
@@ -111,9 +112,9 @@ export default function GalleryViewer({
             </motion.div>
           </AnimatePresence>
 
-          <span className={styles.stageBadge}>
+          <Text as="span" variant="label" className={styles.stageBadge}>
             Focus Frame // {currentImageName}
-          </span>
+          </Text>
         </div>
 
         <div className={styles.thumbnailStrip}>
@@ -136,7 +137,7 @@ export default function GalleryViewer({
                 />
               </div>
               <div className={styles.thumbInfo}>
-                <span>Frame {index + 1}</span>
+                <Text as="span" variant="label">Frame {index + 1}</Text>
                 <strong>
                   {image.split("/").pop()?.split(".")[0]?.replace(/-/g, " ") ||
                     "Detail"}

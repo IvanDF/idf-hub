@@ -1,5 +1,6 @@
 "use client";
 
+import Text from "@/components/atoms/text";
 import styles from "../page.module.scss";
 import type { ProjectRow } from "./admin.types";
 
@@ -33,7 +34,7 @@ export function AdminProjectsTable({
   if (loading) {
     return (
       <div className={styles.loadingMsg}>
-        <span className={styles.cursor}>_</span> loading...
+        <Text as="span" variant="mono" className={styles.cursor}>_</Text> loading...
       </div>
     );
   }
