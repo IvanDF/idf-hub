@@ -165,6 +165,23 @@ $spacing-xxl: 80px;
 // Touch targets (minimum 44px per WCAG)
 $touch-target-min: 44px;
 
+// Fixed element sizes (kept off the spacing scale — these are component sizes)
+$size-dot: 10px;          // status / toggle dots
+$size-dot-lg: 12px;       // terminal traffic-light dots
+$size-scrollbar: 6px;     // custom scrollbar thickness
+
+// Border widths
+$border-hairline: 1px;
+$border-base: 2px;
+
+// Backdrop blur scale (values mirror real usage across the app)
+$blur-xs: 4px;
+$blur-sm: 8px;
+$blur-md: 12px;
+$blur-lg: 16px;
+$blur-xl: 20px;
+$blur-2xl: 24px;
+
 // Border Radius
 $radius-xs: 2px;
 $radius-sm: 4px;

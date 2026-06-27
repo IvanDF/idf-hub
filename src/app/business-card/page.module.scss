@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
 
 /** Full-viewport dark stage — always dark regardless of user theme. */
 .stage {
@@ -38,7 +39,7 @@
     animation: hintFade 3s ease-in-out forwards;
   }
 
-  @media (max-width: $breakpoint-sm) {
+  @include small {
     bottom: 100px;
   }
 }
@@ -60,7 +61,7 @@
   gap: $spacing-sm;
   z-index: 10;
 
-  @media (max-width: $breakpoint-sm) {
+  @include small {
     bottom: $spacing-lg;
   }
 }
@@ -76,7 +77,7 @@
   min-height: $touch-target-min;
   min-width: $touch-target-min;
   border-radius: $radius-full;
-  border: 1px solid rgba($color-slate-dark, 0.2);
+  border: $border-hairline solid rgba($color-slate-dark, 0.2);
   background: transparent;
   color: rgba($color-slate-dark, 0.5);
   cursor: pointer;
@@ -91,7 +92,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid $color-volta-dark;
+    outline: $border-base solid $color-volta-dark;
     outline-offset: 3px;
   }
 }
@@ -125,12 +126,12 @@
   }
 
   &:focus-visible {
-    outline: 2px solid $color-volta-dark;
+    outline: $border-base solid $color-volta-dark;
     outline-offset: 3px;
     border-radius: $radius-sm;
   }
 
-  @media (max-width: $breakpoint-sm) {
+  @include small {
     top: $spacing-md;
     left: $spacing-md;
   }

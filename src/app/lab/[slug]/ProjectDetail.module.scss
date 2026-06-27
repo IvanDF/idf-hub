@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
 
 .container {
   min-height: 100vh;
@@ -9,7 +10,7 @@
   z-index: 10;
   color: var(--color-text);
 
-  @media (min-width: $breakpoint-xl) {
+  @include bp-up($breakpoint-xl) {
     padding: 7rem 2rem 6rem;
   }
 }
@@ -34,7 +35,7 @@
 
 // ── Header ────────────────────────────────────────────────────────────────────
 .header {
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: $border-base solid var(--color-text);
   padding-bottom: 2rem;
   margin-bottom: 3rem;
 }
@@ -52,7 +53,7 @@
   font-size: $font-size-xs;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-xxl;
-  border: 1px solid var(--color-divider);
+  border: $border-hairline solid var(--color-divider);
   border-radius: var(--route-filter-radius, #{$radius-full});
   padding: 0.2rem 0.6rem;
   color: var(--color-text);
@@ -80,7 +81,7 @@
   letter-spacing: $letter-spacing-lg;
   background: color-mix(in srgb, var(--color-accent) 15%, transparent);
   color: var(--color-accent);
-  border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+  border: $border-hairline solid color-mix(in srgb, var(--color-accent) 40%, transparent);
   border-radius: var(--route-filter-radius, #{$radius-full});
   padding: 0.2rem 0.55rem;
 }
@@ -119,13 +120,13 @@
   grid-template-columns: 3.5rem 1fr;
   gap: 1.5rem;
   padding: 2rem 0;
-  border-bottom: 1px solid var(--color-divider);
+  border-bottom: $border-hairline solid var(--color-divider);
 
   &:first-child {
     border-top: none;
   }
 
-  @media (max-width: $breakpoint-xl) {
+  @include mobile {
     grid-template-columns: 2.25rem 1fr;
     gap: 1rem;
     padding: 1.5rem 0;
@@ -172,7 +173,7 @@
 // ── Media ─────────────────────────────────────────────────────────────────────
 .media {
   margin-bottom: 3.5rem;
-  border: 2px solid var(--color-text);
+  border: $border-base solid var(--color-text);
   border-radius: $radius-md;
   overflow: hidden;
   display: grid;
@@ -184,7 +185,7 @@
 .mediaMulti {
   grid-template-columns: 1fr 1fr;
 
-  @media (max-width: $breakpoint-xl) {
+  @include mobile {
     grid-template-columns: 1fr;
   }
 }
@@ -214,7 +215,7 @@
 
 // ── Footer ────────────────────────────────────────────────────────────────────
 .footer {
-  border-top: 2px solid var(--color-text);
+  border-top: $border-base solid var(--color-text);
   padding-top: 2rem;
   display: flex;
   flex-direction: column;
@@ -234,7 +235,7 @@
   letter-spacing: $letter-spacing-lg;
   color: var(--color-text);
   opacity: 0.5;
-  border: 1px solid var(--color-divider);
+  border: $border-hairline solid var(--color-divider);
   border-radius: var(--route-filter-radius, #{$radius-full});
   padding: 0.2rem 0.6rem;
 }
@@ -260,7 +261,7 @@
   text-decoration: none;
   padding: 0.65rem 1.25rem;
   border-radius: var(--route-card-radius, #{$radius-xl});
-  border: 2px solid var(--color-text);
+  border: $border-base solid var(--color-text);
   box-shadow: var(--depth-sm);
   transition: box-shadow 0.12s ease, transform 0.12s ease, opacity 0.15s ease;
 

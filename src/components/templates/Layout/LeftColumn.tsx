@@ -4,6 +4,7 @@ import AudioToggle from "@/components/atoms/audio-toggle";
 import Button from "@/components/atoms/button";
 import GlitchText from "@/components/atoms/glitch-text";
 import Text from "@/components/atoms/text";
+import { navItems } from "@/data/nav";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./layout.module.scss";
@@ -19,24 +20,15 @@ export default function LeftColumn() {
     <aside className={`${styles.leftColumn} ${isLab ? styles.autoHide : ""}`}>
       <nav className={styles.navbar}>
         <div className={styles.siteNav}>
-          <Link
-            href="/"
-            className={`${styles.navLink} ${isActive("/") ? styles.navLinkActive : ""}`}
-          >
-            1. Home
-          </Link>
-          <Link
-            href="/lab"
-            className={`${styles.navLink} ${isActive("/lab") ? styles.navLinkActive : ""}`}
-          >
-            2. Work
-          </Link>
-          <Link
-            href="/about"
-            className={`${styles.navLink} ${isActive("/about") ? styles.navLinkActive : ""}`}
-          >
-            3. About
-          </Link>
+          {navItems.map(({ href, label }, i) => (
+            <Link
+              key={href}
+              href={href}
+              className={`${styles.navLink} ${isActive(href) ? styles.navLinkActive : ""}`}
+            >
+              {i + 1}. {label}
+            </Link>
+          ))}
         </div>
       </nav>
 

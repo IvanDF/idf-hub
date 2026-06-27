@@ -3,19 +3,12 @@
 import Text from "@/components/atoms/text";
 import Button from "@/components/atoms/button";
 import Magnetic from "@/components/atoms/magnetic";
+import { socials } from "@/data/nav";
 import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import styles from "./layout.module.scss";
-
-const socials = [
-  { href: "https://www.instagram.com/idf.me/", label: "IG" },
-  { href: "https://www.linkedin.com/in/ivandf/", label: "LI" },
-  { href: "https://github.com/IvanDF", label: "GH" },
-  { href: "https://www.figma.com/@ivandf", label: "FG" },
-  { href: "https://findpenguins.com/idf.travel", label: "FP" },
-];
 
 /**
  * Renders the desktop right-side rail with theme controls and social links.

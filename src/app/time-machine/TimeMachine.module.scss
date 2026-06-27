@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
 @use "sass:color";
 
 .container {
@@ -66,7 +67,7 @@
   letter-spacing: $letter-spacing-tightest;
   position: relative;
   
-  @media (min-width: $breakpoint-md) {
+  @include bp-up($breakpoint-md) {
     font-size: $font-size-4xl;
   }
 
@@ -112,7 +113,7 @@
   transform: translate(-50%, -50%);
   width: 120%;
   height: 120%;
-  border: 1px solid color.adjust($color-lario-light, $alpha: -0.7);
+  border: $border-hairline solid color.adjust($color-lario-light, $alpha: -0.7);
   border-radius: $radius-lg;
   background: radial-gradient(circle, color.adjust($color-lario-light, $alpha: -0.95) 0%, transparent 70%);
 
@@ -122,8 +123,8 @@
 .artifactCard {
   position: relative;
   background: color.adjust($color-silk-dark, $alpha: -0.2);
-  border: 1px solid color.adjust($color-lario-light, $alpha: -0.5);
-  backdrop-filter: blur(12px);
+  border: $border-hairline solid color.adjust($color-lario-light, $alpha: -0.5);
+  backdrop-filter: blur($blur-md);
   padding: 40px;
   border-radius: $radius-sm;
   box-shadow: 
@@ -150,7 +151,7 @@
   gap: $spacing-sm;
   margin-bottom: $spacing-lg;
   padding-bottom: $spacing-md;
-  border-bottom: 1px solid color.adjust($color-white, $alpha: -0.9);
+  border-bottom: $border-hairline solid color.adjust($color-white, $alpha: -0.9);
 }
 
 .icon {
@@ -164,7 +165,7 @@
   background: color.adjust($color-lario-light, $alpha: -0.9);
   padding: $spacing-xs $spacing-sm;
   border-radius: $radius-xs;
-  border: 1px solid color.adjust($color-lario-light, $alpha: -0.8);
+  border: $border-hairline solid color.adjust($color-lario-light, $alpha: -0.8);
 }
 
 .artifactTitle {
@@ -195,7 +196,7 @@
   line-height: 1.6;
   margin-bottom: $spacing-xl;
   font-size: $font-size-md;
-  border-left: 2px solid $color-lario-light;
+  border-left: $border-base solid $color-lario-light;
   padding-left: $spacing-md;
 }
 
@@ -215,7 +216,7 @@
   padding: $spacing-sm $spacing-lg;
   text-decoration: none;
   font-weight: 600;
-  border: 1px solid $color-lario-light;
+  border: $border-hairline solid $color-lario-light;
   border-radius: $radius-md;
   transition: all 0.2s;
   text-transform: uppercase;
@@ -234,7 +235,7 @@
   align-items: center;
   justify-content: center;
   padding: $spacing-sm;
-  border: 1px solid color.adjust($color-white, $alpha: -0.8);
+  border: $border-hairline solid color.adjust($color-white, $alpha: -0.8);
   border-radius: $radius-md;
   background: color.adjust($color-white, $alpha: -0.95);
   &:hover {

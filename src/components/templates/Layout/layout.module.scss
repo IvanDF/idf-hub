@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
 
 .container {
   display: flex;
@@ -19,9 +20,9 @@
   position: fixed;
   top: 0;
   bottom: 0;
-  width: 328px;
+  width: var(--chrome-rail-width);
   z-index: 50;
-  padding: $spacing-xxl 40px;
+  padding: $spacing-xxl var(--chrome-rail-pad-x);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -64,7 +65,7 @@
         var(--color-bg-rgb),
         0.8
       ); // Needs RGB var or solid color
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur($blur-md);
     }
   }
 }
@@ -80,27 +81,88 @@
     &:hover {
       transform: translateX(0);
       background: rgba(var(--color-bg-rgb), 0.8);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur($blur-md);
     }
   }
 }
 
-// Hide columns on mobile; show when toggle is active
-@media (max-width: $breakpoint-xl) {
+// On mobile the two side rails reflow into a single compact top bar — same
+// components, no separate mobile menu. Left bar keeps navigation + the command
+// launcher; right bar keeps the theme toggle (socials drop on very small).
+@include mobile {
   .leftColumn,
   .rightColumn {
-    display: none;
-    width: min(280px, 80vw);
-    padding: $spacing-xxl $spacing-lg 40px;
-    background: rgba(var(--color-bg-rgb), 0.97);
-    backdrop-filter: blur(16px);
+    position: fixed;
+    top: 0;
+    bottom: auto;
+    height: auto;
+    width: auto;
+    max-width: 60vw;
+    padding: $spacing-sm $spacing-md;
+    flex-direction: row;
+    align-items: center;
+    gap: $spacing-sm;
+    background: rgba(var(--color-bg-rgb), 0.82);
+    backdrop-filter: blur($blur-md);
+    border: none;
+    pointer-events: auto;
+
+    // autoHide (lab/about routes) slides rails offscreen on desktop — never on
+    // the mobile bar, where they must stay reachable.
+    &.autoHide {
+      transform: none;
+    }
   }
 
-  .container[data-mobile-menu="open"] {
-    .leftColumn,
-    .rightColumn {
-      display: none !important; // Keep desktop columns hidden on mobile
+  .leftColumn {
+    left: 0;
+    justify-content: flex-start;
+  }
+
+  .rightColumn {
+    right: 0;
+    justify-content: flex-end;
+  }
+
+  // Navigation reflows to an inline row
+  .navbar,
+  .siteNav {
+    flex-direction: row;
+    gap: $spacing-sm;
+    margin-top: 0;
+  }
+
+  // Vertical filler divider is meaningless in a horizontal bar
+  .divider {
+    display: none;
+  }
+
+  // Left footer: keep the command launcher inline, drop decorative identity
+  .footer {
+    flex-direction: row;
+    align-items: center;
+    gap: $spacing-sm;
+
+    .name {
+      display: none;
     }
+  }
+
+  .cmdLabel {
+    display: none;
+  }
+
+  // Right rail socials reflow to an inline row
+  .socialLinks {
+    flex-direction: row;
+    gap: $spacing-sm;
+  }
+}
+
+@include small {
+  // Reclaim width on the smallest screens — theme toggle stays, socials drop
+  .socialLinks {
+    display: none;
   }
 }
 
@@ -116,9 +178,14 @@
   -webkit-overflow-scrolling: touch;
   filter: var(--ink);
 
+  // Clear the fixed compact bar so page content isn't hidden beneath it
+  @include mobile {
+    padding-top: var(--chrome-bar-h);
+  }
+
   // Custom Scrollbar
   &::-webkit-scrollbar {
-    width: 6px;
+    width: $size-scrollbar;
   }
 
   &::-webkit-scrollbar-track {
@@ -187,7 +254,7 @@
 
 .terminalLink {
   background: rgba(var(--color-bg-rgb), 0.82);
-  border: 2px solid color-mix(in srgb, var(--color-text) 30%, transparent);
+  border: $border-base solid color-mix(in srgb, var(--color-text) 30%, transparent);
   border-radius: var(--route-card-radius, #{$radius-xl});
   padding: $spacing-sm $spacing-md;
   min-height: $touch-target-min;
@@ -229,7 +296,7 @@
   width: $spacing-xl;
   height: $spacing-md;
   border-radius: $radius-xl;
-  border: 1px solid var(--color-divider);
+  border: $border-hairline solid var(--color-divider);
   display: flex;
   align-items: center;
   padding: 0 $spacing-3xs;
@@ -246,8 +313,8 @@
 }
 
 .themeDot {
-  width: 10px;
-  height: 10px;
+  width: $size-dot;
+  height: $size-dot;
   border-radius: 50%;
   background: var(--color-text);
 
@@ -269,7 +336,7 @@
 }
 
 .divider {
-  width: 1px;
+  width: $border-hairline;
   background-color: var(--color-divider);
   flex-grow: 1;
   margin: $spacing-xl 0;
@@ -305,7 +372,7 @@
   justify-content: center;
   width: $touch-target-min;
   height: $touch-target-min;
-  border: 1px solid var(--color-divider);
+  border: $border-hairline solid var(--color-divider);
   border-radius: 50%;
   opacity: 0.7;
   transition:
@@ -330,260 +397,6 @@
   font-size: $font-size-xs;
   font-weight: 700;
   letter-spacing: $letter-spacing-xxl;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--color-text);
-  opacity: 0.4;
-  transition: opacity 0.2s ease, color 0.2s ease;
-
-  &:hover {
-    opacity: 1;
-    color: var(--color-accent);
-  }
-}
-
-// --- Mobile Navigation ---
-
-.logoInvert {
-  filter: invert(1);
-}
-
-// Floating burger — always visible on mobile
-.burger {
-  display: none;
-  position: fixed;
-  top: 20px;
-  right: $spacing-lg;
-  width: $touch-target-min;
-  height: $touch-target-min;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 200;
-  padding: $spacing-xs;
-  transition: all 0.3s ease;
-
-  span {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: var(--color-text);
-    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    transform-origin: center;
-  }
-
-  &.open {
-    top: 29px;
-    span:nth-child(1) {
-      transform: translateY($spacing-xs) rotate(45deg);
-    }
-    span:nth-child(2) {
-      opacity: 0;
-    }
-    span:nth-child(3) {
-      transform: translateY(-$spacing-xs) rotate(-45deg);
-    }
-  }
-
-  @media (max-width: $breakpoint-xl) {
-    display: flex;
-  }
-}
-
-// Full-screen menu overlay
-.mobileOverlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 150;
-  background: rgba(var(--color-bg-rgb), 0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  flex-direction: column;
-  padding: 20px $spacing-lg $spacing-xl;
-
-  @media (max-width: $breakpoint-xl) {
-    display: flex;
-  }
-}
-
-.mobileOverlayTop {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  min-height: $touch-target-min;
-  padding-right: $touch-target-min;
-  flex-shrink: 0;
-}
-
-.mobileCmdBtn {
-  background: rgba(var(--color-bg-rgb), 0.9);
-  border: 2px solid color-mix(in srgb, var(--color-text) 30%, transparent);
-  border-radius: var(--route-card-radius, #{$radius-xl});
-  padding: $spacing-sm $spacing-md;
-  min-height: $touch-target-min;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: $spacing-xs;
-  font-family: $font-family-primary;
-  font-weight: 700;
-  font-size: $font-size-sm;
-  text-transform: uppercase;
-  color: var(--color-text);
-  letter-spacing: $letter-spacing-lg;
-  opacity: 0.95;
-  transition: all 0.2s ease;
-
-  &:hover {
-    opacity: 1;
-    border-color: var(--color-accent);
-    background: rgba(var(--color-accent-rgb), 0.12);
-    transform: translateY(-1px);
-    .prompt {
-      color: var(--color-accent);
-    }
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-}
-
-.mobileTopActions {
-  display: flex;
-  align-items: center;
-  gap: $spacing-xs;
-}
-
-.mobileThemePill {
-  width: $spacing-xl;
-  height: $spacing-md;
-  border-radius: $radius-xl;
-  border: 1px solid var(--color-divider);
-  display: flex;
-  align-items: center;
-  padding: 0 $spacing-3xs;
-  justify-content: flex-start;
-
-  &[data-dark="true"] {
-    justify-content: flex-end;
-  }
-
-  &[data-super-dark="true"] {
-    border-color: var(--color-super-dark);
-    background: rgba(var(--color-super-dark-rgb), 0.1);
-  }
-}
-
-.mobileThemeDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--color-text);
-
-  .mobileThemePill[data-super-dark="true"] & {
-    background: var(--color-super-dark);
-    box-shadow: 0 0 8px var(--color-super-dark);
-  }
-}
-
-.mobileThemeLabel {
-  font-weight: 400;
-}
-
-.mobileOverlayCenter {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mobileNavLinks {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: $spacing-xl;
-}
-
-.mobileNavLink {
-  font-family: $font-family-primary;
-  font-size: clamp(2.5rem, 12vw, 4rem);
-  font-weight: 700;
-  letter-spacing: $letter-spacing-md;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--color-text);
-  opacity: 0.45;
-  transition: color 0.2s ease, opacity 0.2s ease;
-  line-height: 1;
-
-  &:hover {
-    color: var(--color-accent);
-    opacity: 1;
-  }
-
-  &:active {
-    opacity: 0.6;
-  }
-}
-
-.mobileNavLinkActive {
-  color: var(--color-accent);
-  opacity: 1;
-}
-
-.mobileOverlayBottom {
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-lg;
-}
-
-.mobileOverlayMeta {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: $spacing-md;
-}
-
-.mobileAudioToggle {
-  margin-bottom: $spacing-3xs;
-}
-
-.mobileOverlayName {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: $spacing-2xs;
-}
-
-.mobileOverlayRole {
-  font-size: $font-size-sm;
-  opacity: 0.6;
-}
-
-.mobileCmdPromptIcon {
-  color: var(--color-accent);
-  font-family: $font-family-mono;
-  font-size: $font-size-sm;
-}
-
-.mobileOverlaySocials {
-  display: flex;
-  gap: $spacing-lg;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.mobileSocialLink {
-  font-family: $font-family-mono;
-  font-size: $font-size-sm;
-  font-weight: 700;
-  letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--color-text);
