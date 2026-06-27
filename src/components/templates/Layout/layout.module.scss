@@ -86,82 +86,11 @@
   }
 }
 
-// On mobile the two side rails reflow into a single compact top bar — same
-// components, no separate mobile menu. Left bar keeps navigation + the command
-// launcher; right bar keeps the theme toggle (socials drop on very small).
+// On mobile the desktop rails don't fit — they're hidden and replaced by the
+// carved burger + overlay (MobileNav), which reuses the same components.
 @include mobile {
   .leftColumn,
   .rightColumn {
-    position: fixed;
-    top: 0;
-    bottom: auto;
-    height: auto;
-    width: auto;
-    max-width: 60vw;
-    padding: $spacing-sm $spacing-md;
-    flex-direction: row;
-    align-items: center;
-    gap: $spacing-sm;
-    background: rgba(var(--color-bg-rgb), 0.82);
-    backdrop-filter: blur($blur-md);
-    border: none;
-    pointer-events: auto;
-
-    // autoHide (lab/about routes) slides rails offscreen on desktop — never on
-    // the mobile bar, where they must stay reachable.
-    &.autoHide {
-      transform: none;
-    }
-  }
-
-  .leftColumn {
-    left: 0;
-    justify-content: flex-start;
-  }
-
-  .rightColumn {
-    right: 0;
-    justify-content: flex-end;
-  }
-
-  // Navigation reflows to an inline row
-  .navbar,
-  .siteNav {
-    flex-direction: row;
-    gap: $spacing-sm;
-    margin-top: 0;
-  }
-
-  // Vertical filler divider is meaningless in a horizontal bar
-  .divider {
-    display: none;
-  }
-
-  // Left footer: keep the command launcher inline, drop decorative identity
-  .footer {
-    flex-direction: row;
-    align-items: center;
-    gap: $spacing-sm;
-
-    .name {
-      display: none;
-    }
-  }
-
-  .cmdLabel {
-    display: none;
-  }
-
-  // Right rail socials reflow to an inline row
-  .socialLinks {
-    flex-direction: row;
-    gap: $spacing-sm;
-  }
-}
-
-@include small {
-  // Reclaim width on the smallest screens — theme toggle stays, socials drop
-  .socialLinks {
     display: none;
   }
 }
@@ -177,11 +106,6 @@
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   filter: var(--ink);
-
-  // Clear the fixed compact bar so page content isn't hidden beneath it
-  @include mobile {
-    padding-top: var(--chrome-bar-h);
-  }
 
   // Custom Scrollbar
   &::-webkit-scrollbar {
@@ -407,4 +331,104 @@
     opacity: 1;
     color: var(--color-accent);
   }
+}
+
+// ── Mobile chrome — carved burger + mirror overlay (MobileNav) ───────────────
+// Desktop-only by default; shown under @include mobile. The overlay reuses the
+// shared rail components, so only the burger and overlay shell live here.
+
+.burger {
+  display: none; // shown on mobile only
+  position: fixed;
+  top: $spacing-md;
+  right: $spacing-md;
+  z-index: 200; // above the overlay so it stays tappable
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-3xs;
+  width: $touch-target-min;
+  height: $touch-target-min;
+  padding: $spacing-xs;
+  background: rgba(var(--color-bg-rgb), 0.9);
+  border: $border-base solid var(--color-text);
+  border-radius: var(--route-card-radius, #{$radius-xl});
+  cursor: pointer;
+
+  span {
+    display: block;
+    width: 18px;
+    height: $border-base;
+    background-color: var(--color-text);
+    border-radius: $radius-full;
+    transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+      opacity 0.2s ease;
+    transform-origin: center;
+  }
+
+  &.burgerOpen span:nth-child(1) {
+    transform: translateY(calc(#{$spacing-3xs} + #{$border-base})) rotate(45deg);
+  }
+  &.burgerOpen span:nth-child(2) {
+    opacity: 0;
+  }
+  &.burgerOpen span:nth-child(3) {
+    transform: translateY(calc(-1 * (#{$spacing-3xs} + #{$border-base}))) rotate(-45deg);
+  }
+
+  @include mobile {
+    display: flex;
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: rgba(var(--color-bg-rgb), 0.92);
+  backdrop-filter: blur($blur-2xl);
+  -webkit-backdrop-filter: blur($blur-2xl);
+  overflow-y: auto;
+  filter: var(--ink-fine);
+  animation: overlayFade 0.25s ease;
+}
+
+@keyframes overlayFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.overlayInner {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $spacing-2xl;
+  padding: calc(#{$touch-target-min} + #{$spacing-xl}) $spacing-xl $spacing-2xl;
+}
+
+// Top region mirrors the desktop rails: nav on the left, theme + socials right
+.overlayTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: $spacing-lg;
+}
+
+.overlayControls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: $spacing-lg;
+}
+
+.overlayDivider {
+  height: $border-hairline;
+  width: 100%;
+  background-color: var(--color-divider);
+  opacity: 0.75;
 }
