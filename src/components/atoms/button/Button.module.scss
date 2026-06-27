@@ -10,7 +10,7 @@
   min-height: $touch-target-min;
   padding: $spacing-sm $spacing-md;
   cursor: pointer;
-  border: 2px solid transparent;
+  border: $border-base solid transparent;
   border-radius: $radius-xl;
   text-decoration: none;
   color: var(--color-text);
@@ -28,7 +28,7 @@
     transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   &:focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: $border-base solid var(--color-accent);
     outline-offset: 2px;
   }
 

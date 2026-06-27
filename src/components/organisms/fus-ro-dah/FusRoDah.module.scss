@@ -21,12 +21,12 @@
   align-items: center;
   gap: $spacing-md;
   background: color.adjust($color-black, $alpha: -0.12);
-  border: 1px solid var(--color-accent);
+  border: $border-hairline solid var(--color-accent);
   border-radius: $radius-xl;
   padding: $spacing-xl $spacing-xxl;
   pointer-events: all;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur($blur-lg);
+  -webkit-backdrop-filter: blur($blur-lg);
   animation: panelIn 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -45,7 +45,7 @@
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  border: 2px solid var(--color-accent);
+  border: $border-base solid var(--color-accent);
   animation: micPulse 1.2s ease-in-out infinite;
 }
 
@@ -53,7 +53,7 @@
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  border: 2px solid $color-error;
+  border: $border-base solid $color-error;
 }
 
 .listenText {
@@ -103,7 +103,7 @@
   align-items: center;
   gap: $spacing-sm;
   background: color.adjust($color-white, $alpha: -0.95);
-  border: 1px solid color.adjust($color-white, $alpha: -0.9);
+  border: $border-hairline solid color.adjust($color-white, $alpha: -0.9);
   border-radius: $radius-sm;
   padding: $spacing-xs $spacing-sm;
   width: 100%;
@@ -124,8 +124,8 @@
 
 .micDot {
   display: inline-block;
-  width: 6px;
-  height: 6px;
+  width: $size-scrollbar;
+  height: $size-scrollbar;
   border-radius: 50%;
   background: $color-error;
   animation: blink 1s step-start infinite;

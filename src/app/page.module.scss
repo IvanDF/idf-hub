@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
 @use "sass:color";
 
 .shell {
@@ -19,7 +20,7 @@
   width: max-content;
   max-width: min(520px, calc(100vw - 2.5rem));
 
-  @media (max-width: $breakpoint-xl) {
+  @include mobile {
     bottom: $spacing-2xl;
     max-width: calc(100vw - 3rem);
   }
@@ -36,7 +37,7 @@
   margin: 0 0 $spacing-sm;
   pointer-events: none;
 
-  @media (max-width: $breakpoint-xl) {
+  @include mobile {
     display: block;
   }
 }
@@ -50,7 +51,7 @@
   margin: 0 0 $spacing-lg;
   opacity: 0.7;
 
-  @media (max-width: $breakpoint-xl) {
+  @include mobile {
     font-size: $font-size-xs;
     margin-bottom: $spacing-md;
   }
@@ -82,7 +83,7 @@
     opacity: 1;
   }
 
-  @media (max-width: $breakpoint-md) {
+  @include bp-down($breakpoint-md) {
     display: none;
   }
 }
@@ -101,7 +102,7 @@
     font-family: $font-family-mono;
     font-size: $font-size-2xs;
     background: var(--color-card-bg);
-    border: 1px solid var(--color-divider);
+    border: $border-hairline solid var(--color-divider);
     border-radius: $radius-sm;
     padding: $spacing-3xs $spacing-xs;
     color: var(--color-accent);

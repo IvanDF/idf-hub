@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
 
 .container {
   display: flex;
@@ -19,9 +20,9 @@
   position: fixed;
   top: 0;
   bottom: 0;
-  width: 328px;
+  width: var(--chrome-rail-width);
   z-index: 50;
-  padding: $spacing-xxl 40px;
+  padding: $spacing-xxl var(--chrome-rail-pad-x);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -64,7 +65,7 @@
         var(--color-bg-rgb),
         0.8
       ); // Needs RGB var or solid color
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur($blur-md);
     }
   }
 }
@@ -80,27 +81,17 @@
     &:hover {
       transform: translateX(0);
       background: rgba(var(--color-bg-rgb), 0.8);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur($blur-md);
     }
   }
 }
 
-// Hide columns on mobile; show when toggle is active
-@media (max-width: $breakpoint-xl) {
+// On mobile the desktop rails don't fit — they're hidden and replaced by the
+// carved burger + overlay (MobileNav), which reuses the same components.
+@include mobile {
   .leftColumn,
   .rightColumn {
     display: none;
-    width: min(280px, 80vw);
-    padding: $spacing-xxl $spacing-lg 40px;
-    background: rgba(var(--color-bg-rgb), 0.97);
-    backdrop-filter: blur(16px);
-  }
-
-  .container[data-mobile-menu="open"] {
-    .leftColumn,
-    .rightColumn {
-      display: none !important; // Keep desktop columns hidden on mobile
-    }
   }
 }
 
@@ -118,7 +109,7 @@
 
   // Custom Scrollbar
   &::-webkit-scrollbar {
-    width: 6px;
+    width: $size-scrollbar;
   }
 
   &::-webkit-scrollbar-track {
@@ -187,7 +178,7 @@
 
 .terminalLink {
   background: rgba(var(--color-bg-rgb), 0.82);
-  border: 2px solid color-mix(in srgb, var(--color-text) 30%, transparent);
+  border: $border-base solid color-mix(in srgb, var(--color-text) 30%, transparent);
   border-radius: var(--route-card-radius, #{$radius-xl});
   padding: $spacing-sm $spacing-md;
   min-height: $touch-target-min;
@@ -229,7 +220,7 @@
   width: $spacing-xl;
   height: $spacing-md;
   border-radius: $radius-xl;
-  border: 1px solid var(--color-divider);
+  border: $border-hairline solid var(--color-divider);
   display: flex;
   align-items: center;
   padding: 0 $spacing-3xs;
@@ -246,8 +237,8 @@
 }
 
 .themeDot {
-  width: 10px;
-  height: 10px;
+  width: $size-dot;
+  height: $size-dot;
   border-radius: 50%;
   background: var(--color-text);
 
@@ -269,7 +260,7 @@
 }
 
 .divider {
-  width: 1px;
+  width: $border-hairline;
   background-color: var(--color-divider);
   flex-grow: 1;
   margin: $spacing-xl 0;
@@ -305,7 +296,7 @@
   justify-content: center;
   width: $touch-target-min;
   height: $touch-target-min;
-  border: 1px solid var(--color-divider);
+  border: $border-hairline solid var(--color-divider);
   border-radius: 50%;
   opacity: 0.7;
   transition:
@@ -342,256 +333,119 @@
   }
 }
 
-// --- Mobile Navigation ---
+// ── Mobile chrome — carved burger + mirror overlay (MobileNav) ───────────────
+// Desktop-only by default; shown under @include mobile. The overlay reuses the
+// shared rail components, so only the burger and overlay shell live here.
 
-.logoInvert {
-  filter: invert(1);
-}
-
-// Floating burger — always visible on mobile
 .burger {
-  display: none;
+  display: none; // shown on mobile only
   position: fixed;
-  top: 20px;
-  right: $spacing-lg;
+  top: $spacing-md;
+  right: $spacing-md;
+  z-index: 200; // above the overlay so it stays tappable
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-3xs;
   width: $touch-target-min;
   height: $touch-target-min;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 200;
   padding: $spacing-xs;
-  transition: all 0.3s ease;
+  background: rgba(var(--color-bg-rgb), 0.9);
+  border: $border-base solid var(--color-text);
+  border-radius: var(--route-card-radius, #{$radius-xl});
+  cursor: pointer;
 
   span {
     display: block;
-    width: 100%;
-    height: 2px;
+    width: 18px;
+    height: $border-base;
     background-color: var(--color-text);
-    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    border-radius: $radius-full;
+    transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+      opacity 0.2s ease;
     transform-origin: center;
   }
 
-  &.open {
-    top: 29px;
-    span:nth-child(1) {
-      transform: translateY($spacing-xs) rotate(45deg);
-    }
-    span:nth-child(2) {
-      opacity: 0;
-    }
-    span:nth-child(3) {
-      transform: translateY(-$spacing-xs) rotate(-45deg);
-    }
+  &.burgerOpen span:nth-child(1) {
+    transform: translateY(calc(#{$spacing-3xs} + #{$border-base})) rotate(45deg);
+  }
+  &.burgerOpen span:nth-child(2) {
+    opacity: 0;
+  }
+  &.burgerOpen span:nth-child(3) {
+    transform: translateY(calc(-1 * (#{$spacing-3xs} + #{$border-base}))) rotate(-45deg);
   }
 
-  @media (max-width: $breakpoint-xl) {
+  @include mobile {
     display: flex;
   }
 }
 
-// Full-screen menu overlay
-.mobileOverlay {
-  display: none;
+// Full-screen menu: large centered navigation, action controls in the corners.
+.overlay {
   position: fixed;
   inset: 0;
   z-index: 150;
-  background: rgba(var(--color-bg-rgb), 0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  display: flex;
   flex-direction: column;
-  padding: 20px $spacing-lg $spacing-xl;
+  background: rgba(var(--color-bg-rgb), 0.92);
+  backdrop-filter: blur($blur-2xl);
+  -webkit-backdrop-filter: blur($blur-2xl);
+  overflow-y: auto;
+  filter: var(--ink-fine);
+  padding: $spacing-md $spacing-xl $spacing-2xl;
+  animation: overlayFade 0.25s ease;
+}
 
-  @media (max-width: $breakpoint-xl) {
-    display: flex;
+@keyframes overlayFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
-.mobileOverlayTop {
+// Top-left action — theme toggle, on the same row as the burger (top-right)
+.overlayHead {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-start;
   min-height: $touch-target-min;
-  padding-right: $touch-target-min;
+  // leave room so it never collides with the fixed burger on the right
+  padding-right: calc(#{$touch-target-min} + #{$spacing-sm});
   flex-shrink: 0;
 }
 
-.mobileCmdBtn {
-  background: rgba(var(--color-bg-rgb), 0.9);
-  border: 2px solid color-mix(in srgb, var(--color-text) 30%, transparent);
-  border-radius: var(--route-card-radius, #{$radius-xl});
-  padding: $spacing-sm $spacing-md;
-  min-height: $touch-target-min;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: $spacing-xs;
-  font-family: $font-family-primary;
-  font-weight: 700;
-  font-size: $font-size-sm;
-  text-transform: uppercase;
-  color: var(--color-text);
-  letter-spacing: $letter-spacing-lg;
-  opacity: 0.95;
-  transition: all 0.2s ease;
-
-  &:hover {
-    opacity: 1;
-    border-color: var(--color-accent);
-    background: rgba(var(--color-accent-rgb), 0.12);
-    transform: translateY(-1px);
-    .prompt {
-      color: var(--color-accent);
-    }
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-}
-
-.mobileTopActions {
-  display: flex;
-  align-items: center;
-  gap: $spacing-xs;
-}
-
-.mobileThemePill {
-  width: $spacing-xl;
-  height: $spacing-md;
-  border-radius: $radius-xl;
-  border: 1px solid var(--color-divider);
-  display: flex;
-  align-items: center;
-  padding: 0 $spacing-3xs;
-  justify-content: flex-start;
-
-  &[data-dark="true"] {
-    justify-content: flex-end;
-  }
-
-  &[data-super-dark="true"] {
-    border-color: var(--color-super-dark);
-    background: rgba(var(--color-super-dark-rgb), 0.1);
-  }
-}
-
-.mobileThemeDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--color-text);
-
-  .mobileThemePill[data-super-dark="true"] & {
-    background: var(--color-super-dark);
-    box-shadow: 0 0 8px var(--color-super-dark);
-  }
-}
-
-.mobileThemeLabel {
-  font-weight: 400;
-}
-
-.mobileOverlayCenter {
+// Centered, oversized navigation
+.overlayCenter {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.mobileNavLinks {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: $spacing-xl;
-}
+  .siteNav {
+    align-items: center;
+    gap: $spacing-xl;
+  }
 
-.mobileNavLink {
-  font-family: $font-family-primary;
-  font-size: clamp(2.5rem, 12vw, 4rem);
-  font-weight: 700;
-  letter-spacing: $letter-spacing-md;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--color-text);
-  opacity: 0.45;
-  transition: color 0.2s ease, opacity 0.2s ease;
-  line-height: 1;
+  .navLink {
+    font-size: clamp(#{$font-size-2xl}, 12vw, #{$font-size-4xl});
+    letter-spacing: $letter-spacing-tighter;
+    opacity: 0.45;
+    line-height: 1.05;
+  }
 
-  &:hover {
-    color: var(--color-accent);
+  .navLinkActive {
     opacity: 1;
   }
-
-  &:active {
-    opacity: 0.6;
-  }
 }
 
-.mobileNavLinkActive {
-  color: var(--color-accent);
-  opacity: 1;
-}
-
-.mobileOverlayBottom {
-  flex-shrink: 0;
+// Bottom row — identity (left) and socials (right, vertical), same level
+.overlayFoot {
   display: flex;
-  flex-direction: column;
-  gap: $spacing-lg;
-}
-
-.mobileOverlayMeta {
-  display: flex;
-  align-items: flex-end;
   justify-content: space-between;
-  gap: $spacing-md;
-}
-
-.mobileAudioToggle {
-  margin-bottom: $spacing-3xs;
-}
-
-.mobileOverlayName {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: $spacing-2xs;
-}
-
-.mobileOverlayRole {
-  font-size: $font-size-sm;
-  opacity: 0.6;
-}
-
-.mobileCmdPromptIcon {
-  color: var(--color-accent);
-  font-family: $font-family-mono;
-  font-size: $font-size-sm;
-}
-
-.mobileOverlaySocials {
-  display: flex;
+  align-items: flex-start;
   gap: $spacing-lg;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.mobileSocialLink {
-  font-family: $font-family-mono;
-  font-size: $font-size-sm;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--color-text);
-  opacity: 0.4;
-  transition: opacity 0.2s ease, color 0.2s ease;
-
-  &:hover {
-    opacity: 1;
-    color: var(--color-accent);
-  }
+  flex-shrink: 0;
 }

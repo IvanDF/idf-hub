@@ -1,5 +1,32 @@
 @use "variables" as *;
 
+// ── Responsive breakpoint mixins ──────────────────────────────────────────────
+// Single source of truth for media queries — drive everything off $breakpoint-*
+// so no component hardcodes raw px in @media. Usage: @include mobile { ... }
+@mixin bp-down($bp) {
+  @media (max-width: $bp) {
+    @content;
+  }
+}
+
+@mixin bp-up($bp) {
+  @media (min-width: $bp) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @include bp-down($breakpoint-xl) { @content; } // <= 768px
+}
+
+@mixin tablet {
+  @include bp-down($breakpoint-lg) { @content; } // <= 700px
+}
+
+@mixin small {
+  @include bp-down($breakpoint-sm) { @content; } // <= 480px
+}
+
 @mixin flex-center {
   display: flex;
   align-items: center;

@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
 
 // ── Container ─────────────────────────────────────────────────────────────────
 .container {
@@ -7,7 +8,7 @@
   position: relative;
   z-index: 10;
 
-  @media (min-width: $breakpoint-xl) {
+  @include bp-up($breakpoint-xl) {
     padding: 6rem 60px 6rem;
     max-width: 1400px;
     margin: 0 auto;
@@ -17,7 +18,7 @@
 // ── Header ────────────────────────────────────────────────────────────────────
 .header {
   margin-bottom: 2rem;
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: $border-base solid var(--color-text);
   padding-bottom: 1.5rem;
 }
 
@@ -72,7 +73,7 @@
   margin-bottom: 2.5rem;
   flex-wrap: wrap;
 
-  @media (max-width: $breakpoint-xl) {
+  @include mobile {
     overflow-x: auto;
     flex-wrap: nowrap;
     padding-bottom: 0.25rem;
@@ -84,7 +85,7 @@
 
 .filterBtn {
   background: transparent;
-  border: 2px solid color-mix(in srgb, var(--color-text) 35%, transparent);
+  border: $border-base solid color-mix(in srgb, var(--color-text) 35%, transparent);
   color: var(--color-text);
   opacity: 0.7;
   font-family: $font-family-primary;
@@ -120,7 +121,7 @@
 .projectList {
   display: flex;
   flex-direction: column;
-  border-top: 2px solid var(--color-text);
+  border-top: $border-base solid var(--color-text);
 }
 
 .projectRow {
@@ -130,7 +131,7 @@
   align-items: center;
   gap: 1.5rem;
   padding: 1.75rem 0.5rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--color-text) 20%, transparent);
+  border-bottom: $border-hairline solid color-mix(in srgb, var(--color-text) 20%, transparent);
   cursor: pointer;
   transition:
     background 0.12s ease,
@@ -162,7 +163,7 @@
     }
   }
 
-  @media (max-width: $breakpoint-xl) {
+  @include mobile {
     grid-template-columns: 2.25rem 1fr auto;
     gap: 0.75rem;
     padding: 1rem 0.25rem;
@@ -206,7 +207,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 
-  @media (max-width: $breakpoint-xl) {
+  @include mobile {
     white-space: normal;
   }
 }
@@ -219,7 +220,7 @@
   line-height: 1.4;
   transition: color 0.15s ease, opacity 0.15s ease;
 
-  @media (max-width: $breakpoint-xl) {
+  @include mobile {
     display: none;
   }
 }
@@ -240,7 +241,7 @@
   opacity: 0.35;
   transition: color 0.15s ease;
 
-  @media (max-width: $breakpoint-xl) {
+  @include mobile {
     display: none;
   }
 }
@@ -272,7 +273,7 @@
 
 // ── Archive ───────────────────────────────────────────────────────────────────
 .archive {
-  border-top: 1px solid color-mix(in srgb, var(--color-text) 20%, transparent);
+  border-top: $border-hairline solid color-mix(in srgb, var(--color-text) 20%, transparent);
   padding-top: 2rem;
   margin-top: 2rem;
 }
