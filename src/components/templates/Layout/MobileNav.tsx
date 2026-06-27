@@ -48,18 +48,17 @@ export default function MobileNav() {
 
       {isOpen && (
         <div className={styles.overlay} role="dialog" aria-modal="true">
-          <div className={styles.overlayInner}>
-            <div className={styles.overlayTop}>
-              <SiteNav onNavigate={close} />
-              <div className={styles.overlayControls}>
-                <ThemeToggle />
-                <SocialLinks />
-              </div>
-            </div>
+          <div className={styles.overlayHead}>
+            <ThemeToggle />
+          </div>
 
-            <div className={styles.overlayDivider}></div>
+          <div className={styles.overlayCenter}>
+            <SiteNav onNavigate={close} />
+          </div>
 
+          <div className={styles.overlayFoot}>
             <Identity onCommand={close} />
+            <SocialLinks />
           </div>
         </div>
       )}

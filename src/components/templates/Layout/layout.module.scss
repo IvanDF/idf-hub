@@ -381,15 +381,19 @@
   }
 }
 
+// Full-screen menu: large centered navigation, action controls in the corners.
 .overlay {
   position: fixed;
   inset: 0;
   z-index: 150;
+  display: flex;
+  flex-direction: column;
   background: rgba(var(--color-bg-rgb), 0.92);
   backdrop-filter: blur($blur-2xl);
   -webkit-backdrop-filter: blur($blur-2xl);
   overflow-y: auto;
   filter: var(--ink-fine);
+  padding: calc(#{$touch-target-min} + #{$spacing-lg}) $spacing-xl $spacing-2xl;
   animation: overlayFade 0.25s ease;
 }
 
@@ -402,33 +406,42 @@
   }
 }
 
-.overlayInner {
-  min-height: 100%;
+// Top-left corner action — theme toggle (burger ✕ sits top-right)
+.overlayHead {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: $spacing-2xl;
-  padding: calc(#{$touch-target-min} + #{$spacing-xl}) $spacing-xl $spacing-2xl;
-}
-
-// Top region mirrors the desktop rails: nav on the left, theme + socials right
-.overlayTop {
-  display: flex;
-  justify-content: space-between;
   align-items: flex-start;
-  gap: $spacing-lg;
+  flex-shrink: 0;
 }
 
-.overlayControls {
+// Centered, oversized navigation
+.overlayCenter {
+  flex: 1;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .siteNav {
+    align-items: center;
+    gap: $spacing-lg;
+  }
+
+  .navLink {
+    font-size: clamp(#{$font-size-xl}, 11vw, #{$font-size-4xl});
+    letter-spacing: $letter-spacing-tighter;
+    opacity: 0.5;
+    line-height: 1.05;
+  }
+
+  .navLinkActive {
+    opacity: 1;
+  }
+}
+
+// Bottom corners — identity (left) and socials (right)
+.overlayFoot {
+  display: flex;
+  justify-content: space-between;
   align-items: flex-end;
   gap: $spacing-lg;
-}
-
-.overlayDivider {
-  height: $border-hairline;
-  width: 100%;
-  background-color: var(--color-divider);
-  opacity: 0.75;
+  flex-shrink: 0;
 }
