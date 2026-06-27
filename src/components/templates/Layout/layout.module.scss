@@ -422,13 +422,13 @@
 
   .siteNav {
     align-items: center;
-    gap: $spacing-lg;
+    gap: $spacing-xl;
   }
 
   .navLink {
-    font-size: clamp(#{$font-size-xl}, 11vw, #{$font-size-4xl});
+    font-size: clamp(#{$font-size-2xl}, 12vw, #{$font-size-4xl});
     letter-spacing: $letter-spacing-tighter;
-    opacity: 0.5;
+    opacity: 0.45;
     line-height: 1.05;
   }
 
@@ -437,11 +437,17 @@
   }
 }
 
-// Bottom corners — identity (left) and socials (right)
+// Bottom corners — identity (left) and socials (right, inline)
 .overlayFoot {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   gap: $spacing-lg;
   flex-shrink: 0;
+
+  .socialLinks {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+  }
 }
