@@ -53,7 +53,7 @@ export default function MobileNav() {
           </div>
 
           <div className={styles.overlayCenter}>
-            <SiteNav onNavigate={close} />
+            <SiteNav onNavigate={close} showIndex={false} />
           </div>
 
           <div className={styles.overlayFoot}>

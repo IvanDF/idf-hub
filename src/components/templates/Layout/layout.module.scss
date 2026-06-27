@@ -393,7 +393,7 @@
   -webkit-backdrop-filter: blur($blur-2xl);
   overflow-y: auto;
   filter: var(--ink-fine);
-  padding: calc(#{$touch-target-min} + #{$spacing-lg}) $spacing-xl $spacing-2xl;
+  padding: $spacing-md $spacing-xl $spacing-2xl;
   animation: overlayFade 0.25s ease;
 }
 
@@ -406,10 +406,14 @@
   }
 }
 
-// Top-left corner action — theme toggle (burger ✕ sits top-right)
+// Top-left action — theme toggle, on the same row as the burger (top-right)
 .overlayHead {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: $touch-target-min;
+  // leave room so it never collides with the fixed burger on the right
+  padding-right: calc(#{$touch-target-min} + #{$spacing-sm});
   flex-shrink: 0;
 }
 
@@ -437,17 +441,11 @@
   }
 }
 
-// Bottom corners — identity (left) and socials (right, inline)
+// Bottom row — identity (left) and socials (right, vertical), same level
 .overlayFoot {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: $spacing-lg;
   flex-shrink: 0;
-
-  .socialLinks {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: $spacing-md;
-  }
 }
