@@ -118,7 +118,7 @@
 
   &::-webkit-scrollbar-thumb {
     background: var(--color-surface-glass);
-    border-radius: $radius-xs;
+    border-radius: $radius-sm;
   }
 }
 
@@ -179,7 +179,7 @@
 .terminalLink {
   background: rgba(var(--color-bg-rgb), 0.82);
   border: $border-base solid color-mix(in srgb, var(--color-text) 30%, transparent);
-  border-radius: var(--route-card-radius, #{$radius-xl});
+  border-radius: var(--route-card-radius, #{$radius-lg});
   padding: $spacing-sm $spacing-md;
   min-height: $touch-target-min;
   cursor: pointer;
@@ -219,11 +219,11 @@
 .themePill {
   width: $spacing-xl;
   height: $spacing-md;
-  border-radius: $radius-xl;
+  border-radius: $radius-lg;
   border: $border-hairline solid var(--color-divider);
   display: flex;
   align-items: center;
-  padding: 0 $spacing-3xs;
+  padding: 0 $spacing-2xs;
   justify-content: flex-start;
 
   &[data-dark="true"] {
@@ -354,14 +354,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: $spacing-3xs;
+  gap: $spacing-2xs;
   width: $touch-target-min;
   height: $touch-target-min;
   padding: $spacing-xs;
   background: rgba(var(--color-bg-rgb), 0.9);
   border: $border-base solid var(--color-text);
-  border-radius: var(--route-card-radius, #{$radius-xl});
+  border-radius: var(--route-card-radius, #{$radius-lg});
   cursor: pointer;
+  // Match the carved wobble of the other chrome (rails/overlay); the Terminal
+  // stays glass so it deliberately keeps a crisp, un-inked edge.
+  filter: var(--ink-fine);
 
   span {
     display: block;
@@ -375,13 +378,13 @@
   }
 
   &.burgerOpen span:nth-child(1) {
-    transform: translateY(calc(#{$spacing-3xs} + #{$border-base})) rotate(45deg);
+    transform: translateY(calc(#{$spacing-2xs} + #{$border-base})) rotate(45deg);
   }
   &.burgerOpen span:nth-child(2) {
     opacity: 0;
   }
   &.burgerOpen span:nth-child(3) {
-    transform: translateY(calc(-1 * (#{$spacing-3xs} + #{$border-base}))) rotate(-45deg);
+    transform: translateY(calc(-1 * (#{$spacing-2xs} + #{$border-base}))) rotate(-45deg);
   }
 
   @include mobile {
@@ -397,8 +400,8 @@
   display: flex;
   flex-direction: column;
   background: rgba(var(--color-bg-rgb), 0.92);
-  backdrop-filter: blur($blur-2xl);
-  -webkit-backdrop-filter: blur($blur-2xl);
+  backdrop-filter: blur($blur-md);
+  -webkit-backdrop-filter: blur($blur-md);
   overflow-y: auto;
   filter: var(--ink-fine);
   padding: $spacing-md $spacing-xl $spacing-2xl;

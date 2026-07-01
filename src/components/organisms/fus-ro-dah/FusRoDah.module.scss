@@ -22,11 +22,11 @@
   gap: $spacing-md;
   background: color.adjust($color-black, $alpha: -0.12);
   border: $border-hairline solid var(--color-accent);
-  border-radius: $radius-xl;
+  border-radius: $radius-lg;
   padding: $spacing-xl $spacing-xxl;
   pointer-events: all;
-  backdrop-filter: blur($blur-lg);
-  -webkit-backdrop-filter: blur($blur-lg);
+  backdrop-filter: blur($blur-md);
+  -webkit-backdrop-filter: blur($blur-md);
   animation: panelIn 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -37,8 +37,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: $spacing-3xl;
-  height: $spacing-3xl;
+  width: $spacing-2xl;
+  height: $spacing-2xl;
 }
 
 .micPulse {
@@ -69,7 +69,7 @@
   width: 200px;
   height: 3px;
   background: color.adjust($color-white, $alpha: -0.88);
-  border-radius: $radius-xs;
+  border-radius: $radius-sm;
   overflow: hidden;
 }
 
@@ -78,7 +78,7 @@
 .countdownFill {
   height: 100%;
   background: var(--color-accent);
-  border-radius: $radius-xs;
+  border-radius: $radius-sm;
   animation: countdown 8s linear forwards;
 }
 

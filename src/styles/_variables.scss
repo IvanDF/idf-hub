@@ -150,8 +150,8 @@ $font-size-h4-fluid: clamp(1.125rem, 0.75rem + 1.25vw, 1.5625rem);
 $font-size-h5-fluid: clamp(1rem, 0.75rem + 1vw, 1.25rem);
 $font-size-h6-fluid: clamp(0.875rem, 0.625rem + 1vw, 1.125rem);
 
-// Spacing Scale (base unit 4px)
-$spacing-3xs: 2px;
+// Spacing Scale — 8 steps on a 4px grid (2px hair and 56px removed:
+// merged into 4px and 48px to keep one intentional, uniform scale)
 $spacing-2xs: 4px;
 $spacing-xs: 8px;
 $spacing-sm: 12px;
@@ -159,7 +159,6 @@ $spacing-md: 16px;
 $spacing-lg: 24px;
 $spacing-xl: 32px;
 $spacing-2xl: 48px;
-$spacing-3xl: 56px;
 $spacing-xxl: 80px;
 
 // Touch targets (minimum 44px per WCAG)
@@ -174,20 +173,15 @@ $size-scrollbar: 6px;     // custom scrollbar thickness
 $border-hairline: 1px;
 $border-base: 2px;
 
-// Backdrop blur scale (values mirror real usage across the app)
-$blur-xs: 4px;
+// Backdrop blur scale — 3 intentional steps
 $blur-sm: 8px;
-$blur-md: 12px;
-$blur-lg: 16px;
-$blur-xl: 20px;
-$blur-2xl: 24px;
+$blur-md: 16px;
+$blur-lg: 24px;
 
-// Border Radius
-$radius-xs: 2px;
+// Border Radius — 3 steps + full
 $radius-sm: 4px;
 $radius-md: 8px;
-$radius-lg: 12px;
-$radius-xl: 16px;
+$radius-lg: 16px;
 $radius-full: 999px;
 
 // Breakpoints (mobile-first)

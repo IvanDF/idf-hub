@@ -164,7 +164,7 @@
   letter-spacing: $letter-spacing-lg;
   background: color.adjust($color-lario-light, $alpha: -0.9);
   padding: $spacing-xs $spacing-sm;
-  border-radius: $radius-xs;
+  border-radius: $radius-sm;
   border: $border-hairline solid color.adjust($color-lario-light, $alpha: -0.8);
 }
 
@@ -254,7 +254,7 @@
 
 .tvBezel {
   background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #111 100%);
-  border-radius: $radius-xl;
+  border-radius: $radius-lg;
   padding: 28px 28px 52px;
   box-shadow:
     0 0 0 2px #3a3a3a,

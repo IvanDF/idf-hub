@@ -68,10 +68,10 @@
   padding: $spacing-lg 28px;
 
   background: rgba(var(--color-bg-rgb), 0.98);
-  backdrop-filter: blur($blur-xl);
+  backdrop-filter: blur($blur-md);
   border: var(--route-terminal-border-width, 1px) solid
     var(--route-terminal-border-color, var(--color-divider));
-  border-radius: var(--route-terminal-radius, #{$radius-xl});
+  border-radius: var(--route-terminal-radius, #{$radius-lg});
   box-shadow: var(--route-terminal-shadow);
   display: flex;
   flex-direction: column;
@@ -117,7 +117,7 @@
   }
   &::-webkit-scrollbar-thumb {
     background: var(--color-divider);
-    border-radius: $radius-xs;
+    border-radius: $radius-sm;
 
     &:hover {
       background: var(--color-text);
@@ -352,8 +352,8 @@
     max-width: 95dvw;
     height: 85dvh;
     max-height: none;
-    border-radius: var(--route-terminal-radius-mobile, #{$radius-xl})
-      var(--route-terminal-radius-mobile, #{$radius-xl}) 0 0;
+    border-radius: var(--route-terminal-radius-mobile, #{$radius-lg})
+      var(--route-terminal-radius-mobile, #{$radius-lg}) 0 0;
     padding: $spacing-sm $spacing-md;
     padding-bottom: calc(50px + env(keyboard-inset-height, 12px));
     font-size: $font-size-md;
@@ -477,7 +477,7 @@
 .voiceCountdown {
   height: 2px;
   background: color.adjust($color-white, $alpha: -0.92);
-  border-radius: $radius-xs;
+  border-radius: $radius-sm;
   overflow: hidden;
 }
 
@@ -488,7 +488,7 @@
     color.adjust($color-volta-light, $alpha: -0.1),
     color.adjust($color-lario-dark, $alpha: -0.3)
   );
-  border-radius: $radius-xs;
+  border-radius: $radius-sm;
   animation: voiceCountdown 8s linear forwards;
 }
 

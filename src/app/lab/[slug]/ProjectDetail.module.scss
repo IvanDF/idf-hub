@@ -260,7 +260,7 @@
   letter-spacing: $letter-spacing-xl;
   text-decoration: none;
   padding: 0.65rem 1.25rem;
-  border-radius: var(--route-card-radius, #{$radius-xl});
+  border-radius: var(--route-card-radius, #{$radius-lg});
   border: $border-base solid var(--color-text);
   box-shadow: var(--depth-sm);
   transition: box-shadow 0.12s ease, transform 0.12s ease, opacity 0.15s ease;

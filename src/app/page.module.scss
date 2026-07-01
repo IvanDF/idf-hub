@@ -104,7 +104,7 @@
     background: var(--color-card-bg);
     border: $border-hairline solid var(--color-divider);
     border-radius: $radius-sm;
-    padding: $spacing-3xs $spacing-xs;
+    padding: $spacing-2xs $spacing-xs;
     color: var(--color-accent);
     box-shadow: 0 1px 2px color.adjust($color-black, $alpha: -0.9);
   }

@@ -274,7 +274,7 @@
   font-size: $font-size-xs;
   padding: 0.25rem 0.5rem;
   border: $border-hairline solid;
-  border-radius: $radius-xs;
+  border-radius: $radius-sm;
   background: transparent;
   cursor: pointer;
   transition: background-color 0.15s, color 0.15s;
@@ -305,7 +305,7 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur($blur-xs);
+  backdrop-filter: blur($blur-sm);
   z-index: 100;
   display: flex;
   align-items: flex-start;
@@ -320,7 +320,7 @@
   background-color: var(--color-card-bg);
   border: $border-hairline solid var(--color-divider);
   border-top: $border-base solid var(--color-accent);
-  border-radius: $radius-xl;
+  border-radius: $radius-lg;
   position: relative;
 }
 
@@ -481,7 +481,7 @@
   background-color: var(--color-card-bg);
   border: $border-hairline solid rgba($color-destructive-light, 0.4);
   border-top: $border-base solid $color-destructive-light;
-  border-radius: $radius-xl;
+  border-radius: $radius-lg;
   padding: 1.75rem 2rem;
   width: 100%;
   max-width: 380px;
