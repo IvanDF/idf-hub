@@ -16,13 +16,16 @@ import styles from "./layout.module.scss";
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const [lastPathname, setLastPathname] = useState(pathname);
+
+  // Close the overlay on route change by adjusting state during render
+  // (React's recommended pattern) rather than a cascading setState-in-effect.
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname);
+    setIsOpen(false);
+  }
 
   const close = () => setIsOpen(false);
-
-  // Close on route change
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
 
   // Lock body scroll while the overlay is open
   useEffect(() => {
