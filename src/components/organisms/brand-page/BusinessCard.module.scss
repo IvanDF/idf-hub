@@ -21,7 +21,7 @@
   color: var(--color-accent);
   background: color.adjust($color-volta-light, $alpha: -0.92);
   border: $border-hairline solid color.adjust($color-volta-light, $alpha: -0.8);
-  padding: $spacing-3xs $spacing-xs;
+  padding: $spacing-2xs $spacing-xs;
   border-radius: $radius-sm;
 }
 

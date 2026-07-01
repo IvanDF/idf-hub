@@ -14,7 +14,7 @@
 .modal {
   background: var(--color-card-bg);
   border: $border-hairline solid var(--color-card-border);
-  border-radius: $radius-xl;
+  border-radius: $radius-lg;
   padding: 40px;
   max-width: 400px;
   width: 90%;
@@ -22,8 +22,8 @@
   box-shadow: 0 25px 50px -12px rgba(var(--color-silk-rgb), 0.6);
 
   .icon {
-    width: $spacing-3xl;
-    height: $spacing-3xl;
+    width: $spacing-2xl;
+    height: $spacing-2xl;
     margin: 0 auto 20px;
     color: var(--color-accent);
 
