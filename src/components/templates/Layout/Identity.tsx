@@ -22,7 +22,7 @@ const openCommandPalette = () =>
 export default function Identity({ onCommand }: IdentityProps) {
   return (
     <footer className={styles.footer}>
-      <AudioToggle />
+      <AudioToggle className={styles.footerAction} />
 
       <div className={styles.name}>
         <GlitchText text="IVAN DEL FATTI" />
@@ -31,6 +31,7 @@ export default function Identity({ onCommand }: IdentityProps) {
       <Button
         variant="ghost"
         stamp={false}
+        className={styles.footerAction}
         onClick={() => {
           onCommand?.();
           openCommandPalette();

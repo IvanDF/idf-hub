@@ -270,6 +270,7 @@
 .footer {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: $spacing-sm;
 
   .name {
@@ -282,6 +283,13 @@
     font-size: $font-size-sm;
     opacity: 0.6;
   }
+}
+
+// Optically align padded ghost buttons (audio toggle, ⌘K) with the plain-text
+// name: pull them left by the button's horizontal padding so all footer text
+// shares the same left edge (desktop rail + mobile overlay).
+.footerAction {
+  margin-left: -$spacing-md;
 }
 
 .socials {
