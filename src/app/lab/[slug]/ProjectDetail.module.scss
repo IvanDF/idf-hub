@@ -52,7 +52,7 @@
   font-family: $font-family-mono;
   font-size: $font-size-xs;
   text-transform: uppercase;
-  letter-spacing: $letter-spacing-xxl;
+  letter-spacing: $letter-spacing-xl;
   border: $border-hairline solid var(--color-divider);
   border-radius: var(--route-filter-radius, #{$radius-full});
   padding: 0.2rem 0.6rem;
