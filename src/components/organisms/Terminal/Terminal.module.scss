@@ -155,7 +155,7 @@
   text-align: center;
 
   @include bp-down($breakpoint-md) {
-    font-size: $font-size-3xs;
+    font-size: $font-size-2xs;
     letter-spacing: -0.1em;
     max-height: 40vh;
   }
