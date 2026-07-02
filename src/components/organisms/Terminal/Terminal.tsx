@@ -383,8 +383,8 @@ export default function Terminal({
                     {!voiceError && <span className={styles.voiceDot} />}
                     <span>
                       {voiceError
-                        ? "⚠ Thu\u2019um blocked"
-                        : "🎙\uFE0F  Speak the Thu\u2019um, Dovahkiin\u2026"}
+                        ? "[!] Thu\u2019um blocked"
+                        : "Speak the Thu\u2019um, Dovahkiin\u2026"}
                     </span>
                   </div>
 

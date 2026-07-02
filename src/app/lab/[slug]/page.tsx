@@ -1,6 +1,7 @@
 import Text from "@/components/atoms/text";
 import { PROJECTS } from "@/data/projects";
 import { ArrowLeft, ExternalLink } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -8,6 +9,34 @@ import styles from "./ProjectDetail.module.scss";
 
 export async function generateStaticParams() {
   return PROJECTS.map((project) => ({ slug: project.id }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = PROJECTS.find((p) => p.id === decodeURIComponent(slug));
+  if (!project) return { title: "Not found" };
+
+  const description = project.description;
+  const url = `/lab/${project.id}`;
+  // SVG and placeholder thumbnails don't work as social preview images;
+  // in those cases fall back to the default /opengraph-image.
+  const thumb = project.media.thumbnail;
+  const images =
+    thumb && thumb !== "/assets/placeholder.svg" && !thumb.endsWith(".svg")
+      ? [thumb]
+      : undefined;
+
+  return {
+    title: project.title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title: project.title, description, url, type: "article", images },
+    twitter: { card: "summary_large_image", title: project.title, description, images },
+  };
 }
 
 export default async function ProjectPage({
