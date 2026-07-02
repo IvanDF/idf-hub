@@ -125,6 +125,8 @@
 .projectList {
   display: flex;
   flex-direction: column;
+  gap: $spacing-sm;
+  padding-top: $spacing-sm;
   border-top: $border-base solid var(--color-text);
 }
 
@@ -316,6 +318,9 @@
 .archiveList {
   overflow: hidden;
   margin-top: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
 }
 
 .archivedRow {
