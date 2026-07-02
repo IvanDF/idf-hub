@@ -3,6 +3,7 @@
 import { useTheme } from "@/context/ThemeContext";
 import { Html } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
+import { useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
 import * as THREE from "three";
@@ -18,6 +19,7 @@ function getParticleCount(): number {
 
 function InteractiveParticles() {
   const { theme } = useTheme();
+  const reduceMotion = useReducedMotion();
 
   const particleCount = useMemo(() => getParticleCount(), []);
   const sphereRadius = 1.8;
@@ -70,6 +72,14 @@ function InteractiveParticles() {
     const targets = initialData.target;
     const vels = velocitiesRef.current;
     const time = clock.getElapsedTime();
+
+    // Reduced motion: particles rest in the sculpted logo shape — no
+    // breathing, no mouse repulsion, no drift.
+    if (reduceMotion) {
+      positions.set(targets);
+      geometryRef.current.attributes.position.needsUpdate = true;
+      return;
+    }
 
     for (let i = 0; i < particleCount; i++) {
       const ix = i * 3;

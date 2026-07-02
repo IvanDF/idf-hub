@@ -1,4 +1,5 @@
 import MainLayout, { SiteChrome } from "@/components/templates/Layout";
+import MotionProvider from "@/components/atoms/motion-provider";
 import FusRoDahWrapper from "@/components/organisms/fus-ro-dah";
 import { socials } from "@/data/nav";
 import InkFilters from "@/components/atoms/ink-filters/InkFilters";
@@ -150,17 +151,19 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <ThemeProvider>
-          <AudioProvider>
-            <VoiceShoutProvider>
-              <InkFilters />
-              <RouteTracker />
-              <SiteChrome />
-              <MainLayout>{children}</MainLayout>
-              <FusRoDahWrapper />
-            </VoiceShoutProvider>
-          </AudioProvider>
-        </ThemeProvider>
+        <MotionProvider>
+          <ThemeProvider>
+            <AudioProvider>
+              <VoiceShoutProvider>
+                <InkFilters />
+                <RouteTracker />
+                <SiteChrome />
+                <MainLayout>{children}</MainLayout>
+                <FusRoDahWrapper />
+              </VoiceShoutProvider>
+            </AudioProvider>
+          </ThemeProvider>
+        </MotionProvider>
         <Analytics />
       </body>
     </html>

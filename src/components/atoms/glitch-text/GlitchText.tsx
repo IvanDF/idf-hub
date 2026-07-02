@@ -1,5 +1,6 @@
 'use client';
 
+import { useReducedMotion } from 'framer-motion';
 import { useState, useRef } from 'react';
 import styles from './GlitchText.module.scss';
 
@@ -21,8 +22,10 @@ const SYMBOLS = '!@#$%^&*()_+-=[]{}|;:,.<>?';
 export default function GlitchText({ text, className = '', scrambleSpeed = 30 }: GlitchTextProps) {
   const [displayText, setDisplayText] = useState(text);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const reduceMotion = useReducedMotion();
 
   const scramble = () => {
+    if (reduceMotion) return;
     let iteration = 0;
     
     if (intervalRef.current) clearInterval(intervalRef.current);
