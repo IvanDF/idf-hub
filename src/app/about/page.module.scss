@@ -15,6 +15,8 @@
   border-top: $border-hairline solid var(--color-divider);
   position: relative;
   z-index: 10;
+  // Carved wobble on the in-flow page root (see layout.module.scss .main)
+  filter: var(--ink);
 }
 
 // ── Hero ──────────────────────────────────────────────────────────────────────

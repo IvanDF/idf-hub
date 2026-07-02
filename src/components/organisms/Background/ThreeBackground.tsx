@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, useRef, useEffect } from 'react';
-import { useLoader, useFrame, extend } from '@react-three/fiber';
+import { useLoader, useFrame, extend, useThree } from '@react-three/fiber';
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js';
 import * as THREE from 'three';
 import { shaderMaterial } from '@react-three/drei';
@@ -97,6 +97,7 @@ declare global {
  */
 export default function ThreeBackground() {
   const svgData = useLoader(SVGLoader, '/background.svg');
+  const invalidate = useThree((state) => state.invalidate);
   
   // Create material once using useMemo instead of useRef to be safe for rendering
   const material = useMemo(() => new HoverMaterial({
@@ -126,12 +127,14 @@ export default function ThreeBackground() {
         const x = (event.clientX / window.innerWidth) * 2 - 1;
         const y = -(event.clientY / window.innerHeight) * 2 + 1;
         mouseRef.current.set(x, y);
+        // Canvas runs frameloop="demand": request a frame for the hover lift
+        invalidate();
       };
 
       window.addEventListener('mousemove', handleMouseMove);
       return () => window.removeEventListener('mousemove', handleMouseMove);
     }
-  }, []);
+  }, [invalidate]);
 
   // Performance: Merge all geometries into one single mesh
   const mergedGeometry = useMemo(() => {
@@ -211,7 +214,10 @@ export default function ThreeBackground() {
             // Lerp for smoothness (optional, makes interaction feel heavier/classier)
             const currentMouse = shaderRef.current.uniforms.uMouse.value;
             // Lerp towards the new position
-            currentMouse.lerp(localPoint, 0.15); 
+            currentMouse.lerp(localPoint, 0.15);
+
+            // Keep requesting frames until the lerp settles, then go idle
+            if (currentMouse.distanceTo(localPoint) > 0.5) invalidate();
         }
     }
   });

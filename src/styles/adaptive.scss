@@ -37,6 +37,7 @@
   --route-nav-link-weight: 700;
   --chrome-rail-width: 328px; // desktop side-rail width
   --chrome-rail-pad-x: 40px; // desktop side-rail horizontal padding
+  --chrome-rail-peek: 32px; // visible sliver of an auto-hidden rail (hover target)
 
   // ── Cards ────────────────────────────────────────────────────────────────────
   --route-card-shadow: var(--depth-sm);

@@ -3,15 +3,17 @@
 
 .container {
   min-height: 100vh;
-  padding: 5.5rem 1rem 6rem;
+  padding: $spacing-xxl $spacing-md $spacing-xxl;
   max-width: 860px;
   margin: 0 auto;
   position: relative;
   z-index: 10;
   color: var(--color-text);
+  // Carved wobble on the in-flow page root (see layout.module.scss .main)
+  filter: var(--ink);
 
   @include bp-up($breakpoint-xl) {
-    padding: 7rem 2rem 6rem;
+    padding: $spacing-xxl $spacing-xl;
   }
 }
 
@@ -19,7 +21,7 @@
 .backLink {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: $spacing-xs;
   font-family: $font-family-mono;
   font-size: $font-size-xs;
   text-transform: uppercase;
@@ -27,7 +29,7 @@
   color: var(--color-text);
   opacity: 0.45;
   text-decoration: none;
-  margin-bottom: 3rem;
+  margin-bottom: $spacing-2xl;
   transition: opacity 0.15s ease;
 
   &:hover { opacity: 1; }
@@ -36,15 +38,15 @@
 // ── Header ────────────────────────────────────────────────────────────────────
 .header {
   border-bottom: $border-base solid var(--color-text);
-  padding-bottom: 2rem;
-  margin-bottom: 3rem;
+  padding-bottom: $spacing-xl;
+  margin-bottom: $spacing-2xl;
 }
 
 .meta {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.25rem;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-lg;
   flex-wrap: wrap;
 }
 
@@ -55,7 +57,7 @@
   letter-spacing: $letter-spacing-xl;
   border: $border-hairline solid var(--color-divider);
   border-radius: var(--route-filter-radius, #{$radius-full});
-  padding: 0.2rem 0.6rem;
+  padding: $spacing-2xs $spacing-xs;
   color: var(--color-text);
   opacity: 0.7;
 }
@@ -83,7 +85,7 @@
   color: var(--color-accent);
   border: $border-hairline solid color-mix(in srgb, var(--color-accent) 40%, transparent);
   border-radius: var(--route-filter-radius, #{$radius-full});
-  padding: 0.2rem 0.55rem;
+  padding: $spacing-2xs $spacing-xs;
 }
 
 .title {
@@ -91,9 +93,9 @@
   font-weight: 800;
   font-size: clamp(2.25rem, 7vw, 4.5rem);
   line-height: 0.92;
-  letter-spacing: -0.04em;
+  letter-spacing: $letter-spacing-tightest;
   text-transform: uppercase;
-  margin: 0 0 1.25rem;
+  margin: 0 0 $spacing-lg;
   color: var(--color-text);
 }
 
@@ -112,14 +114,14 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  margin-bottom: 3.5rem;
+  margin-bottom: $spacing-2xl;
 }
 
 .act {
   display: grid;
-  grid-template-columns: 3.5rem 1fr;
-  gap: 1.5rem;
-  padding: 2rem 0;
+  grid-template-columns: $spacing-2xl 1fr;
+  gap: $spacing-lg;
+  padding: $spacing-xl 0;
   border-bottom: $border-hairline solid var(--color-divider);
 
   &:first-child {
@@ -127,9 +129,9 @@
   }
 
   @include mobile {
-    grid-template-columns: 2.25rem 1fr;
-    gap: 1rem;
-    padding: 1.5rem 0;
+    grid-template-columns: $spacing-xl 1fr;
+    gap: $spacing-md;
+    padding: $spacing-lg 0;
   }
 }
 
@@ -139,14 +141,14 @@
   letter-spacing: $letter-spacing-lg;
   color: var(--color-text);
   opacity: 0.25;
-  padding-top: 0.3rem;
+  padding-top: $spacing-2xs;
   flex-shrink: 0;
 }
 
 .actBody {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: $spacing-sm;
 }
 
 .actTitle {
@@ -154,7 +156,7 @@
   font-weight: 700;
   font-size: $font-size-xs;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: $letter-spacing-wide;
   color: var(--color-text);
   opacity: 0.45;
   margin: 0;
@@ -172,13 +174,13 @@
 
 // ── Media ─────────────────────────────────────────────────────────────────────
 .media {
-  margin-bottom: 3.5rem;
+  margin-bottom: $spacing-2xl;
   border: $border-base solid var(--color-text);
   border-radius: $radius-md;
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2px;
+  gap: $border-base;
   background: var(--color-text);
 }
 
@@ -216,16 +218,16 @@
 // ── Footer ────────────────────────────────────────────────────────────────────
 .footer {
   border-top: $border-base solid var(--color-text);
-  padding-top: 2rem;
+  padding-top: $spacing-xl;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: $spacing-lg;
 }
 
 .stack {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: $spacing-xs;
 }
 
 .stackTag {
@@ -237,20 +239,20 @@
   opacity: 0.5;
   border: $border-hairline solid var(--color-divider);
   border-radius: var(--route-filter-radius, #{$radius-full});
-  padding: 0.2rem 0.6rem;
+  padding: $spacing-2xs $spacing-xs;
 }
 
 .links {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
+  gap: $spacing-sm;
 }
 
 .primaryLink {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: $spacing-xs;
   background: var(--color-text);
   color: var(--color-bg);
   font-family: $font-family-primary;
@@ -259,7 +261,7 @@
   text-transform: uppercase;
   letter-spacing: $letter-spacing-xl;
   text-decoration: none;
-  padding: 0.65rem 1.25rem;
+  padding: $spacing-sm $spacing-lg;
   border-radius: var(--route-card-radius, #{$radius-lg});
   border: $border-base solid var(--color-text);
   box-shadow: var(--depth-sm);
@@ -267,7 +269,7 @@
 
   &:hover {
     box-shadow: var(--depth-md, none);
-    transform: translate(-2px, -2px);
+    transform: var(--route-card-hover-transform, translate(-2px, -2px));
     opacity: 0.9;
   }
 }
@@ -275,7 +277,7 @@
 .secondaryLink {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: $spacing-2xs;
   font-family: $font-family-mono;
   font-size: $font-size-xs;
   text-transform: uppercase;
@@ -283,7 +285,7 @@
   color: var(--color-text);
   opacity: 0.5;
   text-decoration: none;
-  padding: 0.65rem 0;
+  padding: $spacing-sm 0;
   transition: opacity 0.15s ease;
 
   &:hover { opacity: 1; }

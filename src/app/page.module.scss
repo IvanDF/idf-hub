@@ -19,6 +19,9 @@
   z-index: 100;
   width: max-content;
   max-width: min(520px, calc(100vw - 2.5rem));
+  // Ink on the hero only: filtering .shell would pull the 60fps particle
+  // canvas under the displacement filter and re-filter every frame.
+  filter: var(--ink);
 
   @include mobile {
     bottom: $spacing-2xl;
@@ -78,6 +81,7 @@
   z-index: 100;
   opacity: 0.45;
   transition: opacity 0.3s ease;
+  filter: var(--ink-fine);
 
   &:hover {
     opacity: 1;

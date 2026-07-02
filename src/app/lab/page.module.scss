@@ -4,12 +4,16 @@
 // ── Container ─────────────────────────────────────────────────────────────────
 .container {
   min-height: 100vh;
-  padding: 5.5rem 1rem 6rem;
+  padding: $spacing-xxl $spacing-md $spacing-xxl;
   position: relative;
   z-index: 10;
+  // Carved wobble on the in-flow page root (not the scrollport) so the
+  // filtered layer is cached and translated during scroll instead of
+  // being re-filtered every frame.
+  filter: var(--ink);
 
   @include bp-up($breakpoint-xl) {
-    padding: 6rem 60px 6rem;
+    padding: $spacing-xxl $spacing-2xl;
     max-width: 1400px;
     margin: 0 auto;
   }
@@ -17,9 +21,9 @@
 
 // ── Header ────────────────────────────────────────────────────────────────────
 .header {
-  margin-bottom: 2rem;
+  margin-bottom: $spacing-xl;
   border-bottom: $border-base solid var(--color-text);
-  padding-bottom: 1.5rem;
+  padding-bottom: $spacing-lg;
 }
 
 .pageTitle {
@@ -27,7 +31,7 @@
   font-weight: 800;
   line-height: 0.88;
   letter-spacing: $letter-spacing-tightest;
-  margin: 0 0 0.75rem;
+  margin: 0 0 $spacing-sm;
   color: var(--color-text);
   text-transform: uppercase;
   transform-origin: top center;
@@ -38,7 +42,7 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 1rem;
+  gap: $spacing-md;
   flex-wrap: wrap;
 }
 
@@ -69,14 +73,14 @@
 // ── Filters ───────────────────────────────────────────────────────────────────
 .filters {
   display: flex;
-  gap: 0.4rem;
-  margin-bottom: 2.5rem;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-xl;
   flex-wrap: wrap;
 
   @include mobile {
     overflow-x: auto;
     flex-wrap: nowrap;
-    padding-bottom: 0.25rem;
+    padding-bottom: $spacing-2xs;
     scrollbar-width: none;
 
     &::-webkit-scrollbar { display: none; }
@@ -93,7 +97,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-xl;
-  padding: 0.4rem 1rem;
+  padding: $spacing-xs $spacing-md;
   border-radius: var(--route-filter-radius, #{$radius-md});
   cursor: pointer;
   transition:
@@ -127,10 +131,13 @@
 .projectRow {
   all: unset;
   display: grid;
-  grid-template-columns: 3rem 1fr auto;
+  grid-template-columns: $spacing-2xl 1fr auto;
   align-items: center;
-  gap: 1.5rem;
-  padding: 1.75rem 0.5rem;
+  gap: $spacing-lg;
+  padding: $spacing-lg $spacing-xs;
+  // Squircle from the design system so the inverted hover block never shows
+  // 90-degree corners; the hairline below stays as the list separator.
+  border-radius: var(--route-card-radius, #{$radius-lg});
   border-bottom: $border-hairline solid color-mix(in srgb, var(--color-text) 20%, transparent);
   cursor: pointer;
   transition:
@@ -142,8 +149,8 @@
 
   &:hover {
     background: var(--color-text);
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: $spacing-md;
+    padding-right: $spacing-md;
     border-color: var(--color-text);
 
     .rowNum,
@@ -164,13 +171,13 @@
   }
 
   @include mobile {
-    grid-template-columns: 2.25rem 1fr auto;
-    gap: 0.75rem;
-    padding: 1rem 0.25rem;
+    grid-template-columns: $spacing-xl 1fr auto;
+    gap: $spacing-sm;
+    padding: $spacing-md $spacing-2xs;
 
     &:hover {
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
+      padding-left: $spacing-sm;
+      padding-right: $spacing-sm;
     }
   }
 }
@@ -183,22 +190,22 @@
   opacity: 0.3;
   flex-shrink: 0;
   align-self: start;
-  padding-top: 0.2rem;
+  padding-top: $spacing-2xs;
   transition: color 0.15s ease;
 }
 
 .rowMain {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: $spacing-2xs;
   min-width: 0;
 }
 
 .rowTitle {
   font-family: $font-family-primary;
   font-weight: 700;
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  letter-spacing: -0.01em;
+  font-size: clamp(#{$font-size-md}, 2vw, 1.25rem);
+  letter-spacing: $letter-spacing-h1;
   color: var(--color-text);
   line-height: 1.1;
   text-transform: uppercase;
@@ -228,7 +235,7 @@
 .rowMeta {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: $spacing-sm;
   flex-shrink: 0;
 }
 
@@ -267,21 +274,21 @@
   font-size: $font-size-base;
   color: var(--color-text);
   opacity: 0.4;
-  padding: 3rem 0;
+  padding: $spacing-2xl 0;
   text-align: center;
 }
 
 // ── Archive ───────────────────────────────────────────────────────────────────
 .archive {
   border-top: $border-hairline solid color-mix(in srgb, var(--color-text) 20%, transparent);
-  padding-top: 2rem;
-  margin-top: 2rem;
+  padding-top: $spacing-xl;
+  margin-top: $spacing-xl;
 }
 
 .archiveToggle {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: $spacing-xs;
   background: transparent;
   border: none;
   color: var(--color-text);
@@ -291,7 +298,7 @@
   text-transform: uppercase;
   letter-spacing: $letter-spacing-lg;
   cursor: pointer;
-  padding: 0.5rem 0;
+  padding: $spacing-xs 0;
   transition: opacity 0.15s ease;
   min-height: $touch-target-min;
 
@@ -301,14 +308,14 @@
 .archiveCount {
   background: var(--color-divider);
   border-radius: var(--route-filter-radius, #{$radius-full});
-  padding: 0.1rem 0.5rem;
+  padding: 0 $spacing-xs;
   font-size: $font-size-xs;
   opacity: 0.9;
 }
 
 .archiveList {
   overflow: hidden;
-  margin-top: 1rem;
+  margin-top: $spacing-md;
 }
 
 .archivedRow {
