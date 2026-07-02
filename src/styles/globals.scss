@@ -374,3 +374,18 @@ button:not([data-no-stamp]),
     transform: translate(2px, -1px) rotate(0.1deg);
   }
 }
+
+/* ── Reduced motion ─────────────────────────────────────────────────────────
+   Collapse every decorative CSS animation and transition (ticker, glitch
+   slices, pulses, fades). JS-driven motion — framer, three.js, scramble —
+   is gated per component via useReducedMotion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

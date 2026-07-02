@@ -1,5 +1,6 @@
 "use client";
 
+import { useReducedMotion } from "framer-motion";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 
@@ -21,8 +22,16 @@ export default function TextScramble({
   const [display, setDisplay] = useState(() => text.replace(/\S/g, CHARS[0]));
   const frameRef = useRef(0);
   const resolvedRef = useRef<boolean[]>([]);
+  const reduceMotion = useReducedMotion();
+
+  // Reduced motion: show the final text immediately, adjusting state during
+  // render (no scramble frames, no setState-in-effect).
+  if (reduceMotion && display !== text) {
+    setDisplay(text);
+  }
 
   useEffect(() => {
+    if (reduceMotion) return;
     resolvedRef.current = Array(text.length).fill(false);
     let iteration = 0;
     let timeoutId: ReturnType<typeof setTimeout> | null = null;
@@ -56,7 +65,7 @@ export default function TextScramble({
       clearTimeout(timeoutId);
       cancelAnimationFrame(frameRef.current);
     };
-  }, [text, delay]);
+  }, [text, delay, reduceMotion]);
 
   const T = Tag as React.ComponentType<{
     className?: string;
