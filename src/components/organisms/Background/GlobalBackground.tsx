@@ -11,7 +11,10 @@ import styles from './GlobalBackground.module.scss';
 export default function GlobalBackground() {
   return (
     <div className={styles.container}>
-      <Canvas dpr={[1, 1.5]}>
+      {/* frameloop="demand": the scene is static apart from the mouse-driven
+          lift, so ThreeBackground invalidates on pointer moves instead of
+          re-rendering every frame behind the page content. */}
+      <Canvas dpr={[1, 1.5]} frameloop="demand">
         <ambientLight intensity={0.5} />
         <Suspense fallback={null}>
           <ThreeBackground />

@@ -51,13 +51,16 @@
   align-items: flex-end;
 }
 
+// Auto-hidden rails keep a visible scribed line on their inner edge so the
+// navigation stays discoverable, and a wider peek strip as the hover target.
 .leftColumn {
   left: 0;
   align-items: flex-start;
 
   &.autoHide {
-    transform: translateX(calc(-100% + 20px));
+    transform: translateX(calc(-100% + var(--chrome-rail-peek)));
     pointer-events: auto; // Needs to be interactive to hover back
+    border-right: var(--route-chrome-border-width, 0px) var(--route-divider-style, solid) var(--route-chrome-border-color, transparent);
 
     &:hover {
       transform: translateX(0);
@@ -75,8 +78,9 @@
   align-items: flex-end;
 
   &.autoHide {
-    transform: translateX(calc(100% - 20px));
+    transform: translateX(calc(100% - var(--chrome-rail-peek)));
     pointer-events: auto;
+    border-left: var(--route-chrome-border-width, 0px) var(--route-divider-style, solid) var(--route-chrome-border-color, transparent);
 
     &:hover {
       transform: translateX(0);
@@ -105,7 +109,10 @@
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  filter: var(--ink);
+  // No filter here: an SVG displacement filter on the scrollport forces a
+  // full-viewport re-filter on every scroll frame (the /lab lag). Each page
+  // applies var(--ink) to its own in-flow content root instead, so the
+  // filtered layer is cached and simply translated while scrolling.
 
   // Custom Scrollbar
   &::-webkit-scrollbar {
