@@ -4,12 +4,13 @@ import {
 } from "@/lib/terminal/Terminal.constants";
 import type { CommandOutput } from "@/types/terminal";
 
+// Scribed glyphs, not emoji — the terminal speaks in mono type.
 const CAT_ICON: Record<string, string> = {
-  HIMYM: "💜",
-  "R&M": "🌀",
-  Vikings: "⚔️",
-  Secret: "🔐",
-  Skyrim: "🐉",
+  HIMYM: "◆",
+  "R&M": "◇",
+  Vikings: "†",
+  Secret: "§",
+  Skyrim: "‡",
   iDF: "◉",
 };
 const EGG_CATEGORIES = ["HIMYM", "R&M", "Vikings", "Secret", "iDF", "Skyrim"];
@@ -17,7 +18,7 @@ const EGG_CATEGORIES = ["HIMYM", "R&M", "Vikings", "Secret", "iDF", "Skyrim"];
 export function buildEggsOutput(discoveredEggs: Set<string>): CommandOutput[] {
   const discovered = discoveredEggs.size;
   const out: CommandOutput[] = [
-    { type: "system", content: "🏆 ACHIEVEMENTS" },
+    { type: "system", content: "── ACHIEVEMENTS ──" },
     { type: "text", content: `${discovered}/${TOTAL_EASTER_EGGS} discovered` },
     { type: "text", content: "" },
   ];
@@ -38,7 +39,7 @@ export function buildEggsOutput(discoveredEggs: Set<string>): CommandOutput[] {
     out.push({ type: "text", content: "" });
   }
   if (discovered === TOTAL_EASTER_EGGS)
-    out.push({ type: "success", content: "🎉 All achievements unlocked!" });
+    out.push({ type: "success", content: "All achievements unlocked!" });
   return out;
 }
 
@@ -162,7 +163,7 @@ export const HELP_OUTPUT: CommandOutput[] = [
   { type: "system", content: "── FUN ──" },
   {
     type: "text",
-    content: "snake / play — ASCII snake game 🐍",
+    content: "snake / play — ASCII snake game",
     cta: { label: "→ play", cmd: "snake" },
   },
   {

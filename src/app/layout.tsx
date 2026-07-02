@@ -1,5 +1,6 @@
 import MainLayout, { SiteChrome } from "@/components/templates/Layout";
 import FusRoDahWrapper from "@/components/organisms/fus-ro-dah";
+import { socials } from "@/data/nav";
 import InkFilters from "@/components/atoms/ink-filters/InkFilters";
 import RouteTracker from "@/components/atoms/route-tracker/RouteTracker";
 import { AudioProvider } from "@/context/AudioContext";
@@ -122,6 +123,19 @@ export const metadata: Metadata = {
   },
 };
 
+// Structured data: lets search engines connect the site, the person and the
+// social profiles (single source: the same socials array the chrome renders).
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Ivan Del Fatti",
+  alternateName: "iDF",
+  url: siteUrl,
+  jobTitle: "Full-Stack Developer & UI/UX Designer",
+  description: "Driven by curiosity, refined through design.",
+  sameAs: socials.map((s) => s.href),
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -132,6 +146,10 @@ export default function RootLayout({
       <body
         className={`${josefinSans.variable} ${josefinSlab.variable} ${geistMono.variable}`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <ThemeProvider>
           <AudioProvider>
             <VoiceShoutProvider>

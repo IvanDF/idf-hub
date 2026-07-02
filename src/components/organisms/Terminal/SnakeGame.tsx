@@ -65,7 +65,7 @@ export default function SnakeGame({ onExit }: SnakeGameProps) {
     return (
       <div className={styles.overlay}>
         <div className={styles.panel}>
-          <div className={styles.panelTitle}>🏆 TOP 10</div>
+          <div className={styles.panelTitle}>── TOP 10 ──</div>
           {myRank && <div className={styles.panelHint}>your rank: #{myRank}</div>}
           <table className={styles.board}>
             <thead><tr><th>#</th><th>name</th><th>score</th></tr></thead>

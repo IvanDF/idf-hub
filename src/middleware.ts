@@ -1,10 +1,9 @@
 import { NextResponse, type NextRequest } from 'next/server'
+import { SESSION_COOKIE, verifySessionToken } from '@/lib/session'
 
-const SESSION_COOKIE = 'idf_session'
-
-export default function middleware(request: NextRequest) {
-  const session = request.cookies.get(SESSION_COOKIE)
-  const isAuthenticated = session?.value === 'authenticated'
+export default async function middleware(request: NextRequest) {
+  const token = request.cookies.get(SESSION_COOKIE)?.value
+  const isAuthenticated = await verifySessionToken(token)
 
   if (
     request.nextUrl.pathname.startsWith('/admin') &&
