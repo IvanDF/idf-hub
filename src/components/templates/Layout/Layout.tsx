@@ -4,7 +4,6 @@ import Terminal from "@/components/organisms/Terminal";
 import { usePathname } from "next/navigation";
 import styles from "./layout.module.scss";
 import LeftColumn from "./LeftColumn";
-import MobileNav from "./MobileNav";
 import RightColumn from "./RightColumn";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -28,7 +27,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className={styles.container}>
       <Terminal />
-      <MobileNav />
       <LeftColumn />
       <main className={styles.main} data-fus-target="main">{children}</main>
       <RightColumn />

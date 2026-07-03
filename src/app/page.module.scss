@@ -18,7 +18,7 @@
   text-align: center;
   z-index: 100;
   width: max-content;
-  max-width: min(520px, calc(100vw - 2.5rem));
+  max-width: min($container-sm, calc(100vw - #{$spacing-xl}));
   // Ink on the hero only: filtering .shell would pull the 60fps particle
   // canvas under the displacement filter and re-filter every frame.
   filter: var(--ink);

@@ -166,6 +166,20 @@ $touch-target-min: 44px;
 $size-dot: 10px;          // status / toggle dots
 $size-dot-lg: 12px;       // terminal traffic-light dots
 $size-scrollbar: 6px;     // custom scrollbar thickness
+$size-cursor-dot: 8px;    // custom cursor dot
+$size-cursor-ring: 40px;  // custom cursor ring
+$size-control-sm: 36px;   // compact tappable chips (terminal quick commands)
+$size-control-md: 40px;   // comfortable control height below the full touch target
+
+// Container widths — content measures (max-width caps), 8 steps
+$container-2xs: 320px;  // scoreboards, tiny panels
+$container-xs: 400px;   // compact modals: prompts, login, error boxes
+$container-sm: 520px;   // hero copy block
+$container-md: 600px;   // narrow prose column / modal height cap
+$container-lg: 800px;   // prose measure, terminal panel
+$container-xl: 1000px;  // expanded terminal
+$container-2xl: 1280px; // wide grids
+$container-max: 1400px; // page shells
 
 // Border widths
 $border-hairline: 1px;

@@ -4,7 +4,7 @@
 .container {
   min-height: 100vh;
   padding: $spacing-xxl $spacing-md $spacing-xxl;
-  max-width: 860px;
+  max-width: $container-lg;
   margin: 0 auto;
   position: relative;
   z-index: 10;

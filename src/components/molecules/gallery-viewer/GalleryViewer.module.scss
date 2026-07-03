@@ -230,7 +230,7 @@
     inset: 0 !important;
     width: 100% !important;
     height: auto !important;
-    max-height: 480px;
+    max-height: $container-sm;
     object-fit: contain;
     display: block;
   }
