@@ -4,8 +4,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
+  width: $size-cursor-dot;
+  height: $size-cursor-dot;
   border-radius: 50%;
   pointer-events: none;
   z-index: 1000001;
@@ -17,8 +17,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 40px;
-  height: 40px;
+  width: $size-cursor-ring;
+  height: $size-cursor-ring;
   border: $border-hairline solid #fff;
   border-radius: 50%;
   pointer-events: none;

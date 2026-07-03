@@ -15,8 +15,8 @@
   background: var(--color-card-bg);
   border: $border-hairline solid var(--color-card-border);
   border-radius: $radius-lg;
-  padding: 40px;
-  max-width: 400px;
+  padding: $spacing-xl;
+  max-width: $container-xs;
   width: 90%;
   text-align: center;
   box-shadow: 0 25px 50px -12px rgba(var(--color-silk-rgb), 0.6);
@@ -24,7 +24,7 @@
   .icon {
     width: $spacing-2xl;
     height: $spacing-2xl;
-    margin: 0 auto 20px;
+    margin: 0 auto $spacing-md;
     color: var(--color-accent);
 
     svg {
@@ -40,7 +40,7 @@
     color: var(--color-text);
     margin: 0 0 $spacing-sm;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: $letter-spacing-md;
   }
 
   p {
@@ -55,14 +55,14 @@
     display: flex;
     justify-content: center;
     gap: $spacing-sm;
-    margin-bottom: 28px;
+    margin-bottom: $spacing-lg;
 
     span {
       font-family: $font-family-mono;
       font-size: $font-size-xs;
       color: var(--color-accent);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: $letter-spacing-lg;
       opacity: 0.8;
     }
   }
@@ -79,7 +79,7 @@
       font-size: $font-size-base;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: $letter-spacing-md;
       cursor: pointer;
       transition: all 0.2s ease;
     }

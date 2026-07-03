@@ -59,13 +59,13 @@
 
 .terminalContainer {
   width: 85%;
-  max-width: 720px;
+  max-width: $container-lg;
   height: 70vh;
-  max-height: 600px;
+  max-height: $container-md;
 
   color: var(--color-text);
   font-family: $font-family-mono;
-  padding: $spacing-lg 28px;
+  padding: $spacing-lg $spacing-lg;
 
   background: rgba(var(--color-bg-rgb), 0.98);
   backdrop-filter: blur($blur-md);
@@ -87,7 +87,7 @@
 
 .admin {
   width: 92%;
-  max-width: 1000px;
+  max-width: $container-xl;
   height: 82vh;
   max-height: none;
 }
@@ -219,7 +219,7 @@
   color: var(--color-text);
   font-weight: 600;
   letter-spacing: 0.03em;
-  min-height: 34px;
+  min-height: $size-control-sm;
   padding: 0 $spacing-sm;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -247,7 +247,7 @@
     border: $border-hairline solid var(--color-divider);
     border-radius: $radius-md;
     padding: $spacing-xs $spacing-md;
-    min-height: 40px;
+    min-height: $size-control-md;
     color: var(--color-text);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -312,7 +312,7 @@
 
   &:focus-visible {
     outline: $border-base solid var(--color-accent);
-    outline-offset: 2px;
+    outline-offset: $border-base;
   }
 
   &::placeholder {
@@ -355,7 +355,7 @@
     border-radius: var(--route-terminal-radius-mobile, #{$radius-lg})
       var(--route-terminal-radius-mobile, #{$radius-lg}) 0 0;
     padding: $spacing-sm $spacing-md;
-    padding-bottom: calc(50px + env(keyboard-inset-height, 12px));
+    padding-bottom: calc(#{$spacing-2xl} + env(keyboard-inset-height, #{$spacing-sm}));
     font-size: $font-size-md;
     display: flex;
     flex-direction: column;
@@ -376,7 +376,7 @@
 
   .closeButton {
     font-size: $font-size-lg;
-    padding: $spacing-2xs 10px;
+    padding: $spacing-2xs $spacing-xs;
   }
 
   .terminalBody {
@@ -402,7 +402,7 @@
     border-bottom: $border-hairline solid var(--color-divider);
 
     &::-webkit-scrollbar {
-      height: 4px;
+      height: $size-scrollbar;
     }
 
     &::-webkit-scrollbar-track {
@@ -415,7 +415,7 @@
     }
 
     button {
-      min-height: 36px;
+      min-height: $size-control-sm;
       min-width: max-content;
       padding: $spacing-xs $spacing-sm;
       font-size: $font-size-sm;
@@ -427,7 +427,7 @@
 
   .inputArea {
     flex-shrink: 0;
-    padding-top: 10px;
+    padding-top: $spacing-xs;
     margin-top: auto;
     border-top: $border-hairline solid var(--color-divider);
     gap: $spacing-xs;
@@ -443,8 +443,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 38px;
-    padding: 0 14px;
+    min-height: $size-control-md;
+    padding: 0 $spacing-md;
     font-size: $font-size-sm;
   }
 }
@@ -475,7 +475,7 @@
 }
 
 .voiceCountdown {
-  height: 2px;
+  height: $border-base;
   background: color.adjust($color-white, $alpha: -0.92);
   border-radius: $radius-sm;
   overflow: hidden;
@@ -496,7 +496,7 @@
   display: flex;
   align-items: center;
   gap: $spacing-xs;
-  min-height: 18px;
+  min-height: $spacing-md;
 }
 
 .voiceTranscriptLabel {

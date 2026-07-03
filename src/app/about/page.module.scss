@@ -5,7 +5,7 @@
 .page {
   min-height: 100vh;
   width: 100%;
-  max-width: 1400px;
+  max-width: $container-max;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@
     flex-direction: row;
     align-items: flex-end;
     justify-content: space-between;
-    padding: $spacing-xxl 60px;
+    padding: $spacing-xxl $spacing-2xl;
     gap: $spacing-xxl;
   }
 }
@@ -161,8 +161,8 @@
   border-bottom: $border-hairline solid var(--color-divider);
 
   @include bp-up($breakpoint-xl) {
-    padding: $spacing-xxl 60px;
-    max-width: 780px;
+    padding: $spacing-xxl $spacing-2xl;
+    max-width: $container-lg;
   }
 }
 
@@ -192,7 +192,7 @@
   border-bottom: $border-hairline solid var(--color-divider);
 
   @include bp-up($breakpoint-xl) {
-    padding: $spacing-xxl 60px;
+    padding: $spacing-xxl $spacing-2xl;
     border-bottom: none;
     border-right: $border-hairline solid var(--color-divider);
 
@@ -338,7 +338,7 @@
   border-bottom: $border-hairline solid var(--color-divider);
 
   @include bp-up($breakpoint-xl) {
-    padding: 120px 60px;
+    padding: $spacing-xxl $spacing-2xl;
   }
 }
 
@@ -376,7 +376,7 @@
     flex-direction: row;
     align-items: flex-end;
     justify-content: space-between;
-    padding: $spacing-xxl 60px;
+    padding: $spacing-xxl $spacing-2xl;
   }
 }
 

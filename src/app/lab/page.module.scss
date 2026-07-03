@@ -14,7 +14,7 @@
 
   @include bp-up($breakpoint-xl) {
     padding: $spacing-xxl $spacing-2xl;
-    max-width: 1400px;
+    max-width: $container-max;
     margin: 0 auto;
   }
 }
