@@ -113,9 +113,10 @@ export default function SnakeGame({ onExit }: SnakeGameProps) {
           <button className={styles.dpadBtn} onClick={() => queueDir(UP_DIR)}>▲</button>
         </div>
         <div className={styles.dpadRow}>
-          <button className={styles.dpadBtn} onClick={() => queueDir(LEFT_DIR)}>◀</button>
+          {/* ︎ keeps these as text glyphs — iOS otherwise swaps ◀ ▶ for emoji */}
+          <button className={styles.dpadBtn} onClick={() => queueDir(LEFT_DIR)}>{"◀︎"}</button>
           <button className={styles.dpadBtn} onClick={() => queueDir(DOWN_DIR)}>▼</button>
-          <button className={styles.dpadBtn} onClick={() => queueDir(RIGHT_DIR)}>▶</button>
+          <button className={styles.dpadBtn} onClick={() => queueDir(RIGHT_DIR)}>{"▶︎"}</button>
         </div>
       </div>
     </div>

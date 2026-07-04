@@ -102,7 +102,7 @@ export default function TimeMachinePage() {
               rel="noopener noreferrer"
               className={styles.tvOpenLink}
             >
-              ↗ open in new tab
+              {"↗︎"} open in new tab
             </a>
           </div>
         )}
