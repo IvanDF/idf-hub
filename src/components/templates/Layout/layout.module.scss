@@ -339,74 +339,131 @@
   }
 }
 
-// On mobile the same rails reflow into one compact fixed top bar — no separate
-// mobile chrome. The left rail becomes the bar shell (full width, glass, scribed
-// bottom edge); the right rail floats transparently on top of it, pinned right.
+// On mobile the desktop rails don't fit — they're hidden and replaced by the
+// carved burger + overlay (MobileNav), which reuses the same components.
 @include mobile {
   .leftColumn,
   .rightColumn {
-    top: 0;
-    bottom: auto;
-    width: auto;
-    height: var(--chrome-bar-height);
-    padding: 0 $spacing-md;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-
-    &.autoHide {
-      transform: none;
-
-      &:hover {
-        background: none;
-        backdrop-filter: none;
-      }
-    }
-  }
-
-  .leftColumn,
-  .leftColumn.autoHide {
-    left: 0;
-    right: 0;
-    background: rgba(var(--color-bg-rgb), 0.88);
-    backdrop-filter: blur($blur-md);
-    border: none;
-    border-bottom: $border-hairline solid var(--color-divider);
-  }
-
-  .leftColumn.autoHide:hover {
-    background: rgba(var(--color-bg-rgb), 0.88);
-    backdrop-filter: blur($blur-md);
-  }
-
-  .rightColumn,
-  .rightColumn.autoHide {
-    right: 0;
-    left: auto;
-    border: none;
-  }
-
-  .navbar {
-    flex-direction: row;
-  }
-
-  .siteNav {
-    flex-direction: row;
-    align-items: center;
-    gap: $spacing-md;
-    margin-top: 0;
-  }
-
-  // The compact strip only fits the nav and the theme pill: the divider,
-  // identity block, social handles and theme label live on the pages instead.
-  .divider,
-  .footer,
-  .socialLinks,
-  .themeLabel {
     display: none;
   }
+}
 
-  .main {
-    padding-top: var(--chrome-bar-height);
+// ── Mobile chrome — carved burger + mirror overlay (MobileNav) ───────────────
+// Desktop-only by default; shown under @include mobile. The overlay reuses the
+// shared rail components, so only the burger and overlay shell live here.
+
+.burger {
+  display: none; // shown on mobile only
+  position: fixed;
+  top: $spacing-md;
+  right: $spacing-md;
+  z-index: 200; // above the overlay so it stays tappable
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-2xs;
+  width: $touch-target-min;
+  height: $touch-target-min;
+  padding: $spacing-xs;
+  background: rgba(var(--color-bg-rgb), 0.9);
+  border: $border-base solid var(--color-text);
+  border-radius: var(--route-card-radius, #{$radius-lg});
+  cursor: pointer;
+  // Match the carved wobble of the other chrome (rails/overlay); the Terminal
+  // stays glass so it deliberately keeps a crisp, un-inked edge.
+  filter: var(--ink-fine);
+
+  span {
+    display: block;
+    width: 18px; // burger glyph line — icon geometry, not layout
+    height: $border-base;
+    background-color: var(--color-text);
+    border-radius: $radius-full;
+    transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+      opacity 0.2s ease;
+    transform-origin: center;
   }
+
+  &.burgerOpen span:nth-child(1) {
+    transform: translateY(calc(#{$spacing-2xs} + #{$border-base})) rotate(45deg);
+  }
+  &.burgerOpen span:nth-child(2) {
+    opacity: 0;
+  }
+  &.burgerOpen span:nth-child(3) {
+    transform: translateY(calc(-1 * (#{$spacing-2xs} + #{$border-base}))) rotate(-45deg);
+  }
+
+  @include mobile {
+    display: flex;
+  }
+}
+
+// Full-screen menu: large centered navigation, action controls in the corners.
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  background: rgba(var(--color-bg-rgb), 0.92);
+  backdrop-filter: blur($blur-md);
+  -webkit-backdrop-filter: blur($blur-md);
+  overflow-y: auto;
+  filter: var(--ink-fine);
+  padding: $spacing-md $spacing-xl $spacing-2xl;
+  animation: overlayFade 0.25s ease;
+}
+
+@keyframes overlayFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Top-left action — theme toggle, on the same row as the burger (top-right)
+.overlayHead {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: $touch-target-min;
+  // leave room so it never collides with the fixed burger on the right
+  padding-right: calc(#{$touch-target-min} + #{$spacing-sm});
+  flex-shrink: 0;
+}
+
+// Centered, oversized navigation
+.overlayCenter {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .siteNav {
+    align-items: center;
+    gap: $spacing-xl;
+  }
+
+  .navLink {
+    font-size: clamp(#{$font-size-2xl}, 12vw, #{$font-size-4xl});
+    letter-spacing: $letter-spacing-tighter;
+    opacity: 0.45;
+    line-height: 1.05;
+  }
+
+  .navLinkActive {
+    opacity: 1;
+  }
+}
+
+// Bottom row — identity (left) and socials (right, vertical), same level
+.overlayFoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: $spacing-lg;
+  flex-shrink: 0;
 }
