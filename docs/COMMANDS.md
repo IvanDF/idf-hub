@@ -6,7 +6,7 @@
 
 ---
 
-## 🌐 Sito (`/`, `/lab`, e tutte le pagine pubbliche)
+## Sito (`/`, `/lab`, e tutte le pagine pubbliche)
 
 ### Navigazione
 
@@ -56,7 +56,7 @@ lab  ·  search  ·  guide  ·  theme  ·  whoami  ·  help
 
 ---
 
-## 🔒 Admin Terminal (`/admin`)
+## Admin Terminal (`/admin`)
 
 Accessibile solo dopo login. Stesso shortcut `Cmd+K`.
 
@@ -93,7 +93,7 @@ list  ·  add  ·  status  ·  theme  ·  logout  ·  site
 
 ---
 
-## 🔗 Deep Links
+## Deep Links
 
 You can share a direct link to any terminal command using the `?cmd=` URL parameter.
 When someone opens the link, the terminal auto-opens and executes the command.
@@ -122,7 +122,7 @@ Click it to copy the deep link for that command to your clipboard.
 
 ---
 
-## ⌨️ Scorciatoie globali
+## Scorciatoie globali
 
 | Tasto | Azione |
 |---|---|
@@ -137,7 +137,7 @@ Click it to copy the deep link for that command to your clipboard.
 
 ---
 
-## 🤖 Autocomplete
+## Autocomplete
 
 Il terminale carica automaticamente i dati dal DB per suggerire:
 
@@ -153,7 +153,7 @@ Il terminale carica automaticamente i dati dal DB per suggerire:
 
 ---
 
-## 🐍 Snake — ASCII Game
+## Snake — ASCII Game
 
 Digita `snake` (o `play`) nel terminale per avviare il gioco.
 

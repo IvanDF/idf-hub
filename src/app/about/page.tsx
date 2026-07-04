@@ -151,7 +151,7 @@ export default function AboutPage() {
             rel="noreferrer"
             className={styles.contactLink}
           >
-            LinkedIn ↗
+            LinkedIn {"↗︎"}
           </a>
           <a
             href="https://github.com/IvanDF"
@@ -159,10 +159,10 @@ export default function AboutPage() {
             rel="noreferrer"
             className={styles.contactLink}
           >
-            GitHub ↗
+            GitHub {"↗︎"}
           </a>
           <Link href="/lab" className={styles.contactLink}>
-            Work ↗
+            Work {"↗︎"}
           </Link>
         </div>
       </section>

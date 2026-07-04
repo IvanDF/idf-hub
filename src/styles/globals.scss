@@ -141,6 +141,10 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   overflow: hidden;
+  // Emoji-capable glyphs (arrows, play triangles) must render as text, never
+  // as color emoji — iOS falls back to Apple Color Emoji when the webfont
+  // lacks a glyph. Belt and braces with the U+FE0E selectors in the markup.
+  font-variant-emoji: text;
 
   @media (prefers-reduced-motion: no-preference) {
     transition:

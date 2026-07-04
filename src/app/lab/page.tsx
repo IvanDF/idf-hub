@@ -113,7 +113,9 @@ export default function Lab() {
               <div className={styles.rowMeta}>
                 <span className={styles.rowCategory}>{project.category}</span>
                 <span className={styles.rowYear}>{project.year}</span>
-                {project.status === "live" && <span className={styles.rowArrow}>↗</span>}
+                {/* ︎ forces text presentation: without it iOS falls back
+                    to Apple Color Emoji when the webfont lacks the glyph */}
+                {project.status === "live" && <span className={styles.rowArrow}>{"↗︎"}</span>}
               </div>
             </button>
           ))}
