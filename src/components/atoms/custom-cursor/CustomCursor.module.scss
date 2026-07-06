@@ -13,16 +13,63 @@
   mix-blend-mode: difference;
 }
 
-.cursorRing {
+.cursorBlob {
   position: fixed;
   top: 0;
   left: 0;
   width: $size-cursor-ring;
   height: $size-cursor-ring;
-  border: $border-hairline solid #fff;
-  border-radius: 50%;
   pointer-events: none;
   z-index: 1000000;
+}
+
+// The wave morph lives on an inner element: Framer Motion owns the outer
+// transform, so rotation/border-radius keyframes here never conflict with it.
+.blobShape {
+  width: 100%;
+  height: 100%;
+  border: $border-hairline solid #fff;
+  background-color: rgb(255 255 255 / 8%);
   mix-blend-mode: difference;
-  background-color: transparent;
+  border-radius: 58% 42% 55% 45% / 50% 58% 42% 55%;
+  animation: blob-wave 9s linear infinite;
+
+  .cursorBlob[data-hovering="true"] & {
+    border-width: 2px;
+    background-color: rgb(255 255 255 / 14%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    border-radius: 50%;
+  }
+}
+
+// Asymmetric radii + slow rotation read as a liquid wave; the loop endpoints
+// match so the cycle never pops.
+@keyframes blob-wave {
+  0% {
+    border-radius: 58% 42% 55% 45% / 50% 58% 42% 55%;
+    transform: rotate(0deg);
+  }
+
+  25% {
+    border-radius: 45% 55% 42% 58% / 58% 45% 55% 42%;
+    transform: rotate(90deg);
+  }
+
+  50% {
+    border-radius: 55% 45% 58% 42% / 42% 55% 45% 58%;
+    transform: rotate(180deg);
+  }
+
+  75% {
+    border-radius: 42% 58% 45% 55% / 55% 42% 58% 45%;
+    transform: rotate(270deg);
+  }
+
+  100% {
+    border-radius: 58% 42% 55% 45% / 50% 58% 42% 55%;
+    transform: rotate(360deg);
+  }
 }
