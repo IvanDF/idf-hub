@@ -144,16 +144,21 @@
   cursor: pointer;
   transition:
     background 0.12s ease,
-    padding 0.12s ease,
     border-color 0.12s ease;
   width: 100%;
   box-sizing: border-box;
 
+  // The hover indent moves via `translate` on the children instead of
+  // animating padding: padding retriggers layout of the whole list every
+  // frame, and the ink-filtered ancestor re-filters on top of that.
   &:hover {
     background: var(--color-text);
-    padding-left: $spacing-md;
-    padding-right: $spacing-md;
     border-color: var(--color-text);
+
+    .rowNum,
+    .rowMain { translate: ($spacing-md - $spacing-xs) 0; }
+
+    .rowMeta { translate: (-($spacing-md - $spacing-xs)) 0; }
 
     .rowNum,
     .rowTitle,
@@ -176,11 +181,6 @@
     grid-template-columns: $spacing-xl 1fr auto;
     gap: $spacing-sm;
     padding: $spacing-md $spacing-2xs;
-
-    &:hover {
-      padding-left: $spacing-sm;
-      padding-right: $spacing-sm;
-    }
   }
 }
 
@@ -193,7 +193,7 @@
   flex-shrink: 0;
   align-self: start;
   padding-top: $spacing-2xs;
-  transition: color 0.15s ease;
+  transition: color 0.15s ease, translate 0.12s ease;
 }
 
 .rowMain {
@@ -201,6 +201,7 @@
   flex-direction: column;
   gap: $spacing-2xs;
   min-width: 0;
+  transition: translate 0.12s ease;
 }
 
 .rowTitle {
@@ -239,6 +240,7 @@
   align-items: center;
   gap: $spacing-sm;
   flex-shrink: 0;
+  transition: translate 0.12s ease;
 }
 
 .rowCategory {

@@ -5,6 +5,18 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import styles from "./CustomCursor.module.scss";
 
+// Magnetism only reads as "magnetic" on compact controls; on large surfaces
+// (e.g. full-width list rows) it just drags the whole block around and forces
+// the ink filter to re-run over the page every frame.
+const MAX_MAGNET_WIDTH = 320;
+const MAX_MAGNET_HEIGHT = 120;
+
+type MagnetEntry = {
+  el: HTMLElement;
+  rect: DOMRect;
+  eligible: boolean;
+};
+
 /**
  * CustomCursor Component
  *
@@ -14,7 +26,7 @@ import styles from "./CustomCursor.module.scss";
  * lives in the CSS module to keep the visual system consistent.
  * Features:
  * - Central dot that follows mouse instantly
- * - Outer ring with spring physics (magnetic feel)
+ * - Outer blob with tight spring physics and a continuous wave morph
  * - Hover state (scales up)
  * - Click state (pulses)
  * - Disappears on touch devices
@@ -30,11 +42,13 @@ export default function CustomCursor() {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  // Spring physics for the outer ring (delayed follow)
-  const springConfig = { damping: 25, stiffness: 300 };
-  const ringX = useSpring(mouseX, springConfig);
-  const ringY = useSpring(mouseY, springConfig);
-  const activeMagnetElRef = useRef<HTMLElement | null>(null);
+  // Spring physics for the blob: stiff enough to stay glued to the dot
+  // (a soft spring here reads as page lag), soft enough to keep a hint
+  // of organic overshoot.
+  const springConfig = { damping: 32, stiffness: 750, mass: 0.8 };
+  const blobX = useSpring(mouseX, springConfig);
+  const blobY = useSpring(mouseY, springConfig);
+  const activeMagnetRef = useRef<MagnetEntry | null>(null);
 
   useEffect(() => {
     // Only enable on desktop devices
@@ -46,18 +60,15 @@ export default function CustomCursor() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsVisible(true);
 
-    let lastMoveCalled = 0;
-    const THROTTLE_MS = 1000 / 60; // 60fps cap
-
-    const moveCursor = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
+    const resetMagnetElement = (entry: MagnetEntry | null) => {
+      if (!entry?.eligible) return;
+      entry.el.style.setProperty("translate", "0px 0px");
+      entry.el.style.removeProperty("will-change");
     };
 
-    const resetMagnetElement = (element: HTMLElement | null) => {
-      if (!element) return;
-      element.style.setProperty("translate", "0px 0px");
-      element.style.removeProperty("will-change");
+    const clearMagnetism = () => {
+      resetMagnetElement(activeMagnetRef.current);
+      activeMagnetRef.current = null;
     };
 
     const applyGlobalMagnetism = (e: MouseEvent) => {
@@ -68,23 +79,31 @@ export default function CustomCursor() {
 
       // Keep local Magnetic components in control.
       if (!candidate || candidate.closest("[data-local-magnetic='true']")) {
-        if (activeMagnetElRef.current) {
-          resetMagnetElement(activeMagnetElRef.current);
-          activeMagnetElRef.current = null;
-        }
+        clearMagnetism();
         return;
       }
 
-      if (
-        activeMagnetElRef.current &&
-        activeMagnetElRef.current !== candidate
-      ) {
-        resetMagnetElement(activeMagnetElRef.current);
+      let entry = activeMagnetRef.current;
+      if (!entry || entry.el !== candidate) {
+        resetMagnetElement(entry);
+        // Measure once per candidate instead of every mousemove: reading the
+        // rect after writing `translate` forces a synchronous layout per frame.
+        const rect = candidate.getBoundingClientRect();
+        entry = {
+          el: candidate,
+          rect,
+          eligible:
+            rect.width <= MAX_MAGNET_WIDTH && rect.height <= MAX_MAGNET_HEIGHT,
+        };
+        activeMagnetRef.current = entry;
+        if (entry.eligible) {
+          candidate.style.setProperty("will-change", "translate");
+        }
       }
 
-      activeMagnetElRef.current = candidate;
+      if (!entry.eligible) return;
 
-      const rect = candidate.getBoundingClientRect();
+      const { rect } = entry;
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
       const normalizedX = (e.clientX - centerX) / Math.max(rect.width, 1);
@@ -93,27 +112,18 @@ export default function CustomCursor() {
       const offsetX = Math.max(-1, Math.min(1, normalizedX)) * maxOffset;
       const offsetY = Math.max(-1, Math.min(1, normalizedY)) * maxOffset;
 
-      candidate.style.setProperty("will-change", "translate");
-      candidate.style.setProperty(
+      entry.el.style.setProperty(
         "translate",
         `${offsetX.toFixed(2)}px ${offsetY.toFixed(2)}px`,
       );
     };
 
-    // Single throttled handler combining position update + magnetism (avoids two separate listeners)
+    // Unthrottled: motion values already coalesce to one render per frame,
+    // and capping at 60fps made the dot stutter on high-refresh displays.
     const handleMouseMove = (e: MouseEvent) => {
-      const now = performance.now();
-      if (now - lastMoveCalled < THROTTLE_MS) return;
-      lastMoveCalled = now;
-      moveCursor(e);
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
       applyGlobalMagnetism(e);
-    };
-
-    const clearMagnetism = () => {
-      if (activeMagnetElRef.current) {
-        resetMagnetElement(activeMagnetElRef.current);
-        activeMagnetElRef.current = null;
-      }
     };
 
     const handleMouseDown = () => setIsClicking(true);
@@ -147,6 +157,11 @@ export default function CustomCursor() {
     window.addEventListener("mouseover", handleMouseOver);
     window.addEventListener("mouseleave", clearMagnetism);
     window.addEventListener("blur", clearMagnetism);
+    // Cached rects go stale when the page scrolls under the pointer.
+    window.addEventListener("scroll", clearMagnetism, {
+      passive: true,
+      capture: true,
+    });
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
@@ -155,6 +170,7 @@ export default function CustomCursor() {
       window.removeEventListener("mouseover", handleMouseOver);
       window.removeEventListener("mouseleave", clearMagnetism);
       window.removeEventListener("blur", clearMagnetism);
+      window.removeEventListener("scroll", clearMagnetism, { capture: true });
       clearMagnetism();
     };
   }, [mouseX, mouseY]);
@@ -180,20 +196,24 @@ export default function CustomCursor() {
         transition={{ duration: 0.1 }}
       />
 
-      {/* Outer Ring (Spring Follow) */}
+      {/* Outer Blob (Spring Follow + Wave Morph) */}
+      {/* Framer owns the outer transform (position/scale); the inner shape
+          runs the CSS wave morph so the two never fight over `transform`. */}
       <motion.div
-        className={styles.cursorRing}
-        style={{ translateX: ringX, translateY: ringY, x: "-50%", y: "-50%" }}
+        className={styles.cursorBlob}
+        data-hovering={isHovering}
+        style={{ translateX: blobX, translateY: blobY, x: "-50%", y: "-50%" }}
         animate={{
           scale: isClicking ? 0.8 : isHovering ? 1.5 : 1, // Expand on hover
           opacity: isHovering ? 0.8 : 0.4,
-          borderWidth: isHovering ? "2px" : "1px",
         }}
         transition={{
           scale: { duration: 0.2 },
           opacity: { duration: 0.2 },
         }}
-      />
+      >
+        <div className={styles.blobShape} />
+      </motion.div>
     </>
   );
 }
