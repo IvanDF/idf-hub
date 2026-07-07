@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import type { MotionStyle } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import styles from "./CustomCursor.module.scss";
@@ -11,11 +12,35 @@ import styles from "./CustomCursor.module.scss";
 const MAX_MAGNET_WIDTH = 320;
 const MAX_MAGNET_HEIGHT = 120;
 
+// Keep in sync with $size-cursor-ring in the SCSS variables.
+const BLOB_SIZE = 40;
+// Breathing room the blob adds around an enveloped control.
+const ENVELOPE_PAD = 6;
+
 type MagnetEntry = {
   el: HTMLElement;
   rect: DOMRect;
   eligible: boolean;
+  radius: string;
+  // Last magnet offset written to the element, so re-measures of its rect can
+  // subtract the translate we introduced ourselves.
+  ox: number;
+  oy: number;
 };
+
+type Envelope = {
+  width: number;
+  height: number;
+  radius: string;
+};
+
+const envelopeFor = (rect: DOMRect, radius: string): Envelope => ({
+  width: rect.width + ENVELOPE_PAD * 2,
+  height: rect.height + ENVELOPE_PAD * 2,
+  // Square controls read better with the squircle default than with a
+  // hairline 0px corner.
+  radius: radius === "0px" ? "12px" : radius,
+});
 
 /**
  * CustomCursor Component
@@ -35,6 +60,9 @@ export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
+  // iPadOS-style pointer adoption: while a compact control is hovered the
+  // blob stretches to the control's box and the dot melts into it.
+  const [envelope, setEnvelope] = useState<Envelope | null>(null);
 
   const pathname = usePathname();
 
@@ -44,10 +72,11 @@ export default function CustomCursor() {
 
   // Spring physics for the blob: stiff enough to stay glued to the dot
   // (a soft spring here reads as page lag), soft enough to keep a hint
-  // of organic overshoot.
+  // of organic overshoot. Driven manually so the target can switch between
+  // the pointer and the center of an enveloped control.
   const springConfig = { damping: 32, stiffness: 750, mass: 0.8 };
-  const blobX = useSpring(mouseX, springConfig);
-  const blobY = useSpring(mouseY, springConfig);
+  const blobX = useSpring(-100, springConfig);
+  const blobY = useSpring(-100, springConfig);
   const activeMagnetRef = useRef<MagnetEntry | null>(null);
 
   useEffect(() => {
@@ -69,9 +98,13 @@ export default function CustomCursor() {
     const clearMagnetism = () => {
       resetMagnetElement(activeMagnetRef.current);
       activeMagnetRef.current = null;
+      setEnvelope(null);
     };
 
-    const applyGlobalMagnetism = (e: MouseEvent) => {
+    // Applies magnetism and returns the blob's target point: the (parallax-
+    // shifted) center of an enveloped control, or the pointer itself.
+    const applyGlobalMagnetism = (e: MouseEvent): { x: number; y: number } => {
+      const pointer = { x: e.clientX, y: e.clientY };
       const source = e.target as HTMLElement | null;
       const candidate = source?.closest(
         "a, button, [role='button'], [data-magnetized='true']",
@@ -80,7 +113,7 @@ export default function CustomCursor() {
       // Keep local Magnetic components in control.
       if (!candidate || candidate.closest("[data-local-magnetic='true']")) {
         clearMagnetism();
-        return;
+        return pointer;
       }
 
       let entry = activeMagnetRef.current;
@@ -94,14 +127,20 @@ export default function CustomCursor() {
           rect,
           eligible:
             rect.width <= MAX_MAGNET_WIDTH && rect.height <= MAX_MAGNET_HEIGHT,
+          radius: getComputedStyle(candidate).borderRadius,
+          ox: 0,
+          oy: 0,
         };
         activeMagnetRef.current = entry;
         if (entry.eligible) {
           candidate.style.setProperty("will-change", "translate");
+          setEnvelope(envelopeFor(rect, entry.radius));
+        } else {
+          setEnvelope(null);
         }
       }
 
-      if (!entry.eligible) return;
+      if (!entry.eligible) return pointer;
 
       const { rect } = entry;
       const centerX = rect.left + rect.width / 2;
@@ -112,10 +151,15 @@ export default function CustomCursor() {
       const offsetX = Math.max(-1, Math.min(1, normalizedX)) * maxOffset;
       const offsetY = Math.max(-1, Math.min(1, normalizedY)) * maxOffset;
 
+      entry.ox = offsetX;
+      entry.oy = offsetY;
       entry.el.style.setProperty(
         "translate",
         `${offsetX.toFixed(2)}px ${offsetY.toFixed(2)}px`,
       );
+
+      // The blob rides the control: same center, same magnet parallax.
+      return { x: centerX + offsetX, y: centerY + offsetY };
     };
 
     // Unthrottled: motion values already coalesce to one render per frame,
@@ -123,11 +167,32 @@ export default function CustomCursor() {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
-      applyGlobalMagnetism(e);
+      const target = applyGlobalMagnetism(e);
+      blobX.set(target.x);
+      blobY.set(target.y);
     };
 
     const handleMouseDown = () => setIsClicking(true);
-    const handleMouseUp = () => setIsClicking(false);
+    const handleMouseUp = () => {
+      setIsClicking(false);
+      // A click can swap the control's content (PLAY -> PAUSE), so re-measure
+      // the enveloped rect once the DOM has settled, minus our own translate.
+      const entry = activeMagnetRef.current;
+      if (!entry?.eligible) return;
+      requestAnimationFrame(() => {
+        if (activeMagnetRef.current !== entry) return;
+        const raw = entry.el.getBoundingClientRect();
+        entry.rect = new DOMRect(
+          raw.x - entry.ox,
+          raw.y - entry.oy,
+          raw.width,
+          raw.height,
+        );
+        setEnvelope(envelopeFor(entry.rect, entry.radius));
+        blobX.set(entry.rect.left + entry.rect.width / 2 + entry.ox);
+        blobY.set(entry.rect.top + entry.rect.height / 2 + entry.oy);
+      });
+    };
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -173,42 +238,68 @@ export default function CustomCursor() {
       window.removeEventListener("scroll", clearMagnetism, { capture: true });
       clearMagnetism();
     };
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, blobX, blobY]);
 
   // Reset hover state on navigation
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsHovering(false);
     setIsClicking(false);
+    setEnvelope(null);
   }, [pathname]);
 
   if (!isVisible) return null;
 
   return (
     <>
-      {/* Central Dot (Instant Follow) */}
+      {/* Central Dot (Instant Follow) — melts into the enveloped control */}
       <motion.div
         className={styles.cursorDot}
         style={{ translateX: mouseX, translateY: mouseY, x: "-50%", y: "-50%" }}
         animate={{
-          scale: isClicking ? 0.8 : isHovering ? 0.5 : 1, // Shrink slightly on hover/click
+          scale: envelope ? 0 : isClicking ? 0.8 : isHovering ? 0.5 : 1,
         }}
-        transition={{ duration: 0.1 }}
+        transition={{ duration: 0.15 }}
       />
 
-      {/* Outer Blob (Spring Follow + Wave Morph) */}
+      {/* Outer Blob (Spring Follow + Wave Morph). While a compact control is
+          hovered it adopts the control: stretches to its box, takes its
+          corner radius, and rides its magnet parallax (iPadOS pointer). */}
       {/* Framer owns the outer transform (position/scale); the inner shape
           runs the CSS wave morph so the two never fight over `transform`. */}
       <motion.div
         className={styles.cursorBlob}
-        style={{ translateX: blobX, translateY: blobY, x: "-50%", y: "-50%" }}
+        data-enveloped={envelope ? "true" : undefined}
+        style={
+          {
+            translateX: blobX,
+            translateY: blobY,
+            x: "-50%",
+            y: "-50%",
+            // Custom properties aren't in MotionStyle, but Framer forwards
+            // them to the element's inline style.
+            "--blob-radius": envelope?.radius,
+          } as MotionStyle
+        }
         animate={{
-          scale: isClicking ? 0.8 : isHovering ? 1.5 : 1, // Expand on hover
+          width: envelope ? envelope.width : BLOB_SIZE,
+          height: envelope ? envelope.height : BLOB_SIZE,
+          scale: isClicking
+            ? envelope
+              ? 0.97
+              : 0.8
+            : envelope
+              ? 1
+              : isHovering
+                ? 1.5
+                : 1,
           // Solid difference fill needs high opacity to read as a negative;
           // dropping it much lower fades the inversion into grey.
-          opacity: isHovering ? 1 : 0.85,
+          opacity: envelope ? 0.95 : isHovering ? 1 : 0.85,
         }}
         transition={{
+          width: { duration: 0.2, ease: "easeOut" },
+          height: { duration: 0.2, ease: "easeOut" },
           scale: { duration: 0.2 },
           opacity: { duration: 0.2 },
         }}

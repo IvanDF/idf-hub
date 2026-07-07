@@ -283,11 +283,10 @@
   }
 }
 
-// Optically align padded ghost buttons (audio toggle, ⌘K) with the plain-text
-// name: pull them left by the button's horizontal padding so all footer text
-// shares the same left edge (desktop rail + mobile overlay).
+// Ghost buttons are unpadded, so the footer actions (audio toggle, ⌘K) align
+// with the plain-text name without compensation.
 .footerAction {
-  margin-left: -$spacing-md;
+  margin-left: 0;
 }
 
 .socials {

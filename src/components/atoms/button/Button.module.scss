@@ -109,6 +109,10 @@
   opacity: 0.45;
   box-shadow: none;
   border: none;
+  // Ghosts are inline text actions: no padding box, so they sit flush with
+  // surrounding text (e.g. the identity column in the chrome).
+  padding: 0;
+  min-height: 0;
 
   &:hover {
     opacity: 1;
