@@ -2,11 +2,11 @@ import Text from "@/components/atoms/text";
 import { PROJECTS } from "@/data/projects";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import BackLink from "./BackLink";
+import ProjectMedia from "./ProjectMedia";
 import styles from "./ProjectDetail.module.scss";
 
 export async function generateStaticParams() {
@@ -129,29 +129,7 @@ export default async function ProjectPage({
         </section>
       )}
 
-      {mediaFrames.length > 0 && (
-        <div className={`${styles.media} ${mediaFrames.length > 1 ? styles.mediaMulti : ""}`}>
-          {mediaFrames.map((src, i) => (
-            <div
-              key={src}
-              className={`${styles.mediaFrame} ${i === 0 && mediaFrames.length > 1 ? styles.mediaFrameHero : ""}`}
-            >
-              <Image
-                src={src}
-                alt={`${project.title} — frame ${i + 1}`}
-                fill
-                className={`${styles.mediaImg} ${
-                  mediaFit === "cover"
-                    ? styles.mediaCover
-                    : styles.mediaContain
-                }`}
-                sizes={i === 0 ? "(max-width: 768px) 100vw, 860px" : "(max-width: 768px) 50vw, 430px"}
-                priority={i === 0}
-              />
-            </div>
-          ))}
-        </div>
-      )}
+      <ProjectMedia frames={mediaFrames} title={project.title} fit={mediaFit} />
 
       <footer className={styles.footer}>
         <div className={styles.stack}>

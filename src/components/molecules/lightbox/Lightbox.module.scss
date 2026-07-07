@@ -1,0 +1,106 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 6000; // above the chrome, below the custom cursor
+  display: flex;
+  flex-direction: column;
+  background: rgba($color-silk-dark, 0.94);
+  backdrop-filter: blur($blur-sm);
+}
+
+.topBar,
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-md;
+  padding: $spacing-md $spacing-lg;
+  flex-shrink: 0;
+}
+
+.bottomBar {
+  justify-content: center;
+  gap: $spacing-lg;
+}
+
+.frameName {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-xl;
+  color: $color-silk-light;
+  opacity: 0.6;
+}
+
+.closeBtn,
+.navBtn {
+  background: transparent;
+  border: $border-hairline solid color-mix(in srgb, #{$color-silk-light} 35%, transparent);
+  border-radius: var(--route-filter-radius, #{$radius-md});
+  color: $color-silk-light;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-md;
+  padding: $spacing-xs $spacing-md;
+  min-height: $touch-target-min;
+  min-width: $touch-target-min;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    opacity: 1;
+    border-color: $color-silk-light;
+  }
+
+  &:focus-visible {
+    outline: $border-base solid var(--color-accent);
+    outline-offset: $border-base;
+  }
+}
+
+.counter {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-xl;
+  color: $color-silk-light;
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+.stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  touch-action: none; // pinch and pan belong to the viewer, not the page
+  cursor: zoom-in;
+
+  &[data-zoomed] {
+    cursor: grab;
+  }
+
+  &[data-dragging] {
+    cursor: grabbing;
+  }
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.18s ease-out;
+  will-change: transform;
+
+  .stage[data-dragging] & {
+    transition: none; // 1:1 while dragging, eased for wheel/dblclick steps
+  }
+}
+
+.image {
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}

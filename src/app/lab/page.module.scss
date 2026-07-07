@@ -255,6 +255,26 @@
   }
 }
 
+// Experiments sit in the same list as product work, marked by a small
+// accent diamond and a tinted category label — merged, but distinguishable.
+.projectRow[data-kind="experiment"] {
+  .rowTitle::before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: $spacing-xs;
+    margin-bottom: 1px;
+    background: var(--color-accent);
+    rotate: 45deg;
+  }
+
+  .rowCategory {
+    color: var(--color-accent);
+    opacity: 0.75;
+  }
+}
+
 .rowDesc {
   font-family: $font-family-mono;
   font-size: $font-size-xs;

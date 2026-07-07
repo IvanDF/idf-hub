@@ -59,6 +59,11 @@ export default function Lab() {
     return q ? `/lab/${project.id}?${q}` : `/lab/${project.id}`;
   };
 
+  // Experiments live in the same list as client/product work but carry a
+  // subtle visual marker so the two read differently at a glance.
+  const kindOf = (p: Project) =>
+    matchesGroup(p, "lab") ? "experiment" : undefined;
+
   const live = LIVE.filter((p) => matchesGroup(p, filter));
   const archived = ARCHIVED.filter((p) => matchesGroup(p, filter));
 
@@ -106,6 +111,7 @@ export default function Lab() {
               key={project.id}
               role="listitem"
               className={styles.projectRow}
+              data-kind={kindOf(project)}
               href={hrefFor(project)}
             >
               <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>
@@ -153,6 +159,7 @@ export default function Lab() {
                       key={project.id}
                       role="listitem"
                       className={`${styles.projectRow} ${styles.archivedRow}`}
+                      data-kind={kindOf(project)}
                       href={hrefFor(project)}
                     >
                       <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>
