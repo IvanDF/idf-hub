@@ -45,7 +45,7 @@ export default function TimeMachinePage() {
 
             <Text as="h2" variant="h2" className={styles.artifactTitle}>LEGACY_SYSTEM_V1</Text>
             <Text variant="mono" className={styles.artifactMeta}>
-              <span>2023 – 2025</span>
+              <span>2021 – 2025</span>
               <span className={styles.separator}>|</span>
               <span>HTML5 // SCSS // VANILLA JS</span>
             </Text>
@@ -94,7 +94,7 @@ export default function TimeMachinePage() {
                 <div className={styles.tvKnob} />
                 <div className={styles.tvKnob} />
               </div>
-              <div className={styles.tvBrand} aria-hidden="true">iDF · v1 · 2025</div>
+              <div className={styles.tvBrand} aria-hidden="true">iDF · v1 · 2021</div>
             </div>
             <a
               href={LEGACY_URL}
