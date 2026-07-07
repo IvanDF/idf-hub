@@ -105,7 +105,7 @@ describe('AudioPrompt', () => {
     jest.useFakeTimers();
     render(<AudioPrompt />);
     act(() => { jest.advanceTimersByTime(3500); });
-    expect(screen.getByText('4 Ambient Tracks')).toBeInTheDocument();
+    expect(screen.getByText('Adaptive Soundtrack')).toBeInTheDocument();
     expect(screen.getByText('Sound Effects')).toBeInTheDocument();
     jest.useRealTimers();
   });

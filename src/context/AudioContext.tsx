@@ -1,18 +1,27 @@
 "use client";
 
-import { createContext, useContext } from "react";
-import { AudioEngineAPI, useAudioEngine } from "@/hooks/useAudioEngine";
+import { usePathname } from "next/navigation";
+import { createContext, useContext, useEffect } from "react";
+import { AudioEngineAPI, sceneForPath, useAudioEngine } from "@/hooks/useAudioEngine";
 
 type AudioContextType = AudioEngineAPI;
 
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
 
 /**
- * Context provider that manages ambient music playback and UI sound effects.
+ * Context provider that manages the adaptive soundtrack and UI sound effects.
+ * The current route drives the soundtrack scene: navigating morphs the stem
+ * mix instead of switching tracks.
  * @param children - React children to receive audio context.
  */
 export function AudioProvider({ children }: { children: React.ReactNode }) {
   const engine = useAudioEngine();
+  const pathname = usePathname();
+  const { setMusicScene } = engine;
+
+  useEffect(() => {
+    setMusicScene(sceneForPath(pathname));
+  }, [pathname, setMusicScene]);
 
   return (
     <AudioContext.Provider value={engine}>

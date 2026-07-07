@@ -64,7 +64,7 @@ export default function AudioPrompt() {
           <Text as="p" variant="body">Enable ambient soundscapes and interactive audio feedback for a complete experience.</Text>
 
           <div className={styles.features}>
-            <Text as="span" variant="label">4 Ambient Tracks</Text>
+            <Text as="span" variant="label">Adaptive Soundtrack</Text>
             <Text as="span" variant="label">•</Text>
             <Text as="span" variant="label">Sound Effects</Text>
           </div>
