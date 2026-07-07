@@ -1,3 +1,5 @@
+/* eslint-disable max-lines -- terminal orchestrator: splitting further would
+   scatter tightly coupled state (history, game, voice, deep links) */
 "use client";
 
 import { useAudio } from "@/context/AudioContext";
@@ -77,8 +79,21 @@ export default function Terminal({
 
   const router = useRouter();
   const { toggleTheme, superDarkMode } = useTheme();
-  const { playType, playCommand, playError, playEasterEgg, playLightOn } =
-    useAudio();
+  const {
+    playType,
+    playCommand,
+    playError,
+    playEasterEgg,
+    playLightOn,
+    setMusicOverride,
+  } = useAudio();
+
+  // The terminal is an overlay, not a route: while it is open the soundtrack
+  // morphs to its scene, and morphs back on close.
+  useEffect(() => {
+    setMusicOverride(isOpen ? "terminal" : null);
+    return () => setMusicOverride(null);
+  }, [isOpen, setMusicOverride]);
   const {
     isListening,
     transcript,
@@ -139,6 +154,7 @@ export default function Terminal({
     router,
     discoverEgg,
     playEasterEgg,
+    gameActive,
   });
 
   // Admin terminal is always open on mount
@@ -340,7 +356,6 @@ export default function Terminal({
                 setGameActive(false);
                 // Input remounts on exit; hand focus back on desktop.
                 requestAnimationFrame(() => {
-                  // eslint-disable-next-line max-lines
                   if (shouldAutoFocus()) inputRef.current?.focus();
                 });
                 setHistory((prev) => [

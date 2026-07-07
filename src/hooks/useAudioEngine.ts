@@ -1,6 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import { useAdaptiveMusic } from "./useAdaptiveMusic";
+
+export { sceneForPath } from "./useAdaptiveMusic";
 
 type SoundType = "click" | "hover" | "success" | "error" | "type" | "command" | "glitch" | "light";
 
@@ -33,27 +36,16 @@ const EASTER_EGG_SOUNDS: Record<string, number> = {
   konami: 330,
 };
 
-const AVAILABLE_TRACKS = [
-  { id: "glass-canopy", name: "Glass Canopy", file: "/audio/Glass_Canopy.mp3" },
-  { id: "gravity-deep", name: "Gravity in the Deep", file: "/audio/Gravity_in_the_Deep.mp3" },
-  { id: "weight-light", name: "The Weight of Light", file: "/audio/The_Weight_of_Light.mp3" },
-];
-
-const MUSIC_VOLUME = 0.1;
-
 /** Public API returned by useAudioEngine. */
 export interface AudioEngineAPI {
   isEnabled: boolean;
   isMuted: boolean;
   isPlaying: boolean;
   isStarting: boolean;
-  currentTrack: string;
-  availableTracks: string[];
   toggleAudio: () => void;
   toggleMute: () => void;
-  playTrack: (track: string) => void;
-  nextTrack: () => void;
-  prevTrack: () => void;
+  setMusicScene: (scene: string) => void;
+  setMusicOverride: (scene: string | null) => void;
   playClick: () => void;
   playHover: () => void;
   playSuccess: () => void;
@@ -67,22 +59,28 @@ export interface AudioEngineAPI {
 }
 
 /**
- * Core audio engine hook. Manages Howl-like Web Audio + HTMLAudioElement
- * instances for both ambient music and UI sound effects.
+ * Core audio engine hook: UI sound effects plus the adaptive soundtrack
+ * (delegated to useAdaptiveMusic).
  */
 export function useAudioEngine(): AudioEngineAPI {
   const [isEnabled, setIsEnabled] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isStarting, setIsStarting] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState(AVAILABLE_TRACKS[0].file);
 
   const audioContextRef = useRef<AudioContext | null>(null);
   const masterGainRef = useRef<GainNode | null>(null);
-  const musicRef = useRef<HTMLAudioElement | null>(null);
   const glitchAudioRef = useRef<HTMLAudioElement | null>(null);
   const lightAudioRef = useRef<HTMLAudioElement | null>(null);
   const isInitializedRef = useRef(false);
+
+  const {
+    isPlaying,
+    isStarting,
+    startMusic,
+    stopMusic,
+    setMusicScene,
+    setMusicOverride,
+    setMusicMuted,
+  } = useAdaptiveMusic();
 
   const initAudio = useCallback(() => {
     if (isInitializedRef.current) return;
@@ -143,34 +141,6 @@ export function useAudioEngine(): AudioEngineAPI {
     lightAudioRef.current.play().catch(() => {});
   }, [isMuted]);
 
-  const startMusic = useCallback(() => {
-    setIsStarting(true);
-    if (musicRef.current) {
-      musicRef.current
-        .play()
-        .then(() => { setIsPlaying(true); setIsStarting(false); })
-        .catch(() => { setIsStarting(false); });
-      return;
-    }
-    const audio = new Audio(currentTrack);
-    audio.loop = true;
-    audio.volume = MUSIC_VOLUME;
-    audio.preload = "auto";
-    audio
-      .play()
-      .then(() => { setIsPlaying(true); setIsStarting(false); })
-      .catch(() => { setIsStarting(false); });
-    musicRef.current = audio;
-  }, [currentTrack]);
-
-  const stopMusic = useCallback(() => {
-    if (musicRef.current) {
-      musicRef.current.pause();
-      setIsPlaying(false);
-      setIsStarting(false);
-    }
-  }, []);
-
   const toggleAudio = useCallback(() => {
     if (!isEnabled) {
       initAudio();
@@ -188,41 +158,10 @@ export function useAudioEngine(): AudioEngineAPI {
   const toggleMute = useCallback(() => {
     setIsMuted((prev) => {
       const newMuted = !prev;
-      if (musicRef.current) {
-        musicRef.current.volume = newMuted ? 0 : MUSIC_VOLUME;
-      }
+      setMusicMuted(newMuted);
       return newMuted;
     });
-  }, []);
-
-  const playTrack = useCallback(
-    (track: string) => {
-      initAudio();
-      setCurrentTrack(track);
-      if (musicRef.current) {
-        musicRef.current.src = track;
-        musicRef.current.load();
-        if (isEnabled && !isMuted) {
-          musicRef.current.play().catch(() => {});
-        }
-      }
-    },
-    [initAudio, isEnabled, isMuted],
-  );
-
-  const nextTrack = useCallback(() => {
-    const idx = AVAILABLE_TRACKS.findIndex((t) => t.file === currentTrack);
-    playTrack(AVAILABLE_TRACKS[(idx + 1) % AVAILABLE_TRACKS.length].file);
-  }, [currentTrack, playTrack]);
-
-  const prevTrack = useCallback(() => {
-    const idx = AVAILABLE_TRACKS.findIndex((t) => t.file === currentTrack);
-    playTrack(
-      AVAILABLE_TRACKS[
-        (idx - 1 + AVAILABLE_TRACKS.length) % AVAILABLE_TRACKS.length
-      ].file,
-    );
-  }, [currentTrack, playTrack]);
+  }, [setMusicMuted]);
 
   const requestAudioAccess = useCallback(async () => {
     initAudio();
@@ -255,27 +194,15 @@ export function useAudioEngine(): AudioEngineAPI {
     [isMuted],
   );
 
-  useEffect(() => {
-    return () => {
-      if (musicRef.current) {
-        musicRef.current.pause();
-        musicRef.current = null;
-      }
-    };
-  }, []);
-
   return {
     isEnabled,
     isMuted,
     isPlaying,
     isStarting,
-    currentTrack,
-    availableTracks: AVAILABLE_TRACKS.map((t) => t.name),
     toggleAudio,
     toggleMute,
-    playTrack,
-    nextTrack,
-    prevTrack,
+    setMusicScene,
+    setMusicOverride,
     playClick: () => playSound("click"),
     playHover: () => playSound("hover"),
     playSuccess: () => playSound("success"),
