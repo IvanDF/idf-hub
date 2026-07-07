@@ -21,23 +21,22 @@
   height: $size-cursor-ring;
   pointer-events: none;
   z-index: 1000000;
+  // The blend must sit on this outer element: its transform/opacity isolate
+  // any child's blend into an empty group, so `difference` on the inner
+  // shape silently no-ops and the blob vanishes on the light theme.
+  mix-blend-mode: difference;
 }
 
 // The wave morph lives on an inner element: Framer Motion owns the outer
 // transform, so rotation/border-radius keyframes here never conflict with it.
+// Solid silk fill blended as difference by the parent: the blob reads as a
+// negative of whatever it covers, same as the dot, on both themes.
 .blobShape {
   width: 100%;
   height: 100%;
-  border: $border-hairline solid #fff;
-  background-color: rgb(255 255 255 / 8%);
-  mix-blend-mode: difference;
-  border-radius: 58% 42% 55% 45% / 50% 58% 42% 55%;
-  animation: blob-wave 9s linear infinite;
-
-  .cursorBlob[data-hovering="true"] & {
-    border-width: 2px;
-    background-color: rgb(255 255 255 / 14%);
-  }
+  background-color: $color-silk-light;
+  border-radius: 63% 37% 52% 48% / 45% 62% 38% 55%;
+  animation: blob-wave 6s linear infinite;
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
@@ -45,31 +44,32 @@
   }
 }
 
-// Asymmetric radii + slow rotation read as a liquid wave; the loop endpoints
-// match so the cycle never pops.
+// Asymmetric radii + continuous rotation read as a liquid wave; the rotation
+// stays linear (angle proportional to progress) and the loop endpoints match
+// so the cycle never pops.
 @keyframes blob-wave {
   0% {
-    border-radius: 58% 42% 55% 45% / 50% 58% 42% 55%;
+    border-radius: 63% 37% 52% 48% / 45% 62% 38% 55%;
     transform: rotate(0deg);
   }
 
-  25% {
-    border-radius: 45% 55% 42% 58% / 58% 45% 55% 42%;
-    transform: rotate(90deg);
+  20% {
+    border-radius: 40% 60% 65% 35% / 58% 42% 60% 40%;
+    transform: rotate(72deg);
   }
 
-  50% {
-    border-radius: 55% 45% 58% 42% / 42% 55% 45% 58%;
-    transform: rotate(180deg);
+  45% {
+    border-radius: 55% 45% 38% 62% / 64% 36% 48% 52%;
+    transform: rotate(162deg);
   }
 
-  75% {
-    border-radius: 42% 58% 45% 55% / 55% 42% 58% 45%;
-    transform: rotate(270deg);
+  70% {
+    border-radius: 36% 64% 58% 42% / 40% 58% 35% 65%;
+    transform: rotate(252deg);
   }
 
   100% {
-    border-radius: 58% 42% 55% 45% / 50% 58% 42% 55%;
+    border-radius: 63% 37% 52% 48% / 45% 62% 38% 55%;
     transform: rotate(360deg);
   }
 }
