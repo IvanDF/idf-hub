@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useTheme } from '@/context/ThemeContext'
 import styles from './page.module.scss'
 
-const DEMO_PASSWORD = 'wubbalubbadubdub'
+import { DEMO_PASSWORD } from '@/lib/demo'
 
 export default function AdminLoginPage() {
   const router = useRouter()

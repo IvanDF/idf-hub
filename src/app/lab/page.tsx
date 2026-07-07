@@ -4,6 +4,7 @@ import { PROJECTS } from "@/data/projects";
 import type { Project } from "@/types/project";
 import Text from "@/components/atoms/text";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import styles from "./page.module.scss";
@@ -49,11 +50,13 @@ export default function Lab() {
     router.replace(q ? `${pathname}?${q}` : pathname, { scroll: false });
   };
 
-  const go = (project: Project) => {
+  // Real links instead of router.push-on-click: the detail pages are static,
+  // so Link prefetches them in-viewport and navigation is instant.
+  const hrefFor = (project: Project) => {
     const p = new URLSearchParams();
     if (filter !== "all") p.set("filter", filter);
     const q = p.toString();
-    router.push(q ? `/lab/${project.id}?${q}` : `/lab/${project.id}`);
+    return q ? `/lab/${project.id}?${q}` : `/lab/${project.id}`;
   };
 
   const live = LIVE.filter((p) => matchesGroup(p, filter));
@@ -99,11 +102,11 @@ export default function Lab() {
       >
         <div className={styles.projectList} role="list">
           {live.map((project, i) => (
-            <button
+            <Link
               key={project.id}
               role="listitem"
               className={styles.projectRow}
-              onClick={() => go(project)}
+              href={hrefFor(project)}
             >
               <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>
               <div className={styles.rowMain}>
@@ -117,7 +120,7 @@ export default function Lab() {
                     to Apple Color Emoji when the webfont lacks the glyph */}
                 {project.status === "live" && <span className={styles.rowArrow}>{"↗︎"}</span>}
               </div>
-            </button>
+            </Link>
           ))}
         </div>
 
@@ -146,11 +149,11 @@ export default function Lab() {
                   role="list"
                 >
                   {archived.map((project, i) => (
-                    <button
+                    <Link
                       key={project.id}
                       role="listitem"
                       className={`${styles.projectRow} ${styles.archivedRow}`}
-                      onClick={() => go(project)}
+                      href={hrefFor(project)}
                     >
                       <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>
                       <div className={styles.rowMain}>
@@ -161,7 +164,7 @@ export default function Lab() {
                         <span className={styles.rowCategory}>{project.category}</span>
                         <span className={styles.rowYear}>{project.year}</span>
                       </div>
-                    </button>
+                    </Link>
                   ))}
                 </motion.div>
               )}

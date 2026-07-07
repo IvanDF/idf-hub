@@ -15,7 +15,7 @@ type SiteCommandResult = {
 };
 
 type UseSiteCommandsOptions = {
-  router: { push: (href: string) => void };
+  router: { push: (href: string) => void; prefetch: (href: string) => void };
   toggleTheme: () => void;
   playLightOn: () => void;
   playError: () => void;
@@ -84,20 +84,25 @@ export function useSiteCommands({
         case "lab":
         case "experiments":
           outputs = [{ type: "success", content: "Accessing The Lab..." }];
-          setTimeout(() => { router.push("/lab"); setIsOpen(false); }, 800);
+          // Prefetch immediately so the route loads while the message shows;
+          // the pause is only a readable beat, not masking a fetch.
+          router.prefetch("/lab");
+          setTimeout(() => { router.push("/lab"); setIsOpen(false); }, 400);
           break;
 
         case "home":
         case "back":
           outputs = [{ type: "success", content: "Returning Home..." }];
-          setTimeout(() => { router.push("/"); setIsOpen(false); }, 800);
+          router.prefetch("/");
+          setTimeout(() => { router.push("/"); setIsOpen(false); }, 400);
           break;
 
         case "about":
         case "chi":
         case "me":
           outputs = [{ type: "success", content: "About Ivan Del Fatti..." }];
-          setTimeout(() => { router.push("/about"); setIsOpen(false); }, 800);
+          router.prefetch("/about");
+          setTimeout(() => { router.push("/about"); setIsOpen(false); }, 400);
           break;
 
         case "clear":
@@ -116,10 +121,14 @@ export function useSiteCommands({
         case "time":
         case "flux":
           outputs = [{ type: "success", content: "Time Machine..." }];
-          setTimeout(() => { router.push("/time-machine"); setIsOpen(false); }, 800);
+          router.prefetch("/time-machine");
+          setTimeout(() => { router.push("/time-machine"); setIsOpen(false); }, 400);
           break;
 
         case "admin": {
+          // Prefetch before the auth round-trip so the dashboard loads in
+          // parallel with the /api/auth/me call instead of after it.
+          router.prefetch("/admin");
           const user = await getAuthUser();
           outputs = user?.email
             ? [
@@ -131,7 +140,7 @@ export function useSiteCommands({
                 { type: "success", content: "→ /admin" },
                 { type: "text", content: "demo: admin@idf.dev / wubbalubbadubdub" },
               ];
-          setTimeout(() => { router.push("/admin"); setIsOpen(false); }, 900);
+          setTimeout(() => { router.push("/admin"); setIsOpen(false); }, 400);
           break;
         }
 
@@ -144,7 +153,7 @@ export function useSiteCommands({
               { type: "system", content: `Signing out ${logoutUser.email}...` },
               { type: "success", content: "Session terminated." },
             ];
-            setTimeout(async () => { await signOut(); setIsOpen(false); }, 800);
+            setTimeout(async () => { await signOut(); setIsOpen(false); }, 400);
           }
           break;
         }
@@ -238,7 +247,8 @@ export function useSiteCommands({
             break;
           }
           outputs = [{ type: "success", content: `Opening ${target.title}...` }];
-          setTimeout(() => { router.push(`/lab/${target.id}`); setIsOpen(false); }, 450);
+          router.prefetch(`/lab/${target.id}`);
+          setTimeout(() => { router.push(`/lab/${target.id}`); setIsOpen(false); }, 400);
           break;
         }
 
