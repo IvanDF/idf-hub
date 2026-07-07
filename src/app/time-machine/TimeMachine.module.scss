@@ -81,16 +81,18 @@
     height: 100%;
   }
 
+  // Chromatic aberration built from the palette: secondary (lario) on one
+  // side, accent (volta) on the other, instead of raw cyan/magenta.
   &::before {
     left: 2px;
-    text-shadow: -1px 0 #00ffff; /* intentional: glitch chromatic aberration */
+    text-shadow: -1px 0 $color-secondary-dark;
     clip: rect(44px, 450px, 56px, 0);
     animation: glitch-anim 5s infinite linear alternate-reverse;
   }
 
   &::after {
     left: -2px;
-    text-shadow: -1px 0 #ff00ff; /* intentional: glitch chromatic aberration */
+    text-shadow: -1px 0 $color-accent-dark;
     clip: rect(44px, 450px, 56px, 0);
     animation: glitch-anim2 5s infinite linear alternate-reverse;
   }
@@ -106,6 +108,8 @@
   animation: float 6s ease-in-out infinite;
 }
 
+// Fixed-dark scene: colors come from the dark-theme side of the palette
+// (secondary = lario, accent = volta) instead of raw hexes or the light set.
 .hologramRing {
   position: absolute;
   top: 50%;
@@ -113,24 +117,24 @@
   transform: translate(-50%, -50%);
   width: 120%;
   height: 120%;
-  border: $border-hairline solid color.adjust($color-lario-light, $alpha: -0.7);
-  border-radius: $radius-lg;
-  background: radial-gradient(circle, color.adjust($color-lario-light, $alpha: -0.95) 0%, transparent 70%);
+  border: $border-hairline solid color.adjust($color-secondary-dark, $alpha: -0.7);
+  border-radius: var(--route-card-radius, #{$radius-lg});
+  background: radial-gradient(circle, color.adjust($color-secondary-dark, $alpha: -0.95) 0%, transparent 70%);
 
-  box-shadow: 0 0 50px color.adjust($color-lario-light, $alpha: -0.9);
+  box-shadow: 0 0 50px color.adjust($color-secondary-dark, $alpha: -0.9);
 }
 
 .artifactCard {
   position: relative;
   background: color.adjust($color-silk-dark, $alpha: -0.2);
-  border: $border-hairline solid color.adjust($color-lario-light, $alpha: -0.5);
+  border: $border-hairline solid color.adjust($color-secondary-dark, $alpha: -0.5);
   backdrop-filter: blur($blur-md);
   padding: $spacing-xl;
-  border-radius: $radius-sm;
-  box-shadow: 
-    0 0 20px color.adjust($color-lario-light, $alpha: -0.9),
-    inset 0 0 20px color.adjust($color-lario-light, $alpha: -0.95);
-  
+  border-radius: var(--route-card-radius, #{$radius-lg});
+  box-shadow:
+    0 0 20px color.adjust($color-secondary-dark, $alpha: -0.9),
+    inset 0 0 20px color.adjust($color-secondary-dark, $alpha: -0.95);
+
   &::before {
     content: '';
     position: absolute;
@@ -138,9 +142,9 @@
     left: -$border-hairline;
     right: -$border-hairline;
     bottom: -$border-hairline;
-    background: linear-gradient(45deg, color.adjust($color-lario-light, $alpha: -0.5), transparent, color.adjust($color-volta-light, $alpha: -0.5));
+    background: linear-gradient(45deg, color.adjust($color-secondary-dark, $alpha: -0.5), transparent, color.adjust($color-accent-dark, $alpha: -0.5));
     z-index: -1;
-    border-radius: $radius-sm;
+    border-radius: var(--route-card-radius, #{$radius-lg});
     opacity: 0.5;
   }
 }
@@ -151,21 +155,21 @@
   gap: $spacing-sm;
   margin-bottom: $spacing-lg;
   padding-bottom: $spacing-md;
-  border-bottom: $border-hairline solid color.adjust($color-white, $alpha: -0.9);
+  border-bottom: $border-hairline solid color.adjust($color-silk-light, $alpha: -0.9);
 }
 
 .icon {
-  color: $color-lario-dark;
+  color: $color-secondary-dark;
 }
 
 .idBadge {
   font-size: $font-size-sm;
-  color: $color-lario-dark;
+  color: $color-secondary-dark;
   letter-spacing: $letter-spacing-lg;
-  background: color.adjust($color-lario-light, $alpha: -0.9);
+  background: color.adjust($color-secondary-dark, $alpha: -0.9);
   padding: $spacing-xs $spacing-sm;
-  border-radius: $radius-sm;
-  border: $border-hairline solid color.adjust($color-lario-light, $alpha: -0.8);
+  border-radius: var(--route-filter-radius, #{$radius-md});
+  border: $border-hairline solid color.adjust($color-secondary-dark, $alpha: -0.8);
 }
 
 .artifactTitle {
@@ -174,7 +178,7 @@
   color: $color-silk-light;
   margin-bottom: $spacing-sm;
   letter-spacing: $letter-spacing-tighter;
-  text-shadow: 0 0 10px color.adjust($color-white, $alpha: -0.7);
+  text-shadow: 0 0 10px color.adjust($color-silk-light, $alpha: -0.7);
 }
 
 .artifactMeta {
@@ -196,7 +200,7 @@
   line-height: 1.6;
   margin-bottom: $spacing-xl;
   font-size: $font-size-md;
-  border-left: $border-base solid $color-lario-light;
+  border-left: $border-base solid $color-secondary-dark;
   padding-left: $spacing-md;
 }
 
@@ -205,27 +209,31 @@
   gap: $spacing-md;
 }
 
+// Mirrors the site primary CTA on the dark side of the palette:
+// accent background, bg-colored text, squircle radius.
 .primaryAction {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: $spacing-sm;
-  background: $color-lario-light;
-  color: $color-silk-light;
+  background: $color-accent-dark;
+  color: $color-silk-dark;
   padding: $spacing-sm $spacing-lg;
   text-decoration: none;
   font-weight: 600;
-  border: $border-hairline solid $color-lario-light;
-  border-radius: $radius-md;
+  border: $border-hairline solid $color-accent-dark;
+  border-radius: var(--route-filter-radius, #{$radius-md});
   transition: all 0.2s;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-sm;
   font-size: $font-size-base;
+  cursor: pointer;
+  font-family: inherit;
 
   &:hover {
-    background: color.adjust($color-lario-light, $lightness: -8%);
-    box-shadow: 0 0 15px color.adjust($color-lario-light, $alpha: -0.6);
+    background: color.adjust($color-accent-dark, $lightness: -8%);
+    box-shadow: 0 0 15px color.adjust($color-accent-dark, $alpha: -0.6);
     transform: translateY(-1px);
   }
 }
@@ -235,11 +243,13 @@
   align-items: center;
   justify-content: center;
   padding: $spacing-sm;
-  border: $border-hairline solid color.adjust($color-white, $alpha: -0.8);
-  border-radius: $radius-md;
-  background: color.adjust($color-white, $alpha: -0.95);
+  border: $border-hairline solid color.adjust($color-silk-light, $alpha: -0.8);
+  border-radius: var(--route-filter-radius, #{$radius-md});
+  background: color.adjust($color-silk-light, $alpha: -0.95);
+  color: $color-silk-light;
+
   &:hover {
-    background: color.adjust($color-white, $alpha: -0.9);
+    background: color.adjust($color-silk-light, $alpha: -0.9);
   }
 }
 
@@ -252,15 +262,22 @@
   animation: fadeInUp 0.5s ease-out;
 }
 
+// Bezel greys derive from the silk neutral instead of raw hexes, so the TV
+// stays anchored to the palette.
 .tvBezel {
-  background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #111 100%);
-  border-radius: $radius-lg;
+  background: linear-gradient(
+    145deg,
+    color.adjust($color-silk-dark, $lightness: 13%) 0%,
+    color.adjust($color-silk-dark, $lightness: 6%) 50%,
+    color.adjust($color-silk-dark, $lightness: 3%) 100%
+  );
+  border-radius: var(--route-card-radius, #{$radius-lg});
   padding: 28px 28px 52px;
   box-shadow:
-    0 0 0 2px #3a3a3a,
-    0 8px 60px rgba(0, 0, 0, 0.9),
-    inset 0 2px 4px rgba(255, 255, 255, 0.06),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.5);
+    0 0 0 2px color.adjust($color-silk-dark, $lightness: 19%),
+    0 8px 60px rgba($color-black, 0.9),
+    inset 0 2px 4px color.adjust($color-silk-light, $alpha: -0.94),
+    inset 0 -2px 4px rgba($color-black, 0.5);
   position: relative;
 }
 
@@ -270,10 +287,10 @@
   padding-bottom: 62%;
   border-radius: $radius-sm;
   overflow: hidden;
-  background: #000;
+  background: $color-black;
   box-shadow:
-    inset 0 0 30px rgba(0, 0, 0, 0.9),
-    0 0 20px rgba(0, 200, 80, 0.04);
+    inset 0 0 30px rgba($color-black, 0.9),
+    0 0 20px color.adjust($color-secondary-dark, $alpha: -0.96);
 
   iframe {
     position: absolute;
@@ -290,8 +307,8 @@
     0deg,
     transparent,
     transparent 3px,
-    rgba(0, 0, 0, 0.12) 3px,
-    rgba(0, 0, 0, 0.12) 4px
+    rgba($color-black, 0.12) 3px,
+    rgba($color-black, 0.12) 4px
   );
   pointer-events: none;
   border-radius: $radius-sm;
@@ -302,7 +319,7 @@
   position: absolute;
   inset: 0;
   border-radius: $radius-sm;
-  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+  background: radial-gradient(ellipse at center, transparent 55%, rgba($color-black, 0.55) 100%);
   pointer-events: none;
   z-index: 3;
 }
@@ -334,8 +351,10 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #2d2d2d;
-  box-shadow: 0 0 0 2px #404040, inset 0 1px 2px rgba(0, 0, 0, 0.6);
+  background: color.adjust($color-silk-dark, $lightness: 14%);
+  box-shadow:
+    0 0 0 2px color.adjust($color-silk-dark, $lightness: 21%),
+    inset 0 1px 2px rgba($color-black, 0.6);
 }
 
 .tvOpenLink {

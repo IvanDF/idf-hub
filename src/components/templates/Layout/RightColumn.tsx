@@ -1,6 +1,5 @@
 "use client";
 
-import Magnetic from "@/components/atoms/magnetic";
 import { usePathname } from "next/navigation";
 import SocialLinks from "./SocialLinks";
 import ThemeToggle from "./ThemeToggle";
@@ -15,9 +14,13 @@ export default function RightColumn() {
 
   return (
     <aside className={`${styles.rightColumn} ${isLab ? styles.autoHide : ""}`}>
-      <Magnetic>
+      {/* No Magnetic wrapper (it suppresses the global blob envelope), but
+          the plain div must stay: the rail is pointer-events: none with a
+          `> *` re-enable, and Button's `all: unset` would inherit the rail's
+          none if the button were the direct child. */}
+      <div>
         <ThemeToggle />
-      </Magnetic>
+      </div>
 
       <div className={styles.divider}></div>
 
