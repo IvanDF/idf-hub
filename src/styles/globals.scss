@@ -170,6 +170,18 @@ body {
   }
 }
 
+/* Text selection and input caret follow the theme accent */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+  caret-color: var(--color-accent);
+}
+
 *,
 *::before,
 *::after {

@@ -37,6 +37,14 @@
   background-color: $color-silk-light;
   border-radius: 63% 37% 52% 48% / 45% 62% 38% 55%;
   animation: blob-wave 6s linear infinite;
+  transition: border-radius 0.2s ease;
+
+  // Enveloped (iPadOS pointer): the wave pauses and the shape settles on the
+  // adopted control's corner radius, passed down as --blob-radius.
+  .cursorBlob[data-enveloped="true"] & {
+    animation: none;
+    border-radius: var(--blob-radius, #{$radius-md});
+  }
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
