@@ -199,6 +199,46 @@
   background: var(--color-bg);
 }
 
+// Frame-as-button: neutralize UA button chrome without `all: unset`, which
+// would also wipe the .mediaFrame declarations sharing the element.
+.mediaFrameClickable {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  display: block;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: $border-base solid var(--color-accent);
+    outline-offset: calc(-1 * #{$border-base});
+  }
+
+  &:hover .mediaZoomHint {
+    opacity: 1;
+  }
+}
+
+.mediaZoomHint {
+  position: absolute;
+  right: $spacing-sm;
+  bottom: $spacing-sm;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-family-mono;
+  font-size: $font-size-md;
+  line-height: 1;
+  color: var(--color-bg);
+  background: color-mix(in srgb, var(--color-text) 75%, transparent);
+  border-radius: var(--route-filter-radius, #{$radius-md});
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
 .mediaFrameHero {
   grid-column: 1 / -1;
 }
