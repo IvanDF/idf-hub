@@ -7,11 +7,12 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./CustomCursor.module.scss";
 
 // Magnetism (translating the hovered element) only reads as "magnetic" on
-// compact controls; on large surfaces (e.g. full-width list rows) it drags
-// the whole block around and forces the ink filter to re-run over the page
-// every frame. The blob envelope has no such cost, so it applies to every
-// interactive element regardless of size.
-const MAX_MAGNET_WIDTH = 320;
+// controls, not on large surfaces: full-width list rows dragged around force
+// the ink filter to re-run over the page every frame. The cap must still
+// admit wide CTAs (e.g. the ~470px time-machine action) — only row-scale
+// elements are excluded. The blob envelope has no such cost, so it applies
+// to every interactive element regardless of size.
+const MAX_MAGNET_WIDTH = 480;
 const MAX_MAGNET_HEIGHT = 120;
 
 // Keep in sync with $size-cursor-ring in the SCSS variables.
