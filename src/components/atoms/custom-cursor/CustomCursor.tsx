@@ -201,11 +201,12 @@ export default function CustomCursor() {
           runs the CSS wave morph so the two never fight over `transform`. */}
       <motion.div
         className={styles.cursorBlob}
-        data-hovering={isHovering}
         style={{ translateX: blobX, translateY: blobY, x: "-50%", y: "-50%" }}
         animate={{
           scale: isClicking ? 0.8 : isHovering ? 1.5 : 1, // Expand on hover
-          opacity: isHovering ? 0.8 : 0.4,
+          // Solid difference fill needs high opacity to read as a negative;
+          // dropping it much lower fades the inversion into grey.
+          opacity: isHovering ? 1 : 0.85,
         }}
         transition={{
           scale: { duration: 0.2 },
