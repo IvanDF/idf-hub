@@ -249,6 +249,11 @@
     padding: $spacing-xs $spacing-md;
     min-height: $size-control-md;
     color: var(--color-text);
+    // Buttons don't inherit font: without this they fall back to the UA
+    // default and stick out from the rest of the terminal.
+    font-family: $font-family-mono;
+    font-size: $font-size-xs;
+    letter-spacing: $letter-spacing-md;
     cursor: pointer;
     transition: all 0.2s ease;
     opacity: 0.7;

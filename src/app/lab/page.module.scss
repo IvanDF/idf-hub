@@ -151,14 +151,51 @@
   // The hover indent moves via `translate` on the children instead of
   // animating padding: padding retriggers layout of the whole list every
   // frame, and the ink-filtered ancestor re-filters on top of that.
+  // On fine-pointer devices the color inversion comes from the cursor blob
+  // enveloping the row (difference blend), so hover only adds motion there.
   &:hover {
-    background: var(--color-text);
-    border-color: var(--color-text);
-
     .rowNum,
     .rowMain { translate: ($spacing-md - $spacing-xs) 0; }
 
     .rowMeta { translate: (-($spacing-md - $spacing-xs)) 0; }
+
+    .rowNum,
+    .rowTitle,
+    .rowDesc,
+    .rowCategory,
+    .rowYear,
+    .rowArrow {
+      opacity: 1;
+    }
+
+    .rowDesc { opacity: 0.65; }
+
+    .rowArrow {
+      transform: translate(3px, -3px);
+    }
+  }
+
+  // CSS inversion fallback where there is no blob cursor: touch tap
+  // highlight and keyboard focus.
+  @media (hover: none), (pointer: coarse) {
+    &:hover {
+      background: var(--color-text);
+      border-color: var(--color-text);
+
+      .rowNum,
+      .rowTitle,
+      .rowDesc,
+      .rowCategory,
+      .rowYear,
+      .rowArrow {
+        color: var(--color-bg);
+      }
+    }
+  }
+
+  &:focus-visible {
+    background: var(--color-text);
+    border-color: var(--color-text);
 
     .rowNum,
     .rowTitle,
@@ -171,10 +208,6 @@
     }
 
     .rowDesc { opacity: 0.65; }
-
-    .rowArrow {
-      transform: translate(3px, -3px);
-    }
   }
 
   @include mobile {

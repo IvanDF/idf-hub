@@ -338,8 +338,12 @@ export default function Terminal({
             <SnakeGame
               onExit={(score) => {
                 setGameActive(false);
-                setHistory((prev) => [
+                // Input remounts on exit; hand focus back on desktop.
+                requestAnimationFrame(() => {
                   // eslint-disable-next-line max-lines
+                  if (shouldAutoFocus()) inputRef.current?.focus();
+                });
+                setHistory((prev) => [
                   ...prev,
                   {
                     command: "snake",
@@ -456,22 +460,28 @@ export default function Terminal({
           )}
         </div>
 
-        <TerminalQuickCommands
-          context={context}
-          onCommand={executeQuickCommand}
-        />
-        <TerminalInput
-          ref={inputRef}
-          value={input}
-          suggestion={suggestion}
-          context={context}
-          onChange={(v) => {
-            setInput(v);
-            if (v.length > 0) playType();
-          }}
-          onKeyDown={handleInputKeyDown}
-          onSubmit={submitCurrentInput}
-        />
+        {/* Hidden while the game runs: a focused input would swallow the
+            arrow keys (ArrowDown jumped to command history mid-game). */}
+        {!gameActive && (
+          <>
+            <TerminalQuickCommands
+              context={context}
+              onCommand={executeQuickCommand}
+            />
+            <TerminalInput
+              ref={inputRef}
+              value={input}
+              suggestion={suggestion}
+              context={context}
+              onChange={(v) => {
+                setInput(v);
+                if (v.length > 0) playType();
+              }}
+              onKeyDown={handleInputKeyDown}
+              onSubmit={submitCurrentInput}
+            />
+          </>
+        )}
       </div>
     </TerminalOverlay>
   );

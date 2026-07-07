@@ -6,9 +6,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import styles from "./CustomCursor.module.scss";
 
-// Magnetism only reads as "magnetic" on compact controls; on large surfaces
-// (e.g. full-width list rows) it just drags the whole block around and forces
-// the ink filter to re-run over the page every frame.
+// Magnetism (translating the hovered element) only reads as "magnetic" on
+// compact controls; on large surfaces (e.g. full-width list rows) it drags
+// the whole block around and forces the ink filter to re-run over the page
+// every frame. The blob envelope has no such cost, so it applies to every
+// interactive element regardless of size.
 const MAX_MAGNET_WIDTH = 320;
 const MAX_MAGNET_HEIGHT = 120;
 
@@ -134,17 +136,18 @@ export default function CustomCursor() {
         activeMagnetRef.current = entry;
         if (entry.eligible) {
           candidate.style.setProperty("will-change", "translate");
-          setEnvelope(envelopeFor(rect, entry.radius));
-        } else {
-          setEnvelope(null);
         }
+        setEnvelope(envelopeFor(rect, entry.radius));
       }
-
-      if (!entry.eligible) return pointer;
 
       const { rect } = entry;
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
+
+      // Large surfaces get the envelope but not the translate: the blob
+      // parks on their center while the element stays put.
+      if (!entry.eligible) return { x: centerX, y: centerY };
+
       const normalizedX = (e.clientX - centerX) / Math.max(rect.width, 1);
       const normalizedY = (e.clientY - centerY) / Math.max(rect.height, 1);
       const maxOffset = 10;
@@ -178,7 +181,7 @@ export default function CustomCursor() {
       // A click can swap the control's content (PLAY -> PAUSE), so re-measure
       // the enveloped rect once the DOM has settled, minus our own translate.
       const entry = activeMagnetRef.current;
-      if (!entry?.eligible) return;
+      if (!entry) return;
       requestAnimationFrame(() => {
         if (activeMagnetRef.current !== entry) return;
         const raw = entry.el.getBoundingClientRect();
