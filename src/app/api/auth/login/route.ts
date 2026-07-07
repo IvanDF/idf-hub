@@ -6,6 +6,11 @@ export async function POST(request: Request) {
   if (!checkPassword(password)) {
     return NextResponse.json({ error: 'Invalid password' }, { status: 401 })
   }
-  await setSession()
+  if (!(await setSession())) {
+    return NextResponse.json(
+      { error: 'Auth not configured (missing SESSION_SECRET)' },
+      { status: 503 },
+    )
+  }
   return NextResponse.json({ success: true })
 }

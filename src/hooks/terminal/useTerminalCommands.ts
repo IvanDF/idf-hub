@@ -9,7 +9,7 @@ import { useAdminCommands } from "./useAdminCommands";
 import { useSiteCommands } from "./useSiteCommands";
 
 type UseTerminalCommandsOptions = {
-  router: { push: (href: string) => void };
+  router: { push: (href: string) => void; prefetch: (href: string) => void };
   toggleTheme: () => void;
   playLightOn: () => void;
   playError: () => void;

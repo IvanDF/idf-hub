@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import BackLink from "./BackLink";
 import styles from "./ProjectDetail.module.scss";
 
 export async function generateStaticParams() {
@@ -39,19 +41,17 @@ export async function generateMetadata({
   };
 }
 
+// No `searchParams` here: awaiting it would make the route dynamic (a server
+// render per click). The filter-aware back link reads it client-side instead.
 export default async function ProjectPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ filter?: string }>;
 }) {
   const { slug } = await params;
-  const { filter } = await searchParams;
   const project = PROJECTS.find((p) => p.id === decodeURIComponent(slug));
   if (!project) notFound();
 
-  const backHref = filter ? `/lab?filter=${encodeURIComponent(filter)}` : "/lab";
   const stack = project.stack && project.stack.length > 0 ? project.stack : project.tags;
 
   const mediaFrames = Array.from(
@@ -90,10 +90,16 @@ export default async function ProjectPage({
 
   return (
     <main className={styles.container}>
-      <Link href={backHref} className={styles.backLink}>
-        <ArrowLeft size={14} />
-        Work
-      </Link>
+      <Suspense
+        fallback={
+          <Link href="/lab" className={styles.backLink}>
+            <ArrowLeft size={14} />
+            Work
+          </Link>
+        }
+      >
+        <BackLink />
+      </Suspense>
 
       <header className={styles.header}>
         <div className={styles.meta}>

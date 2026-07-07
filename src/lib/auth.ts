@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers'
+import { DEMO_PASSWORD } from './demo'
 import {
   SESSION_COOKIE,
   SESSION_TTL_SECONDS,
@@ -16,9 +17,11 @@ export async function getUser() {
   return null
 }
 
-export async function setSession() {
+export async function setSession(): Promise<boolean> {
   const token = await createSessionToken()
-  if (!token) return
+  // No signing secret configured -> report it so the login route can fail
+  // loudly instead of "succeeding" without ever setting a cookie.
+  if (!token) return false
   const cookieStore = await cookies()
   cookieStore.set(SESSION_COOKIE, token, {
     httpOnly: true,
@@ -27,6 +30,7 @@ export async function setSession() {
     path: '/',
     maxAge: SESSION_TTL_SECONDS,
   })
+  return true
 }
 
 export async function clearSession() {
@@ -35,8 +39,11 @@ export async function clearSession() {
 }
 
 export function checkPassword(password: string) {
-  const expected = process.env.ADMIN_PASSWORD
-  // No password configured -> admin login is disabled (no baked-in fallback).
-  if (!expected) return false
-  return timingSafeEqual(password, expected)
+  const admin = process.env.ADMIN_PASSWORD
+  if (admin && timingSafeEqual(password, admin)) return true
+  // The public demo credential the login page advertises. Safe to accept:
+  // the admin API is a mock, nothing a demo session does persists. Sessions
+  // still need a signing secret (SESSION_SECRET or ADMIN_PASSWORD) to exist.
+  const demo = process.env.DEMO_PASSWORD || DEMO_PASSWORD
+  return timingSafeEqual(password, demo)
 }
