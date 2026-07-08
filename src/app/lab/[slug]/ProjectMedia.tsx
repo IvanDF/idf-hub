@@ -29,8 +29,10 @@ export default function ProjectMedia({ frames, title, fit }: ProjectMediaProps) 
             key={src}
             type="button"
             // Opted out of the global cursor envelope: a difference-blend blob
-            // over a photo reads as a broken negative, not as a highlight.
+            // over a photo reads as a broken negative, not as a highlight. The
+            // cursor carries a "+" affordance instead of a fixed corner badge.
             data-local-magnetic="true"
+            data-cursor-glyph="+"
             className={`${styles.mediaFrame} ${styles.mediaFrameClickable} ${
               i === 0 && frames.length > 1 ? styles.mediaFrameHero : ""
             }`}
@@ -47,9 +49,6 @@ export default function ProjectMedia({ frames, title, fit }: ProjectMediaProps) 
               sizes={i === 0 ? "(max-width: 768px) 100vw, 860px" : "(max-width: 768px) 50vw, 430px"}
               priority={i === 0}
             />
-            <span className={styles.mediaZoomHint} aria-hidden="true">
-              +
-            </span>
           </button>
         ))}
       </div>

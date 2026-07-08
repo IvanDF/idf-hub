@@ -66,6 +66,11 @@ export default function CustomCursor() {
   // iPadOS-style pointer adoption: while a compact control is hovered the
   // blob stretches to the control's box and the dot melts into it.
   const [envelope, setEnvelope] = useState<Envelope | null>(null);
+  // Contextual affordance drawn in place of the dot: "+" over a zoomable image,
+  // "−" inside the open lightbox. Any element carrying `data-cursor-glyph`
+  // sets it, as long as the pointer is not adopting a control.
+  const [glyph, setGlyph] = useState<string | null>(null);
+  const glyphRef = useRef<string | null>(null);
 
   const pathname = usePathname();
 
@@ -102,6 +107,20 @@ export default function CustomCursor() {
       resetMagnetElement(activeMagnetRef.current);
       activeMagnetRef.current = null;
       setEnvelope(null);
+    };
+
+    const setGlyphFor = (source: HTMLElement | null, enveloping: boolean) => {
+      // The envelope wins: adopting a control (e.g. the lightbox close button)
+      // must not also paint a "−" over it.
+      const next = enveloping
+        ? null
+        : (source?.closest("[data-cursor-glyph]") as HTMLElement | null)?.getAttribute(
+            "data-cursor-glyph",
+          ) ?? null;
+      if (next !== glyphRef.current) {
+        glyphRef.current = next;
+        setGlyph(next);
+      }
     };
 
     // Applies magnetism and returns the blob's target point: the (parallax-
@@ -174,6 +193,7 @@ export default function CustomCursor() {
       const target = applyGlobalMagnetism(e);
       blobX.set(target.x);
       blobY.set(target.y);
+      setGlyphFor(e.target as HTMLElement | null, activeMagnetRef.current !== null);
     };
 
     const handleMouseDown = () => setIsClicking(true);
@@ -241,6 +261,7 @@ export default function CustomCursor() {
       window.removeEventListener("blur", clearMagnetism);
       window.removeEventListener("scroll", clearMagnetism, { capture: true });
       clearMagnetism();
+      glyphRef.current = null;
     };
   }, [mouseX, mouseY, blobX, blobY]);
 
@@ -250,21 +271,38 @@ export default function CustomCursor() {
     setIsHovering(false);
     setIsClicking(false);
     setEnvelope(null);
+    setGlyph(null);
+    glyphRef.current = null;
   }, [pathname]);
 
   if (!isVisible) return null;
 
   return (
     <>
-      {/* Central Dot (Instant Follow) — melts into the enveloped control */}
+      {/* Central Dot (Instant Follow) — melts into the enveloped control, and
+          steps aside for the contextual glyph. */}
       <motion.div
         className={styles.cursorDot}
         style={{ translateX: mouseX, translateY: mouseY, x: "-50%", y: "-50%" }}
         animate={{
-          scale: envelope ? 0 : isClicking ? 0.8 : isHovering ? 0.5 : 1,
+          scale: envelope || glyph ? 0 : isClicking ? 0.8 : isHovering ? 0.5 : 1,
         }}
         transition={{ duration: 0.15 }}
       />
+
+      {/* Contextual glyph (Instant Follow) — the affordance the blob carries:
+          "+" to zoom into an image, "−" to leave the open viewer. Blended as a
+          negative like the dot so it reads on any background. Framer owns the
+          follow transform; the reveal uses the independent CSS `scale`
+          property (see the module) so the two never fight over `transform`. */}
+      <motion.div
+        className={styles.cursorGlyph}
+        data-active={glyph ? "true" : undefined}
+        style={{ translateX: mouseX, translateY: mouseY, x: "-50%", y: "-50%" }}
+        aria-hidden="true"
+      >
+        {glyph}
+      </motion.div>
 
       {/* Outer Blob (Spring Follow + Wave Morph). While a compact control is
           hovered it adopts the control: stretches to its box, takes its
