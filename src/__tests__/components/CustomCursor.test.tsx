@@ -28,11 +28,11 @@ describe('CustomCursor', () => {
     });
   });
 
-  it('renders two cursor div elements', async () => {
+  it('renders the dot, glyph, and blob cursor elements', async () => {
     const { container } = render(<CustomCursor />);
     await waitFor(() => {
       const cursorEls = container.querySelectorAll('[class*="cursor"]');
-      expect(cursorEls.length).toBe(2);
+      expect(cursorEls.length).toBe(3);
     });
   });
 });

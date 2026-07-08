@@ -358,6 +358,9 @@
   padding: $spacing-xs 0;
   transition: opacity 0.15s ease;
   min-height: $touch-target-min;
+  // Full stadium corner so the cursor envelope wraps this wide, short toggle
+  // as a pill: 12px on a bare button this size reads as a hard rectangle.
+  border-radius: $radius-full;
 
   &:hover { opacity: 1; }
 }

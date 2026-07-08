@@ -155,6 +155,9 @@ export default function Lightbox({
       role="dialog"
       aria-modal="true"
       aria-label={`${title} gallery`}
+      // The cursor carries a "−" here (click the backdrop to close); the
+      // toolbar buttons override it with the normal envelope.
+      data-cursor-glyph="−"
       onClick={onClose}
     >
       <div className={styles.topBar} onClick={(e) => e.stopPropagation()}>

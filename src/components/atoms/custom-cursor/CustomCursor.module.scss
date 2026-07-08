@@ -13,6 +13,43 @@
   mix-blend-mode: difference;
 }
 
+// Contextual affordance ("+" / "−") drawn where the dot would be. Same silk
+// fill blended as a negative so it inverts whatever it sits over, matching the
+// dot and the blob on both themes.
+.cursorGlyph {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $size-cursor-ring;
+  height: $size-cursor-ring;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1000002;
+  color: $color-silk-light;
+  font-family: $font-family-mono;
+  font-size: $font-size-lg;
+  font-weight: 700;
+  line-height: 1;
+  mix-blend-mode: difference;
+  // Reveal uses the independent `scale` property, not `transform`: Framer drives
+  // the follow via `transform`, so keeping the two on separate properties lets
+  // them compose instead of overwriting each other.
+  scale: 0;
+  opacity: 0;
+  transition: scale 0.15s ease, opacity 0.15s ease;
+
+  &[data-active="true"] {
+    scale: 1;
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
 .cursorBlob {
   position: fixed;
   top: 0;
