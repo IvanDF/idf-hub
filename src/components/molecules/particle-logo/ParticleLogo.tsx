@@ -1,6 +1,7 @@
 "use client";
 
 import { useTheme } from "@/context/ThemeContext";
+import { DESIGN_SYSTEM } from "@/styles/design-system";
 import { Html } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useReducedMotion } from "framer-motion";
@@ -28,8 +29,8 @@ function InteractiveParticles() {
   const color = useMemo(
     () =>
       theme === "dark"
-        ? new THREE.Color("#A78BFA")
-        : new THREE.Color("#3B82F6"),
+        ? new THREE.Color(DESIGN_SYSTEM.color.voltaDark)
+        : new THREE.Color(DESIGN_SYSTEM.color.larioLight),
     [theme],
   );
 

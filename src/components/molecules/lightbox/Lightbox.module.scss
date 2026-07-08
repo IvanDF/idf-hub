@@ -86,6 +86,17 @@
   &[data-dragging] {
     cursor: grabbing;
   }
+
+  // Desktop drives the affordance through the custom cursor and its +/- glyph,
+  // so hide the native cursor here too — otherwise it stacks on top. Mirrors
+  // the site-wide `cursor: none` on interactive elements.
+  @media (hover: hover) and (pointer: fine) {
+    &,
+    &[data-zoomed],
+    &[data-dragging] {
+      cursor: none;
+    }
+  }
 }
 
 .canvas {
