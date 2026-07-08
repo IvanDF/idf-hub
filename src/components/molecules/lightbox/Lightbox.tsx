@@ -39,6 +39,10 @@ export default function Lightbox({
   const stageRef = useRef<HTMLDivElement>(null);
   const pointersRef = useRef(new Map<number, { x: number; y: number }>());
   const pinchRef = useRef<{ dist: number; zoom: number } | null>(null);
+  // Tell a click apart from the tail of a pan/pinch: a pointer that moved is a
+  // drag and must not also toggle the zoom.
+  const downRef = useRef({ x: 0, y: 0 });
+  const movedRef = useRef(false);
 
   const zoomRef = useRef(zoom);
   useEffect(() => {
@@ -111,6 +115,8 @@ export default function Lightbox({
   const onPointerDown = (e: React.PointerEvent) => {
     (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
     pointersRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    downRef.current = { x: e.clientX, y: e.clientY };
+    movedRef.current = false;
     if (pointersRef.current.size === 2) {
       const [a, b] = [...pointersRef.current.values()];
       pinchRef.current = { dist: Math.hypot(a.x - b.x, a.y - b.y), zoom: zoomRef.current };
@@ -123,6 +129,8 @@ export default function Lightbox({
     const prev = pointersRef.current.get(e.pointerId);
     if (!prev) return;
     pointersRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (Math.hypot(e.clientX - downRef.current.x, e.clientY - downRef.current.y) > 4)
+      movedRef.current = true;
 
     if (pointersRef.current.size === 2 && pinchRef.current) {
       const [a, b] = [...pointersRef.current.values()];
@@ -141,9 +149,28 @@ export default function Lightbox({
     if (pointersRef.current.size === 0) setDragging(false);
   };
 
-  const onDoubleClick = () => {
-    if (zoomRef.current > MIN_ZOOM) resetView();
-    else applyZoom(DBLCLICK_ZOOM);
+  // Single click is the primary zoom control: zoom in toward the click when at
+  // rest, zoom back out when already magnified. stopPropagation keeps the click
+  // from reaching the backdrop (which closes the viewer). A click that was
+  // really the end of a drag is ignored.
+  const onStageClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (movedRef.current) return;
+    if (zoomRef.current > MIN_ZOOM) {
+      resetView();
+      return;
+    }
+    const stage = stageRef.current;
+    if (!stage) {
+      applyZoom(DBLCLICK_ZOOM);
+      return;
+    }
+    const r = stage.getBoundingClientRect();
+    const px = e.clientX - (r.left + r.width / 2);
+    const py = e.clientY - (r.top + r.height / 2);
+    // Keep the clicked point under the cursor: offset = p * (1 - zoom).
+    setZoom(DBLCLICK_ZOOM);
+    setOffset(clampOffset({ x: px * (1 - DBLCLICK_ZOOM), y: py * (1 - DBLCLICK_ZOOM) }, DBLCLICK_ZOOM));
   };
 
   const frameName =
@@ -155,9 +182,6 @@ export default function Lightbox({
       role="dialog"
       aria-modal="true"
       aria-label={`${title} gallery`}
-      // The cursor carries a "−" here (click the backdrop to close); the
-      // toolbar buttons override it with the normal envelope.
-      data-cursor-glyph="−"
       onClick={onClose}
     >
       <div className={styles.topBar} onClick={(e) => e.stopPropagation()}>
@@ -174,12 +198,13 @@ export default function Lightbox({
         className={styles.stage}
         data-dragging={dragging || undefined}
         data-zoomed={zoom > MIN_ZOOM || undefined}
-        onClick={(e) => e.stopPropagation()}
+        // The cursor becomes "+" (zoom in) or "−" (zoom out) over the image.
+        data-cursor-glyph={zoom > MIN_ZOOM ? "−" : "+"}
+        onClick={onStageClick}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
-        onDoubleClick={onDoubleClick}
       >
         <div
           className={styles.canvas}
@@ -220,7 +245,7 @@ export default function Lightbox({
           </>
         ) : (
           <Text as="span" variant="label" className={styles.counter}>
-            scroll to zoom · drag to pan
+            click to zoom · drag to pan
           </Text>
         )}
       </div>

@@ -190,8 +190,8 @@
     90deg,
     transparent 0px,
     transparent 38px,
-    rgba(255, 255, 255, 0.035) 38px,
-    rgba(255, 255, 255, 0.035) 40px
+    rgba($color-white, 0.035) 38px,
+    rgba($color-white, 0.035) 40px
   );
   animation: windBlast 0.9s ease-out forwards;
 }

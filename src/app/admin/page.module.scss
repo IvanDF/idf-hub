@@ -121,9 +121,9 @@
   font-family: $font-family-mono;
   font-size: $font-size-sm;
   color: $color-warning;
-  background-color: rgba(250, 204, 21, 0.07);
-  border-top: $border-hairline solid rgba(250, 204, 21, 0.35);
-  border-bottom: $border-hairline solid rgba(250, 204, 21, 0.35);
+  background-color: rgba($color-warning, 0.07);
+  border-top: $border-hairline solid rgba($color-warning, 0.35);
+  border-bottom: $border-hairline solid rgba($color-warning, 0.35);
   padding: 0.45rem 2rem;
   letter-spacing: $letter-spacing-sm;
   text-align: center;
@@ -304,7 +304,7 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba($color-black, 0.7);
   backdrop-filter: blur($blur-sm);
   z-index: 100;
   display: flex;
