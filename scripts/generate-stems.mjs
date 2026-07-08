@@ -2,7 +2,8 @@
 // Run: node scripts/generate-stems.mjs
 //
 // All stems share the same grid so any mix of them stays musical:
-//   key A minor - progression Am | F | C | G (2 bars each)
+//   key C major - progression C | G | Am | F (2 bars each, the uplifting
+//   I-V-vi-IV) so the bed reads bright/inspirational, not melancholic
 //   80 BPM, 4/4, 8 bars -> exactly 24s, seamless loop
 //   22050 Hz mono 16-bit WAV (~1 MB each; placeholders until the real
 //   clarinet recordings replace them - see public/audio/stems/README.md)
@@ -22,14 +23,20 @@ const OUT_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "public", "a
 
 // Note helpers (A4 = 440)
 const freq = (midi) => 440 * 2 ** ((midi - 69) / 12);
-const A2 = 45, C3 = 48, F3 = 53, G3 = 55, A3 = 57, C4 = 60, D4 = 62, E4 = 64, F4 = 65, G4 = 67, A4 = 69, B4 = 71;
+// midi names used below
+const C2 = 36, F2 = 41, G2 = 43, A2 = 45;
+const F3 = 53, G3 = 55, A3 = 57, B3 = 59;
+const C4 = 60, D4 = 62, E4 = 64, F4 = 65, G4 = 67, A4 = 69, B4 = 71;
+const C5 = 72, D5 = 74, E5 = 76, G5 = 79;
 
-// Progression: chord tones per 2-bar block (roots + triads, midi)
+// Progression: chord tones per 2-bar block (root + mid triad, midi).
+// C major home key: C - G - Am - F. The relative minor (Am) gives depth
+// without making the tonic minor, so the whole bed stays bright.
 const CHORDS = [
+  { root: C2, triad: [G3, C4, E4] }, // C
+  { root: G2, triad: [G3, B3, D4] }, // G
   { root: A2, triad: [A3, C4, E4] }, // Am
-  { root: F3 - 12, triad: [F3 + 12 - 12, A3, C4] }, // F  (F2 root, F3 A3 C4)
-  { root: C3, triad: [G3, C4, E4] }, // C
-  { root: G3 - 12, triad: [G3, B4 - 12, D4] }, // G  (G2 root, G3 B3 D4)
+  { root: F2, triad: [F3, A3, C4] }, // F
 ];
 const BLOCK = 2 * 4 * BEAT; // 2 bars in seconds
 
@@ -52,8 +59,9 @@ function addNote(buf, tStart, dur, f, gain, wave, attack = 0.01, release = 0.05)
 const sine = (f, t) => Math.sin(2 * Math.PI * f * t);
 // Soft "reed" tone: sine + quiet 2nd/3rd harmonics
 const reed = (f, t) => sine(f, t) * 0.8 + sine(f * 2, t) * 0.12 + sine(f * 3, t) * 0.08;
-// Chip square with fixed 50% duty
-const square = (f, t) => (Math.sin(2 * Math.PI * f * t) > 0 ? 1 : -1);
+// Triangle: the NES melody channel - keeps the chiptune character of the arps
+// but far gentler than a square, so the terminal/work bed no longer pierces.
+const tri = (f, t) => (2 / Math.PI) * Math.asin(Math.sin(2 * Math.PI * f * t));
 
 function normalize(buf, peakTarget = 0.5) {
   let peak = 0;
@@ -96,15 +104,16 @@ mkdirSync(OUT_DIR, { recursive: true });
   writeWav("base.wav", buf);
 }
 
-// ── home: calm melody, half/quarter notes, reed tone ───────────────────────
+// ── home: calm melody, half/quarter notes, reed tone. Bright, upward
+//    contours resolving to chord tones so it reads hopeful, not wistful. ────
 {
   const buf = new Float64Array(N);
   // One phrase per 2-bar block (beats within the block, dur in beats)
   const phrases = [
-    [[0, 2, E4], [2, 1, C4], [3, 1, D4], [4, 2, E4], [6, 2, A4]],           // Am
-    [[0, 2, C4], [2, 2, A3], [4, 3, F4], [7, 1, E4]],                        // F
-    [[0, 2, E4], [2, 1, G4], [3, 1, E4], [4, 4, C4]],                        // C
-    [[0, 2, D4], [2, 2, B4 - 12], [4, 2, G3], [6, 2, D4]],                   // G
+    [[0, 2, E4], [2, 1, G4], [3, 1, E4], [4, 2, G4], [6, 2, C5]],  // C  -> rises to the tonic up top
+    [[0, 2, D4], [2, 1, G4], [3, 1, B4], [4, 2, D5], [6, 2, B4]],  // G
+    [[0, 2, E4], [2, 1, A4], [3, 1, C5], [4, 4, A4]],              // Am -> lift, then settle
+    [[0, 2, F4], [2, 2, A4], [4, 2, C5], [6, 2, G4]],              // F  -> bright, opens back to C
   ];
   phrases.forEach((phrase, block) => {
     const t0 = block * BLOCK;
@@ -118,7 +127,8 @@ mkdirSync(OUT_DIR, { recursive: true });
   writeWav("home.wav", buf);
 }
 
-// ── bit: chiptune 16th arpeggios one octave up, short decaying squares ─────
+// ── bit: chiptune 16th arpeggios one octave up, triangle tone so the
+//    terminal/work bed stays playful without piercing ────────────────────────
 {
   const buf = new Float64Array(N);
   const SIXTEENTH = BEAT / 4;
@@ -131,13 +141,40 @@ mkdirSync(OUT_DIR, { recursive: true });
       // Skip a step now and then so it breathes
       if (s % 8 === 6) continue;
       const m = arp[s % arp.length];
-      addNote(buf, t0 + s * SIXTEENTH, SIXTEENTH * 0.55, freq(m), 0.16, square, 0.002, 0.03);
+      addNote(buf, t0 + s * SIXTEENTH, SIXTEENTH * 0.55, freq(m), 0.16, tri, 0.004, 0.05);
       // faint echo two steps later
-      addNote(buf, t0 + (s + 2) * SIXTEENTH, SIXTEENTH * 0.4, freq(m), 0.04, square, 0.002, 0.03);
+      addNote(buf, t0 + (s + 2) * SIXTEENTH, SIXTEENTH * 0.4, freq(m), 0.04, tri, 0.004, 0.05);
     }
   }
-  normalize(buf, 0.35);
+  normalize(buf, 0.32);
   writeWav("bit.wav", buf);
+}
+
+// ── air: ethereal pad for the About scene. High open voicings (root, fifth,
+//    octave), very slow swells and a faint detuned shimmer high above - airy
+//    and inspirational rather than melodic. ──────────────────────────────────
+{
+  const buf = new Float64Array(N);
+  // Open high voicing per block: octave + fifth + tenth, one register above
+  // the base triad so it floats over everything.
+  const voicings = [
+    [C5, G5, E5], // C
+    [D5, G4, B4], // G
+    [A4, E5, C5], // Am
+    [C5, A4, F4], // F
+  ];
+  for (let block = 0; block < 4; block++) {
+    const t0 = block * BLOCK;
+    for (const m of voicings[block]) {
+      // slow swell, long attack/release, detuned pair for a shimmering width
+      addNote(buf, t0, BLOCK, freq(m), 0.22, sine, 1.6, 1.6);
+      addNote(buf, t0, BLOCK, freq(m) * 1.004, 0.14, sine, 1.9, 1.9);
+    }
+    // faint high sparkle an octave up on the top voice, entering late
+    addNote(buf, t0 + BEAT, BLOCK - BEAT, freq(voicings[block][0] + 12), 0.05, sine, 1.2, 1.4);
+  }
+  normalize(buf, 0.4);
+  writeWav("air.wav", buf);
 }
 
 console.log("done ->", OUT_DIR);
