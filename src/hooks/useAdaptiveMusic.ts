@@ -13,19 +13,24 @@ const MUSIC_STEMS = [
   { id: "base", file: "/audio/stems/base.wav" },
   { id: "home", file: "/audio/stems/home.wav" },
   { id: "bit", file: "/audio/stems/bit.wav" },
+  { id: "air", file: "/audio/stems/air.wav" },
 ] as const;
 
 type StemId = (typeof MUSIC_STEMS)[number]["id"];
 type SceneMix = Record<StemId, number>;
 
+// Per-stem volumes per scene. base = warm pad (bed), home = reed melody,
+// bit = chiptune arps (playful), air = ethereal high pad (inspirational).
+// Terminal/work lean on a softened bit at a lower level than before; about
+// is carried by the airy pad.
 const SCENES: Record<string, SceneMix> = {
-  home: { base: 1, home: 0.9, bit: 0 },
-  lab: { base: 1, home: 0.45, bit: 0.3 },
-  about: { base: 1, home: 0.7, bit: 0 },
-  time: { base: 0.9, home: 0.15, bit: 0.65 },
-  admin: { base: 0.8, home: 0, bit: 0.8 },
-  terminal: { base: 0.7, home: 0, bit: 1 },
-  quiet: { base: 1, home: 0.3, bit: 0 },
+  home: { base: 1, home: 0.85, bit: 0, air: 0.35 },
+  lab: { base: 0.9, home: 0.4, bit: 0.18, air: 0.1 },
+  about: { base: 0.7, home: 0.35, bit: 0, air: 0.9 },
+  time: { base: 0.9, home: 0.15, bit: 0.5, air: 0.2 },
+  admin: { base: 0.75, home: 0, bit: 0.55, air: 0.1 },
+  terminal: { base: 0.65, home: 0, bit: 0.7, air: 0 },
+  quiet: { base: 1, home: 0.3, bit: 0, air: 0.25 },
 };
 
 /** Maps a pathname to its soundtrack scene. */
