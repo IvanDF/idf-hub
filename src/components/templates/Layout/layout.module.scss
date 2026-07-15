@@ -174,39 +174,30 @@
   opacity: 0.6;
 }
 
-.terminalLink {
-  background: rgba(var(--color-bg-rgb), 0.82);
-  border: $border-base solid color-mix(in srgb, var(--color-text) 30%, transparent);
-  border-radius: var(--route-card-radius, #{$radius-lg});
-  padding: $spacing-sm $spacing-md;
-  min-height: $touch-target-min;
-  cursor: pointer;
-  display: flex;
+// Mobile-only terminal launcher, docked left of the burger so the terminal is
+// discoverable without opening the menu. Stays glass (no ink filter) so it
+// keeps a crisp edge next to the carved burger, matching the Terminal itself.
+.terminalFab {
+  display: none; // shown on mobile only
+  position: fixed;
+  top: $spacing-md;
+  right: calc(#{$spacing-md} + #{$touch-target-min} + #{$spacing-sm});
+  z-index: 140; // under the overlay (150): the burger takes over while open
   align-items: center;
-  gap: $spacing-xs;
-  font-family: $font-family-primary;
+  justify-content: center;
+  width: $touch-target-min;
+  height: $touch-target-min;
+  background: rgba(var(--color-bg-rgb), 0.9);
+  border: $border-base solid var(--color-text);
+  border-radius: var(--route-card-radius, #{$radius-lg});
+  cursor: pointer;
+  font-family: $font-family-mono;
+  font-size: $font-size-md;
   font-weight: 700;
-  font-size: $font-size-sm;
-  text-transform: uppercase;
-  color: var(--color-text);
-  letter-spacing: $letter-spacing-lg;
-  opacity: 0.9;
-  transition:
-    opacity 0.2s,
-    border-color 0.2s,
-    background 0.2s,
-    box-shadow 0.2s,
-    transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: var(--color-accent);
 
-  &:hover {
-    opacity: 1;
-    border-color: var(--color-accent);
-    background: rgba(var(--color-accent-rgb), 0.1);
-    box-shadow: 0 0 0 1px rgba(var(--color-accent-rgb), 0.18);
-
-    .prompt {
-      color: var(--color-accent);
-    }
+  @include mobile {
+    display: flex;
   }
 }
 
@@ -287,6 +278,54 @@
 // with the plain-text name without compensation.
 .footerAction {
   margin-left: 0;
+}
+
+// The terminal is the site's front door to everything hidden. The launcher
+// keeps the ghost typography (same type as the rest of the rail — no box)
+// but at full presence: no resting fade, a real glow pulse, and a blinking
+// block cursor so it reads unmistakably as a live terminal prompt.
+.footer .terminalCta {
+  opacity: 1;
+
+  .cmdLabel {
+    opacity: 0.85;
+  }
+
+  &::after {
+    content: "▊";
+    color: var(--color-accent);
+    font-family: $font-family-mono;
+    font-size: $font-size-sm;
+    margin-left: $spacing-2xs;
+
+    @media (prefers-reduced-motion: no-preference) {
+      animation: caretBlink 1.1s step-start infinite;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: terminalPulse 3.2s ease-in-out infinite;
+  }
+}
+
+@keyframes caretBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes terminalPulse {
+  0%,
+  100% {
+    text-shadow: 0 0 0 rgba(var(--color-accent-rgb), 0);
+  }
+  50% {
+    text-shadow: 0 0 16px rgba(var(--color-accent-rgb), 0.85);
+  }
 }
 
 .socials {
@@ -458,11 +497,13 @@
   }
 }
 
-// Bottom row — identity (left) and socials (right, vertical), same level
+// Bottom row — identity (left) and socials (right, vertical). The two blocks
+// have different heights (3 rows vs 5 links), so they share the bottom
+// baseline: top-aligning left the socials hanging below the identity block.
 .overlayFoot {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: $spacing-lg;
   flex-shrink: 0;
 }

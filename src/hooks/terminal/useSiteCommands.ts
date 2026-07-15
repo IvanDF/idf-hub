@@ -3,8 +3,10 @@
 import { PROJECTS } from "@/data/projects";
 import type React from "react";
 import { useCallback } from "react";
-import { SHORTCUTS_INFO } from "@/lib/terminal/Terminal.constants";
+import { EASTER_EGGS, SHORTCUTS_INFO, VALID_COMMANDS } from "@/lib/terminal/Terminal.constants";
+import { PLAY_OUTPUT, buildBrainOutput } from "@/lib/terminal/Terminal.brain";
 import { BRAND_OUTPUT, GUIDE_OUTPUT, HELP_OUTPUT, buildEggsOutput } from "@/lib/terminal/Terminal.data";
+import { closestCommand } from "@/lib/terminal/Terminal.suggest";
 import type { CommandOutput, HistoryItem } from "@/types/terminal";
 
 type SiteCommandResult = {
@@ -257,10 +259,46 @@ export function useSiteCommands({
           outputs = BRAND_OUTPUT;
           break;
 
+        case "brain":
+          outputs = buildBrainOutput();
+          break;
+
+        case "hint": {
+          const hidden = EASTER_EGGS.filter((e) => !discoveredEggs.has(e.id));
+          if (hidden.length === 0) {
+            outputs = [
+              { type: "success", content: "Nothing left to hint — you found them all." },
+            ];
+            break;
+          }
+          const egg = hidden[Math.floor(Math.random() * hidden.length)];
+          outputs = [
+            { type: "system", content: "⟁ HINT" },
+            { type: "text", content: egg.hint },
+            { type: "text", content: `category: ${egg.category} · ${hidden.length} still hidden` },
+          ];
+          break;
+        }
+
         case "snake":
-        case "play":
           setGameActive(true);
           return { outputs: [], handled: true, skipHistory: true };
+
+        case "play": {
+          const game = args[0];
+          if (game === "snake") {
+            setGameActive(true);
+            return { outputs: [], handled: true, skipHistory: true };
+          }
+          if (game === "cortex" || game === "brain") {
+            outputs = [{ type: "success", content: "Booting the cortex lab..." }];
+            router.prefetch("/cortex");
+            setTimeout(() => { router.push("/cortex"); setIsOpen(false); }, 400);
+            break;
+          }
+          outputs = PLAY_OUTPUT;
+          break;
+        }
 
         case "exit":
         case "close":
@@ -270,12 +308,20 @@ export function useSiteCommands({
         case "":
           return { outputs: [], handled: true, skipHistory: true };
 
-        default:
+        default: {
           playError();
+          const suggested = closestCommand(cmd, VALID_COMMANDS);
           outputs = [
             { type: "error", content: `Command not found: ${cmd}` },
-            { type: "text", content: "Type 'help' for a list of commands." },
+            suggested
+              ? {
+                  type: "text",
+                  content: `Did you mean '${suggested}'?`,
+                  cta: { label: `→ ${suggested}`, cmd: suggested },
+                }
+              : { type: "text", content: "Type 'help' for a list of commands." },
           ];
+        }
       }
 
       return { outputs, handled: true };

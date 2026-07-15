@@ -15,6 +15,7 @@ import {
   OPEN_COMMANDS,
   PROJECT_CATEGORIES,
   SEARCH_COMMANDS,
+  TOTAL_EASTER_EGGS,
   VALID_COMMANDS,
 } from "@/lib/terminal/Terminal.constants";
 import type { HistoryItem } from "@/types/terminal";
@@ -51,6 +52,22 @@ function getAsciiId(eggId: string): string {
  * render to settle before running the command.
  */
 const DEEP_LINK_EXECUTION_DELAY_MS = 200;
+
+// ── Session persistence ──────────────────────────────────────────────────────
+// History survives close/reopen within the tab (sessionStorage). Outputs with
+// ReactNode content are not serialisable and are skipped on save.
+const HISTORY_CAP = 40;
+const historyKey = (context: string) => `idf-terminal-history:${context}`;
+const cmdsKey = (context: string) => `idf-terminal-cmds:${context}`;
+
+function loadJson<T>(key: string): T | null {
+  try {
+    const raw = sessionStorage.getItem(key);
+    return raw ? (JSON.parse(raw) as T) : null;
+  } catch {
+    return null;
+  }
+}
 
 export default function Terminal({
   context = "site",
@@ -100,6 +117,7 @@ export default function Terminal({
     sessionId,
     error: voiceError,
     detectedLevel,
+    volume,
   } = useVoiceShoutContext();
 
   const discoverEgg = useCallback((eggId: string) => {
@@ -111,7 +129,9 @@ export default function Terminal({
     });
   }, []);
 
-  // Persist / restore discovered eggs
+  // Persist / restore discovered eggs. Eggs can never be un-discovered, so an
+  // empty set is never worth writing — on mount it would only clobber the
+  // saved progress before the restore effect's state update lands.
   useEffect(() => {
     const saved = localStorage.getItem("idf-easter-eggs");
     if (saved) {
@@ -123,6 +143,7 @@ export default function Terminal({
     }
   }, []);
   useEffect(() => {
+    if (discoveredEggs.size === 0) return;
     localStorage.setItem(
       "idf-easter-eggs",
       JSON.stringify([...discoveredEggs]),
@@ -162,26 +183,37 @@ export default function Terminal({
     if (context === "admin") setIsOpen(true);
   }, [context]);
 
-  // ASCII art animation for easter eggs
+  // ASCII art animation for easter eggs. The last frame HOLDS for a beat
+  // before clearing — the art used to vanish the instant it finished.
+  const ASCII_FRAME_MS = 400;
+  const ASCII_HOLD_MS = 4000;
   const getAsciiArt = (eggId: string): string[] => {
     const art = ASCII_ART[getAsciiId(eggId)];
     if (!art?.length) return [];
-    return art[asciiFrame % art.length].map((line) => `   ${line}`);
+    return [...art[asciiFrame % art.length]];
   };
   useEffect(() => {
     const asciiId = getAsciiId(lastEasterEgg ?? "");
     if (!lastEasterEgg || !ASCII_ART[asciiId]) return;
     const art = ASCII_ART[asciiId];
+    let holdTimer: ReturnType<typeof setTimeout> | null = null;
     const interval = setInterval(() => {
       setAsciiFrame((prev) => {
         if (prev >= art.length - 1) {
-          setLastEasterEgg(null);
-          return 0;
+          clearInterval(interval);
+          holdTimer = setTimeout(() => {
+            setLastEasterEgg(null);
+            setAsciiFrame(0);
+          }, ASCII_HOLD_MS);
+          return prev;
         }
         return prev + 1;
       });
-    }, 250);
-    return () => clearInterval(interval);
+    }, ASCII_FRAME_MS);
+    return () => {
+      clearInterval(interval);
+      if (holdTimer) clearTimeout(holdTimer);
+    };
   }, [lastEasterEgg]);
 
   const WELCOME_MESSAGE: HistoryItem =
@@ -226,12 +258,18 @@ export default function Terminal({
           ],
         };
 
+  const hasRestoredRef = useRef(false);
+
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
         if (shouldAutoFocus()) inputRef.current?.focus();
         if (isFirstOpen) {
-          setHistory([WELCOME_MESSAGE]);
+          // Restore the tab's previous session; fall back to the welcome banner
+          const saved = loadJson<HistoryItem[]>(historyKey(context));
+          setHistory(saved?.length ? saved : [WELCOME_MESSAGE]);
+          setCommandHistory(loadJson<string[]>(cmdsKey(context)) ?? []);
+          hasRestoredRef.current = true;
           setIsFirstOpen(false);
         }
         if (terminalBodyRef.current)
@@ -243,6 +281,34 @@ export default function Terminal({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, isFirstOpen]);
+
+  // Persist only after the initial restore, so the pre-open empty state never
+  // clobbers a previous session's history.
+  useEffect(() => {
+    if (!hasRestoredRef.current) return;
+    try {
+      const serialisable = history
+        .filter((item) =>
+          (item.output ?? []).every((o) => typeof o.content === "string"),
+        )
+        .slice(-HISTORY_CAP);
+      sessionStorage.setItem(historyKey(context), JSON.stringify(serialisable));
+    } catch {
+      /* storage full or unavailable */
+    }
+  }, [history, context]);
+
+  useEffect(() => {
+    if (!hasRestoredRef.current) return;
+    try {
+      sessionStorage.setItem(
+        cmdsKey(context),
+        JSON.stringify(commandHistory.slice(-HISTORY_CAP)),
+      );
+    } catch {
+      /* storage full or unavailable */
+    }
+  }, [commandHistory, context]);
 
   useEffect(() => {
     if (terminalBodyRef.current)
@@ -344,7 +410,7 @@ export default function Terminal({
   return (
     <TerminalOverlay onClose={() => setIsOpen(false)}>
       <div
-        className={`${styles.terminalContainer} ${context === "admin" ? styles.admin : ""}`}
+        className={`${styles.terminalContainer} ${context === "admin" ? styles.admin : ""} ${discoveredEggs.size >= TOTAL_EASTER_EGGS ? styles.golden : ""}`}
         onClick={(e) => e.stopPropagation()}
       >
         <TerminalHeader />
@@ -409,6 +475,18 @@ export default function Terminal({
 
                   {isListening && (
                     <>
+                      {/* Live VU meter — width driven by mic RMS (dynamic data, not styling) */}
+                      <div className={styles.voiceMeter} aria-hidden="true">
+                        <div
+                          className={styles.voiceMeterFill}
+                          style={{ width: `${Math.min(100, volume * 220)}%` }}
+                        />
+                      </div>
+
+                      <div className={styles.voiceInstruction}>
+                        three bursts — any language counts, just mean it
+                      </div>
+
                       <div className={styles.voiceCountdown}>
                         <div
                           key={sessionId}

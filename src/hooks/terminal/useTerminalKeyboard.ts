@@ -16,8 +16,8 @@ type UseTerminalKeyboardOptions = {
 
 /**
  * Registers global keyboard shortcuts for the terminal:
- * Cmd/Ctrl+K to toggle, D for theme, Escape to close, 1/2 for navigation.
- * Also listens for the Konami code easter egg.
+ * Cmd/Ctrl+K to toggle, D for theme, Escape to close, 1/2/3 for navigation.
+ * Also listens for the name-click secret (dispatched by SecretName).
  */
 export function useTerminalKeyboard({
   isOpen,
@@ -29,36 +29,17 @@ export function useTerminalKeyboard({
   playEasterEgg,
   gameActive = false,
 }: UseTerminalKeyboardOptions): void {
-  // Konami code
+  // Name-click secret: SecretName (rail + About hero) fires this after three
+  // quick clicks on "IVAN DEL FATTI" — discover the egg and open the archive.
   useEffect(() => {
-    const KONAMI = [
-      "ArrowUp",
-      "ArrowUp",
-      "ArrowDown",
-      "ArrowDown",
-      "ArrowLeft",
-      "ArrowRight",
-      "ArrowLeft",
-      "ArrowRight",
-      "b",
-      "a",
-    ];
-    let pos = 0;
-    const handleKonami = (e: KeyboardEvent) => {
-      if (e.key === KONAMI[pos]) {
-        pos++;
-        if (pos === KONAMI.length) {
-          pos = 0;
-          discoverEgg("konami");
-          playEasterEgg("konami");
-        }
-      } else {
-        pos = e.key === KONAMI[0] ? 1 : 0;
-      }
+    const handleNameSecret = () => {
+      discoverEgg("name_click");
+      playEasterEgg("konami");
+      router.push("/secrets");
     };
-    window.addEventListener("keydown", handleKonami);
-    return () => window.removeEventListener("keydown", handleKonami);
-  }, [discoverEgg, playEasterEgg]);
+    window.addEventListener("idf:name-secret", handleNameSecret);
+    return () => window.removeEventListener("idf:name-secret", handleNameSecret);
+  }, [discoverEgg, playEasterEgg, router]);
 
   // Global shortcuts
   useEffect(() => {

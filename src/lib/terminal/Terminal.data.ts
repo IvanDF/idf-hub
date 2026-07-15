@@ -12,8 +12,9 @@ const CAT_ICON: Record<string, string> = {
   Secret: "§",
   Skyrim: "‡",
   iDF: "◉",
+  Neuro: "⬡",
 };
-const EGG_CATEGORIES = ["HIMYM", "R&M", "Vikings", "Secret", "iDF", "Skyrim"];
+const EGG_CATEGORIES = ["HIMYM", "R&M", "Vikings", "Secret", "iDF", "Skyrim", "Neuro"];
 
 export function buildEggsOutput(discoveredEggs: Set<string>): CommandOutput[] {
   const discovered = discoveredEggs.size;
@@ -38,8 +39,10 @@ export function buildEggsOutput(discoveredEggs: Set<string>): CommandOutput[] {
     }
     out.push({ type: "text", content: "" });
   }
-  if (discovered === TOTAL_EASTER_EGGS)
+  if (discovered === TOTAL_EASTER_EGGS) {
     out.push({ type: "success", content: "All achievements unlocked!" });
+    out.push({ type: "system", content: "◈ The shell turns gold for you." });
+  }
   return out;
 }
 
@@ -75,13 +78,8 @@ export const EASTER_EGG_RESPONSES: Record<string, CommandOutput[]> = {
     { type: "text", content: '"To the North, to the Viking gods!"' },
   ],
   theme_toggle: [
-    { type: "success", content: "The Force has two sides." },
+    { type: "success", content: "Into the Void." },
     { type: "text", content: '"Luminous beings are we." - Yoda' },
-  ],
-  konami: [
-    { type: "system", content: "Konami Code" },
-    { type: "success", content: "↑ ↑ ↓ ↓ ← → ← → B A" },
-    { type: "text", content: '"The cheat code to end all cheat codes."' },
   ],
   companion: [
     { type: "system", content: "iDF Companion" },
@@ -99,12 +97,22 @@ export const EASTER_EGG_RESPONSES: Record<string, CommandOutput[]> = {
     { type: "text", content: "The Greybeards stir in High Hrothgar." },
     {
       type: "text",
-      content: "Microphone activating... speak the Thu'um, Dovahkiin.",
+      content: "Microphone activating... shout the Thu'um, Dovahkiin.",
+    },
+    {
+      type: "text",
+      content: "Three bursts of voice — the dragon tongue is energy, not words.",
     },
     {
       type: "text",
       content: "fus (Force) · fus ro (Balance) · fus ro dah (Push)",
     },
+  ],
+  cortex: [
+    { type: "system", content: "⬡ THE CORTEX LAB" },
+    { type: "success", content: "Booting cognitive test suite..." },
+    { type: "text", content: "Reaction · Stroop interference · Sequence memory." },
+    { type: "text", content: "Three tests. Your brain vs. the machine." },
   ],
 };
 
@@ -163,8 +171,8 @@ export const HELP_OUTPUT: CommandOutput[] = [
   { type: "system", content: "── FUN ──" },
   {
     type: "text",
-    content: "snake / play — ASCII snake game",
-    cta: { label: "→ play", cmd: "snake" },
+    content: "play — arcade: snake + cortex tests",
+    cta: { label: "→ open", cmd: "play" },
   },
   {
     type: "text",
@@ -173,10 +181,20 @@ export const HELP_OUTPUT: CommandOutput[] = [
   },
   {
     type: "text",
+    content: "brain — a neuroscience fact + a hidden lab",
+    cta: { label: "→ run", cmd: "brain" },
+  },
+  {
+    type: "text",
     content: "guide / tour — platform tour",
     cta: { label: "→ start", cmd: "guide" },
   },
   { type: "text", content: "eggs — easter egg tracker" },
+  {
+    type: "text",
+    content: "hint — a nudge toward an undiscovered egg",
+    cta: { label: "→ run", cmd: "hint" },
+  },
   { type: "text", content: "shortcuts / keys — keyboard shortcuts" },
   { type: "text", content: "shout — ???" },
   { type: "system", content: "── DEEP LINKS ──" },

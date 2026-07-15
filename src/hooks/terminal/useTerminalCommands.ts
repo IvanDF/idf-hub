@@ -2,7 +2,7 @@
 
 import type React from "react";
 import { useCallback } from "react";
-import { EASTER_EGGS } from "@/lib/terminal/Terminal.constants";
+import { EASTER_EGGS, TOTAL_EASTER_EGGS } from "@/lib/terminal/Terminal.constants";
 import { EASTER_EGG_RESPONSES } from "@/lib/terminal/Terminal.data";
 import type { CommandOutput, HistoryItem } from "@/types/terminal";
 import { useAdminCommands } from "./useAdminCommands";
@@ -89,15 +89,35 @@ export function useTerminalCommands({
           : null;
 
       if (foundEgg) {
+        // discoveredEggs is still the pre-discovery snapshot in this render
+        const foundCount = discoveredEggs.has(foundEgg.id)
+          ? discoveredEggs.size
+          : discoveredEggs.size + 1;
         discoverEgg(foundEgg.id);
         setLastEasterEgg(foundEgg.id);
         setAsciiFrame(0);
         playEasterEgg(foundEgg.id);
-        outputs = EASTER_EGG_RESPONSES[foundEgg.id] ?? [{ type: "success", content: foundEgg.name }];
+        outputs = [
+          ...(EASTER_EGG_RESPONSES[foundEgg.id] ?? [{ type: "success" as const, content: foundEgg.name }]),
+          {
+            type: "text",
+            content: `⬡ ${foundCount}/${TOTAL_EASTER_EGGS} discovered`,
+            cta: { label: "→ eggs", cmd: "eggs" },
+          },
+        ];
 
         // Fus Ro Dah: activate global voice overlay
         if (foundEgg.id === "fus_ro_dah") {
           window.dispatchEvent(new CustomEvent("fus:activate"));
+        }
+
+        // Cortex: the egg response is a loading beat, then open the test lab.
+        if (foundEgg.id === "cortex") {
+          router.prefetch("/cortex");
+          setTimeout(() => {
+            router.push("/cortex");
+            setIsOpen(false);
+          }, 600);
         }
       } else if (context === "admin") {
         const adminResult = await handleAdminCommand(cmd, args);
@@ -124,7 +144,7 @@ export function useTerminalCommands({
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [context, discoverEgg, discoveredEggs.size, setLastEasterEgg, setAsciiFrame, playEasterEgg, handleAdminCommand, handleSiteCommand],
+    [context, router, setIsOpen, discoverEgg, discoveredEggs.size, setLastEasterEgg, setAsciiFrame, playEasterEgg, handleAdminCommand, handleSiteCommand],
   );
 
   return { executeCommand };

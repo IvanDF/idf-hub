@@ -19,7 +19,22 @@ export const ASCII_ART: Record<string, readonly (readonly string[])[]> = {
     ["      ▲      ", "     ⼢ ⼣     ", "    ⼢   ⼣    ", "   ⼢  ▼  ⼣   "],
     ["      │      ", "     ⼢ │     ", "    ⼢  │     ", "   ⼢   ▼     "],
   ],
-  konami: [["    ↑ ↑ ↓ ↓    ", "    ← → ← →    ", "      B A       "]],
+  cortex: [
+    ["  o       o  ", "   \\     /   ", "    o---o    ", "   /     \\   ", "  o       o  "],
+    ["  •       o  ", "   \\     /   ", "    •---o    ", "   /     \\   ", "  o       •  "],
+    ["  •       •  ", "   \\     /   ", "    •---•    ", "   /     \\   ", "  •       •  "],
+  ],
+  wubba: [
+    ["   ,--.   ", "  ( () )  ", "   `--'   "],
+    ["   ,==.   ", "  ( () )  ", "   `=='   "],
+    ["   ,--.   ", "  ( @@ )  ", "   `--'   "],
+  ],
+  fus_ro_dah: [
+    ["  <_ )         "],
+    ["  <_ ))        "],
+    ["  <_ )))       "],
+    ["  <_ ))))  FUS RO DAH!"],
+  ],
 };
 
 export type EasterEgg = {
@@ -66,7 +81,7 @@ export const EASTER_EGGS: EasterEgg[] = [
       "lubba",
       "dub dub",
     ],
-    hint: "Rick’s chaotic catchphrase that hides pain.",
+    hint: "Rick's catchphrase — the one that secretly means 'I am in great pain'.",
     category: "R&M",
     name: "Wubba Lubba Dub Dub",
   },
@@ -75,14 +90,14 @@ export const EASTER_EGGS: EasterEgg[] = [
   {
     id: "ragnar",
     aliases: ["ragnar", "ragnar lothbrok", "ragnar lodbrok"],
-    hint: "“Don’t look back...” — said by which Viking?",
+    hint: "“The Aesir will welcome me.” — type the Viking who said it.",
     category: "Vikings",
     name: "Who Wants to be King",
   },
   {
     id: "skol",
-    aliases: ["skol", "skål", "skaal", "skol!"],
-    hint: "Viking toast for “cheers.”",
+    aliases: ["skol", "skål", "skaal", "skal", "skall", "skol!", "skål!", "🍻"],
+    hint: "Viking toast for “cheers” — write it however it sounds.",
     category: "Vikings",
     name: "Skål",
   },
@@ -90,32 +105,24 @@ export const EASTER_EGGS: EasterEgg[] = [
   // Secret Features — platform-only (not discoverable by typing)
   {
     id: "theme_toggle",
-    aliases: ["yoda", "dark side", "light side", "theme", "toggle theme"],
-    hint: "Two sides of the Force: light and dark. Find the switch.",
+    aliases: ["yoda", "dark side", "light side", "void", "super dark"],
+    hint: "Hammer the dark-mode toggle — five clicks within a second opens the void.",
     category: "Secret",
-    name: "Theme Master",
+    name: "Into the Void",
     platformOnly: true,
   },
   {
-    id: "konami",
-    aliases: [
-      "konami",
-      "up up down down left right left right b a",
-      "↑ ↑ ↓ ↓ ← → ← → b a",
-      "↑↑↓↓←→←→ba",
-      "↑↑↓↓←→←→b a",
-      "konami code",
-      "konami cheat code",
-    ],
-    hint: "Classic cheat sequence — no terminal allowed. Fingers only.",
+    id: "name_click",
+    aliases: ["nomen", "name"],
+    hint: "The author's name is a door. Knock on it three times, quickly.",
     category: "Secret",
-    name: "Konami Code",
+    name: "Nomen Omen",
     platformOnly: true,
   },
   {
     id: "companion",
     aliases: ["companion", "face", "idf face", "fusion face", "who are you"],
-    hint: "The iDF mark, seen from another angle. Made of brackets and angles.",
+    hint: "The logo hides a face. Ask the terminal: who are you",
     category: "iDF",
     name: "iDF Companion",
   },
@@ -133,6 +140,15 @@ export const EASTER_EGGS: EasterEgg[] = [
     hint: "The Greybeards whisper of a power hidden in words. Speak the ancient Thu'um.",
     category: "Skyrim",
     name: "Unrelenting Force",
+  },
+
+  // Neuroscience — the `cortex` command opens a hidden lab of cognitive tests.
+  {
+    id: "cortex",
+    aliases: ["cortex", "neuro", "neuroscience", "mind", "lab rat"],
+    hint: "A hidden bench where your neurons get tested. Ask the terminal about the brain.",
+    category: "Neuro",
+    name: "The Cortex Lab",
   },
 ];
 
@@ -171,6 +187,9 @@ export const VALID_COMMANDS = [
   "storybook",
   "design",
   "ds",
+  "brain",
+  "cortex",
+  "hint",
 ];
 
 // Admin terminal commands

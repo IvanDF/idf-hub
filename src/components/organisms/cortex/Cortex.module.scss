@@ -1,0 +1,410 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "sass:map";
+
+// ── Shared cortex-lab surface ────────────────────────────────────────────────
+// The four test colors reuse existing semantic tokens (no new hex) so the
+// Stroop word and the memory pads stay on-palette in both themes. Colors are
+// applied via [data-color]/[data-ink] attributes to keep all styling in CSS.
+$test-colors: (
+  "red": $color-error,
+  "green": $color-success,
+  "blue": $color-lario-light,
+  "yellow": $color-warning,
+);
+
+.page {
+  min-height: 100vh;
+  padding: $spacing-xxl var(--chrome-rail-pad-x) $spacing-2xl;
+  max-width: $container-lg;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+  // Carved wobble on the in-flow page root (see layout.module.scss .main).
+  filter: var(--ink);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.eyebrow {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-xl;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  opacity: 0.9;
+}
+
+.title {
+  font-family: $font-family-primary;
+  font-weight: 700;
+  font-size: clamp(#{$font-size-2xl}, 9vw, #{$font-size-4xl});
+  letter-spacing: $letter-spacing-tighter;
+  line-height: 1;
+  margin: 0;
+}
+
+.lede {
+  font-family: $font-family-mono;
+  font-size: $font-size-base;
+  line-height: 1.6;
+  color: var(--color-text-soft);
+  max-width: $container-md;
+}
+
+// ── Test picker ──────────────────────────────────────────────────────────────
+.picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-sm;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pickerTab {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  min-height: $touch-target-min;
+  padding: $spacing-md;
+  border: $border-base solid var(--color-divider);
+  border-radius: $radius-lg;
+  background: rgba(var(--color-bg-rgb), 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xs;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    transform 0.1s ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.08);
+  }
+
+  &[aria-selected="true"] {
+    border-color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.12);
+  }
+}
+
+.pickerIndex {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  color: var(--color-accent);
+  letter-spacing: $letter-spacing-lg;
+}
+
+.pickerName {
+  font-family: $font-family-primary;
+  font-weight: 700;
+  font-size: $font-size-md;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-sm;
+}
+
+.pickerHint {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  color: var(--color-text-soft);
+  line-height: 1.4;
+}
+
+// ── Test arena (shared shell for each test) ─────────────────────────────────
+.arena {
+  border: $border-base solid var(--color-divider);
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  background: rgba(var(--color-bg-rgb), 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  min-height: 340px;
+}
+
+.arenaHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: $spacing-sm;
+  border-bottom: $border-hairline solid var(--color-divider);
+  padding-bottom: $spacing-sm;
+}
+
+.arenaTitle {
+  font-family: $font-family-primary;
+  font-weight: 700;
+  font-size: $font-size-lg;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-sm;
+}
+
+.arenaStat {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  color: var(--color-text-soft);
+}
+
+.arenaBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-md;
+  text-align: center;
+}
+
+.instruction {
+  font-family: $font-family-mono;
+  font-size: $font-size-base;
+  line-height: 1.6;
+  color: var(--color-text-soft);
+  max-width: 42ch;
+}
+
+.bigStat {
+  font-family: $font-family-primary;
+  font-weight: 700;
+  font-size: clamp(#{$font-size-2xl}, 12vw, #{$font-size-4xl});
+  line-height: 1;
+  color: var(--color-accent);
+}
+
+.bigStatUnit {
+  font-size: $font-size-lg;
+  color: var(--color-text-soft);
+  margin-left: $spacing-2xs;
+}
+
+.cta {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  min-height: $touch-target-min;
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $radius-lg;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-family: $font-family-mono;
+  font-weight: 700;
+  font-size: $font-size-sm;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-md;
+  box-shadow: var(--depth-sm);
+  transition:
+    box-shadow 0.2s,
+    transform 0.1s ease,
+    opacity 0.2s;
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: var(--depth-md);
+    opacity: 0.92;
+  }
+
+  &:active {
+    transform: translate($border-base, $border-base);
+  }
+}
+
+.ctaGhost {
+  background: transparent;
+  color: var(--color-text);
+  border: $border-base solid var(--color-divider);
+  box-shadow: none;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    box-shadow: none;
+  }
+}
+
+// ── Reaction test ───────────────────────────────────────────────────────────
+.reactionPad {
+  width: 100%;
+  min-height: 220px;
+  border-radius: $radius-lg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: $font-family-primary;
+  font-weight: 700;
+  font-size: $font-size-xl;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-md;
+  color: var(--color-bg);
+  user-select: none;
+  transition: background 0.08s linear;
+}
+
+.reactionIdle {
+  background: rgba(var(--color-accent-rgb), 0.14);
+  color: var(--color-text);
+  border: $border-base dashed var(--color-divider);
+}
+
+.reactionWait {
+  background: map.get($test-colors, "red");
+}
+
+.reactionGo {
+  background: map.get($test-colors, "green");
+}
+
+.reactionResult {
+  background: rgba(var(--color-accent-rgb), 0.14);
+  color: var(--color-text);
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+// ── Stroop test ─────────────────────────────────────────────────────────────
+.stroopWord {
+  font-family: $font-family-primary;
+  font-weight: 700;
+  font-size: clamp(#{$font-size-2xl}, 16vw, 5rem);
+  letter-spacing: $letter-spacing-sm;
+  line-height: 1;
+
+  @each $name, $color in $test-colors {
+    &[data-ink="#{$name}"] {
+      color: $color;
+    }
+  }
+}
+
+.stroopButtons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-sm;
+  width: 100%;
+  max-width: $container-sm;
+
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.stroopButton {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  min-height: $touch-target-min;
+  padding: $spacing-sm;
+  border-radius: $radius-md;
+  text-align: center;
+  font-family: $font-family-mono;
+  font-weight: 700;
+  font-size: $font-size-sm;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-sm;
+  color: var(--color-bg);
+  transition: transform 0.1s ease, opacity 0.2s;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 0.88;
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+
+  @each $name, $color in $test-colors {
+    &[data-color="#{$name}"] {
+      background: $color;
+    }
+  }
+}
+
+// ── Memory test ─────────────────────────────────────────────────────────────
+.memoryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-sm;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1;
+}
+
+.memoryPad {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: $radius-md;
+  opacity: 0.35;
+  transition: opacity 0.12s linear, transform 0.1s ease;
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &[data-lit="true"] {
+    opacity: 1;
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+
+  @each $name, $color in $test-colors {
+    &[data-color="#{$name}"] {
+      background: $color;
+    }
+  }
+}
+
+.reducedNote {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  color: var(--color-text-soft);
+}
+
+// ── Footer ──────────────────────────────────────────────────────────────────
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-md;
+  border-top: $border-hairline solid var(--color-divider);
+  padding-top: $spacing-md;
+  flex-wrap: wrap;
+}
+
+.footerNote {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  color: var(--color-text-soft);
+  max-width: 48ch;
+  line-height: 1.5;
+}
+
+.backLink {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  font-weight: 700;
+  letter-spacing: $letter-spacing-md;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-text);
+  opacity: 0.7;
+  transition: opacity 0.2s, color 0.2s;
+
+  &:hover {
+    opacity: 1;
+    color: var(--color-accent);
+  }
+}

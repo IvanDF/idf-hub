@@ -7,24 +7,15 @@ export default function SecretGateway() {
   const router = useRouter();
 
   useEffect(() => {
+    // The Konami code is retired: /secrets now opens by triple-clicking the
+    // author's name (see SecretName). Typing "time" still time-travels.
     let input: string[] = [];
-    const KONAMI_CODE = [
-      "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
-      "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
-      "b", "a",
-    ];
     const TIME_TRAVEL_CODE = ["t", "i", "m", "e"];
 
     const handleKeyDown = (e: KeyboardEvent) => {
       input.push(e.key);
       if (input.length > 20) {
         input.shift();
-      }
-
-      const last10 = input.slice(-10);
-      if (JSON.stringify(last10) === JSON.stringify(KONAMI_CODE)) {
-        router.push("/secrets");
-        input = [];
       }
 
       const last4 = input.slice(-4);

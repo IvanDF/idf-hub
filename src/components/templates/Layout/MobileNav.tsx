@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import Identity from "./Identity";
+import Identity, { openCommandPalette } from "./Identity";
 import SiteNav from "./SiteNav";
 import SocialLinks from "./SocialLinks";
 import ThemeToggle from "./ThemeToggle";
@@ -37,6 +37,17 @@ export default function MobileNav() {
 
   return (
     <>
+      {!isOpen && (
+        <button
+          type="button"
+          className={styles.terminalFab}
+          onClick={openCommandPalette}
+          aria-label="Open terminal"
+        >
+          {">_"}
+        </button>
+      )}
+
       <button
         type="button"
         className={`${styles.burger} ${isOpen ? styles.burgerOpen : ""}`}
@@ -60,7 +71,7 @@ export default function MobileNav() {
           </div>
 
           <div className={styles.overlayFoot}>
-            <Identity onCommand={close} />
+            <Identity onCommand={close} showShortcut={false} />
             <SocialLinks />
           </div>
         </div>

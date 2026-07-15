@@ -1,3 +1,4 @@
+import SecretName from "@/components/atoms/secret-name";
 import Text from "@/components/atoms/text";
 import TextScramble from "@/components/atoms/text-scramble/TextScramble";
 import type { Metadata } from "next";
@@ -27,6 +28,7 @@ const ticker = [
 const interests = [
   { label: "Systems & visual thinking", note: "patterns, clarity, structure" },
   { label: "Fitness & human performance", note: "the hardware side" },
+  { label: "Neuroscience & how minds work", note: "the software side" },
   { label: "Exploration & photography", note: "capturing moments and places" },
 ];
 
@@ -36,12 +38,14 @@ export default function AboutPage() {
       {/* ── HERO ──────────────────────────────────────────────────────── */}
       <section className={styles.hero}>
         <div className={styles.heroText}>
-          <TextScramble
-            as="h1"
-            text="IVAN DEL FATTI"
-            className={styles.heroName}
-            delay={100}
-          />
+          <SecretName>
+            <TextScramble
+              as="h1"
+              text="IVAN DEL FATTI"
+              className={styles.heroName}
+              delay={100}
+            />
+          </SecretName>
           <Text as="h2" className={styles.heroRole}>
             DRIVEN BY CURIOSITY.<br />
             REFINED THROUGH DESIGN.
@@ -81,6 +85,32 @@ export default function AboutPage() {
           Driven by curiosity, refined through design. Exploring patterns,
           questioning assumptions, and solving problems from unexpected angles.
         </Text>
+      </section>
+
+      {/* ── NEUROSCIENCE ─────────────────────────────────────────────── */}
+      <section className={styles.neuro}>
+        <Text as="span" variant="label" className={styles.cellLabel}>
+          The software side
+        </Text>
+        <Text as="p" variant="body" className={styles.neuroText}>
+          I read a lot about neuroscience — perception, attention, memory, the
+          quiet biases that shape every decision. It&rsquo;s the same instinct
+          behind the design work: understand the system before you trust it.
+          Good interfaces respect how a mind actually works.
+        </Text>
+        <div className={styles.neuroHint}>
+          <span className={styles.neuroHintText}>
+            Curious how yours performs? I built a small lab of real cognitive
+            tests.
+          </span>
+          <Link href="/cortex" className={styles.neuroHintLink}>
+            Enter the cortex {"↗︎"}
+          </Link>
+          <Text as="span" variant="label" className={styles.neuroHintAside}>
+            or type <span className={styles.neuroHintCode}>brain</span> in the
+            terminal
+          </Text>
+        </div>
       </section>
 
       {/* ── GRID ─────────────────────────────────────────────────────── */}

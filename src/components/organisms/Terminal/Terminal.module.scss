@@ -92,6 +92,14 @@
   max-height: none;
 }
 
+// All-eggs reward — the shell turns gold ($color-warning is the gold tone)
+.golden {
+  border-color: color.adjust($color-warning, $alpha: -0.25);
+  box-shadow:
+    0 0 24px color.adjust($color-warning, $alpha: -0.75),
+    inset 0 0 40px color.adjust($color-warning, $alpha: -0.96);
+}
+
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -138,25 +146,31 @@
   margin-bottom: $spacing-sm;
 }
 
+// ASCII art must keep its internal left alignment (centring each `pre` line
+// independently deforms the drawing) — the BLOCK is centred instead, and on
+// small screens it scrolls inside its own box rather than being squashed by
+// negative letter-spacing.
 .asciiArt {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
   font-family: $font-family-mono;
   font-size: $font-size-xs;
-  line-height: 1;
-  letter-spacing: $letter-spacing-tightest;
+  line-height: 1.2;
   color: rgba(var(--color-success-rgb), 0.9);
   text-shadow: 0 0 10px rgba(var(--color-success-rgb), 0.5);
   white-space: pre;
+  text-align: left;
   font-feature-settings: "tnum";
   font-variant-numeric: tabular-nums;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   max-height: 60vh;
   padding: $spacing-xs 0;
   margin: $spacing-xs auto;
-  text-align: center;
 
   @include bp-down($breakpoint-md) {
     font-size: $font-size-2xs;
-    letter-spacing: -0.1em;
     max-height: 40vh;
   }
 }
@@ -479,6 +493,34 @@
   flex-shrink: 0;
 }
 
+// Live VU meter — instant feedback that the mic hears the shout
+.voiceMeter {
+  height: $spacing-2xs;
+  margin: $spacing-xs 0;
+  background: color.adjust($color-white, $alpha: -0.92);
+  border-radius: $radius-sm;
+  overflow: hidden;
+}
+
+.voiceMeterFill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    color.adjust($color-volta-light, $alpha: -0.2),
+    $color-error
+  );
+  border-radius: $radius-sm;
+  transition: width 0.06s linear;
+}
+
+.voiceInstruction {
+  color: rgba(var(--color-text-rgb), 0.45);
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-md;
+  text-transform: none;
+  margin-bottom: $spacing-xs;
+}
+
 .voiceCountdown {
   height: $border-base;
   background: color.adjust($color-white, $alpha: -0.92);
@@ -494,7 +536,8 @@
     color.adjust($color-lario-dark, $alpha: -0.3)
   );
   border-radius: $radius-sm;
-  animation: voiceCountdown 8s linear forwards;
+  // Matches LISTEN_WINDOW_MS in useVoiceShout (was 8s vs a 12s window)
+  animation: voiceCountdown 12s linear forwards;
 }
 
 .voiceTranscript {
