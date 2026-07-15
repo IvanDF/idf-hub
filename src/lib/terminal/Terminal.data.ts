@@ -97,11 +97,7 @@ export const EASTER_EGG_RESPONSES: Record<string, CommandOutput[]> = {
     { type: "text", content: "The Greybeards stir in High Hrothgar." },
     {
       type: "text",
-      content: "Microphone activating... shout the Thu'um, Dovahkiin.",
-    },
-    {
-      type: "text",
-      content: "Three bursts of voice — the dragon tongue is energy, not words.",
+      content: "Microphone activating... speak the Thu'um, Dovahkiin.",
     },
     {
       type: "text",

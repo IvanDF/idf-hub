@@ -12,6 +12,7 @@ import { useTerminalKeyboard } from "@/hooks/terminal/useTerminalKeyboard";
 import {
   ADMIN_COMMANDS,
   ASCII_ART,
+  EASTER_EGGS,
   OPEN_COMMANDS,
   PROJECT_CATEGORIES,
   SEARCH_COMMANDS,
@@ -117,7 +118,6 @@ export default function Terminal({
     sessionId,
     error: voiceError,
     detectedLevel,
-    volume,
   } = useVoiceShoutContext();
 
   const discoverEgg = useCallback((eggId: string) => {
@@ -136,7 +136,13 @@ export default function Terminal({
     const saved = localStorage.getItem("idf-easter-eggs");
     if (saved) {
       try {
-        setDiscoveredEggs(new Set(JSON.parse(saved)));
+        // Drop ids of retired eggs (e.g. the old Konami code), or the
+        // counter reads 12/11 for long-time visitors.
+        const validIds = new Set(EASTER_EGGS.map((e) => e.id));
+        const ids = (JSON.parse(saved) as string[]).filter((id) =>
+          validIds.has(id),
+        );
+        setDiscoveredEggs(new Set(ids));
       } catch {
         /* ignore */
       }
@@ -475,18 +481,6 @@ export default function Terminal({
 
                   {isListening && (
                     <>
-                      {/* Live VU meter — width driven by mic RMS (dynamic data, not styling) */}
-                      <div className={styles.voiceMeter} aria-hidden="true">
-                        <div
-                          className={styles.voiceMeterFill}
-                          style={{ width: `${Math.min(100, volume * 220)}%` }}
-                        />
-                      </div>
-
-                      <div className={styles.voiceInstruction}>
-                        three bursts — any language counts, just mean it
-                      </div>
-
                       <div className={styles.voiceCountdown}>
                         <div
                           key={sessionId}

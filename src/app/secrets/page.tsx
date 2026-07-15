@@ -70,10 +70,10 @@ export default function SecretsPage() {
                 <Text as="strong" variant="mono">STATUS:</Text> ARMED — microphone clearance required
               </Text>
               <Text as="p" variant="mono">
-                <Text as="strong" variant="mono">TRIGGER:</Text> Type {'"'}fus{'"'} in the terminal, then SHOUT
+                <Text as="strong" variant="mono">TRIGGER:</Text> Type {'"'}fus{'"'} in the terminal, then speak
               </Text>
               <ul>
-                <li>Three bursts of voice. Any language. Volume is the password.</li>
+                <li>Say the words: fus... ro... dah. The recogniser is forgiving.</li>
                 <li>Neighbors{'’'} complaints are not covered by this agency.</li>
               </ul>
             </div>
