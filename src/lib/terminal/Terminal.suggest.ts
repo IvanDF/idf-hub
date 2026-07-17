@@ -1,3 +1,25 @@
+import { EASTER_EGGS } from "@/lib/terminal/Terminal.constants";
+import type { CommandOutput } from "@/types/terminal";
+
+/** Output for the `hint` command: one cryptic nudge toward an unfound egg. */
+export function buildHintOutput(discoveredEggs: Set<string>): CommandOutput[] {
+  const hidden = EASTER_EGGS.filter((e) => !discoveredEggs.has(e.id));
+  if (hidden.length === 0) {
+    return [
+      { type: "success", content: "Nothing left to hint — you found them all." },
+    ];
+  }
+  const egg = hidden[Math.floor(Math.random() * hidden.length)];
+  return [
+    { type: "system", content: "⟁ HINT" },
+    { type: "text", content: egg.hint },
+    {
+      type: "text",
+      content: `category: ${egg.category} · ${hidden.length} still hidden`,
+    },
+  ];
+}
+
 /** Classic two-row DP edit distance — small inputs only (command names). */
 function editDistance(a: string, b: string): number {
   let prev = Array.from({ length: b.length + 1 }, (_, i) => i);

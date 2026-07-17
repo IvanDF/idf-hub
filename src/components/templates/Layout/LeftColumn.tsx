@@ -7,10 +7,14 @@ import styles from "./layout.module.scss";
 
 export default function LeftColumn() {
   const pathname = usePathname();
-  const isLab = pathname.startsWith("/lab") || pathname.startsWith("/about");
+  // Immersive routes collapse the rail to its scribed peek line
+  const autoHide =
+    pathname.startsWith("/lab") ||
+    pathname.startsWith("/about") ||
+    pathname.startsWith("/time-machine");
 
   return (
-    <aside className={`${styles.leftColumn} ${isLab ? styles.autoHide : ""}`}>
+    <aside className={`${styles.leftColumn} ${autoHide ? styles.autoHide : ""}`}>
       <SiteNav />
       <div className={styles.divider}></div>
       <Identity />

@@ -1,0 +1,138 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+// ── Scroll-driven chapters: one viewport per career step ─────────────────────
+// The period is a giant watermark behind each chapter; content sits on a thin
+// spine on the left. The current role is the only accented chapter.
+
+.path {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.step {
+  position: relative;
+  min-height: 86svh;
+  display: flex;
+  align-items: center;
+  border-bottom: $border-hairline solid var(--color-divider);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &[data-current="true"] {
+    .role {
+      color: var(--color-accent);
+    }
+
+    .watermark {
+      opacity: 0.09;
+      color: var(--color-accent);
+    }
+  }
+}
+
+.watermark {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-family: $font-family-primary;
+  font-weight: 700;
+  font-size: clamp(3.5rem, 13vw, 9rem);
+  letter-spacing: $letter-spacing-tighter;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+}
+
+.stepInner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  padding: $spacing-2xl 0 $spacing-2xl $spacing-lg;
+  border-left: $border-base solid var(--color-divider);
+  max-width: 640px;
+}
+
+.counter {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-xl;
+  color: var(--color-accent);
+}
+
+.years {
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-xl;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+
+.role {
+  font-family: $font-family-primary;
+  font-weight: 700;
+  font-size: clamp(#{$font-size-lg}, 4.5vw, #{$font-size-2xl});
+  letter-spacing: $letter-spacing-tighter;
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.place {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-md;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+
+.note {
+  font-size: $font-size-body;
+  line-height: 1.55;
+  color: var(--color-text-soft);
+  max-width: 52ch;
+  margin: $spacing-xs 0 0;
+}
+
+.highlights {
+  list-style: none;
+  margin: $spacing-md 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  line-height: 1.5;
+  color: var(--color-text-soft);
+  max-width: 58ch;
+
+  li::before {
+    content: "▸ ";
+    color: var(--color-accent);
+  }
+}
+
+@include mobile {
+  .step {
+    min-height: 78svh;
+  }
+
+  .watermark {
+    top: auto;
+    bottom: $spacing-md;
+    transform: none;
+    font-size: clamp(2.5rem, 16vw, 4rem);
+  }
+
+  .stepInner {
+    padding: $spacing-xl 0 $spacing-xl $spacing-md;
+  }
+}

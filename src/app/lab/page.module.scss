@@ -1,6 +1,49 @@
 @use "@/styles/variables" as *;
 @use "@/styles/mixins" as *;
 
+// ── View tabs: jump between the two stories without going back ───────────────
+.viewTabs {
+  display: inline-flex;
+  gap: $spacing-2xs;
+  border: $border-hairline solid var(--color-divider);
+  border-radius: $radius-full;
+  padding: $spacing-2xs;
+}
+
+.viewTab {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: $spacing-2xs $spacing-md;
+  min-height: calc(#{$touch-target-min} - 2 * #{$spacing-2xs});
+  display: inline-flex;
+  align-items: center;
+  border-radius: $radius-full;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-md;
+  text-transform: uppercase;
+  opacity: 0.55;
+  transition:
+    opacity 0.2s,
+    background 0.2s,
+    color 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:focus-visible {
+    outline: $border-base solid var(--color-accent);
+  }
+}
+
+.viewTabActive {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  opacity: 1;
+}
+
 // ── Container ─────────────────────────────────────────────────────────────────
 .container {
   min-height: 100vh;

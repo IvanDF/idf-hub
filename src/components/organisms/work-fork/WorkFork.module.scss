@@ -1,0 +1,197 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "sass:color";
+
+// ── The fork: two separate cards, two worlds ─────────────────────────────────
+// Straight cards with a real gap. Hovering one grows it (flex-grow is
+// animatable everywhere) and reveals its extra details; the cursor blob
+// envelops them natively like any other control. Two palette worlds:
+// The Path leans accent (volta), The Lab leans secondary (lario).
+
+.fork {
+  display: flex;
+  gap: $spacing-lg;
+  min-height: max(400px, 52vh);
+  margin-top: $spacing-xl;
+}
+
+.panel {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  flex: 1 1 0;
+  display: flex;
+  border: $border-base solid var(--color-divider);
+  border-radius: var(--route-card-radius, #{$radius-lg});
+  // NOTE: opted out of the global button stamp (data-no-stamp) — its hard
+  // offset shadow reads wrong on cards this size.
+  transition:
+    flex-grow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:focus-visible {
+    outline: $border-base solid var(--color-accent);
+    outline-offset: $border-base;
+  }
+}
+
+.path {
+  background: rgba(var(--color-accent-rgb), 0.05);
+}
+
+.lab {
+  background: color.adjust($color-lario-light, $alpha: -0.95);
+}
+
+.fork[data-hover="path"] {
+  .path {
+    flex-grow: 1.8;
+    border-color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.14);
+    box-shadow: 0 0 24px rgba(var(--color-accent-rgb), 0.22);
+  }
+
+  .lab {
+    flex-grow: 0.7;
+  }
+}
+
+.fork[data-hover="lab"] {
+  .lab {
+    flex-grow: 1.8;
+    border-color: $color-lario-light;
+    background: color.adjust($color-lario-light, $alpha: -0.86);
+    box-shadow: 0 0 24px color.adjust($color-lario-light, $alpha: -0.78);
+  }
+
+  .path {
+    flex-grow: 0.7;
+  }
+}
+
+.inner {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: $spacing-sm;
+  padding: $spacing-xl;
+  overflow: hidden;
+  // Content parallax (see WorkFork.tsx): eased so the lean trails the cursor
+  transition: translate 0.15s ease-out;
+}
+
+.lab .inner {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.index {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-xl;
+  color: var(--color-accent);
+}
+
+.lab .index {
+  color: $color-lario-light;
+}
+
+.title {
+  font-family: $font-family-primary;
+  font-weight: 700;
+  font-size: clamp(#{$font-size-xl}, 4.5vw, #{$font-size-3xl});
+  letter-spacing: $letter-spacing-tighter;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.sub {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-md;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+  max-width: 34ch;
+  line-height: 1.5;
+}
+
+// Extra details — revealed when the card takes the lead
+.details {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xs;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-sm;
+  color: var(--color-text-soft);
+  white-space: nowrap;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s ease 0.1s;
+
+  li::before {
+    content: "▸ ";
+    color: var(--color-accent);
+  }
+}
+
+.lab .details li::before {
+  color: $color-lario-light;
+}
+
+.fork[data-hover="path"] .path .details,
+.fork[data-hover="lab"] .lab .details {
+  max-height: 12rem;
+  opacity: 1;
+}
+
+.meta {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-md;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-top: $spacing-xs;
+}
+
+// ── Mobile: no hover — stacked cards, details visible ────────────────────────
+@include mobile {
+  .fork {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .panel {
+    min-height: 32vh;
+  }
+
+  .inner {
+    padding: $spacing-lg;
+  }
+
+  .lab .inner {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .details {
+    max-height: none;
+    opacity: 1;
+    white-space: normal;
+  }
+
+  .title {
+    white-space: normal;
+  }
+}

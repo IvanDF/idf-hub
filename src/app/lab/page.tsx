@@ -2,6 +2,8 @@
 
 import { PROJECTS } from "@/data/projects";
 import type { Project } from "@/types/project";
+import CareerPath from "@/components/organisms/career-path";
+import WorkFork from "@/components/organisms/work-fork";
 import Text from "@/components/atoms/text";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
@@ -10,6 +12,7 @@ import { useState } from "react";
 import styles from "./page.module.scss";
 
 type FilterGroup = "all" | "code" | "design" | "craft" | "lab";
+type View = "career" | "lab";
 
 const FILTERS: { label: string; group: FilterGroup }[] = [
   { label: "All", group: "all" },
@@ -32,6 +35,11 @@ function matchesGroup(p: Project, group: FilterGroup): boolean {
 const LIVE = PROJECTS.filter((p) => p.status === "live");
 const ARCHIVED = PROJECTS.filter((p) => p.status !== "live");
 
+const VIEW_TABS: { view: View; label: string }[] = [
+  { view: "career", label: "The Path" },
+  { view: "lab", label: "The Lab" },
+];
+
 export default function Lab() {
   const router = useRouter();
   const pathname = usePathname();
@@ -41,6 +49,23 @@ export default function Lab() {
   const rawFilter = searchParams.get("filter") as FilterGroup | null;
   const filter: FilterGroup =
     rawFilter && FILTERS.some((f) => f.group === rawFilter) ? rawFilter : "all";
+
+  // Two work stories, one route: no view param shows the fork; old deep links
+  // with only ?filter keep landing straight in the lab.
+  const rawView = searchParams.get("view");
+  const view: View | null =
+    rawView === "career" || rawView === "lab"
+      ? rawView
+      : rawFilter
+        ? "lab"
+        : null;
+
+  const setView = (v: View) => {
+    const p = new URLSearchParams(searchParams.toString());
+    p.set("view", v);
+    if (v !== "lab") p.delete("filter");
+    router.replace(`${pathname}?${p.toString()}`, { scroll: false });
+  };
 
   const setFilter = (group: FilterGroup) => {
     const p = new URLSearchParams(searchParams.toString());
@@ -79,106 +104,157 @@ export default function Lab() {
           <Text as="span" variant="inherit">Work</Text>
         </motion.h1>
         <div className={styles.headerRow}>
-          <Text as="p" variant="mono" className={styles.pageSubtitle}>Design, code, and craft.</Text>
-          <Text as="span" variant="label" className={styles.headerCount}>
-            {LIVE.length} live · {ARCHIVED.length} archived
+          <Text as="p" variant="mono" className={styles.pageSubtitle}>
+            {view === "career"
+              ? "Ten years, no straight line."
+              : view === "lab"
+                ? "Where the curiosity goes after hours."
+                : "Two stories. Pick an angle."}
           </Text>
+          {view !== null && (
+            <nav className={styles.viewTabs} aria-label="Work views">
+              {VIEW_TABS.map((t) => (
+                <button
+                  key={t.view}
+                  onClick={() => setView(t.view)}
+                  className={`${styles.viewTab} ${view === t.view ? styles.viewTabActive : ""}`}
+                  aria-pressed={view === t.view}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </nav>
+          )}
         </div>
       </header>
 
-      <nav className={styles.filters} aria-label="Project filters">
-        {FILTERS.map(({ label, group }) => (
-          <button
-            key={group}
-            onClick={() => setFilter(group)}
-            className={`${styles.filterBtn} ${filter === group ? styles.active : ""}`}
-            aria-pressed={filter === group}
+      <AnimatePresence mode="wait">
+        {view === null && (
+          <motion.div
+            key="fork"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
           >
-            {label}
-          </button>
-        ))}
-      </nav>
-
-      <motion.div
-        key={filter}
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
-      >
-        <div className={styles.projectList} role="list">
-          {live.map((project, i) => (
-            <Link
-              key={project.id}
-              role="listitem"
-              className={styles.projectRow}
-              data-kind={kindOf(project)}
-              href={hrefFor(project)}
-            >
-              <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>
-              <div className={styles.rowMain}>
-                <span className={styles.rowTitle}>{project.title}</span>
-                <span className={styles.rowDesc}>{project.description}</span>
-              </div>
-              <div className={styles.rowMeta}>
-                <span className={styles.rowCategory}>{project.category}</span>
-                <span className={styles.rowYear}>{project.year}</span>
-                {/* ︎ forces text presentation: without it iOS falls back
-                    to Apple Color Emoji when the webfont lacks the glyph */}
-                {project.status === "live" && <span className={styles.rowArrow}>{"↗︎"}</span>}
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        {live.length === 0 && <Text as="p" variant="body" className={styles.empty}>Nothing here yet.</Text>}
-
-        {archived.length > 0 && (
-          <div className={styles.archive}>
-            <button
-              className={styles.archiveToggle}
-              onClick={() => setShowArchived((v) => !v)}
-              aria-expanded={showArchived}
-            >
-              <span aria-hidden>{showArchived ? "−" : "+"}</span>
-              Archive
-              <span className={styles.archiveCount}>{archived.length}</span>
-            </button>
-
-            <AnimatePresence>
-              {showArchived && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.25, ease: "easeInOut" }}
-                  className={styles.archiveList}
-                  role="list"
-                >
-                  {archived.map((project, i) => (
-                    <Link
-                      key={project.id}
-                      role="listitem"
-                      className={`${styles.projectRow} ${styles.archivedRow}`}
-                      data-kind={kindOf(project)}
-                      href={hrefFor(project)}
-                    >
-                      <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>
-                      <div className={styles.rowMain}>
-                        <span className={styles.rowTitle}>{project.title}</span>
-                        <span className={styles.rowDesc}>{project.description}</span>
-                      </div>
-                      <div className={styles.rowMeta}>
-                        <span className={styles.rowCategory}>{project.category}</span>
-                        <span className={styles.rowYear}>{project.year}</span>
-                      </div>
-                    </Link>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+            <WorkFork
+              liveCount={LIVE.length}
+              archivedCount={ARCHIVED.length}
+              onPick={setView}
+            />
+          </motion.div>
         )}
-      </motion.div>
+
+        {view === "career" && (
+          <motion.section
+            key="career"
+            aria-label="Career"
+            initial={{ opacity: 0, x: -14 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -8 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+          >
+            <CareerPath />
+          </motion.section>
+        )}
+
+        {view === "lab" && (
+          <motion.div
+            key={`lab-${filter}`}
+            initial={{ opacity: 0, x: 14 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 8 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+          >
+            <nav className={styles.filters} aria-label="Project filters">
+              {FILTERS.map(({ label, group }) => (
+                <button
+                  key={group}
+                  onClick={() => setFilter(group)}
+                  className={`${styles.filterBtn} ${filter === group ? styles.active : ""}`}
+                  aria-pressed={filter === group}
+                >
+                  {label}
+                </button>
+              ))}
+            </nav>
+
+            <div className={styles.projectList} role="list">
+              {live.map((project, i) => (
+                <Link
+                  key={project.id}
+                  role="listitem"
+                  className={styles.projectRow}
+                  data-kind={kindOf(project)}
+                  href={hrefFor(project)}
+                >
+                  <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>
+                  <div className={styles.rowMain}>
+                    <span className={styles.rowTitle}>{project.title}</span>
+                    <span className={styles.rowDesc}>{project.description}</span>
+                  </div>
+                  <div className={styles.rowMeta}>
+                    <span className={styles.rowCategory}>{project.category}</span>
+                    <span className={styles.rowYear}>{project.year}</span>
+                    {/* ︎ forces text presentation: without it iOS falls back
+                        to Apple Color Emoji when the webfont lacks the glyph */}
+                    {project.status === "live" && <span className={styles.rowArrow}>{"↗︎"}</span>}
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {live.length === 0 && <Text as="p" variant="body" className={styles.empty}>Nothing here yet.</Text>}
+
+            {archived.length > 0 && (
+              <div className={styles.archive}>
+                <button
+                  className={styles.archiveToggle}
+                  onClick={() => setShowArchived((v) => !v)}
+                  aria-expanded={showArchived}
+                >
+                  <span aria-hidden>{showArchived ? "−" : "+"}</span>
+                  Archive
+                  <span className={styles.archiveCount}>{archived.length}</span>
+                </button>
+
+                <AnimatePresence>
+                  {showArchived && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
+                      className={styles.archiveList}
+                      role="list"
+                    >
+                      {archived.map((project, i) => (
+                        <Link
+                          key={project.id}
+                          role="listitem"
+                          className={`${styles.projectRow} ${styles.archivedRow}`}
+                          data-kind={kindOf(project)}
+                          href={hrefFor(project)}
+                        >
+                          <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>
+                          <div className={styles.rowMain}>
+                            <span className={styles.rowTitle}>{project.title}</span>
+                            <span className={styles.rowDesc}>{project.description}</span>
+                          </div>
+                          <div className={styles.rowMeta}>
+                            <span className={styles.rowCategory}>{project.category}</span>
+                            <span className={styles.rowYear}>{project.year}</span>
+                          </div>
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

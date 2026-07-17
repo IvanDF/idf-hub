@@ -190,6 +190,7 @@ export const VALID_COMMANDS = [
   "brain",
   "cortex",
   "hint",
+  "career",
 ];
 
 // Admin terminal commands

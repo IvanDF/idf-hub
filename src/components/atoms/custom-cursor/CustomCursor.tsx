@@ -35,14 +35,22 @@ type Envelope = {
   width: number;
   height: number;
   radius: string;
+  /** Compact controls melt the dot away; on large surfaces it stays visible
+   *  so the pointer position never gets lost inside the inversion. */
+  compact: boolean;
 };
 
-const envelopeFor = (rect: DOMRect, radius: string): Envelope => ({
+const envelopeFor = (
+  rect: DOMRect,
+  radius: string,
+  compact: boolean,
+): Envelope => ({
   width: rect.width + ENVELOPE_PAD * 2,
   height: rect.height + ENVELOPE_PAD * 2,
   // Square controls read better with the squircle default than with a
   // hairline 0px corner.
   radius: radius === "0px" ? "12px" : radius,
+  compact,
 });
 
 /**
@@ -103,7 +111,36 @@ export default function CustomCursor() {
       entry.el.style.removeProperty("will-change");
     };
 
+    // Re-reads the control's rect (minus our own translate) and re-targets
+    // envelope + blob. Used after clicks that swap content, and whenever the
+    // enveloped control resizes under the pointer (e.g. the Work fork cards
+    // growing on hover — the envelope used to stay frozen at entry size).
+    const remeasureEntry = (entry: MagnetEntry) => {
+      if (activeMagnetRef.current !== entry) return;
+      const raw = entry.el.getBoundingClientRect();
+      entry.rect = new DOMRect(
+        raw.x - entry.ox,
+        raw.y - entry.oy,
+        raw.width,
+        raw.height,
+      );
+      setEnvelope(envelopeFor(entry.rect, entry.radius, entry.eligible));
+      blobX.set(entry.rect.left + entry.rect.width / 2 + entry.ox);
+      blobY.set(entry.rect.top + entry.rect.height / 2 + entry.oy);
+    };
+
+    // One observer for whichever control is currently enveloped; it batches
+    // per frame, so a 0.5s flex-grow transition tracks smoothly.
+    const resizeObserver =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(() => {
+            const entry = activeMagnetRef.current;
+            if (entry) remeasureEntry(entry);
+          })
+        : null;
+
     const clearMagnetism = () => {
+      resizeObserver?.disconnect();
       resetMagnetElement(activeMagnetRef.current);
       activeMagnetRef.current = null;
       setEnvelope(null);
@@ -157,7 +194,10 @@ export default function CustomCursor() {
         if (entry.eligible) {
           candidate.style.setProperty("will-change", "translate");
         }
-        setEnvelope(envelopeFor(rect, entry.radius));
+        setEnvelope(envelopeFor(rect, entry.radius, entry.eligible));
+        // Track size changes of the adopted control (hover-grow cards etc.)
+        resizeObserver?.disconnect();
+        resizeObserver?.observe(candidate);
       }
 
       const { rect } = entry;
@@ -200,22 +240,10 @@ export default function CustomCursor() {
     const handleMouseUp = () => {
       setIsClicking(false);
       // A click can swap the control's content (PLAY -> PAUSE), so re-measure
-      // the enveloped rect once the DOM has settled, minus our own translate.
+      // the enveloped rect once the DOM has settled.
       const entry = activeMagnetRef.current;
       if (!entry) return;
-      requestAnimationFrame(() => {
-        if (activeMagnetRef.current !== entry) return;
-        const raw = entry.el.getBoundingClientRect();
-        entry.rect = new DOMRect(
-          raw.x - entry.ox,
-          raw.y - entry.oy,
-          raw.width,
-          raw.height,
-        );
-        setEnvelope(envelopeFor(entry.rect, entry.radius));
-        blobX.set(entry.rect.left + entry.rect.width / 2 + entry.ox);
-        blobY.set(entry.rect.top + entry.rect.height / 2 + entry.oy);
-      });
+      requestAnimationFrame(() => remeasureEntry(entry));
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -279,13 +307,24 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Central Dot (Instant Follow) — melts into the enveloped control, and
-          steps aside for the contextual glyph. */}
+      {/* Central Dot (Instant Follow) — melts into compact enveloped controls,
+          stays visible inside large ones (or the pointer position gets lost in
+          the inversion), and steps aside for the contextual glyph. */}
       <motion.div
         className={styles.cursorDot}
         style={{ translateX: mouseX, translateY: mouseY, x: "-50%", y: "-50%" }}
         animate={{
-          scale: envelope || glyph ? 0 : isClicking ? 0.8 : isHovering ? 0.5 : 1,
+          scale: envelope
+            ? envelope.compact
+              ? 0
+              : 0.5
+            : glyph
+              ? 0
+              : isClicking
+                ? 0.8
+                : isHovering
+                  ? 0.5
+                  : 1,
         }}
         transition={{ duration: 0.15 }}
       />

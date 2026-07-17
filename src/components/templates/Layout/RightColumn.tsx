@@ -10,10 +10,14 @@ import styles from "./layout.module.scss";
  */
 export default function RightColumn() {
   const pathname = usePathname();
-  const isLab = pathname.startsWith("/lab") || pathname.startsWith("/about");
+  // Immersive routes collapse the rail to its scribed peek line
+  const autoHide =
+    pathname.startsWith("/lab") ||
+    pathname.startsWith("/about") ||
+    pathname.startsWith("/time-machine");
 
   return (
-    <aside className={`${styles.rightColumn} ${isLab ? styles.autoHide : ""}`}>
+    <aside className={`${styles.rightColumn} ${autoHide ? styles.autoHide : ""}`}>
       {/* No Magnetic wrapper (it suppresses the global blob envelope), but
           the plain div must stay: the rail is pointer-events: none with a
           `> *` re-enable, and Button's `all: unset` would inherit the rail's

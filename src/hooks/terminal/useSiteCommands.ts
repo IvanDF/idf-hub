@@ -3,10 +3,10 @@
 import { PROJECTS } from "@/data/projects";
 import type React from "react";
 import { useCallback } from "react";
-import { ADMIN_COMMANDS, EASTER_EGGS, SHORTCUTS_INFO, VALID_COMMANDS } from "@/lib/terminal/Terminal.constants";
+import { ADMIN_COMMANDS, SHORTCUTS_INFO, VALID_COMMANDS } from "@/lib/terminal/Terminal.constants";
 import { PLAY_OUTPUT, buildBrainOutput } from "@/lib/terminal/Terminal.brain";
 import { BRAND_OUTPUT, GUIDE_OUTPUT, HELP_OUTPUT, buildEggsOutput } from "@/lib/terminal/Terminal.data";
-import { closestCommand } from "@/lib/terminal/Terminal.suggest";
+import { buildHintOutput, closestCommand } from "@/lib/terminal/Terminal.suggest";
 import type { CommandOutput, HistoryItem } from "@/types/terminal";
 
 type SiteCommandResult = {
@@ -100,6 +100,13 @@ export function useSiteCommands({
           outputs = [{ type: "success", content: "Returning Home..." }];
           router.prefetch("/");
           setTimeout(() => { router.push("/"); setIsOpen(false); }, 400);
+          break;
+
+        case "career":
+        case "path":
+          outputs = [{ type: "success", content: "Walking The Path — ten years, no straight line..." }];
+          router.prefetch("/lab");
+          setTimeout(() => { router.push("/lab?view=career"); setIsOpen(false); }, 400);
           break;
 
         case "about":
@@ -266,22 +273,9 @@ export function useSiteCommands({
           outputs = buildBrainOutput();
           break;
 
-        case "hint": {
-          const hidden = EASTER_EGGS.filter((e) => !discoveredEggs.has(e.id));
-          if (hidden.length === 0) {
-            outputs = [
-              { type: "success", content: "Nothing left to hint — you found them all." },
-            ];
-            break;
-          }
-          const egg = hidden[Math.floor(Math.random() * hidden.length)];
-          outputs = [
-            { type: "system", content: "⟁ HINT" },
-            { type: "text", content: egg.hint },
-            { type: "text", content: `category: ${egg.category} · ${hidden.length} still hidden` },
-          ];
+        case "hint":
+          outputs = buildHintOutput(discoveredEggs);
           break;
-        }
 
         case "snake":
           setGameActive(true);
