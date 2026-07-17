@@ -43,7 +43,8 @@
 
   p {
     color: $color-slate-muted;
-    font-size: $font-size-lg;
+    // Fluid: 24px mono uppercase overflowed 375px viewports
+    font-size: clamp(#{$font-size-base}, 4.5vw, #{$font-size-lg});
     max-width: 42rem;
     margin: 0 auto;
     font-weight: 300;
@@ -61,12 +62,14 @@
 }
 
 .glitch {
-  font-size: $font-size-3xl;
+  // "TEMPORAL_ARCHIVE" is one unbreakable mono word: it must scale with the
+  // viewport or it gets clipped on phones (48px × 16ch ≫ 375px).
+  font-size: clamp(1.375rem, 7.5vw, #{$font-size-3xl});
   font-weight: 700;
   color: $color-silk-light;
   letter-spacing: $letter-spacing-tightest;
   position: relative;
-  
+
   @include bp-up($breakpoint-md) {
     font-size: $font-size-4xl;
   }
@@ -173,7 +176,8 @@
 }
 
 .artifactTitle {
-  font-size: $font-size-2xl;
+  // "LEGACY_SYSTEM" — same unbreakable-mono-word problem as the page title
+  font-size: clamp(1.25rem, 6.5vw, #{$font-size-2xl});
   font-weight: 700;
   color: $color-silk-light;
   margin-bottom: $spacing-sm;
@@ -183,6 +187,7 @@
 
 .artifactMeta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: $spacing-sm;
   color: $color-slate-muted;
@@ -279,6 +284,11 @@
     inset 0 2px 4px color.adjust($color-silk-light, $alpha: -0.94),
     inset 0 -2px 4px rgba($color-black, 0.5);
   position: relative;
+
+  // Thinner bezel on phones: 28px per side ate a fifth of the screen
+  @include mobile {
+    padding: $spacing-sm $spacing-sm $spacing-2xl;
+  }
 }
 
 .tvScreenWrap {
@@ -288,6 +298,13 @@
   border-radius: $radius-sm;
   overflow: hidden;
   background: $color-black;
+
+  // Phone-shaped screen on phones: the legacy site is responsive, so a
+  // portrait viewport gets its mobile layout instead of a 200px-tall
+  // letterbox nobody can use.
+  @include mobile {
+    padding-bottom: 150%;
+  }
   box-shadow:
     inset 0 0 30px rgba($color-black, 0.9),
     0 0 20px color.adjust($color-secondary-dark, $alpha: -0.96);

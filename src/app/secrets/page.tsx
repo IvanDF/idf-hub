@@ -25,14 +25,25 @@ export default function SecretsPage() {
         </div>
 
         <div className={styles.content}>
-          <div className={styles.entry}>
-            <Text as="h2" variant="mono">PROJECT: NOMEN (GATEWAY)</Text>
+          <Text as="p" variant="mono">
+            If you were looking for the portfolio, I must advise you to look
+            away — a phrase which here means {'"'}go back to the homepage,
+            where everything is reassuringly normal{'"'}. What follows is a
+            record of the things I have hidden in this site, kept against my
+            better judgement.
+          </Text>
+
+          <details className={styles.entry} open>
+            <summary>
+              <Text as="h2" variant="mono">PROJECT: NOMEN (GATEWAY)</Text>
+              <span className={styles.declassify} aria-hidden="true" />
+            </summary>
             <div className={styles.details}>
               <Text as="p" variant="mono">
                 <Text as="strong" variant="mono">STATUS:</Text> ACTIVE — you used it to get here
               </Text>
               <Text as="p" variant="mono">
-                <Text as="strong" variant="mono">TRIGGER:</Text> Subject identity, knocked thrice
+                <Text as="strong" variant="mono">TRIGGER:</Text> My name, knocked on three times
               </Text>
               <ul>
                 <li>Locate the string {'"'}IVAN DEL FATTI{'"'} (left rail or /about).</li>
@@ -40,10 +51,13 @@ export default function SecretsPage() {
                 <li>Welcome to the archive. Wipe your feet.</li>
               </ul>
             </div>
-          </div>
+          </details>
 
-          <div className={styles.entry}>
-            <Text as="h2" variant="mono">PROJECT: VOID (SUPER DARK MODE)</Text>
+          <details className={styles.entry}>
+            <summary>
+              <Text as="h2" variant="mono">PROJECT: VOID (SUPER DARK MODE)</Text>
+              <span className={styles.declassify} aria-hidden="true" />
+            </summary>
             <div className={styles.details}>
               <Text as="p" variant="mono">
                 <Text as="strong" variant="mono">STATUS:</Text> ACTIVE
@@ -61,26 +75,32 @@ export default function SecretsPage() {
                 release ({'"'}EXIT DARKNESS{'"'}).
               </Text>
             </div>
-          </div>
+          </details>
 
-          <div className={styles.entry}>
-            <Text as="h2" variant="mono">PROJECT: THU&rsquo;UM (VOCAL WEAPON)</Text>
+          <details className={styles.entry}>
+            <summary>
+              <Text as="h2" variant="mono">PROJECT: THU&rsquo;UM (VOCAL WEAPON)</Text>
+              <span className={styles.declassify} aria-hidden="true" />
+            </summary>
             <div className={styles.details}>
               <Text as="p" variant="mono">
-                <Text as="strong" variant="mono">STATUS:</Text> ARMED — microphone clearance required
+                <Text as="strong" variant="mono">STATUS:</Text> ARMED — the browser will politely ask for your microphone
               </Text>
               <Text as="p" variant="mono">
                 <Text as="strong" variant="mono">TRIGGER:</Text> Type {'"'}fus{'"'} in the terminal, then speak
               </Text>
               <ul>
                 <li>Say the words: fus... ro... dah. The recogniser is forgiving.</li>
-                <li>Neighbors{'’'} complaints are not covered by this agency.</li>
+                <li>If the neighbors look at you differently afterwards, I am afraid that is between you and the neighbors.</li>
               </ul>
             </div>
-          </div>
+          </details>
 
-          <div className={styles.entry}>
-            <Text as="h2" variant="mono">PROJECT: CORTEX (REDACTED)</Text>
+          <details className={styles.entry}>
+            <summary>
+              <Text as="h2" variant="mono">PROJECT: CORTEX (REDACTED)</Text>
+              <span className={styles.declassify} aria-hidden="true" />
+            </summary>
             <div className={styles.details}>
               <Text as="p" variant="mono">
                 <Text as="strong" variant="mono">STATUS:</Text> ██████
@@ -90,22 +110,28 @@ export default function SecretsPage() {
                 Ask it. Bring your own neurons.
               </Text>
             </div>
-          </div>
+          </details>
 
-          <div className={styles.entry}>
-            <Text as="h2" variant="mono">FACILITY LOG</Text>
+          <details className={styles.entry}>
+            <summary>
+              <Text as="h2" variant="mono">AN INCOMPLETE INVENTORY</Text>
+              <span className={styles.declassify} aria-hidden="true" />
+            </summary>
             <div className={styles.details}>
               <ul>
-                <li>Eggs on site: 11. Tracker: terminal → {'"'}eggs{'"'}. Stuck? → {'"'}hint{'"'}.</li>
+                <li>Eggs hidden in these walls: 11. Type {'"'}eggs{'"'} to count yours, {'"'}hint{'"'} when pride allows.</li>
                 <li>Coffee consumed while hiding all this: unmeasurable.</li>
                 <li>Typing {'"'}time{'"'} anywhere bends the timeline. You didn{'’'}t read that here.</li>
               </ul>
             </div>
-          </div>
+          </details>
         </div>
 
         <div className={styles.footer}>
-          <Text as="p" variant="mono">End of transmission. This page will not self-destruct — budget cuts.</Text>
+          <Text as="p" variant="mono">
+            End of the archive. This page will not self-destruct: I never
+            learned how to build that, and frankly the idea alarms me.
+          </Text>
           <Link href="/" className={styles.backLink}>
             &lt; RETURN TO SURFACE
           </Link>

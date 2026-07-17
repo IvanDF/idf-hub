@@ -15,6 +15,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
   }
 
+  // Classified archive — fullscreen, no site chrome (the rails' divider drew
+  // a stray line over the scene); its own CTA returns to the surface, and the
+  // terminal stays reachable via ⌘K.
+  if (pathname?.startsWith("/secrets")) {
+    return (
+      <>
+        <Terminal />
+        {children}
+      </>
+    );
+  }
+
   // Admin routes get terminal with admin context — no sidebar or columns
   if (pathname?.startsWith("/admin")) {
     return (
