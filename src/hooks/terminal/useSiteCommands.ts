@@ -3,7 +3,7 @@
 import { PROJECTS } from "@/data/projects";
 import type React from "react";
 import { useCallback } from "react";
-import { EASTER_EGGS, SHORTCUTS_INFO, VALID_COMMANDS } from "@/lib/terminal/Terminal.constants";
+import { ADMIN_COMMANDS, EASTER_EGGS, SHORTCUTS_INFO, VALID_COMMANDS } from "@/lib/terminal/Terminal.constants";
 import { PLAY_OUTPUT, buildBrainOutput } from "@/lib/terminal/Terminal.brain";
 import { BRAND_OUTPUT, GUIDE_OUTPUT, HELP_OUTPUT, buildEggsOutput } from "@/lib/terminal/Terminal.data";
 import { closestCommand } from "@/lib/terminal/Terminal.suggest";
@@ -27,6 +27,8 @@ type UseSiteCommandsOptions = {
   setGameActive: React.Dispatch<React.SetStateAction<boolean>>;
   getAuthUser: () => Promise<{ email?: string | null } | null>;
   signOut: () => Promise<void>;
+  /** Drives the "did you mean" pool: admin typos get admin suggestions. */
+  context?: "site" | "admin";
 };
 
 /**
@@ -44,6 +46,7 @@ export function useSiteCommands({
   setGameActive,
   getAuthUser,
   signOut,
+  context = "site",
 }: UseSiteCommandsOptions): {
   handleSiteCommand: (cmd: string, args: string[]) => Promise<SiteCommandResult>;
 } {
@@ -310,10 +313,14 @@ export function useSiteCommands({
 
         default: {
           playError();
-          const suggested = closestCommand(cmd, VALID_COMMANDS);
+          const pool = context === "admin" ? ADMIN_COMMANDS : VALID_COMMANDS;
+          const suggested = closestCommand(cmd, pool);
+          // suggested === cmd means the word is in the pool but unhandled in
+          // this context (e.g. an egg alias in admin) — a suggestion to retype
+          // the same thing would be absurd.
           outputs = [
             { type: "error", content: `Command not found: ${cmd}` },
-            suggested
+            suggested && suggested !== cmd
               ? {
                   type: "text",
                   content: `Did you mean '${suggested}'?`,
@@ -326,7 +333,7 @@ export function useSiteCommands({
 
       return { outputs, handled: true };
     },
-    [router, toggleTheme, playLightOn, playError, discoveredEggs, setHistory, setIsOpen, setGameActive, getAuthUser, signOut],
+    [router, toggleTheme, playLightOn, playError, discoveredEggs, setHistory, setIsOpen, setGameActive, getAuthUser, signOut, context],
   );
 
   return { handleSiteCommand };

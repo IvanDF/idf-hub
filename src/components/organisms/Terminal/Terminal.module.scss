@@ -347,6 +347,10 @@
   border-radius: $radius-sm;
   padding: 0.1rem 0.45rem;
   margin-left: 0.5rem;
+  // Buttons don't inherit font: without this the CTAs fall back to the UA
+  // default and stick out from the mono terminal (same fix as the chips).
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
   cursor: pointer;
   transition:
     background-color 0.15s,

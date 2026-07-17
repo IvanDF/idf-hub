@@ -271,6 +271,16 @@ export const ADMIN_HELP_OUTPUT: CommandOutput[] = [
   },
   {
     type: "text",
+    content: "whoami — auth status",
+    cta: { label: "→ run", cmd: "whoami" },
+  },
+  {
+    type: "text",
+    content: "ping — API health check",
+    cta: { label: "→ run", cmd: "ping" },
+  },
+  {
+    type: "text",
     content: "brand — identity system",
     cta: { label: "→ open", cmd: "brand" },
   },

@@ -65,6 +65,7 @@ export function useTerminalCommands({
     setGameActive,
     getAuthUser,
     signOut,
+    context,
   });
 
   const executeCommand = useCallback(

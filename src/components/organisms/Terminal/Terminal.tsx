@@ -408,9 +408,18 @@ export default function Terminal({
 
   if (!isOpen) return null;
 
+  // Chips and [→ cta] buttons run their command immediately — filling the
+  // input and demanding a second Enter felt broken. Prefix commands (trailing
+  // space, e.g. "search ") still populate the input: they need an argument.
   const executeQuickCommand = (cmd: string) => {
-    setInput(cmd);
-    requestAnimationFrame(() => inputRef.current?.focus());
+    if (cmd.endsWith(" ")) {
+      setInput(cmd);
+      requestAnimationFrame(() => inputRef.current?.focus());
+      return;
+    }
+    playCommand();
+    executeCommand(cmd);
+    if (shouldAutoFocus()) inputRef.current?.focus();
   };
 
   return (
