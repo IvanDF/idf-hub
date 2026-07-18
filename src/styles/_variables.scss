@@ -70,9 +70,11 @@ $terminal-panel-border: #30363d;
 $terminal-panel-text: #c9d1d9;
 
 // Theme Mapping
-// Warm paper instead of raw silk (#fafafa): near-white light mode read as
-// glare — this keeps the ink-on-paper feel while resting the eyes.
-$color-bg-light: #f2f0eb;
+// Warm ivory paper instead of raw silk (#fafafa): near-white light mode read
+// as glare — this keeps the ink-on-paper feel while resting the eyes.
+$color-bg-light: #edeae3;
+// Cards sit one shade lighter than the page — paper on the desk.
+$color-card-light: #f3f1ea;
 $color-text-light: $color-slate-light;
 $color-accent-light: $color-volta-light;
 $color-secondary-light: $color-lario-light;

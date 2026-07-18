@@ -72,14 +72,14 @@ body.glitch-active {
   --color-github-panel-bg: #{$terminal-panel-bg};
   --color-github-panel-border: #{$terminal-panel-border};
   --color-github-panel-text: #{$terminal-panel-text};
-  --color-bg-rgb: 242, 240, 235; // keep in sync with $color-bg-light
+  --color-bg-rgb: 237, 234, 227; // keep in sync with $color-bg-light
   --color-silk-rgb: #{$color-silk-rgb};
   --color-text-rgb: 17, 24, 39;
   --color-accent-rgb: 139, 92, 246;
   --color-success-rgb: #{$color-success-rgb};
   --color-error-rgb: #{$color-error-rgb};
   --color-warning-rgb: #{$color-warning-rgb};
-  --color-card-bg: #{$color-bg-light};
+  --color-card-bg: #{$color-card-light};
   --color-card-border: #{color.adjust($color-silk-dark, $alpha: -0.95)};
   --color-card-shadow:
     0 4px 6px -1px #{color.adjust($color-black, $alpha: -0.95)},
