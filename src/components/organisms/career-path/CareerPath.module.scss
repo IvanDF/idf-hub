@@ -120,6 +120,27 @@
   }
 }
 
+.explode {
+  width: fit-content;
+  margin-top: $spacing-md;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  font-weight: 700;
+  letter-spacing: $letter-spacing-md;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-accent);
+  border: $border-hairline solid var(--color-accent);
+  border-radius: $radius-sm;
+  padding: $spacing-2xs $spacing-sm;
+  transition: background 0.15s, color 0.15s;
+
+  &:hover {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+}
+
 @include mobile {
   .step {
     min-height: 78svh;

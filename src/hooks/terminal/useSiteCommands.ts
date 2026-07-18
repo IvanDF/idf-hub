@@ -6,6 +6,7 @@ import { useCallback } from "react";
 import { ADMIN_COMMANDS, SHORTCUTS_INFO, VALID_COMMANDS } from "@/lib/terminal/Terminal.constants";
 import { PLAY_OUTPUT, buildBrainOutput } from "@/lib/terminal/Terminal.brain";
 import { BRAND_OUTPUT, GUIDE_OUTPUT, HELP_OUTPUT, buildEggsOutput } from "@/lib/terminal/Terminal.data";
+import { buildShareOutput } from "@/lib/terminal/Terminal.share";
 import { buildHintOutput, closestCommand } from "@/lib/terminal/Terminal.suggest";
 import type { CommandOutput, HistoryItem } from "@/types/terminal";
 
@@ -275,6 +276,11 @@ export function useSiteCommands({
 
         case "hint":
           outputs = buildHintOutput(discoveredEggs);
+          break;
+
+        case "share":
+          // The help has promised this since day one — now it exists.
+          outputs = await buildShareOutput(args);
           break;
 
         case "snake":

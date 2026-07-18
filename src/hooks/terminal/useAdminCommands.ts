@@ -44,6 +44,7 @@ export function useAdminCommands({ router, setIsOpen }: UseAdminCommandsOptions)
               ...projects.slice(0, 15).map((p: { id: string; status?: string; year: string }) => ({
                 type: "text" as const,
                 content: `${p.id.padEnd(28)} ${p.year}  ${p.status ?? "—"}`,
+                cta: { label: "→ open", cmd: `open ${p.id}` },
               })),
               ...(projects.length > 15
                 ? [{ type: "text" as const, content: `  ... and ${projects.length - 15} more` }]

@@ -72,7 +72,7 @@ body.glitch-active {
   --color-github-panel-bg: #{$terminal-panel-bg};
   --color-github-panel-border: #{$terminal-panel-border};
   --color-github-panel-text: #{$terminal-panel-text};
-  --color-bg-rgb: 250, 250, 250;
+  --color-bg-rgb: 242, 240, 235; // keep in sync with $color-bg-light
   --color-silk-rgb: #{$color-silk-rgb};
   --color-text-rgb: 17, 24, 39;
   --color-accent-rgb: 139, 92, 246;

@@ -16,6 +16,9 @@ const BusinessCard3D = dynamic(
 /** Duration in milliseconds for the flip haptic pulse — intentionally brief. */
 const FLIP_HAPTIC_MS = 10;
 
+// One entry per persona; a variant needs its textures exported to
+// /public/assets/business-cards/{id}-front.svg and {id}-back.svg.
+// To add e.g. "photo": drop the two SVGs and append { id: "photo", ... }.
 const VARIANTS = [
   { id: "normal", label: "General" },
   { id: "code", label: "Dev" },
@@ -33,14 +36,14 @@ function isValidStyle(s: string | null): s is CardStyle {
  * Renders the selected iDF business card variant as an interactive 3D scene.
  *
  * Query params:
- *   style — "normal" | "code" | "design"  (default: "normal")
+ *   type (alias: style) — "normal" | "code" | "design"  (default: "normal")
  *
- * Example: /business-card?style=design
+ * Example: /business-card?type=design
  */
 export default function BusinessCardPage() {
   const searchParams = useSearchParams();
 
-  const rawStyle = searchParams.get("style");
+  const rawStyle = searchParams.get("type") ?? searchParams.get("style");
   const activeStyle: CardStyle = isValidStyle(rawStyle) ? rawStyle : "normal";
 
   const [isFlipped, setIsFlipped] = useState(false);
@@ -63,7 +66,9 @@ export default function BusinessCardPage() {
   };
 
   return (
-    <div className={styles.stage}>
+    // data-cursor-native: the blob envelope difference-inverts whatever it
+    // adopts — on the 3D card that negated the whole artwork.
+    <div className={styles.stage} data-cursor-native="true">
       {/* 3D Canvas — keyed on style to remount on variant change */}
       <div className={styles.canvasWrap}>
         <BusinessCard3D

@@ -27,11 +27,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // Admin routes get terminal with admin context — no sidebar or columns
+  // Admin routes get terminal with admin context — no sidebar or columns.
+  // NOT on the login page though: the always-open terminal used to cover the
+  // form, forcing an Esc nobody could guess.
   if (pathname?.startsWith("/admin")) {
     return (
       <>
-        <Terminal context="admin" />
+        {!pathname.startsWith("/admin/login") && <Terminal context="admin" />}
         {children}
       </>
     );

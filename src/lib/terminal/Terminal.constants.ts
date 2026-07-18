@@ -191,6 +191,7 @@ export const VALID_COMMANDS = [
   "cortex",
   "hint",
   "career",
+  "share",
 ];
 
 // Admin terminal commands

@@ -306,3 +306,20 @@
 
   &:hover { opacity: 1; }
 }
+
+// ── Live embed (CodePen) — the work shown working, not screenshotted ─────────
+.embed {
+  margin: $spacing-xl 0;
+}
+
+.embedFrame {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border: $border-base solid var(--color-divider);
+  border-radius: var(--route-card-radius, #{$radius-lg});
+  background: var(--color-bg);
+
+  @include mobile {
+    aspect-ratio: 4 / 5;
+  }
+}

@@ -1,0 +1,174 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+
+.container {
+  min-height: 100vh;
+  max-width: $container-lg;
+  margin: 0 auto;
+  padding: $spacing-xxl var(--chrome-rail-pad-x) $spacing-2xl;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+  // Carved wobble on the in-flow page root (see layout.module.scss .main)
+  filter: var(--ink);
+}
+
+.backLink {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  letter-spacing: $letter-spacing-md;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-text);
+  opacity: 0.6;
+  transition: opacity 0.2s, color 0.2s;
+  width: fit-content;
+
+  &:hover {
+    opacity: 1;
+    color: var(--color-accent);
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  border-bottom: $border-base solid var(--color-text);
+  padding-bottom: $spacing-lg;
+}
+
+.years {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-xl;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.role {
+  font-family: $font-family-primary;
+  font-weight: 800;
+  font-size: clamp(2.25rem, 8vw, 4.5rem);
+  letter-spacing: $letter-spacing-tightest;
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.place {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  letter-spacing: $letter-spacing-md;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.intro {
+  font-size: $font-size-body;
+  line-height: 1.6;
+  color: var(--color-text-soft);
+  max-width: 62ch;
+  margin: $spacing-sm 0 0;
+}
+
+// ── Phases — the exploded movements of the chapter ───────────────────────────
+.phases {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+}
+
+.phase {
+  display: grid;
+  grid-template-columns: $spacing-2xl 1fr;
+  gap: $spacing-lg;
+  align-items: start;
+
+  @include mobile {
+    grid-template-columns: $spacing-xl 1fr;
+    gap: $spacing-sm;
+  }
+}
+
+.phaseNum {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  color: var(--color-accent);
+  letter-spacing: $letter-spacing-lg;
+  padding-top: $spacing-2xs;
+}
+
+.phaseBody {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  border-left: $border-base solid var(--color-divider);
+  padding-left: $spacing-md;
+}
+
+.phaseTitle {
+  font-family: $font-family-primary;
+  font-weight: 700;
+  font-size: clamp(#{$font-size-md}, 3vw, #{$font-size-lg});
+  letter-spacing: $letter-spacing-sm;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.phaseText {
+  font-size: $font-size-small;
+  line-height: 1.6;
+  color: var(--color-text-soft);
+  max-width: 60ch;
+  margin: 0;
+}
+
+// ── Outcomes ─────────────────────────────────────────────────────────────────
+.outcomes {
+  border-top: $border-hairline solid var(--color-divider);
+  padding-top: $spacing-lg;
+}
+
+.sectionLabel {
+  font-size: $font-size-xs;
+  font-weight: 700;
+  letter-spacing: $letter-spacing-xl;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.outcomeList {
+  list-style: none;
+  margin: $spacing-sm 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  line-height: 1.5;
+  color: var(--color-text-soft);
+
+  li::before {
+    content: "▸ ";
+    color: var(--color-accent);
+  }
+}
+
+// ── Stack footer ─────────────────────────────────────────────────────────────
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+.stackTag {
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-md;
+  text-transform: uppercase;
+  border: $border-hairline solid var(--color-divider);
+  border-radius: $radius-full;
+  padding: $spacing-2xs $spacing-sm;
+  opacity: 0.7;
+}

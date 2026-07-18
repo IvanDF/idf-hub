@@ -3,6 +3,7 @@
 import Text from "@/components/atoms/text";
 import { CAREER } from "@/data/career";
 import { motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
 import styles from "./CareerPath.module.scss";
 
 const TOTAL = String(CAREER.length).padStart(2, "0");
@@ -54,6 +55,16 @@ export default function CareerPath() {
                   <li key={h}>{h}</li>
                 ))}
               </ul>
+            )}
+
+            {step.slug && step.story && (
+              <Link
+                href={`/lab/path/${step.slug}`}
+                className={styles.explode}
+                prefetch
+              >
+                {"⇲"} explode this chapter
+              </Link>
             )}
           </div>
         </motion.li>

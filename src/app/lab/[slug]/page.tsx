@@ -64,6 +64,10 @@ export default async function ProjectPage({
   const mediaFit = project.media.fit ?? "contain";
 
   const primaryUrl = project.links?.demo ?? project.links?.live;
+  // CodePen pens get embedded live on the page (pen/full URL → embed URL)
+  const codepen = (project.links?.demo ?? project.links?.live ?? "").match(
+    /codepen\.io\/([^/]+)\/(?:pen|full)\/([A-Za-z0-9]+)/,
+  );
   const platformLabels: Record<string, string> = {
     codepen: "Open Playground",
     notion: "Open Workspace",
@@ -126,6 +130,19 @@ export default async function ProjectPage({
               </div>
             </div>
           ))}
+        </section>
+      )}
+
+      {codepen && (
+        <section className={styles.embed}>
+          {/* Live pen instead of screenshots: the work IS the interaction */}
+          <iframe
+            className={styles.embedFrame}
+            src={`https://codepen.io/${codepen[1]}/embed/${codepen[2]}?default-tab=result&theme-id=dark`}
+            title={`${project.title} — live on CodePen`}
+            loading="lazy"
+            allowFullScreen
+          />
         </section>
       )}
 

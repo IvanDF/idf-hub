@@ -169,8 +169,14 @@ export default function CustomCursor() {
         "a, button, [role='button'], [data-magnetized='true']",
       ) as HTMLElement | null;
 
-      // Keep local Magnetic components in control.
-      if (!candidate || candidate.closest("[data-local-magnetic='true']")) {
+      // Keep local Magnetic components in control, and stay plain over
+      // surfaces that opt out entirely (e.g. the 3D business card, where the
+      // difference-inversion would negate the whole artwork).
+      if (
+        !candidate ||
+        candidate.closest("[data-local-magnetic='true']") ||
+        candidate.closest("[data-cursor-native='true']")
+      ) {
         clearMagnetism();
         return pointer;
       }
