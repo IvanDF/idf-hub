@@ -25,7 +25,12 @@ export default function CareerPath() {
           data-current={step.current || undefined}
           initial={reduceMotion ? false : { opacity: 0, y: 56 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ amount: 0.3, once: false }}
+          // once: true — a chapter fades in a single time and stays put. With
+          // once:false the step reset to opacity:0 every time it left the
+          // viewport; on mobile the address-bar show/hide resizes the viewport
+          // and shifts the IntersectionObserver thresholds, so the re-entry
+          // callback could fail to fire and the whole timeline vanished.
+          viewport={{ amount: 0.2, once: true }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
           <span className={styles.watermark} aria-hidden="true">
