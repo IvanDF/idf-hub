@@ -156,7 +156,14 @@
   max-width: 100%;
   font-family: $font-family-mono;
   font-size: $font-size-xs;
-  line-height: 1.2;
+  // Monospace cells are ~0.6em wide but a full line-height tall, so the raw
+  // drawing renders as a narrow vertical column (~0.7:1) even though the source
+  // art (fusion-4-face.svg) is landscape (~1.19:1). A tight line-height plus a
+  // horizontal scaleX stretches it back out — the eyes spread, the mouth widens
+  // and the whole face reads roughly square instead of squished.
+  line-height: 0.95;
+  transform: scaleX(1.5);
+  transform-origin: center;
   color: rgba(var(--color-success-rgb), 0.9);
   text-shadow: 0 0 10px rgba(var(--color-success-rgb), 0.5);
   white-space: pre;
