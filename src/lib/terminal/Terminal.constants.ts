@@ -15,10 +15,6 @@ export const ASCII_ART: Record<string, readonly (readonly string[])[]> = {
     ["      ●      ", "    ╭───╮    ", "    │   │    ", "    ╰───╯    "],
     ["     \●/     ", "    ╭─────╮  ", "    │     │  ", "    ╰──┬──╯  "],
   ],
-  skol: [
-    ["      ▲      ", "     ⼢ ⼣     ", "    ⼢   ⼣    ", "   ⼢  ▼  ⼣   "],
-    ["      │      ", "     ⼢ │     ", "    ⼢  │     ", "   ⼢   ▼     "],
-  ],
   cortex: [
     ["  o       o  ", "   \\     /   ", "    o---o    ", "   /     \\   ", "  o       o  "],
     ["  •       o  ", "   \\     /   ", "    •---o    ", "   /     \\   ", "  o       •  "],
@@ -94,13 +90,6 @@ export const EASTER_EGGS: EasterEgg[] = [
     category: "Vikings",
     name: "Who Wants to be King",
   },
-  {
-    id: "skol",
-    aliases: ["skol", "skål", "skaal", "skal", "skall", "skol!", "skål!", "🍻"],
-    hint: "Viking toast for “cheers” — write it however it sounds.",
-    category: "Vikings",
-    name: "Skål",
-  },
 
   // Secret Features — platform-only (not discoverable by typing)
   {
@@ -140,6 +129,32 @@ export const EASTER_EGGS: EasterEgg[] = [
     hint: "The Greybeards whisper of a power hidden in words. Speak the ancient Thu'um.",
     category: "Skyrim",
     name: "Unrelenting Force",
+  },
+
+  // Travel — the `cheers` command unrolls a living journal of how to toast
+  // in every language iDF has raised a glass in on the road.
+  {
+    id: "cheers",
+    aliases: [
+      "cheers",
+      "skol",
+      "skål",
+      "skaal",
+      "skal",
+      "skall",
+      "skol!",
+      "skål!",
+      "🍻",
+      "cin cin",
+      "cincin",
+      "brindisi",
+      "salute",
+      "santé",
+      "sante",
+    ],
+    hint: "Every border has its own way to say “to your health.” Raise a glass — the terminal keeps the list.",
+    category: "Travel",
+    name: "Cheers Around the World",
   },
 
   // Neuroscience — the `cortex` command opens a hidden lab of cognitive tests.
@@ -192,6 +207,7 @@ export const VALID_COMMANDS = [
   "hint",
   "career",
   "share",
+  "cheers",
 ];
 
 // Admin terminal commands

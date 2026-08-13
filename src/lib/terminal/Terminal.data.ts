@@ -1,3 +1,4 @@
+import { buildCheersOutput } from "@/lib/terminal/cheers.data";
 import {
   EASTER_EGGS,
   TOTAL_EASTER_EGGS,
@@ -13,8 +14,9 @@ const CAT_ICON: Record<string, string> = {
   Skyrim: "‡",
   iDF: "◉",
   Neuro: "⬡",
+  Travel: "⚑",
 };
-const EGG_CATEGORIES = ["HIMYM", "R&M", "Vikings", "Secret", "iDF", "Skyrim", "Neuro"];
+const EGG_CATEGORIES = ["HIMYM", "R&M", "Vikings", "Secret", "iDF", "Skyrim", "Neuro", "Travel"];
 
 export function buildEggsOutput(discoveredEggs: Set<string>): CommandOutput[] {
   const discovered = discoveredEggs.size;
@@ -73,10 +75,6 @@ export const EASTER_EGG_RESPONSES: Record<string, CommandOutput[]> = {
     { type: "text", content: '"The temptation to leave everything behind."' },
     { type: "text", content: "- Ragnar Lothbrok" },
   ],
-  skol: [
-    { type: "success", content: "SKÅL!" },
-    { type: "text", content: '"To the North, to the Viking gods!"' },
-  ],
   theme_toggle: [
     { type: "success", content: "Into the Void." },
     { type: "text", content: '"Luminous beings are we." - Yoda' },
@@ -110,6 +108,7 @@ export const EASTER_EGG_RESPONSES: Record<string, CommandOutput[]> = {
     { type: "text", content: "Reaction · Stroop interference · Sequence memory." },
     { type: "text", content: "Three tests. Your brain vs. the machine." },
   ],
+  cheers: buildCheersOutput(),
 };
 
 /** Output lines for the site `help` command. */

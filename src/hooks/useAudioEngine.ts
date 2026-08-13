@@ -31,7 +31,7 @@ const EASTER_EGG_SOUNDS: Record<string, number> = {
   pickle_rick: 880,
   wubba: 146.83,
   ragnar: 196,
-  skol: 293.66,
+  cheers: 293.66,
   theme_toggle: 220,
   konami: 330,
 };
