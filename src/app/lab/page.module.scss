@@ -50,10 +50,14 @@
   padding: $spacing-xxl $spacing-md $spacing-xxl;
   position: relative;
   z-index: 10;
-  // Carved wobble on the in-flow page root (not the scrollport) so the
-  // filtered layer is cached and translated during scroll instead of
-  // being re-filtered every frame.
-  filter: var(--ink);
+  // NO ink filter here. filter: url(#feDisplacementMap) on this root broke the
+  // Work page on WebKit (Safari desktop + every iOS browser): the career
+  // timeline makes this container many viewport-heights tall, and WebKit drops
+  // the entire SVG-filtered layer while it scrolls, so all the text vanished on
+  // load/scroll and never came back. Blink (desktop Vivaldi/Chrome) rendered it
+  // fine, which is why the bug looked "Safari-only". The carved-wobble texture
+  // is decorative; keeping the text visible wins. Reintroduce only behind a
+  // WebKit-safe path if ever needed.
 
   @include bp-up($breakpoint-xl) {
     padding: $spacing-xxl $spacing-2xl;
