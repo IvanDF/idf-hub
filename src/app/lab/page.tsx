@@ -95,14 +95,9 @@ export default function Lab() {
   return (
     <main className={styles.container}>
       <header className={styles.header}>
-        <motion.h1
-          className={styles.pageTitle}
-          initial={{ scaleY: 1.08, y: -14, opacity: 0 }}
-          animate={{ scaleY: 1, y: 0, opacity: 1 }}
-          transition={{ duration: 0.55, ease: [0.34, 1.56, 0.64, 1] }}
-        >
+        <h1 className={styles.pageTitle}>
           <Text as="span" variant="inherit">Work</Text>
-        </motion.h1>
+        </h1>
         <div className={styles.headerRow}>
           <Text as="p" variant="mono" className={styles.pageSubtitle}>
             {view === "career"
