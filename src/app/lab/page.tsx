@@ -146,16 +146,13 @@ export default function Lab() {
         )}
 
         {view === "career" && (
-          <motion.section
-            key="career"
-            aria-label="Career"
-            initial={{ opacity: 0, x: -14 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -8 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-          >
+          // Plain section, no entrance opacity/transform: the timeline must be
+          // visible the instant it mounts. A framer initial={opacity:0} here
+          // relied on the mount animation completing — on Safari an interrupted
+          // animation could pin the whole section invisible.
+          <section key="career" aria-label="Career">
             <CareerPath />
-          </motion.section>
+          </section>
         )}
 
         {view === "lab" && (
