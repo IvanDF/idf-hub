@@ -4,6 +4,7 @@ import FusRoDahWrapper from "@/components/organisms/fus-ro-dah";
 import { socials } from "@/data/nav";
 import InkFilters from "@/components/atoms/ink-filters/InkFilters";
 import RouteTracker from "@/components/atoms/route-tracker/RouteTracker";
+import DevConsole from "@/components/atoms/dev-console";
 import { AudioProvider } from "@/context/AudioContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { VoiceShoutProvider } from "@/context/VoiceShoutContext";
@@ -157,6 +158,7 @@ export default function RootLayout({
               <VoiceShoutProvider>
                 <InkFilters />
                 <RouteTracker />
+                <DevConsole />
                 <SiteChrome />
                 <MainLayout>{children}</MainLayout>
                 <FusRoDahWrapper />
