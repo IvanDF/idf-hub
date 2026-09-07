@@ -1,5 +1,7 @@
 import DevConsole from "@/components/atoms/dev-console";
 import { CONSOLE_COMMANDS } from "@/lib/console";
+import { widenAscii } from "@/lib/console/Console.ascii";
+import { ASCII_IDF_FACE } from "@/lib/ascii";
 import { EASTER_EGGS, TOTAL_EASTER_EGGS } from "@/lib/terminal/Terminal.constants";
 import { render } from "@testing-library/react";
 
@@ -147,5 +149,35 @@ describe("window.idf", () => {
     window.idf?.hint();
 
     expect(loggedText(logSpy)).toContain("you found them all");
+  });
+});
+
+describe("widenAscii", () => {
+  const FACE = ASCII_IDF_FACE[0];
+
+  it("keeps the row count and reaches the requested width", () => {
+    const widened = widenAscii(FACE, 68);
+
+    expect(widened).toHaveLength(FACE.length);
+    expect(Math.max(...widened.map((r) => r.length))).toBe(68);
+  });
+
+  it("maps ink and space through the resample, not just repeating glyphs", () => {
+    // Source width 3, ink only in the middle column, doubled into 6.
+    const [row] = widenAscii([" x "], 6);
+
+    expect(row).toMatch(/^ {2}[{}=><]{2}$/);
+  });
+
+  it("draws only from the source dither alphabet", () => {
+    const glyphs = new Set(widenAscii(FACE, 68).join("").split(""));
+
+    for (const glyph of glyphs) {
+      expect(" {}=><").toContain(glyph);
+    }
+  });
+
+  it("is deterministic, so the face does not reshuffle between loads", () => {
+    expect(widenAscii(FACE, 68)).toEqual(widenAscii(FACE, 68));
   });
 });

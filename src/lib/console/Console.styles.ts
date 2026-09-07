@@ -11,8 +11,12 @@ const MONO =
 
 /** The dark-theme variants read correctly on both light and dark devtools. */
 export const CONSOLE_STYLE = {
-  /** ASCII art block — tight leading so the glyph grid stays square. */
-  logo: `color:${DESIGN_SYSTEM.color.voltaDark};font-family:${MONO};font-size:10px;line-height:10px;letter-spacing:0`,
+  /**
+   * ASCII art block. No `line-height` on purpose — Safari's console drops it,
+   * so the art is pre-widened to the console's own row height instead
+   * (see FACE_COLUMNS in Console.banner.ts).
+   */
+  logo: `color:${DESIGN_SYSTEM.color.voltaDark};font-family:${MONO};font-size:10px;letter-spacing:0`,
   /** The "iDF" wordmark. */
   wordmark: `color:${DESIGN_SYSTEM.color.voltaDark};font-family:${MONO};font-size:20px;font-weight:700;letter-spacing:2px`,
   /** Full name, next to the wordmark. */
