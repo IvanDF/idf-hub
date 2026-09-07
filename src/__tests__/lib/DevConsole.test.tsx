@@ -33,7 +33,17 @@ describe("DevConsole", () => {
 
     expect(window.idf).toBeDefined();
     expect(Object.isFrozen(window.idf)).toBe(true);
-    expect(loggedText(logSpy)).toContain("Different angles. Better questions.");
+    expect(loggedText(logSpy)).toContain(
+      "Driven by curiosity, refined through design.",
+    );
+  });
+
+  it("names no job title anywhere in the banner", () => {
+    render(<DevConsole />);
+
+    expect(loggedText(logSpy)).not.toMatch(
+      /developer|designer|full[- ]stack|front[- ]?end|back[- ]?end/i,
+    );
   });
 
   it("does not print the banner twice across remounts", () => {
@@ -94,7 +104,11 @@ describe("window.idf", () => {
 
     const text = loggedText(logSpy);
     expect(text).toContain("Ivan Del Fatti");
+    expect(text).toContain("Madrid, Spain");
     expect(text).toContain("https://github.com/IvanDF");
+    expect(text).not.toMatch(
+      /developer|designer|full[- ]stack|front[- ]?end|back[- ]?end/i,
+    );
   });
 
   it("tables the stack", () => {

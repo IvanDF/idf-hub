@@ -31,11 +31,11 @@ const FACE = widenAscii(ASCII_IDF_FACE[0], FACE_COLUMNS).join("\n");
 export function printBanner(): void {
   console.log(`%c${FACE}`, CONSOLE_STYLE.logo);
   console.log(
-    `%c${CONSOLE_IDENTITY.handle}%c  ${CONSOLE_IDENTITY.name} · ${CONSOLE_IDENTITY.role}`,
+    `%c${CONSOLE_IDENTITY.handle}%c  ${CONSOLE_IDENTITY.name} · ${CONSOLE_IDENTITY.based} · ${CONSOLE_IDENTITY.experience}`,
     CONSOLE_STYLE.wordmark,
     CONSOLE_STYLE.name,
   );
-  console.log(`%c${CONSOLE_IDENTITY.tagline}`, CONSOLE_STYLE.tagline);
+  console.log(`%c${CONSOLE_IDENTITY.creed}`, CONSOLE_STYLE.tagline);
   console.log(
     `%cYou opened the console. Good instinct.%c\n%c${CONSOLE_INVITE}`,
     CONSOLE_STYLE.body,

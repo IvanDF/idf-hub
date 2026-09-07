@@ -76,12 +76,13 @@ function help(): void {
 function whoami(): void {
   heading("WHOAMI");
   console.log(
-    `%c${CONSOLE_IDENTITY.name}%c  ${CONSOLE_IDENTITY.role}`,
+    `%c${CONSOLE_IDENTITY.name}%c  ${CONSOLE_IDENTITY.based} · ${CONSOLE_IDENTITY.experience}`,
     CONSOLE_STYLE.body,
     CONSOLE_STYLE.muted,
   );
-  console.log(`%c${CONSOLE_IDENTITY.tagline}`, CONSOLE_STYLE.tagline);
+  console.log(`%c${CONSOLE_IDENTITY.creed}`, CONSOLE_STYLE.tagline);
   console.log(`%c${CONSOLE_IDENTITY.pitch}`, CONSOLE_STYLE.muted);
+  console.log(`%c${CONSOLE_IDENTITY.tagline}`, CONSOLE_STYLE.body);
   for (const { href, label } of socials) {
     console.log(
       `%c${(SOCIAL_LABELS[label] ?? label).padEnd(CALL_COLUMN)}%c${href}`,

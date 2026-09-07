@@ -41,14 +41,24 @@ export const CONSOLE_STACK: readonly StackEntry[] = [
   { tool: "Vercel", role: "hosting and analytics" },
 ] as const;
 
-/** The identity card printed by `idf.whoami()`. */
+/**
+ * The identity card printed by the banner and by `idf.whoami()`.
+ *
+ * Deliberately job-title free. The About page puts a creed and three plain
+ * facts where a role would go, and AGENTS.md positions Ivan as a curious
+ * problem solver rather than a "developer" or a "designer" — so the console
+ * says the same things, in the same words.
+ */
 export const CONSOLE_IDENTITY = {
   name: "Ivan Del Fatti",
   handle: "iDF",
-  role: "Full-Stack Developer & UI/UX Designer",
+  based: "Madrid, Spain",
+  experience: "10+ years observing patterns",
+  /** The About hero line, standing exactly where a job title would. */
+  creed: "Driven by curiosity, refined through design.",
   tagline: "Different angles. Better questions.",
   pitch:
-    "Curious problem solver. Design is the tool, not the job title.",
+    "Exploring patterns, questioning assumptions, and solving problems from unexpected angles.",
 } as const;
 
 /** Where the banner points the reader next. */
