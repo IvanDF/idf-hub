@@ -6,6 +6,7 @@ import { useAudio } from "@/context/AudioContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useVoiceShoutContext } from "@/context/VoiceShoutContext";
 import { useCommandDeepLink } from "@/hooks/terminal/useCommandDeepLink";
+import { useTerminalBridge } from "@/hooks/terminal/useTerminalBridge";
 import { useTerminalCommands } from "@/hooks/terminal/useTerminalCommands";
 import { useTerminalInput } from "@/hooks/terminal/useTerminalInput";
 import { useTerminalKeyboard } from "@/hooks/terminal/useTerminalKeyboard";
@@ -346,6 +347,9 @@ export default function Terminal({
       await fetch("/api/auth/logout", { method: "POST" });
     },
   });
+
+  // Console bridge: window.idf.run() opens the terminal and runs a command.
+  useTerminalBridge({ isOpen, setIsOpen, executeCommand });
 
   // Deep link: parse ?cmd= on mount and auto-execute
   const { pendingCommand, clearPendingCommand } = useCommandDeepLink();

@@ -16,6 +16,13 @@ export interface IdfConsoleApi {
   eggs(): void;
   /** Prints one cryptic nudge toward an egg that is still hidden. */
   hint(): void;
+  /**
+   * Opens the site's terminal and runs a command in it. Called with no
+   * argument it just opens the terminal.
+   */
+  run(command?: string): void;
+  /** Shortcut for `run("snake")` — the terminal's ASCII snake. */
+  snake(): void;
 }
 
 declare global {

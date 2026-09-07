@@ -1,6 +1,10 @@
 import DevConsole from "@/components/atoms/dev-console";
 import { CONSOLE_COMMANDS } from "@/lib/console";
 import { widenAscii } from "@/lib/console/Console.ascii";
+import {
+  TERMINAL_COMMAND_EVENT,
+  type TerminalCommandEventDetail,
+} from "@/lib/terminal/Terminal.bridge";
 import { ASCII_IDF_FACE } from "@/lib/ascii";
 import { EASTER_EGGS, TOTAL_EASTER_EGGS } from "@/lib/terminal/Terminal.constants";
 import { render } from "@testing-library/react";
@@ -193,5 +197,64 @@ describe("widenAscii", () => {
 
   it("is deterministic, so the face does not reshuffle between loads", () => {
     expect(widenAscii(FACE, 68)).toEqual(widenAscii(FACE, 68));
+  });
+});
+
+describe("idf.run", () => {
+  let logSpy: jest.SpyInstance;
+  /** Stands in for a mounted Terminal: records requests and acknowledges. */
+  let received: string[];
+  let listener: (event: Event) => void;
+
+  beforeEach(() => {
+    localStorage.clear();
+    delete window.idf;
+    logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+    received = [];
+    listener = (event) => {
+      received.push(
+        (event as CustomEvent<TerminalCommandEventDetail>).detail.command,
+      );
+      event.preventDefault();
+    };
+    render(<DevConsole />);
+    logSpy.mockClear();
+  });
+
+  afterEach(() => {
+    window.removeEventListener(TERMINAL_COMMAND_EVENT, listener);
+    logSpy.mockRestore();
+  });
+
+  it("hands the command to a listening terminal", () => {
+    window.addEventListener(TERMINAL_COMMAND_EVENT, listener);
+
+    window.idf?.run("cheers");
+
+    expect(received).toEqual(["cheers"]);
+    expect(loggedText(logSpy)).toContain("cheers");
+  });
+
+  it("asks for the terminal without a command when called bare", () => {
+    window.addEventListener(TERMINAL_COMMAND_EVENT, listener);
+
+    window.idf?.run();
+
+    expect(received).toEqual([""]);
+    expect(loggedText(logSpy)).toContain("terminal open");
+  });
+
+  it("routes the snake shortcut through the same bridge", () => {
+    window.addEventListener(TERMINAL_COMMAND_EVENT, listener);
+
+    window.idf?.snake();
+
+    expect(received).toEqual(["snake"]);
+  });
+
+  it("says so when no terminal is listening", () => {
+    window.idf?.run("snake");
+
+    expect(loggedText(logSpy)).toContain("No terminal is listening");
   });
 });

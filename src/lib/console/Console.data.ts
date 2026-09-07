@@ -15,6 +15,8 @@ export const CONSOLE_COMMANDS: readonly ConsoleCommand[] = [
   { call: "idf.stack()", does: "what this site actually runs on" },
   { call: "idf.eggs()", does: "easter-egg progress — same store as the terminal" },
   { call: "idf.hint()", does: "one nudge toward something still hidden" },
+  { call: "idf.run(cmd)", does: "open the site terminal and run a command in it" },
+  { call: "idf.snake()", does: "shortcut for run(\"snake\") — go play" },
   { call: "idf.help()", does: "this list" },
 ] as const;
 

@@ -16,6 +16,7 @@ import {
   EASTER_EGGS,
   TOTAL_EASTER_EGGS,
 } from "@/lib/terminal/Terminal.constants";
+import { requestTerminalCommand } from "@/lib/terminal/Terminal.bridge";
 import { socials } from "@/data/nav";
 import type { IdfConsoleApi } from "@/types/console";
 
@@ -151,9 +152,42 @@ function hint(): void {
 }
 
 /**
+ * `idf.run()` — hands a command to the terminal on the page.
+ *
+ * No validation here on purpose: the terminal already knows its own commands
+ * and answers an unknown one with a "did you mean", so duplicating that list
+ * console-side would only give it a second place to go stale.
+ */
+function run(command = ""): void {
+  const target = command.trim();
+  if (!requestTerminalCommand(target)) {
+    console.log(
+      "%cNo terminal is listening on this page.",
+      CONSOLE_STYLE.muted,
+    );
+    return;
+  }
+  if (!target) {
+    console.log("%c→ terminal open.", CONSOLE_STYLE.muted);
+    return;
+  }
+  console.log(
+    `%c→ running %c${target}%c in the terminal — click the page to give it the keyboard.`,
+    CONSOLE_STYLE.muted,
+    CONSOLE_STYLE.command,
+    CONSOLE_STYLE.muted,
+  );
+}
+
+/** `idf.snake()` — the one command worth a shortcut of its own. */
+function snake(): void {
+  run("snake");
+}
+
+/**
  * Builds the frozen `window.idf` object. Frozen so a curious visitor can read
  * and call it but not reshape the thing they are inspecting.
  */
 export function createConsoleApi(): IdfConsoleApi {
-  return Object.freeze({ help, whoami, stack, eggs, hint });
+  return Object.freeze({ help, whoami, stack, eggs, hint, run, snake });
 }
