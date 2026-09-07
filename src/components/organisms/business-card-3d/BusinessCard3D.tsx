@@ -4,6 +4,10 @@ import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 import CardScene from './CardScene';
 import styles from './BusinessCard3D.module.scss';
+import { filterKnownThreeWarnings } from "@/lib/three/console";
+
+// R3F builds a deprecated THREE.Clock per Canvas; keep that out of the console.
+filterKnownThreeWarnings();
 
 export interface BusinessCard3DProps {
   /** Card variant — maps directly to SVG asset filenames. */

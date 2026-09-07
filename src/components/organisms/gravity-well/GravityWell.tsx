@@ -5,6 +5,10 @@ import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import styles from './GravityWell.module.scss';
+import { filterKnownThreeWarnings } from "@/lib/three/console";
+
+// R3F builds a deprecated THREE.Clock per Canvas; keep that out of the console.
+filterKnownThreeWarnings();
 
 function seededRandom(seed: number): number {
   const x = Math.sin(seed * 9999) * 10000;

@@ -5,6 +5,10 @@ import { Stars, PerspectiveCamera } from '@react-three/drei';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import styles from './TimeVortex.module.scss';
+import { filterKnownThreeWarnings } from "@/lib/three/console";
+
+// R3F builds a deprecated THREE.Clock per Canvas; keep that out of the console.
+filterKnownThreeWarnings();
 
 const VortexShader = () => {
   const mesh = useRef<THREE.Mesh>(null!);

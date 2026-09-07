@@ -9,6 +9,10 @@ import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import styles from "./ParticleLogo.module.scss";
+import { filterKnownThreeWarnings } from "@/lib/three/console";
+
+// R3F builds a deprecated THREE.Clock per Canvas; keep that out of the console.
+filterKnownThreeWarnings();
 
 function getParticleCount(): number {
   if (typeof window === "undefined") return 1200;

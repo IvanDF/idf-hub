@@ -4,6 +4,10 @@ import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 import ThreeBackground from './ThreeBackground';
 import styles from './GlobalBackground.module.scss';
+import { filterKnownThreeWarnings } from "@/lib/three/console";
+
+// R3F builds a deprecated THREE.Clock per Canvas; keep that out of the console.
+filterKnownThreeWarnings();
 
 /**
  * Full-viewport fixed Three.js canvas that renders the global decorative background scene.

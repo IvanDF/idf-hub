@@ -6,6 +6,10 @@ import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import styles from './LiquidSurface.module.scss';
+import { filterKnownThreeWarnings } from "@/lib/three/console";
+
+// R3F builds a deprecated THREE.Clock per Canvas; keep that out of the console.
+filterKnownThreeWarnings();
 
 const LiquidShader = () => {
   const mesh = useRef<THREE.Mesh>(null!);
