@@ -76,7 +76,7 @@ export const CAREER: CareerStep[] = [
   },
   {
     years: "2023 – 2026",
-    role: "Frontend developer",
+    role: "Frontend developer → Tech Lead",
     place: "Azimut Marketplace, Milano",
     note: "A financial marketplace. Junior in, technical reference out.",
     highlights: [
@@ -141,7 +141,12 @@ export const CAREER: CareerStep[] = [
         "A consistent, scalable user experience across the whole platform",
         "Development workflows simplified by the monorepo migration",
       ],
-      stack: ["Design systems", "Monorepo", "Web Components", "Product strategy"],
+      stack: [
+        "Design systems",
+        "Monorepo",
+        "Web Components",
+        "Product strategy",
+      ],
     },
   },
 ];
