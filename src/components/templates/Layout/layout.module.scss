@@ -255,8 +255,14 @@
 }
 
 .divider {
-  width: $border-hairline;
-  background-color: var(--color-divider);
+  // Baked ink rule instead of a flat 1px line: the asset repeats every 60
+  // units and the wobble's period divides that, so it tiles at any height.
+  // Rasterised once, unlike the feTurbulence filter this replaces.
+  width: 12px;
+  background-image: var(--ink-rule-v);
+  background-repeat: repeat-y;
+  background-position: center;
+  background-size: 12px auto;
   flex-grow: 1;
   margin: $spacing-xl 0;
   opacity: 0.75;
