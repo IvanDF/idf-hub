@@ -112,95 +112,6 @@ export const EASTER_EGG_RESPONSES: Record<string, CommandOutput[]> = {
 };
 
 /** Output lines for the site `help` command. */
-export const HELP_OUTPUT: CommandOutput[] = [
-  { type: "system", content: "── NAVIGATE ──" },
-  {
-    type: "text",
-    content: "home / back",
-    cta: { label: "→ open", cmd: "home" },
-  },
-  {
-    type: "text",
-    content: "lab / work — selected projects",
-    cta: { label: "→ open", cmd: "lab" },
-  },
-  {
-    type: "text",
-    content: "about / me — who is iDF",
-    cta: { label: "→ open", cmd: "about" },
-  },
-  {
-    type: "text",
-    content: "time — time machine",
-    cta: { label: "→ open", cmd: "time" },
-  },
-  { type: "system", content: "── EXPLORE ──" },
-  {
-    type: "text",
-    content: "search [keyword] — find projects",
-    cta: { label: "→ try", cmd: "search shader" },
-  },
-  { type: "text", content: "open [id] — open a project" },
-  { type: "system", content: "── SYSTEM ──" },
-  {
-    type: "text",
-    content: "theme — toggle dark/light",
-    cta: { label: "→ run", cmd: "theme" },
-  },
-  {
-    type: "text",
-    content: "whoami — auth status",
-    cta: { label: "→ run", cmd: "whoami" },
-  },
-  {
-    type: "text",
-    content: "admin — admin panel",
-    cta: { label: "→ open", cmd: "admin" },
-  },
-  { type: "text", content: "logout — sign out" },
-  {
-    type: "text",
-    content: "clear — clear terminal",
-    cta: { label: "→ run", cmd: "clear" },
-  },
-  { type: "system", content: "── FUN ──" },
-  {
-    type: "text",
-    content: "play — arcade: snake + cortex tests",
-    cta: { label: "→ open", cmd: "play" },
-  },
-  {
-    type: "text",
-    content: "brand — identity system + companion",
-    cta: { label: "→ run", cmd: "brand" },
-  },
-  {
-    type: "text",
-    content: "brain — a neuroscience fact + a hidden lab",
-    cta: { label: "→ run", cmd: "brain" },
-  },
-  {
-    type: "text",
-    content: "guide / tour — platform tour",
-    cta: { label: "→ start", cmd: "guide" },
-  },
-  { type: "text", content: "eggs — easter egg tracker" },
-  {
-    type: "text",
-    content: "hint — a nudge toward an undiscovered egg",
-    cta: { label: "→ run", cmd: "hint" },
-  },
-  { type: "text", content: "shortcuts / keys — keyboard shortcuts" },
-  { type: "text", content: "shout — ???" },
-  { type: "system", content: "── DEEP LINKS ──" },
-  { type: "text", content: "Share commands via URL: ?cmd=[command]" },
-  {
-    type: "text",
-    content: "Example: ?cmd=snake — launch snake directly",
-    cta: { label: "→ copy link", cmd: "share snake" },
-  },
-];
-
 /** Output lines for the `guide` / `tour` command. */
 export const GUIDE_OUTPUT: CommandOutput[] = [
   { type: "system", content: "QUICK TOUR" },
@@ -226,6 +137,31 @@ export const GUIDE_OUTPUT: CommandOutput[] = [
     cta: { label: "→ turn it on", cmd: "sound" },
   },
 ];
+
+/**
+ * Output for the `sound` command. First call turns the soundtrack on, later
+ * calls toggle the mute.
+ *
+ * @param wasEnabled - Whether audio was already on before the command ran.
+ * @param wasMuted - Whether it was muted before the command ran.
+ */
+export function buildSoundOutput(
+  wasEnabled: boolean,
+  wasMuted: boolean,
+): CommandOutput[] {
+  if (!wasEnabled) {
+    return [
+      { type: "success", content: "Soundtrack on. It follows the route you are on." },
+      { type: "text", content: "`sound` again to mute." },
+    ];
+  }
+  return [
+    {
+      type: "success",
+      content: wasMuted ? "Unmuted." : "Muted. The music keeps its place.",
+    },
+  ];
+}
 
 /** Output lines for the `brand` / `identity` command. */
 export const BRAND_OUTPUT: CommandOutput[] = [

@@ -209,6 +209,8 @@ export const VALID_COMMANDS = [
   "cortex",
   "hint",
   "career",
+  "about",
+  "me",
   "share",
   "cheers",
 ];

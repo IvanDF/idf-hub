@@ -4,9 +4,10 @@ import { PROJECTS } from "@/data/projects";
 import { useAudio } from "@/context/AudioContext";
 import type React from "react";
 import { useCallback } from "react";
-import { ADMIN_COMMANDS, SHORTCUTS_INFO, VALID_COMMANDS } from "@/lib/terminal/Terminal.constants";
+import { ADMIN_COMMANDS, VALID_COMMANDS } from "@/lib/terminal/Terminal.constants";
 import { PLAY_OUTPUT, buildBrainOutput } from "@/lib/terminal/Terminal.brain";
-import { BRAND_OUTPUT, GUIDE_OUTPUT, HELP_OUTPUT, buildEggsOutput } from "@/lib/terminal/Terminal.data";
+import { BRAND_OUTPUT, buildSoundOutput } from "@/lib/terminal/Terminal.data";
+import { buildInfoOutput } from "@/lib/terminal/Terminal.help";
 import { buildShareOutput } from "@/lib/terminal/Terminal.share";
 import { buildHintOutput, closestCommand } from "@/lib/terminal/Terminal.suggest";
 import type { CommandOutput, HistoryItem } from "@/types/terminal";
@@ -60,52 +61,17 @@ export function useSiteCommands({
     async (cmd: string, args: string[]): Promise<SiteCommandResult> => {
       let outputs: CommandOutput[] = [];
 
+      // Everything that only prints lives in Terminal.help.
+      const info = buildInfoOutput(cmd, args, discoveredEggs);
+      if (info) return { outputs: info, handled: true };
+
       switch (cmd) {
-        case "help":
-        case "?":
-        case "-h":
-          outputs = HELP_OUTPUT;
-          break;
-
-        case "guide":
-        case "tour":
-        case "start":
-          outputs = GUIDE_OUTPUT;
-          break;
-
-        case "eggs":
-        case "easter":
-        case "achievements":
-        case "badges":
-          outputs = buildEggsOutput(discoveredEggs);
-          break;
-
         case "sound":
         case "audio":
         case "music":
-          if (!audioEnabled) {
-            toggleAudio();
-            outputs = [
-              { type: "success", content: "Soundtrack on. It follows the route you are on." },
-              { type: "text", content: "`sound` again to mute." },
-            ];
-          } else {
-            toggleMute();
-            outputs = [
-              {
-                type: "success",
-                content: isMuted ? "Unmuted." : "Muted. The music keeps its place.",
-              },
-            ];
-          }
-          break;
-
-        case "shortcuts":
-        case "keys":
-          outputs = [
-            { type: "system", content: "KEYBOARD SHORTCUTS:" },
-            ...SHORTCUTS_INFO.map((s) => ({ type: "text" as const, content: `  ${s.key.padEnd(20)} - ${s.action}` })),
-          ];
+          outputs = buildSoundOutput(audioEnabled, isMuted);
+          if (audioEnabled) toggleMute();
+          else toggleAudio();
           break;
 
         case "portfolio":
@@ -358,7 +324,7 @@ export function useSiteCommands({
 
       return { outputs, handled: true };
     },
-    [router, toggleTheme, playLightOn, playError, discoveredEggs, setHistory, setIsOpen, setGameActive, getAuthUser, signOut, context],
+    [router, toggleTheme, playLightOn, playError, discoveredEggs, setHistory, setIsOpen, setGameActive, getAuthUser, signOut, context, audioEnabled, isMuted, toggleAudio, toggleMute],
   );
 
   return { handleSiteCommand };
