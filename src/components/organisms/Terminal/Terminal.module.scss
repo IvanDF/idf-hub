@@ -194,6 +194,16 @@
     color: rgba(var(--color-error-rgb), 1);
   }
 
+  // Column output — `brand` draws art beside text, and a wrap at a word
+  // boundary would shear the two apart. Scrolls sideways rather than reflow.
+  &.preLine {
+    display: block;
+    white-space: pre;
+    word-break: normal;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
   &.success {
     color: rgba(var(--color-success-rgb), 1);
   }

@@ -16,7 +16,10 @@ export default function TerminalHistoryItem({ item, onExecuteCommand }: Terminal
         </div>
       )}
       {item.output?.map((out, i) => (
-        <div key={i} className={`${styles.line} ${styles[out.type]}`}>
+        <div
+          key={i}
+          className={`${styles.line} ${styles[out.type]} ${out.pre ? styles.preLine : ""}`}
+        >
           {out.content}
           {out.cta && (
             <button className={styles.ctaBtn} onClick={() => onExecuteCommand(out.cta!.cmd)}>

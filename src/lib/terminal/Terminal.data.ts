@@ -163,24 +163,6 @@ export function buildSoundOutput(
   ];
 }
 
-/** Output lines for the `brand` / `identity` command. */
-export const BRAND_OUTPUT: CommandOutput[] = [
-  { type: "system", content: "── iDF BRAND IDENTITY ──" },
-  { type: "text", content: "DRIVEN BY CURIOSITY." },
-  { type: "text", content: "REFINED THROUGH DESIGN." },
-  { type: "system", content: "── PALETTE ──" },
-  { type: "success", content: "■ Volta   #8b5cf6  primary accent" },
-  { type: "text", content: "■ Lario   #3b82f6  secondary / links" },
-  { type: "text", content: "■ Ink     #111827  dark text / bg" },
-  { type: "text", content: "■ Silk    #fafafa  light bg" },
-  { type: "text", content: "■ Slate   #64748b  muted" },
-  { type: "system", content: "── TYPE ──" },
-  { type: "text", content: "display  Josefin Sans 700  ·  wide tracking" },
-  { type: "text", content: "code     Geist Mono 400    ·  14px base" },
-  { type: "system", content: "── ASSETS ──" },
-  { type: "text", content: "brand — identity, palette, type" },
-];
-
 /** Output lines for the admin `help` command. */
 export const ADMIN_HELP_OUTPUT: CommandOutput[] = [
   { type: "system", content: "┌── admin terminal ──" },

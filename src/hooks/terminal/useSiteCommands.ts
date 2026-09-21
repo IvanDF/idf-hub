@@ -6,7 +6,8 @@ import type React from "react";
 import { useCallback } from "react";
 import { ADMIN_COMMANDS, VALID_COMMANDS } from "@/lib/terminal/Terminal.constants";
 import { PLAY_OUTPUT, buildBrainOutput } from "@/lib/terminal/Terminal.brain";
-import { BRAND_OUTPUT, buildSoundOutput } from "@/lib/terminal/Terminal.data";
+import { buildSoundOutput } from "@/lib/terminal/Terminal.data";
+import { buildBrandOutput } from "@/lib/terminal/brand.data";
 import { buildInfoOutput } from "@/lib/terminal/Terminal.help";
 import { buildShareOutput } from "@/lib/terminal/Terminal.share";
 import { buildHintOutput, closestCommand } from "@/lib/terminal/Terminal.suggest";
@@ -258,7 +259,7 @@ export function useSiteCommands({
 
         case "brand":
         case "identity":
-          outputs = BRAND_OUTPUT;
+          outputs = buildBrandOutput();
           break;
 
         case "brain":
