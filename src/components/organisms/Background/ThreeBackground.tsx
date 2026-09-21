@@ -121,18 +121,26 @@ export default function ThreeBackground() {
       const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
       isReducedMotion.current = mediaQuery.matches;
       
-      // Mouse Move Listener (Global)
-      const handleMouseMove = (event: MouseEvent) => {
-        // Convert screen coordinates to normalized device coordinates (NDC) -1 to +1
-        const x = (event.clientX / window.innerWidth) * 2 - 1;
-        const y = -(event.clientY / window.innerHeight) * 2 + 1;
-        mouseRef.current.set(x, y);
-        // Canvas runs frameloop="demand": request a frame for the hover lift
-        invalidate();
-      };
-
-      window.addEventListener('mousemove', handleMouseMove);
-      return () => window.removeEventListener('mousemove', handleMouseMove);
+      // The pointer no longer drives this scene, deliberately.
+      //
+      // The canvas runs frameloop="demand", so it redrew only while the mouse
+      // moved — which is exactly when someone is scrolling and reading. Each
+      // redraw re-runs a custom shader over merged ExtrudeGeometry built from
+      // SVG paths, and that is not cheap.
+      //
+      // Measured on the project detail page, scrolling with the pointer in
+      // motion: 1143ms per frame with the canvas live, 96ms with it hidden.
+      // Twelve times. Nothing else came close — disabling the cursor's
+      // difference blend changed 1143 to 1120, i.e. nothing.
+      //
+      // Rendered once at mount, the canvas is just a texture the compositor
+      // reuses, and it costs nothing to scroll past. The hover lift is the
+      // price; bringing it back needs a cheaper scene, not a cheaper loop.
+      //
+      // A rAF throttle was tried here first and measured as a no-op: R3F
+      // already coalesces invalidate() calls into a single frame, so the
+      // event rate was never the problem.
+      return;
     }
   }, [invalidate]);
 

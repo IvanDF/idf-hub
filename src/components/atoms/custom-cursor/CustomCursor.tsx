@@ -257,20 +257,22 @@ export default function CustomCursor() {
       if (!target) return;
 
       try {
-        if (
-          target.tagName === "A" ||
-          target.tagName === "BUTTON" ||
-          target.closest("a") ||
-          target.closest("button") ||
-          target.getAttribute("role") === "button" ||
-          getComputedStyle(target).cursor === "pointer"
-        ) {
-          setIsHovering(true);
-        } else {
-          setIsHovering(false);
-        }
+        // Selector checks only. This runs on every mouseover, which fires
+        // each time the pointer crosses an element boundary — constantly over
+        // a page of text. The previous `getComputedStyle(target).cursor` test
+        // forced a synchronous style recalculation on each of those, and it
+        // was reached in the common case: plain content, where every cheaper
+        // check above it has already failed.
+        //
+        // `closest()` walks the ancestor chain against a selector, which the
+        // engine answers from resolved state without flushing style.
+        setIsHovering(
+          Boolean(
+            target.closest('a, button, [role="button"], [data-cursor-pointer]'),
+          ),
+        );
       } catch {
-        // Ignore errors from getComputedStyle on removed elements
+        // Ignore errors from selector matching on removed elements
       }
     };
 

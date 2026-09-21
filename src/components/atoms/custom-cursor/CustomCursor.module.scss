@@ -74,7 +74,10 @@
   background-color: $color-silk-light;
   border-radius: 63% 37% 52% 48% / 45% 62% 38% 55%;
   animation: blob-wave 6s linear infinite;
-  transition: border-radius 0.2s ease;
+  // No transition on border-radius: it would repaint through a blended layer
+  // on every enveloping change, for the same reason the keyframes no longer
+  // animate it.
+  will-change: transform;
 
   // Enveloped (iPadOS pointer): the wave pauses and the shape settles on the
   // adopted control's corner radius, passed down as --blob-radius.
@@ -89,32 +92,24 @@
   }
 }
 
-// Asymmetric radii + continuous rotation read as a liquid wave; the rotation
-// stays linear (angle proportional to progress) and the loop endpoints match
-// so the cycle never pops.
+// Rotation only, deliberately. This animation runs forever, and it sits
+// inside a `mix-blend-mode: difference` parent — which means every frame it
+// repaints also forces the browser to recomposite the whole viewport
+// underneath the cursor.
+//
+// `border-radius` is a paint-level property: interpolating it repainted the
+// blob on every single frame, for the life of the page, blend included. That
+// is what pinned Safari's GPU process at 900%+ CPU while the page sat still.
+// `transform` is composited on the GPU and costs effectively nothing.
+//
+// The asymmetric radius stays — it is just fixed now instead of morphing, and
+// spinning an asymmetric shape still reads as a liquid wobble.
 @keyframes blob-wave {
-  0% {
-    border-radius: 63% 37% 52% 48% / 45% 62% 38% 55%;
+  from {
     transform: rotate(0deg);
   }
 
-  20% {
-    border-radius: 40% 60% 65% 35% / 58% 42% 60% 40%;
-    transform: rotate(72deg);
-  }
-
-  45% {
-    border-radius: 55% 45% 38% 62% / 64% 36% 48% 52%;
-    transform: rotate(162deg);
-  }
-
-  70% {
-    border-radius: 36% 64% 58% 42% / 40% 58% 35% 65%;
-    transform: rotate(252deg);
-  }
-
-  100% {
-    border-radius: 63% 37% 52% 48% / 45% 62% 38% 55%;
+  to {
     transform: rotate(360deg);
   }
 }
