@@ -1,4 +1,3 @@
-import Text from "@/components/atoms/text";
 import type { Project } from "@/types/project";
 import { ExternalLink } from "lucide-react";
 import styles from "./ProjectDetail.module.scss";
@@ -50,11 +49,13 @@ export default function ProjectFooter({ project }: ProjectFooterProps) {
 
   return (
     <footer className={styles.footer}>
+      {/* Plain spans: .stackTag sets its own type, and Text's base class
+          resets padding at equal specificity, flattening the chip. */}
       <div className={styles.stack}>
         {stack.map((t) => (
-          <Text as="span" key={t} variant="label" className={styles.stackTag}>
+          <span key={t} className={styles.stackTag}>
             {t}
-          </Text>
+          </span>
         ))}
       </div>
 

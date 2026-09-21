@@ -26,22 +26,19 @@ export default function ProjectHeader({
 }: ProjectHeaderProps) {
   return (
     <header className={styles.header}>
+      {/* Plain spans, not <Text>: these chips carry their own type styles, and
+          Text's base class resets padding to 0 at the same specificity — so
+          the cascade decided by source order and the chips lost their inset. */}
       <div className={styles.meta}>
-        <Text as="span" variant="label" className={styles.metaChip}>
-          {kind}
-        </Text>
-        <Text as="span" variant="label" className={styles.metaSep}>
+        <span className={styles.metaChip}>{kind}</span>
+        <span className={styles.metaSep} aria-hidden>
           /
-        </Text>
+        </span>
         <time className={styles.metaYear} dateTime={project.date ?? project.year}>
           {project.year}
         </time>
         <ProjectAge date={project.date ?? project.year} from={archiveFrom} />
-        {project.status === "live" && (
-          <Text as="span" variant="label" className={styles.metaLive}>
-            live
-          </Text>
-        )}
+        {project.status === "live" && <span className={styles.metaLive}>live</span>}
       </div>
 
       <Text as="h1" variant="h1" className={styles.title}>
