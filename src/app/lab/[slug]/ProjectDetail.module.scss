@@ -9,8 +9,14 @@
   position: relative;
   z-index: 10;
   color: var(--color-text);
-  // Carved wobble on the in-flow page root (see layout.module.scss .main)
-  filter: var(--ink);
+  // No ink filter on this root, deliberately. --ink is feTurbulence +
+  // feDisplacementMap: per-pixel Perlin noise, not GPU-accelerated, over a
+  // filter region sized in percentages of the element. On a page root that
+  // means the cost scales with page height, and these pages are long. It
+  // pinned Safari's GPU process at ~566% CPU and dropped the layer outright
+  // on WebKit, which is the "content disappears while scrolling" bug.
+  // The wobble stays on the fixed chrome, where the filtered area is small
+  // and static.
 
   @include bp-up($breakpoint-xl) {
     padding: $spacing-xxl $spacing-xl;
@@ -126,9 +132,20 @@
   font-size: $font-size-2xs;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-lg;
-  color: var(--color-text);
-  opacity: 0.35;
   white-space: nowrap;
+  border: $border-hairline solid var(--color-divider);
+  border-radius: var(--route-filter-radius, #{$radius-full});
+  padding: $spacing-2xs $spacing-xs;
+  color: var(--color-text);
+  opacity: 0.5;
+
+  // Work made since the LLM line gets the accent; everything before it stays
+  // neutral, so the chip reads as a date stamp rather than a badge of merit.
+  &[data-era="post-LLM"] {
+    color: var(--color-accent);
+    border-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+    opacity: 0.9;
+  }
 }
 
 .metaLive {
@@ -635,7 +652,7 @@
   margin: 0;
 }
 
-// ── Design template: artwork on an in-browser product shell ─────────────────
+// ── Design template: supplied product mockups ───────────────────────────────
 .mockupSection {
   margin-bottom: $spacing-2xl;
 }
@@ -654,78 +671,23 @@
   gap: $spacing-md;
 }
 
-// Stage is the positioning context: the shell fills it, the print area is
-// placed against the same box so the artwork lands where it would be printed.
-.mockupStageTee,
-.mockupStagePhone {
+// Neutral stage for a supplied mockup image. The aspect ratio follows the
+// product so frames line up in the grid; nothing about the product is drawn
+// here — the image already is the mockup.
+.mockupStage {
   position: relative;
   width: 100%;
-  color: var(--color-text);
+  aspect-ratio: 4 / 5;
+
+  &[data-kind="phone-case"] {
+    aspect-ratio: 1 / 2;
+  }
 }
 
-.mockupStageTee {
-  aspect-ratio: 400 / 440;
-}
-
-.mockupStagePhone {
-  aspect-ratio: 260 / 520;
-}
-
-.shell {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  // Lifts the garment off the page without a drop shadow on the artwork.
-  // Themed off --color-text so a white shirt still separates in light mode.
-  filter: drop-shadow(
-    0 8px 18px color-mix(in srgb, var(--color-text) 22%, transparent)
-  );
-}
-
-// Print areas are expressed as percentages of the stage, which shares the
-// shell's viewBox. The garment body runs 104→296 across and 138→412 down of
-// 400×440, so every box below stays inside those bounds — a print must never
-// climb onto the collar or run off a sleeve.
-
-// Chest graphic: centred, high on the body, about half the body width.
-.printAreaTeeChest {
-  position: absolute;
-  top: 37%;
-  left: 37%;
-  width: 26%;
-  height: 24%;
-}
-
-// Back print: a wordmark spans most of the body, and sits a little lower.
-.printAreaTeeFull {
-  position: absolute;
-  top: 38%;
-  left: 27%;
-  width: 46%;
-  height: 26%;
-}
-
-// Case print: the full back of the shell, inside the shell's own radius.
-.printAreaPhone {
-  position: absolute;
-  top: 2.5%;
-  left: 6.5%;
-  width: 87%;
-  height: 95%;
-  border-radius: $radius-lg;
-  overflow: hidden;
-}
-
-// A chest graphic is a discrete shape on fabric: never crop it.
-.printImage {
+// contain, always: a mockup is a finished composition and cropping it would
+// cut the product out of its own frame.
+.mockupImage {
   object-fit: contain;
-}
-
-// A case print wraps the whole shell and is trimmed at the edges in
-// production, so cropping to fill is what actually happens to it.
-.printImagePhone {
-  object-fit: cover;
 }
 
 .mockupCaption {
@@ -735,62 +697,6 @@
   letter-spacing: $letter-spacing-lg;
   color: var(--color-text);
   opacity: 0.45;
-}
-
-.colorways {
-  display: flex;
-  align-items: center;
-  gap: $spacing-md;
-  margin-top: $spacing-xl;
-  padding-top: $spacing-lg;
-  border-top: $border-hairline solid var(--color-divider);
-}
-
-.colorwaysLabel {
-  font-family: $font-family-mono;
-  font-size: $font-size-2xs;
-  text-transform: uppercase;
-  letter-spacing: $letter-spacing-wide;
-  color: var(--color-text);
-  opacity: 0.35;
-}
-
-.swatches {
-  display: flex;
-  gap: $spacing-xs;
-}
-
-// Full 44px touch target around a smaller visible chip.
-.swatch {
-  width: $touch-target-min;
-  height: $touch-target-min;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  border-radius: $radius-full;
-
-  &:focus-visible {
-    outline: $border-base solid var(--color-accent);
-    outline-offset: calc(-1 * #{$spacing-2xs});
-  }
-}
-
-.swatchChip {
-  display: block;
-  width: $spacing-lg;
-  height: $spacing-lg;
-  border-radius: $radius-full;
-  border: $border-hairline solid var(--color-divider);
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
-}
-
-.swatchActive .swatchChip {
-  transform: scale(1.15);
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-accent);
 }
 
 // ── Live embed (CodePen) — the work shown working, not screenshotted ─────────

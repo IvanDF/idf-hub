@@ -9,8 +9,9 @@
   display: flex;
   flex-direction: column;
   gap: $spacing-xl;
-  // Carved wobble on the in-flow page root (see layout.module.scss .main)
-  filter: var(--ink);
+  // No ink filter on this root: same reason as the project detail page. An
+  // feTurbulence filter region scales with the element, so a long scrolling
+  // page pays for it on every repaint.
 }
 
 .backLink {

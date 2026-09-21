@@ -964,27 +964,21 @@ export const PROJECTS: Project[] = [
       "Need a playful, minimalist design for custom apparel that stands out while remaining timeless.",
     solution:
       "Designed a clever visual pun combining typography and illustration in Affinity Designer, optimized for garment printing.",
-    mockup: {
-      kind: "tee",
-      colorways: [
-        { label: "Black", value: "#151515" },
-        { label: "White", value: "#f2f0ea" },
-        { label: "Navy", value: "#1c2b45" },
-      ],
-      frames: [
-        {
-          src: "/projects/merchandise/gin-tonic/gin-tonic-front.png",
-          label: "Front",
-          placement: "chest",
-        },
-        {
-          src: "/projects/merchandise/gin-tonic/gin-tonic-back.png",
-          label: "Back",
-          placement: "full",
-        },
-      ],
-    },
+    // `mockup` intentionally absent: the files below are the flat print
+    // artwork, not photographs or renders of the finished garment. Add a
+    // `mockup` block once real product images exist — the template already
+    // renders it above the brief.
     plates: [
+      {
+        src: "/projects/merchandise/gin-tonic/gin-tonic-front.png",
+        label: "Front print",
+        note: "The chest graphic as it goes to the screen — transparent, no background to knock out.",
+      },
+      {
+        src: "/projects/merchandise/gin-tonic/gin-tonic-back.png",
+        label: "Back print",
+        note: "The wordmark that carries the pun, sized for the full width of the back.",
+      },
       {
         src: "/projects/merchandise/gin-tonic/gin-tonic-illustration.png",
         label: "Filled illustration",
@@ -1033,20 +1027,18 @@ export const PROJECTS: Project[] = [
       "Create multiple custom phone case designs on commission with commercial production requirements.",
     solution:
       "Developed a collection of diverse graphic designs in Affinity Designer, optimized for phone case printing and client approval workflow.",
-    mockup: {
-      kind: "phone-case",
-      frames: [
-        {
-          src: "/projects/merchandise/phone-covers/stranger-things-final.png",
-          label: "Stranger Things — final",
-        },
-        {
-          src: "/projects/merchandise/phone-covers/himym-cover.jpg",
-          label: "How I Met Your Mother",
-        },
-      ],
-    },
+    // `mockup` intentionally absent — see the note on the Gin-Tonic project.
     plates: [
+      {
+        src: "/projects/merchandise/phone-covers/stranger-things-final.png",
+        label: "Stranger Things — final",
+        note: "The approved artwork, as delivered for printing.",
+      },
+      {
+        src: "/projects/merchandise/phone-covers/himym-cover.jpg",
+        label: "How I Met Your Mother",
+        note: "Second commission in the set, a different register entirely.",
+      },
       {
         src: "/projects/merchandise/phone-covers/stranger-things-variant-01.png",
         label: "Variant 01",

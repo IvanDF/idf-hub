@@ -10,19 +10,11 @@ interface ProjectAgeProps {
   from: number;
 }
 
-const YEAR_WORDS = [
-  "",
-  "a year",
-  "two years",
-  "three years",
-  "four years",
-  "five years",
-  "six years",
-  "seven years",
-  "eight years",
-  "nine years",
-  "ten years",
-];
+/**
+ * ChatGPT's public launch, the moment the tooling around this work changed.
+ * Anything started before it was built without an LLM in the loop.
+ */
+const LLM_ERA_START = "2022-11";
 
 /** Months between a `YYYY-MM` string and a reference date. */
 function monthsSince(date: string, now: Date): number {
@@ -33,21 +25,16 @@ function monthsSince(date: string, now: Date): number {
   return (now.getFullYear() - year) * 12 + (now.getMonth() - monthIndex);
 }
 
-/** Turns a month count into the phrase a person would actually say. */
-function relativeLabel(months: number): string {
-  if (months <= 0) return "this month";
-  if (months === 1) return "last month";
-  if (months < 12) return `${months} months ago`;
-
-  const years = Math.round(months / 12);
-  const word = YEAR_WORDS[years] ?? `${years} years`;
-  return `${word} ago`;
+/** Which side of the LLM line a project falls on. */
+function eraLabel(date: string): string {
+  const normalised = date.length === 4 ? `${date}-06` : date;
+  return normalised < LLM_ERA_START ? "pre-LLM" : "post-LLM";
 }
 
 /**
- * Places a project on the archive's timeline and says how long ago it was.
- * The distance is measured in the browser rather than at build time, so a
- * statically generated page never goes stale about its own age.
+ * Places a project on the archive's timeline and marks which side of the LLM
+ * line it falls on. The position is measured in the browser rather than at
+ * build time, so a statically generated page never goes stale.
  *
  * @param date - Project date as `YYYY-MM` or `YYYY`.
  * @param from - First year of the archive, used as the track's left edge.
@@ -71,6 +58,7 @@ export default function ProjectAge({ date, from }: ProjectAgeProps) {
   const span = monthsSince(`${from}-01`, now);
   // Oldest work sits at the left edge, today at the right.
   const position = span > 0 ? 1 - Math.min(Math.max(months / span, 0), 1) : 1;
+  const era = eraLabel(date);
 
   return (
     <span className={styles.age}>
@@ -82,7 +70,9 @@ export default function ProjectAge({ date, from }: ProjectAgeProps) {
           style={{ left: `${position * 100}%` }}
         />
       </span>
-      <span className={styles.ageLabel}>{relativeLabel(months)}</span>
+      <span className={styles.ageLabel} data-era={era}>
+        {era}
+      </span>
     </span>
   );
 }

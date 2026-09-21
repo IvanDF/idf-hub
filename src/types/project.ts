@@ -65,20 +65,13 @@ export interface ProjectPlate {
 export type MockupKind = "tee" | "phone-case";
 
 /**
- * Where on the garment a print sits. A chest graphic and a back wordmark are
- * different sizes in reality, so they are different sizes here too.
+ * Finished product mockups, supplied as images. Nothing is drawn in code —
+ * these are the designer's own renders or photographs of the printed piece.
  */
-export type PrintPlacement = "chest" | "full";
-
-/** Artwork presented on an in-browser product mockup instead of flat. */
 export interface ProjectMockup {
+  /** Drives the frame's aspect ratio only. */
   kind: MockupKind;
-  /**
-   * Garment/shell colourways the artwork was produced for. The first one is
-   * the default; the viewer can switch between them.
-   */
-  colorways?: { label: string; value: string }[];
-  frames: { src: string; label: string; placement?: PrintPlacement }[];
+  frames: { src: string; label: string }[];
 }
 
 export interface Project {
