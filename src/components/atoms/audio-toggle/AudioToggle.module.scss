@@ -25,3 +25,101 @@
     opacity: 0.6;
   }
 }
+
+// ── First-visit nudge ────────────────────────────────────────────────────────
+// Replaces a modal whose overlay swallowed pointer events across the whole
+// page until it was answered.
+
+.nudgeAnchor {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+// Transform and opacity only — both composited. An earlier animation in this
+// codebase keyframed border-radius inside a blended layer and repainted the
+// viewport every frame for the life of the page.
+@keyframes audio-beckon {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+}
+
+.beckoning {
+  animation: audio-beckon 1.8s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@keyframes audio-bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bubble {
+  position: absolute;
+  bottom: calc(100% + #{$spacing-sm});
+  left: 0;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  white-space: nowrap;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-sm;
+  color: var(--color-text);
+  background: var(--color-card-bg, var(--color-bg));
+  border: $border-hairline solid var(--color-text);
+  border-radius: var(--route-card-radius, #{$radius-lg});
+  padding: $spacing-xs $spacing-sm;
+  box-shadow: var(--depth-sm);
+  animation: audio-bubble-in 0.25s ease both;
+
+  // The tail, pointing down at the control it is talking about.
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: $spacing-md;
+    width: $spacing-xs;
+    height: $spacing-xs;
+    background: var(--color-card-bg, var(--color-bg));
+    border-right: $border-hairline solid var(--color-text);
+    border-bottom: $border-hairline solid var(--color-text);
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+.bubbleDismiss {
+  all: unset;
+  cursor: pointer;
+  line-height: 1;
+  padding: $spacing-2xs;
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+  }
+}

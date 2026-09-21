@@ -220,6 +220,11 @@ export const GUIDE_OUTPUT: CommandOutput[] = [
     content: "4) theme — toggle dark/light",
     cta: { label: "→ explore lab", cmd: "lab" },
   },
+  {
+    type: "text",
+    content: "5) sound — the site has a soundtrack, off by default",
+    cta: { label: "→ turn it on", cmd: "sound" },
+  },
 ];
 
 /** Output lines for the `brand` / `identity` command. */

@@ -3,6 +3,7 @@
 import Button from "@/components/atoms/button";
 import { useAudio } from "@/context/AudioContext";
 import styles from "./AudioToggle.module.scss";
+import { useAudioNudge } from "./useAudioNudge";
 
 interface AudioToggleProps {
   className?: string;
@@ -31,18 +32,41 @@ export default function AudioToggle({ className }: AudioToggleProps) {
   };
 
   const isActuallyPlaying = isPlaying || isStarting;
+  const nudge = useAudioNudge(isEnabled);
 
   if (!isEnabled) {
     return (
-      <Button
-        variant="ghost"
-        stamp={false}
-        onClick={handleMainClick}
-        className={className}
-        aria-label="Enable audio"
+      <span
+        className={`${styles.nudgeAnchor} ${className || ""}`}
+        onPointerEnter={nudge.reveal}
       >
-        PLAY
-      </Button>
+        <Button
+          variant="ghost"
+          stamp={false}
+          onClick={() => {
+            nudge.dismiss();
+            handleMainClick();
+          }}
+          className={nudge.pulsing ? styles.beckoning : ""}
+          aria-label="Enable audio"
+        >
+          PLAY
+        </Button>
+
+        {nudge.visible && (
+          <span className={styles.bubble} role="status">
+            This place has a soundtrack.
+            <button
+              type="button"
+              className={styles.bubbleDismiss}
+              onClick={nudge.dismiss}
+              aria-label="Dismiss"
+            >
+              ×
+            </button>
+          </span>
+        )}
+      </span>
     );
   }
 

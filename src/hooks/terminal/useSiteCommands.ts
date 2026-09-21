@@ -1,6 +1,7 @@
 "use client";
 
 import { PROJECTS } from "@/data/projects";
+import { useAudio } from "@/context/AudioContext";
 import type React from "react";
 import { useCallback } from "react";
 import { ADMIN_COMMANDS, SHORTCUTS_INFO, VALID_COMMANDS } from "@/lib/terminal/Terminal.constants";
@@ -51,6 +52,10 @@ export function useSiteCommands({
 }: UseSiteCommandsOptions): {
   handleSiteCommand: (cmd: string, args: string[]) => Promise<SiteCommandResult>;
 } {
+  // Read straight from the provider rather than threading a callback down
+  // through useTerminalCommands: this hook already sits inside AudioProvider.
+  const { isEnabled: audioEnabled, toggleAudio, toggleMute, isMuted } = useAudio();
+
   const handleSiteCommand = useCallback(
     async (cmd: string, args: string[]): Promise<SiteCommandResult> => {
       let outputs: CommandOutput[] = [];
@@ -73,6 +78,26 @@ export function useSiteCommands({
         case "achievements":
         case "badges":
           outputs = buildEggsOutput(discoveredEggs);
+          break;
+
+        case "sound":
+        case "audio":
+        case "music":
+          if (!audioEnabled) {
+            toggleAudio();
+            outputs = [
+              { type: "success", content: "Soundtrack on. It follows the route you are on." },
+              { type: "text", content: "`sound` again to mute." },
+            ];
+          } else {
+            toggleMute();
+            outputs = [
+              {
+                type: "success",
+                content: isMuted ? "Unmuted." : "Muted. The music keeps its place.",
+              },
+            ];
+          }
           break;
 
         case "shortcuts":
