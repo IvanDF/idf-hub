@@ -32,8 +32,15 @@ function matchesGroup(p: Project, group: FilterGroup): boolean {
   return false;
 }
 
-const LIVE = PROJECTS.filter((p) => p.status === "live");
-const ARCHIVED = PROJECTS.filter((p) => p.status !== "live");
+/**
+ * Newest first, by the precise date where there is one. The list numbers its
+ * rows, so it has to run in an order those numbers actually mean something in.
+ */
+const byNewestFirst = (a: Project, b: Project) =>
+  (b.date ?? `${b.year}-06`).localeCompare(a.date ?? `${a.year}-06`);
+
+const LIVE = PROJECTS.filter((p) => p.status === "live").sort(byNewestFirst);
+const ARCHIVED = PROJECTS.filter((p) => p.status !== "live").sort(byNewestFirst);
 
 const VIEW_TABS: { view: View; label: string }[] = [
   { view: "career", label: "The Path" },

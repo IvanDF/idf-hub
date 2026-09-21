@@ -29,7 +29,11 @@
   color: var(--color-text);
   opacity: 0.45;
   text-decoration: none;
-  margin-bottom: $spacing-2xl;
+  // Vertical padding rather than height: the 10px label alone gave a 14px-tall
+  // tap target. The margin below is reduced by the same amount so the padding
+  // buys reach without adding visible space.
+  padding: $spacing-md 0;
+  margin-bottom: $spacing-xl;
   transition: opacity 0.15s ease;
 
   &:hover { opacity: 1; }
@@ -74,6 +78,57 @@
   font-size: $font-size-xs;
   color: var(--color-text);
   opacity: 0.4;
+}
+
+// ── Age marker — where this sits on the archive, and how long ago ────────────
+.age {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  animation: age-in 0.4s ease both;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes age-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ageTrack {
+  position: relative;
+  display: block;
+  width: 72px;
+  height: $border-hairline;
+  background: var(--color-text);
+  opacity: 0.25;
+
+  @include mobile {
+    width: 48px;
+  }
+}
+
+.ageDot {
+  position: absolute;
+  top: 50%;
+  width: $spacing-2xs;
+  height: $spacing-2xs;
+  margin-left: calc(-1 * #{$spacing-2xs} / 2);
+  transform: translateY(-50%);
+  border-radius: $radius-full;
+  background: var(--color-accent);
+}
+
+.ageLabel {
+  font-family: $font-family-mono;
+  font-size: $font-size-2xs;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-lg;
+  color: var(--color-text);
+  opacity: 0.35;
+  white-space: nowrap;
 }
 
 .metaLive {
@@ -305,6 +360,437 @@
   transition: opacity 0.15s ease;
 
   &:hover { opacity: 1; }
+}
+
+// ── Section furniture, shared by every template ──────────────────────────────
+.sectionHead {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-xl;
+}
+
+.sectionTitle {
+  font-family: $font-family-primary;
+  font-weight: 800;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-tighter;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.sectionIntro {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  line-height: 1.6;
+  color: var(--color-text);
+  opacity: 0.5;
+  margin: 0;
+  max-width: 56ch;
+}
+
+// ── Spec bar — role, duration, status, print specs ──────────────────────────
+.specBar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: $spacing-lg;
+  margin: 0 0 $spacing-2xl;
+  padding: $spacing-lg 0;
+  border-top: $border-hairline solid var(--color-divider);
+  border-bottom: $border-hairline solid var(--color-divider);
+}
+
+.spec {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xs;
+  min-width: 0;
+}
+
+.specLabel {
+  font-family: $font-family-mono;
+  font-size: $font-size-2xs;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+  color: var(--color-text);
+  opacity: 0.35;
+}
+
+.specValue {
+  font-family: $font-family-primary;
+  font-weight: 600;
+  font-size: $font-size-base;
+  line-height: 1.35;
+  color: var(--color-text);
+  opacity: 0.85;
+  margin: 0;
+}
+
+// ── Code template: the decision log ─────────────────────────────────────────
+.decisions {
+  margin-bottom: $spacing-2xl;
+}
+
+.decisionList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  // Counters instead of an ordered-list marker: the number is set in mono and
+  // sits in the gutter, which the native marker cannot do.
+  counter-reset: decision;
+}
+
+.decision {
+  counter-increment: decision;
+  position: relative;
+  padding: $spacing-lg 0 $spacing-lg $spacing-2xl;
+  border-top: $border-hairline solid var(--color-divider);
+
+  &::before {
+    content: counter(decision, decimal-leading-zero);
+    position: absolute;
+    top: calc(#{$spacing-lg} + 2px);
+    left: 0;
+    font-family: $font-family-mono;
+    font-size: $font-size-xs;
+    letter-spacing: $letter-spacing-lg;
+    color: var(--color-accent);
+    opacity: 0.6;
+  }
+
+  @include mobile {
+    padding-left: $spacing-xl;
+  }
+}
+
+.decisionChoice {
+  font-family: $font-family-primary;
+  font-weight: 700;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  line-height: 1.3;
+  letter-spacing: $letter-spacing-tighter;
+  color: var(--color-text);
+  margin: 0 0 $spacing-sm;
+  max-width: 52ch;
+}
+
+.decisionWhy {
+  font-family: $font-family-mono;
+  font-size: clamp(0.8125rem, 1.4vw, 0.9375rem);
+  line-height: 1.7;
+  color: var(--color-text);
+  opacity: 0.75;
+  margin: 0;
+  max-width: 68ch;
+}
+
+.decisionTradeoff {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: $spacing-xs;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  line-height: 1.65;
+  color: var(--color-text);
+  opacity: 0.55;
+  margin: $spacing-md 0 0;
+  padding-left: $spacing-md;
+  border-left: $border-base solid color-mix(in srgb, var(--color-accent) 35%, transparent);
+  max-width: 64ch;
+}
+
+.tradeoffTag {
+  font-size: $font-size-2xs;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+  color: var(--color-accent);
+  opacity: 0.9;
+}
+
+.outcome {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-2xl;
+  padding-top: $spacing-lg;
+  border-top: $border-hairline solid var(--color-divider);
+}
+
+// ── Craft / lab templates: what the thing actually does ─────────────────────
+.moves {
+  margin-bottom: $spacing-2xl;
+}
+
+.moveList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.move {
+  display: grid;
+  grid-template-columns: $spacing-lg 1fr;
+  align-items: baseline;
+  gap: $spacing-sm;
+}
+
+.moveMark {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  color: var(--color-accent);
+  opacity: 0.7;
+}
+
+.moveText {
+  font-family: $font-family-mono;
+  font-size: clamp(0.8125rem, 1.4vw, 0.9375rem);
+  line-height: 1.65;
+  color: var(--color-text);
+  opacity: 0.8;
+  max-width: 64ch;
+}
+
+.experiment {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+  margin-bottom: $spacing-2xl;
+}
+
+.experimentBlock {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+// ── Plates — the artefacts behind a composed piece ──────────────────────────
+.plates {
+  margin-bottom: $spacing-2xl;
+}
+
+.plateList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: $spacing-xl;
+}
+
+.plate {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.plateFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: $border-hairline solid var(--color-divider);
+  border-radius: $radius-md;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.plateImg {
+  object-fit: cover;
+}
+
+.plateBody {
+  display: grid;
+  grid-template-columns: $spacing-lg 1fr;
+  gap: $spacing-xs;
+}
+
+.plateNum {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-lg;
+  color: var(--color-accent);
+  opacity: 0.6;
+}
+
+.plateLabel {
+  font-family: $font-family-primary;
+  font-weight: 700;
+  font-size: $font-size-base;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-sm;
+  color: var(--color-text);
+  margin: 0 0 $spacing-2xs;
+}
+
+.plateNote {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  line-height: 1.6;
+  color: var(--color-text);
+  opacity: 0.55;
+  margin: 0;
+}
+
+// ── Design template: artwork on an in-browser product shell ─────────────────
+.mockupSection {
+  margin-bottom: $spacing-2xl;
+}
+
+.mockupGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: $spacing-xl;
+}
+
+.mockup {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+// Stage is the positioning context: the shell fills it, the print area is
+// placed against the same box so the artwork lands where it would be printed.
+.mockupStageTee,
+.mockupStagePhone {
+  position: relative;
+  width: 100%;
+  color: var(--color-text);
+}
+
+.mockupStageTee {
+  aspect-ratio: 400 / 440;
+}
+
+.mockupStagePhone {
+  aspect-ratio: 260 / 520;
+}
+
+.shell {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  // Lifts the garment off the page without a drop shadow on the artwork.
+  // Themed off --color-text so a white shirt still separates in light mode.
+  filter: drop-shadow(
+    0 8px 18px color-mix(in srgb, var(--color-text) 22%, transparent)
+  );
+}
+
+// Print areas are expressed as percentages of the stage, which shares the
+// shell's viewBox. The garment body runs 104→296 across and 138→412 down of
+// 400×440, so every box below stays inside those bounds — a print must never
+// climb onto the collar or run off a sleeve.
+
+// Chest graphic: centred, high on the body, about half the body width.
+.printAreaTeeChest {
+  position: absolute;
+  top: 37%;
+  left: 37%;
+  width: 26%;
+  height: 24%;
+}
+
+// Back print: a wordmark spans most of the body, and sits a little lower.
+.printAreaTeeFull {
+  position: absolute;
+  top: 38%;
+  left: 27%;
+  width: 46%;
+  height: 26%;
+}
+
+// Case print: the full back of the shell, inside the shell's own radius.
+.printAreaPhone {
+  position: absolute;
+  top: 2.5%;
+  left: 6.5%;
+  width: 87%;
+  height: 95%;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+// A chest graphic is a discrete shape on fabric: never crop it.
+.printImage {
+  object-fit: contain;
+}
+
+// A case print wraps the whole shell and is trimmed at the edges in
+// production, so cropping to fill is what actually happens to it.
+.printImagePhone {
+  object-fit: cover;
+}
+
+.mockupCaption {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-lg;
+  color: var(--color-text);
+  opacity: 0.45;
+}
+
+.colorways {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  margin-top: $spacing-xl;
+  padding-top: $spacing-lg;
+  border-top: $border-hairline solid var(--color-divider);
+}
+
+.colorwaysLabel {
+  font-family: $font-family-mono;
+  font-size: $font-size-2xs;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+  color: var(--color-text);
+  opacity: 0.35;
+}
+
+.swatches {
+  display: flex;
+  gap: $spacing-xs;
+}
+
+// Full 44px touch target around a smaller visible chip.
+.swatch {
+  width: $touch-target-min;
+  height: $touch-target-min;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: $radius-full;
+
+  &:focus-visible {
+    outline: $border-base solid var(--color-accent);
+    outline-offset: calc(-1 * #{$spacing-2xs});
+  }
+}
+
+.swatchChip {
+  display: block;
+  width: $spacing-lg;
+  height: $spacing-lg;
+  border-radius: $radius-full;
+  border: $border-hairline solid var(--color-divider);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.swatchActive .swatchChip {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-accent);
 }
 
 // ── Live embed (CodePen) — the work shown working, not screenshotted ─────────
