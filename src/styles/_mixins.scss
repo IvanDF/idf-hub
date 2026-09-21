@@ -133,3 +133,42 @@
   @else if $level == 'h6' { @include heading-h6; }
   @else { @include text-body; }
 }
+
+
+// ── Carved ink ───────────────────────────────────────────────────────────────
+// Baked border assets from scripts/generate-ink-frames.mjs. These replace the
+// old `filter: url(#idf-ink-wobble)`, which was feTurbulence evaluated per
+// composite and held Safari's GPU process at 600% CPU.
+//
+// border-image ignores border-radius — the asset carries the corner shape, cut
+// to match --route-card-radius. Do not also set a radius on the element.
+
+/// Hand-cut frame for cards, panels and media.
+/// @param {Length} $band - how far the drawing reaches in from the edge.
+@mixin ink-frame($band: 10px) {
+  border: $border-base solid transparent;
+  // Interpolated: with a variable operand Sass reads `20 / $band` as division
+  // and emits calc(4/1px). Interpolation keeps the slash a separator.
+  border-image: var(--ink-frame) #{20} / #{$band} round;
+}
+
+/// Half-amplitude frame for chips, controls and anything next to text.
+@mixin ink-frame-fine($band: 5px) {
+  border: $border-hairline solid transparent;
+  border-image: var(--ink-frame-fine) #{20} / #{$band} round;
+}
+
+/// Horizontal rule drawn as ink. Expects a positioned parent; place with
+/// `top`/`bottom: -6px` so the stroke lands where a border would have.
+@mixin ink-edge($fine: false) {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background-image: if($fine, var(--ink-rule-fine), var(--ink-rule));
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: auto 12px;
+  pointer-events: none;
+}

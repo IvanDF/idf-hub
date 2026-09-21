@@ -92,6 +92,9 @@ body.glitch-active {
   --ink-frame: url("/assets/ink/frame-light.svg");
   --ink-rule: url("/assets/ink/rule-light.svg");
   --ink-rule-v: url("/assets/ink/rule-v-light.svg");
+  --ink-frame-fine: url("/assets/ink/frame-fine-light.svg");
+  --ink-rule-fine: url("/assets/ink/rule-fine-light.svg");
+  --ink-rule-v-fine: url("/assets/ink/rule-v-fine-light.svg");
 }
 
 [data-theme="dark"] {
@@ -99,6 +102,9 @@ body.glitch-active {
   --ink-frame: url("/assets/ink/frame-dark.svg");
   --ink-rule: url("/assets/ink/rule-dark.svg");
   --ink-rule-v: url("/assets/ink/rule-v-dark.svg");
+  --ink-frame-fine: url("/assets/ink/frame-fine-dark.svg");
+  --ink-rule-fine: url("/assets/ink/rule-fine-dark.svg");
+  --ink-rule-v-fine: url("/assets/ink/rule-v-fine-dark.svg");
   --color-bg: #{$color-bg-dark};
   --color-text: #{$color-text-dark};
   --color-accent: #{$color-accent-dark};
@@ -248,11 +254,12 @@ canvas {
   border-image: var(--ink-frame) 20 / 10px round;
 }
 
-/* Same frame for controls and chips, where a 10px band would reach across the
-   padding and sit under the label. */
+/* Same frame at half amplitude, for controls and chips — beside text the full
+   wobble competes with the letterforms. The narrower band also keeps the
+   drawing off the label. */
 .ink-frame-sm {
   border: $border-hairline solid transparent;
-  border-image: var(--ink-frame) 20 / 5px round;
+  border-image: var(--ink-frame-fine) 20 / 5px round;
 }
 
 /* Hand-cut horizontal rule, in place of a 1px divider. The asset repeats every

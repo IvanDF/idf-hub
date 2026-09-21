@@ -263,6 +263,9 @@
   background-repeat: repeat-y;
   background-position: center;
   background-size: 12px auto;
+  // The stroke runs down the middle of a 12px band, so the band has to be
+  // centred or the line sits off to one side of the rail.
+  align-self: center;
   flex-grow: 1;
   margin: $spacing-xl 0;
   opacity: 0.75;

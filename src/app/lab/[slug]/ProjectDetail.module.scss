@@ -46,10 +46,17 @@
 }
 
 // ── Header ────────────────────────────────────────────────────────────────────
+// The structural rules on this page are drawn with the baked ink asset rather
+// than a flat border — see @mixin ink-edge in _mixins.scss.
 .header {
-  border-bottom: $border-base solid var(--color-text);
+  position: relative;
   padding-bottom: $spacing-xl;
   margin-bottom: $spacing-2xl;
+
+  &::after {
+    @include ink-edge;
+    bottom: -6px;
+  }
 }
 
 .meta {
@@ -65,8 +72,7 @@
   font-size: $font-size-xs;
   text-transform: uppercase;
   letter-spacing: $letter-spacing-xl;
-  border: $border-hairline solid var(--color-divider);
-  border-radius: var(--route-filter-radius, #{$radius-full});
+  @include ink-frame-fine(5px);
   padding: $spacing-2xs $spacing-xs;
   color: var(--color-text);
   opacity: 0.7;
@@ -133,8 +139,7 @@
   text-transform: uppercase;
   letter-spacing: $letter-spacing-lg;
   white-space: nowrap;
-  border: $border-hairline solid var(--color-divider);
-  border-radius: var(--route-filter-radius, #{$radius-full});
+  @include ink-frame-fine(5px);
   padding: $spacing-2xs $spacing-xs;
   color: var(--color-text);
   opacity: 0.5;
@@ -247,8 +252,7 @@
 // ── Media ─────────────────────────────────────────────────────────────────────
 .media {
   margin-bottom: $spacing-2xl;
-  border: $border-base solid var(--color-text);
-  border-radius: $radius-md;
+  @include ink-frame;
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr;
@@ -305,11 +309,16 @@
 
 // ── Footer ────────────────────────────────────────────────────────────────────
 .footer {
-  border-top: $border-base solid var(--color-text);
+  position: relative;
   padding-top: $spacing-xl;
   display: flex;
   flex-direction: column;
   gap: $spacing-lg;
+
+  &::before {
+    @include ink-edge;
+    top: -6px;
+  }
 }
 
 .stack {
@@ -325,8 +334,7 @@
   letter-spacing: $letter-spacing-lg;
   color: var(--color-text);
   opacity: 0.5;
-  border: $border-hairline solid var(--color-divider);
-  border-radius: var(--route-filter-radius, #{$radius-full});
+  @include ink-frame-fine(5px);
   padding: $spacing-2xs $spacing-xs;
 }
 
@@ -609,8 +617,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
-  border: $border-hairline solid var(--color-divider);
-  border-radius: $radius-md;
+  @include ink-frame-fine;
   overflow: hidden;
   background: var(--color-bg);
 }
@@ -707,8 +714,7 @@
 .embedFrame {
   width: 100%;
   aspect-ratio: 16 / 10;
-  border: $border-base solid var(--color-divider);
-  border-radius: var(--route-card-radius, #{$radius-lg});
+  @include ink-frame;
   background: var(--color-bg);
 
   @include mobile {

@@ -5,11 +5,13 @@ import { join } from 'path'
 const ROOT = process.cwd()
 const INK_DIR = join(ROOT, 'public', 'assets', 'ink')
 
-const EXPECTED = [
-  'frame-light.svg', 'frame-dark.svg',
-  'rule-light.svg', 'rule-dark.svg',
-  'rule-v-light.svg', 'rule-v-dark.svg',
-]
+const SHAPES = ['frame', 'rule', 'rule-v']
+const WEIGHTS = ['', '-fine'] // full strength, and half for chips and controls
+const THEMES = ['light', 'dark'] // border-image cannot inherit currentColor
+
+const EXPECTED = SHAPES.flatMap(shape =>
+  WEIGHTS.flatMap(weight => THEMES.map(theme => `${shape}${weight}-${theme}.svg`)),
+)
 
 describe('carved ink assets', () => {
   it('ships one asset per shape per theme', () => {

@@ -1016,7 +1016,7 @@ export const PROJECTS: Project[] = [
     category: "CREATIVE",
     platform: "web",
     tags: ["Design", "Merchandise", "Commercial", "Illustrator"],
-    year: "2023",
+    year: "2022",
     duration: "2 weeks",
     role: "Commissioned artwork",
     status: "live",
