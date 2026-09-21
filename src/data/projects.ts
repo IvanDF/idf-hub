@@ -447,7 +447,7 @@ export const PROJECTS: Project[] = [
     date: "2026-02",
     duration: "5 weeks",
     role: "Solo build, end to end",
-    status: "archived",
+    status: "live",
     stack: ["TypeScript", "VS Code Extension API", "Azure DevOps REST"],
     highlights: [
       "Pipeline visibility directly in editor",
@@ -475,10 +475,12 @@ export const PROJECTS: Project[] = [
     metrics: [
       { label: "Platform", value: "VS Code" },
       { label: "Integration", value: "Azure DevOps REST" },
-      { label: "Status", value: "Archived" },
+      { label: "Distribution", value: "VS Code Marketplace" },
     ],
     links: {
       repo: "https://github.com/IvanDF/check-your-pipes",
+      marketplace:
+        "https://marketplace.visualstudio.com/items?itemName=idf-studio.check-your-pipes",
     },
     media: {
       thumbnail: "/projects/check-your-pipes/thumb.svg",
@@ -956,7 +958,7 @@ export const PROJECTS: Project[] = [
     date: "2023-12",
     duration: "1 week",
     role: "Illustration and print artwork",
-    status: "live",
+    status: "archived",
     stack: ["Affinity Designer", "Print Design", "Vector Graphics"],
     highlights: [
       "Minimalist cocktail illustration with personality",
@@ -1019,7 +1021,7 @@ export const PROJECTS: Project[] = [
     year: "2022",
     duration: "2 weeks",
     role: "Commissioned artwork",
-    status: "live",
+    status: "archived",
     stack: ["Affinity Designer", "Design for Commerce", "Print Production"],
     highlights: [
       "Multiple design variations for client selection",

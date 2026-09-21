@@ -32,6 +32,15 @@ export default function Lightbox({
   onNavigate,
   onClose,
 }: LightboxProps) {
+  // Frames either side of the current one, deduplicated — a two-image gallery
+  // has the same neighbour on both sides, and a one-image gallery has none.
+  const neighbours = Array.from(
+    new Set([
+      (index - 1 + images.length) % images.length,
+      (index + 1) % images.length,
+    ]),
+  ).filter((i) => i !== index);
+
   const [zoom, setZoom] = useState(MIN_ZOOM);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
@@ -220,6 +229,26 @@ export default function Lightbox({
             draggable={false}
           />
         </div>
+
+        {/* The neighbours, fetched but never shown. Pressing an arrow used to
+            be the first time a frame's 100vw variant was ever requested, so
+            the wait was the optimiser generating it plus the download —
+            seconds, on a Retina viewport. Mounting them means the browser has
+            already got the next one when the arrow is pressed. Only the two
+            adjacent frames: enough for stepping, without fetching a whole
+            gallery at full size the moment the viewer opens. */}
+        {neighbours.map((i) => (
+          <Image
+            key={images[i]}
+            src={images[i]}
+            alt=""
+            aria-hidden
+            fill
+            sizes="100vw"
+            className={styles.preload}
+            draggable={false}
+          />
+        ))}
       </div>
 
       <div className={styles.bottomBar} onClick={(e) => e.stopPropagation()}>

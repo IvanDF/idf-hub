@@ -115,3 +115,15 @@
   user-select: none;
   -webkit-user-drag: none;
 }
+
+// Off-screen frames kept in the DOM purely so the browser fetches and decodes
+// them ahead of the arrow press. Not display:none — that can let the browser
+// skip the work entirely, which is the opposite of the point.
+.preload {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  object-fit: contain;
+}

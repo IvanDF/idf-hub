@@ -14,11 +14,6 @@ import DesignCase from "./templates/DesignCase";
 import LabCase from "./templates/LabCase";
 import styles from "./ProjectDetail.module.scss";
 
-/** Left edge of the age track: the year the archive starts. */
-const ARCHIVE_FROM = Math.min(
-  ...PROJECTS.map((p) => Number((p.date ?? p.year).slice(0, 4))),
-);
-
 /** Human label per template, shown instead of the raw category enum. */
 const KIND_LABEL = {
   code: "Code",
@@ -107,11 +102,7 @@ export default async function ProjectPage({
         <BackLink projectId={project.id} />
       </Suspense>
 
-      <ProjectHeader
-        project={project}
-        kind={KIND_LABEL[template]}
-        archiveFrom={ARCHIVE_FROM}
-      />
+      <ProjectHeader project={project} kind={KIND_LABEL[template]} />
 
       {template === "code" && <CodeCase project={project} frames={frames} />}
       {template === "design" && <DesignCase project={project} frames={frames} />}

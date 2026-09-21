@@ -1,14 +1,11 @@
 import Text from "@/components/atoms/text";
 import type { Project } from "@/types/project";
-import ProjectAge from "./ProjectAge";
 import styles from "./ProjectDetail.module.scss";
 
 interface ProjectHeaderProps {
   project: Project;
   /** Kind of work, shown instead of the raw category enum. */
   kind: string;
-  /** First year of the archive, for the age track. */
-  archiveFrom: number;
 }
 
 /**
@@ -17,13 +14,8 @@ interface ProjectHeaderProps {
  *
  * @param project - The project being displayed.
  * @param kind - Human label for the project's template.
- * @param archiveFrom - Oldest year across all projects.
  */
-export default function ProjectHeader({
-  project,
-  kind,
-  archiveFrom,
-}: ProjectHeaderProps) {
+export default function ProjectHeader({ project, kind }: ProjectHeaderProps) {
   return (
     <header className={styles.header}>
       {/* Plain spans, not <Text>: these chips carry their own type styles, and
@@ -37,7 +29,6 @@ export default function ProjectHeader({
         <time className={styles.metaYear} dateTime={project.date ?? project.year}>
           {project.year}
         </time>
-        <ProjectAge date={project.date ?? project.year} from={archiveFrom} />
         {project.status === "live" && <span className={styles.metaLive}>live</span>}
       </div>
 
