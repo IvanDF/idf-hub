@@ -21,7 +21,13 @@
   max-width: min($container-sm, calc(100vw - #{$spacing-xl}));
   // Ink on the hero only: filtering .shell would pull the 60fps particle
   // canvas under the displacement filter and re-filter every frame.
-  filter: var(--ink);
+  // No ink filter here. `filter: url(#...)` is an feTurbulence +
+  // feDisplacementMap pass, and WebKit will not cache the filtered layer of a
+  // fixed or full-height element sitting over scrolling content — it re-runs
+  // per-pixel Perlin noise on every composite. Measured on Ivan's Mac:
+  // Safari's GPU process went from 600% CPU to 0.9% the moment this one
+  // declaration was disabled. See .ink / .ink-fine in globals.scss for
+  // opt-in use on small, static elements.
 
   @include mobile {
     bottom: $spacing-2xl;
@@ -81,7 +87,13 @@
   z-index: 100;
   opacity: 0.45;
   transition: opacity 0.3s ease;
-  filter: var(--ink-fine);
+  // No ink filter here. `filter: url(#...)` is an feTurbulence +
+  // feDisplacementMap pass, and WebKit will not cache the filtered layer of a
+  // fixed or full-height element sitting over scrolling content — it re-runs
+  // per-pixel Perlin noise on every composite. Measured on Ivan's Mac:
+  // Safari's GPU process went from 600% CPU to 0.9% the moment this one
+  // declaration was disabled. See .ink / .ink-fine in globals.scss for
+  // opt-in use on small, static elements.
 
   &:hover {
     opacity: 1;

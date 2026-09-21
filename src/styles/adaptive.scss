@@ -10,6 +10,24 @@
   --depth-md: 8px 8px 0 color-mix(in srgb, var(--color-text) 60%, transparent);
 
   // ── Ink filters (SVG from InkFilters) ───────────────────────────────────────
+  //
+  // USE ON SMALL, STATIC ELEMENTS ONLY. Never on a page root, a scrolling
+  // container, or anything `position: fixed`.
+  //
+  // These resolve to an feTurbulence + feDisplacementMap pass: per-pixel
+  // Perlin noise at three octaves, which no browser accelerates on the GPU.
+  // The filter region is sized in percentages of the element, so the cost
+  // grows with the element. Worse, WebKit will not cache the filtered layer of
+  // a fixed or full-height element that sits over scrolling content, so it
+  // re-runs the whole pass on every composite.
+  //
+  // This has bitten the site three times: the career timeline vanishing on
+  // Safari, the project detail pages dropping to 4fps, and the side rails
+  // holding Safari's GPU process at 600% CPU on every page — that last one
+  // fell to 0.9% when this single declaration was removed from the rails.
+  //
+  // For opt-in use there are `.ink` / `.ink-fine` / `.ink-draft` in
+  // globals.scss. Check the element is small and does not scroll first.
   --ink: url(#idf-ink-wobble);
   --ink-fine: url(#idf-ink-wobble-fine);
   --ink-draft: url(#idf-ink-wobble-draft);

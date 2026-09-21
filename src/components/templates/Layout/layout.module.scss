@@ -26,7 +26,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  filter: var(--ink-fine);
+  // No ink filter here. `filter: url(#...)` is an feTurbulence +
+  // feDisplacementMap pass, and WebKit will not cache the filtered layer of a
+  // fixed or full-height element sitting over scrolling content — it re-runs
+  // per-pixel Perlin noise on every composite. Measured on Ivan's Mac:
+  // Safari's GPU process went from 600% CPU to 0.9% the moment this one
+  // declaration was disabled. See .ink / .ink-fine in globals.scss for
+  // opt-in use on small, static elements.
   transition:
     transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.4s ease,
@@ -409,7 +415,6 @@
   cursor: pointer;
   // Match the carved wobble of the other chrome (rails/overlay); the Terminal
   // stays glass so it deliberately keeps a crisp, un-inked edge.
-  filter: var(--ink-fine);
 
   span {
     display: block;
@@ -448,7 +453,6 @@
   backdrop-filter: blur($blur-md);
   -webkit-backdrop-filter: blur($blur-md);
   overflow-y: auto;
-  filter: var(--ink-fine);
   padding: $spacing-md $spacing-xl $spacing-2xl;
   animation: overlayFade 0.25s ease;
 }

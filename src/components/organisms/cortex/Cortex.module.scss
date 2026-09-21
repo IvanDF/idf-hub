@@ -22,7 +22,13 @@ $test-colors: (
   flex-direction: column;
   gap: $spacing-xl;
   // Carved wobble on the in-flow page root (see layout.module.scss .main).
-  filter: var(--ink);
+  // No ink filter here. `filter: url(#...)` is an feTurbulence +
+  // feDisplacementMap pass, and WebKit will not cache the filtered layer of a
+  // fixed or full-height element sitting over scrolling content — it re-runs
+  // per-pixel Perlin noise on every composite. Measured on Ivan's Mac:
+  // Safari's GPU process went from 600% CPU to 0.9% the moment this one
+  // declaration was disabled. See .ink / .ink-fine in globals.scss for
+  // opt-in use on small, static elements.
 }
 
 .header {
