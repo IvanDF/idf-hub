@@ -30,6 +30,8 @@ export const CHEERS: CheersEntry[] = [
   { flags: "🇫🇷", language: "French", phrase: "Santé · Tchin-tchin" },
   { flags: "🇲🇹", language: "Maltese", phrase: "Saħħa" },
   { flags: "🇪🇸", language: "Basque", phrase: "Topa" },
+  { flags: "🇪🇪", language: "Estonian", phrase: "Terviseks" },
+  { flags: "🇫🇮", language: "Finnish", phrase: "Kippis" },
 ];
 
 /**

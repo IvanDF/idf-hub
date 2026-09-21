@@ -263,12 +263,23 @@
   background-repeat: repeat-y;
   background-position: center;
   background-size: 12px auto;
-  // The stroke runs down the middle of a 12px band, so the band has to be
-  // centred or the line sits off to one side of the rail.
-  align-self: center;
   flex-grow: 1;
   margin: $spacing-xl 0;
   opacity: 0.75;
+  // Alignment is inherited: .leftColumn is flex-start and .rightColumn is
+  // flex-end, so each rail's line hugs its own outer edge. Do not set
+  // align-self here — centring it collapses both to the middle of the rail.
+  //
+  // The stroke runs down the centre of a 12px band, where the old 1px line sat
+  // hard against the edge. The pull below puts the stroke back on that line;
+  // the direction differs per rail, hence the two rules rather than one.
+  .leftColumn & {
+    margin-left: -8px;
+  }
+
+  .rightColumn & {
+    margin-right: -8px;
+  }
 }
 
 .footer {
