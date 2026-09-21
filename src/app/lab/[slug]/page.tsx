@@ -98,13 +98,13 @@ export default async function ProjectPage({
     <main className={styles.container} data-template={template}>
       <Suspense
         fallback={
-          <Link href="/lab" className={styles.backLink}>
+          <Link href="/lab?view=lab" className={styles.backLink}>
             <ArrowLeft size={14} />
             Work
           </Link>
         }
       >
-        <BackLink />
+        <BackLink projectId={project.id} />
       </Suspense>
 
       <ProjectHeader

@@ -8,7 +8,7 @@ import Text from "@/components/atoms/text";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.scss";
 
 type FilterGroup = "all" | "code" | "design" | "craft" | "lab";
@@ -51,7 +51,7 @@ export default function Lab() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [showArchived, setShowArchived] = useState(false);
+  const [archiveOpened, setArchiveOpened] = useState(false);
 
   const rawFilter = searchParams.get("filter") as FilterGroup | null;
   const filter: FilterGroup =
@@ -98,6 +98,28 @@ export default function Lab() {
 
   const live = LIVE.filter((p) => matchesGroup(p, filter));
   const archived = ARCHIVED.filter((p) => matchesGroup(p, filter));
+
+  // Which row the visitor just came back from, if any.
+  const returningTo = searchParams.get("from");
+
+  // Derived, not set in an effect: an archived project's row is only in the
+  // DOM while the Archive is open, so it has to be open on the render that
+  // the scroll below then measures.
+  const showArchived =
+    archiveOpened || (returningTo ? ARCHIVED.some((p) => p.id === returningTo) : false);
+
+  // Put that row under the eye instead of dumping the visitor at the top. The
+  // list is client-rendered, so the browser cannot restore this itself.
+  const restored = useRef(false);
+  useEffect(() => {
+    if (restored.current || view !== "lab" || !returningTo) return;
+
+    const row = document.getElementById(returningTo);
+    if (!row) return;
+
+    restored.current = true;
+    row.scrollIntoView({ block: "center", behavior: "auto" });
+  }, [view, returningTo, live.length, showArchived]);
 
   return (
     <main className={styles.container}>
@@ -182,6 +204,7 @@ export default function Lab() {
               {live.map((project, i) => (
                 <Link
                   key={project.id}
+                  id={project.id}
                   role="listitem"
                   className={styles.projectRow}
                   data-kind={kindOf(project)}
@@ -209,7 +232,7 @@ export default function Lab() {
               <div className={styles.archive}>
                 <button
                   className={styles.archiveToggle}
-                  onClick={() => setShowArchived((v) => !v)}
+                  onClick={() => setArchiveOpened((v) => !v)}
                   aria-expanded={showArchived}
                 >
                   <span aria-hidden>{showArchived ? "−" : "+"}</span>
@@ -217,7 +240,10 @@ export default function Lab() {
                   <span className={styles.archiveCount}>{archived.length}</span>
                 </button>
 
-                <AnimatePresence>
+                {/* initial={false} when restoring: the expand animation would
+                    still be running when the scroll below measures the row, and
+                    it would land hundreds of pixels off. */}
+                <AnimatePresence initial={!returningTo}>
                   {showArchived && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
@@ -230,6 +256,7 @@ export default function Lab() {
                       {archived.map((project, i) => (
                         <Link
                           key={project.id}
+                          id={project.id}
                           role="listitem"
                           className={`${styles.projectRow} ${styles.archivedRow}`}
                           data-kind={kindOf(project)}
