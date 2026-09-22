@@ -7,6 +7,106 @@ import { Project } from "@/types/project";
 
 export const PROJECTS: Project[] = [
   // ----------------------------------------------------------------------
+  // INFRASTRUCTURE
+  // ----------------------------------------------------------------------
+  {
+    id: "yggdrasil",
+    title: "Yggdrasil",
+    description: "A self-hosted home infrastructure on one old laptop: home automation, media, a synced second brain and a Telegram assistant. Every service is a container, every change is written down.",
+    longDescription: "It started as a media server and became a small operating system for a life: the house, the notes, the training plan and the backups, all running on hardware I own, reachable only from my own devices.",
+    category: "DEV",
+    platform: "github",
+    tags: [
+      "Self-hosting",
+      "Linux",
+      "Home Assistant",
+      "Automation",
+    ],
+    year: "2026",
+    date: "2026-05",
+    duration: "Ongoing",
+    role: "Architecture, build and day-to-day operations",
+    status: "live",
+    stack: [
+      "Fedora Silverblue",
+      "Podman / Quadlet",
+      "systemd",
+      "Tailscale",
+      "Home Assistant",
+      "CouchDB",
+      "Obsidian",
+      "Python",
+      "BorgBackup",
+      "GPG",
+    ],
+    highlights: [
+      "Zero ports open to the internet",
+      "Notes synced across four devices, end-to-end encrypted, backed up off-site",
+      "A Telegram assistant that reads, writes and reminds instead of another app",
+      "An audit log entry for every change, mistakes included",
+    ],
+    why: "Every useful service I relied on was rented. Notes lived in one company's cloud, reminders in another, the house in a third. I wanted to know what a system looks like when it is designed around one person's day rather than around a subscription.",
+    problem: "Self-hosting usually fails the same way: a pile of containers nobody remembers configuring, silent backups that stopped months ago, and a phone that cannot reach any of it from outside the house.",
+    solution: "One rule per component, one script per service, and one written record of why anything exists. The host is immutable, services run as rootless containers under systemd, everything is reachable only over a private mesh, and the parts I use daily — notes, training, the house — are exposed through a single Telegram conversation.",
+    decisions: [
+      {
+        choice: "An immutable OS for the host",
+        why: "Fedora Silverblue makes the base system read-only and atomic. If an update breaks something, the previous image is one reboot away, and nothing I install on a whim can quietly rot the host.",
+        tradeoff: "Every tool has to live in a container or a toolbox, and some things that are one command on a normal distro take a detour.",
+      },
+      {
+        choice: "No open ports, only a private mesh",
+        why: "Every service is reachable from my phone, tablet and laptop over Tailscale and from nowhere else. The attack surface of a home server should be close to nothing.",
+        tradeoff: "Each device needs the client running, and mobile apps that insist on HTTPS needed certificates issued through the mesh.",
+      },
+      {
+        choice: "Write down every change",
+        why: "A home server is maintained by the same person months apart. The audit log records what changed, why, and what broke along the way — including my own mistakes — so future me does not have to rediscover them.",
+        tradeoff: "It adds ceremony to small fixes. In practice that friction is the point: it makes me finish things properly.",
+      },
+      {
+        choice: "Self-hosted sync for the notes, with guard rails learned the hard way",
+        why: "Notes sync through my own server, encrypted on each device before they leave it. A bridge keeps a plain copy on the server so scripts and the assistant can read and update them.",
+        tradeoff: "Two devices wiped the shared database in the first week by picking the wrong setup option. Now devices use an account that can write notes but cannot delete the database.",
+      },
+      {
+        choice: "Deterministic paths wherever numbers matter",
+        why: "The assistant uses a language model for conversation, but training cards, table updates and price checks are parsed and copied by plain code. A model retyping a workout table once invented the numbers; that should not be possible.",
+        tradeoff: "Those paths understand fewer phrasings than a model would, so they are narrow on purpose and fall back to the model for everything else.",
+      },
+      {
+        choice: "Encrypted off-site history instead of trusting one disk",
+        why: "Local backups protect against mistakes, not against fire. Every night the full history of the notes is encrypted and pushed to a private remote that cannot read it.",
+        tradeoff: "The key is now the single point of failure, so it lives outside the machine it protects.",
+      },
+    ],
+    metrics: [
+      {
+        label: "Hardware",
+        value: "One 2017 laptop",
+      },
+      {
+        label: "Open ports",
+        value: "0",
+      },
+      {
+        label: "Audit entries",
+        value: "99+",
+      },
+    ],
+    links: {
+      repo: "https://github.com/IvanDF/yggdrasil",
+    },
+    // Placeholder: the entry pointed at /projects/yggdrasil/thumb.svg,
+    // which is not in public/. Swap it for a real image when there is one.
+    media: {
+      thumbnail: "/assets/placeholder.svg",
+      fit: "contain",
+    },
+    interaction: "spotlight",
+  },
+
+  // ----------------------------------------------------------------------
   // DEV PROJECTS
   // ----------------------------------------------------------------------
   {

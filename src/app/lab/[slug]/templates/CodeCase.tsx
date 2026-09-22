@@ -24,10 +24,14 @@ export default function CodeCase({ project, frames }: CodeCaseProps) {
   ].filter(Boolean) as { label: string; body: string }[];
 
   const decisions = project.decisions ?? [];
+  // `metrics` carries the facts worth stating flat — hardware, counts,
+  // licence. The design and craft templates already surfaced them; this one
+  // was dropping them on the floor.
   const runtime = [
     project.role && { label: "Role", value: project.role },
     project.duration && { label: "Duration", value: project.duration },
     project.status && { label: "Status", value: project.status },
+    ...(project.metrics ?? []),
   ].filter(Boolean) as { label: string; value: string }[];
 
   return (
