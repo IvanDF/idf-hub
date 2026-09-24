@@ -13,6 +13,15 @@
 - Copy must prioritise: clarity > cleverness, substance > buzzwords, confidence > self-promotion, insight > decoration.
 - Avoid startup clichés, marketing jargon, and generic portfolio language.
 
+## 0. Project content
+
+- Adding or editing a project in the Lab? Read **[docs/project-assets.md](docs/project-assets.md)** first.
+  It covers which template a project gets, what images it needs and at what
+  size, how dates are sourced, and what the code will not invent on the
+  owner's behalf.
+
+---
+
 ## 1. Language
 
 - All code, comments, JSDoc, variable names, commit messages, and documentation must be written in **English**.
