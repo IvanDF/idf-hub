@@ -15,7 +15,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: route === "/" ? ("weekly" as const) : ("monthly" as const),
       priority: route === "/" ? 1 : 0.7,
     })),
-    ...PROJECTS.map((project) => ({
+    // Projects with a page of their own are listed above under that route;
+    // their /lab/ address only redirects, and a sitemap should not send
+    // crawlers to a redirect.
+    ...PROJECTS.filter((project) => !project.detailHref).map((project) => ({
       url: `${siteUrl}/lab/${project.id}`,
       changeFrequency: "monthly" as const,
       priority: 0.5,

@@ -1,6 +1,8 @@
+import { PROJECTS } from "@/data/projects";
 import { YGG_LAWS } from "@/data/yggdrasil";
 import Link from "next/link";
 import DayTimeline from "./DayTimeline";
+import Decisions from "./Decisions";
 import Forge from "./Forge";
 import RealmTree from "./RealmTree";
 import TmuxBar from "./TmuxBar";
@@ -12,6 +14,11 @@ import styles from "./YggdrasilPage.module.scss";
  * setup shares.
  */
 export default function YggdrasilPage() {
+  // Read from the project record rather than a second copy here. This is a
+  // server component, so the array is resolved at build time and none of it
+  // reaches the browser.
+  const decisions = PROJECTS.find((p) => p.id === "yggdrasil")?.decisions ?? [];
+
   return (
     <div className={styles.page}>
       <TmuxBar />
@@ -60,6 +67,17 @@ export default function YggdrasilPage() {
           </ol>
         </section>
 
+        <section className={styles.section} aria-labelledby="ygg-decisions">
+          <h2 id="ygg-decisions" className={styles.heading}>
+            <span aria-hidden="true">#</span> the decisions
+          </h2>
+          <p className={styles.sectionLede}>
+            Every one could have gone the other way. Here is the reasoning, and
+            the bill.
+          </p>
+          <Decisions decisions={decisions} />
+        </section>
+
         <section className={styles.section} aria-labelledby="ygg-day">
           <h2 id="ygg-day" className={styles.heading}>
             <span aria-hidden="true">#</span> a day in the tree
@@ -76,9 +94,6 @@ export default function YggdrasilPage() {
         </section>
 
         <footer className={styles.footer}>
-          <Link href="/lab/yggdrasil" className={styles.footerLink}>
-            → the decision log, and what each choice cost
-          </Link>
           <Link href="/lab" className={styles.footerLink}>
             ← back to the work
           </Link>

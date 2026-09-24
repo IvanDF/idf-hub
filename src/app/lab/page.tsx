@@ -111,6 +111,9 @@ export default function Lab() {
   // Real links instead of router.push-on-click: the detail pages are static,
   // so Link prefetches them in-viewport and navigation is instant.
   const hrefFor = (project: Project) => {
+    // A project with its own page owns its address; the filter state would
+    // mean nothing there, and /lab/[slug] redirects to it anyway.
+    if (project.detailHref) return project.detailHref;
     const p = new URLSearchParams();
     if (filter !== "all") p.set("filter", filter);
     if (kind) p.set("kind", kind);
@@ -262,6 +265,7 @@ export default function Lab() {
                   role="listitem"
                   className={styles.projectRow}
                   data-kind={markerFor(project)}
+                  data-own-page={project.detailHref ? "true" : undefined}
                   href={hrefFor(project)}
                 >
                   <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>
@@ -274,7 +278,13 @@ export default function Lab() {
                     <span className={styles.rowYear}>{project.year}</span>
                     {/* ︎ forces text presentation: without it iOS falls back
                         to Apple Color Emoji when the webfont lacks the glyph */}
-                    {project.status === "live" && <span className={styles.rowArrow}>{"↗︎"}</span>}
+                    {project.detailHref ? (
+                      <span className={styles.rowRune} aria-label="has its own page">
+                        ᛉ
+                      </span>
+                    ) : (
+                      project.status === "live" && <span className={styles.rowArrow}>{"↗︎"}</span>
+                    )}
                   </div>
                 </Link>
               ))}
@@ -314,6 +324,7 @@ export default function Lab() {
                           role="listitem"
                           className={`${styles.projectRow} ${styles.archivedRow}`}
                           data-kind={markerFor(project)}
+                          data-own-page={project.detailHref ? "true" : undefined}
                           href={hrefFor(project)}
                         >
                           <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>

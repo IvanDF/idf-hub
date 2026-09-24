@@ -127,6 +127,12 @@ export interface Project {
   kind?: ProjectKind;
   /** Overrides the category-derived detail template. Rarely needed. */
   template?: ProjectTemplate;
+  /**
+   * A route of its own, for work that earned a page rather than an entry.
+   * The list links straight there and /lab/[slug] redirects to it, so the
+   * project has one address instead of two pages saying the same thing.
+   */
+  detailHref?: string;
   platform?: ProjectPlatform;
   tags: string[];
   /** Display year. Must agree with the year in `date` when both are set. */

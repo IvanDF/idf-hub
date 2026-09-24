@@ -304,6 +304,56 @@ $swatches: (
   line-height: 1.6;
 }
 
+// ── Decisions ──
+// A single column, unlike the laws: each entry carries a paragraph and a cost
+// line, and two columns of that reads as a wall rather than a list.
+.decisions {
+  margin-top: $spacing-lg;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: $spacing-md;
+}
+.decision {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: $spacing-sm;
+  padding: $spacing-md;
+  border: 1px solid $line;
+  border-radius: $radius-md;
+}
+.decisionIndex {
+  color: $accent;
+  font-size: $font-size-sm;
+}
+.decisionChoice {
+  font-family: $font-family-primary;
+  font-size: $font-size-md;
+  font-weight: 700;
+  color: $text;
+}
+.decisionWhy {
+  margin-top: $spacing-xs;
+  color: $muted;
+  line-height: 1.6;
+}
+// The cost is set apart: it is the half people skip, and the half that makes
+// the choice honest.
+.decisionCost {
+  margin-top: $spacing-sm;
+  padding-left: $spacing-sm;
+  border-left: 2px solid $accent;
+  color: $muted;
+  line-height: 1.6;
+}
+.decisionCostTag {
+  margin-right: $spacing-xs;
+  color: $accent;
+  font-size: $font-size-xs;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-lg;
+}
+
 // ── Day ──
 .day {
   margin-top: $spacing-lg;

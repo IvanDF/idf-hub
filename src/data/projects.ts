@@ -14,6 +14,7 @@ export const PROJECTS: Project[] = [
     title: "Yggdrasil",
     description: "A self-hosted home infrastructure on one old laptop: home automation, media, a synced second brain and a Telegram assistant. Every service is a container, every change is written down.",
     longDescription: "It started as a media server and became a small operating system for a life: the house, the notes, the training plan and the backups, all running on hardware I own, reachable only from my own devices.",
+    detailHref: "/yggdrasil",
     category: "CODE",
     platform: "github",
     tags: [
@@ -96,8 +97,7 @@ export const PROJECTS: Project[] = [
     ],
     links: {
       repo: "https://github.com/IvanDF/yggdrasil",
-      caseStudy: "/yggdrasil",
-    },
+          },
     // Placeholder: the entry pointed at /projects/yggdrasil/thumb.svg,
     // which is not in public/. Swap it for a real image when there is one.
     media: {

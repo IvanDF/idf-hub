@@ -3,7 +3,7 @@ import { labelFor, templateFor } from "@/types/project";
 import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 import BackLink from "./BackLink";
 import ProjectFooter from "./ProjectFooter";
@@ -56,6 +56,10 @@ export default async function ProjectPage({
   const { slug } = await params;
   const project = PROJECTS.find((p) => p.id === decodeURIComponent(slug));
   if (!project) notFound();
+
+  // One address per project: anything that earned its own page sends its
+  // /lab/ route there, so old links and shared URLs still land somewhere.
+  if (project.detailHref) redirect(project.detailHref);
 
   const template = templateFor(project);
 

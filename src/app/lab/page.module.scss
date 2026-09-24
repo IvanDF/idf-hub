@@ -324,6 +324,33 @@
 
 // Experiments sit in the same list as product work, marked by a small
 // accent diamond and a tinted category label — merged, but distinguishable.
+// A project with a page of its own. The existing experiment marker is a small
+// accent diamond, so this stays in the same language rather than inventing a
+// badge: a drawn left edge, and the rune the project already signs itself with.
+.projectRow[data-own-page="true"] {
+  border-left: $border-base solid var(--color-accent);
+  // The row pads $spacing-xs horizontally; take the border back out of it so
+  // the title still lines up with every other row.
+  padding-left: calc(#{$spacing-xs} - #{$border-base});
+
+  .rowTitle {
+    font-weight: 800;
+  }
+
+  &:hover .rowRune {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.rowRune {
+  font-size: $font-size-md;
+  line-height: 1;
+  color: var(--color-accent);
+  opacity: 0.75;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
 .projectRow[data-kind="experiment"] {
   .rowTitle::before {
     content: "";
