@@ -596,3 +596,72 @@
     width: 0%;
   }
 }
+
+// ── Yggdrasil skin ───────────────────────────────────────────────────────────
+// The palette the home server runs on, borrowed for the panel. Set by the
+// `ygg` command, scoped to the container so the rest of the site is untouched
+// — `theme` remains the thing that flips light and dark everywhere.
+//
+// The values are literal rather than tokens on purpose: these are another
+// system's colours, quoted here, not part of this site's palette. They match
+// public/yggdrasil/forge/yggdrasil.tmux.conf exactly.
+.terminalContainer[data-skin="yggdrasil"] {
+  --ygg-night: #0d1117;
+  --ygg-ink: #1a1a2e;
+  --ygg-stone: #64748b;
+  --ygg-volta: #8b5cf6;
+  --ygg-mist: #c4b5fd;
+  --ygg-lario: #60a5fa;
+  --ygg-slate: #f3f4f6;
+
+  background: var(--ygg-night);
+  border-color: var(--ygg-ink);
+  color: var(--ygg-slate);
+
+  .terminalHeader {
+    border-bottom-color: var(--ygg-ink);
+  }
+
+  .terminalTitle {
+    color: var(--ygg-volta);
+
+    // The rune the whole setup signs itself with, in the tmux status position.
+    &::before {
+      content: "ᛉ";
+      margin-right: $spacing-xs;
+      color: var(--ygg-volta);
+    }
+  }
+
+  .line {
+    color: var(--ygg-slate);
+
+    &.system {
+      color: var(--ygg-stone);
+    }
+
+    &.success {
+      color: var(--ygg-mist);
+    }
+  }
+
+  .prompt {
+    color: var(--ygg-volta);
+  }
+
+  // The active edge is blue here, exactly as the focused pane is in tmux.
+  input:focus-visible,
+  .ctaBtn:focus-visible {
+    outline-color: var(--ygg-lario);
+  }
+
+  .ctaBtn {
+    color: var(--ygg-lario);
+    border-color: var(--ygg-ink);
+
+    &:hover {
+      color: var(--ygg-mist);
+      border-color: var(--ygg-lario);
+    }
+  }
+}

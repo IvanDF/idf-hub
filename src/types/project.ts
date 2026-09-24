@@ -60,6 +60,17 @@ export function templateFor(project: Project): ProjectTemplate {
   return project.kind ? TEMPLATE_BY_KIND[project.kind] : "craft";
 }
 
+/**
+ * Where a project actually lives. Most answer on /lab/[slug]; the ones that
+ * earned a page of their own answer there, and linking to /lab/ would only
+ * bounce through a redirect.
+ *
+ * @param project - The project to address.
+ */
+export function hrefForProject(project: Project): string {
+  return project.detailHref ?? `/lab/${project.id}`;
+}
+
 /** Chip text per kind, for the Craft projects. */
 const LABEL_BY_KIND: Record<ProjectKind, string> = {
   photo: "Photo",

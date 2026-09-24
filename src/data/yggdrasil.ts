@@ -160,9 +160,11 @@ export const YGG_FORGE: YggForgeItem[] = [
     id: "nvim",
     name: "Yggdrasil",
     target: "Neovim",
-    body: "The same palette for the editor. Still on the anvil.",
-    status: "forging",
-    downloads: [],
+    body: "The same palette in the editor, mapped the way tmux maps it: violet is what you are on, blue is the active boundary, stone is anything spent.",
+    status: "ready",
+    downloads: [
+      { label: "yggdrasil.nvim.lua", href: "/yggdrasil/forge/yggdrasil.nvim.lua" },
+    ],
   },
 ];
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { PROJECTS } from "@/data/projects";
-import { labelFor } from "@/types/project";
+import { hrefForProject, labelFor } from "@/types/project";
 import type { Project, ProjectCategory, ProjectKind } from "@/types/project";
 import CareerPath from "@/components/organisms/career-path";
 import WorkFork from "@/components/organisms/work-fork";
@@ -113,7 +113,7 @@ export default function Lab() {
   const hrefFor = (project: Project) => {
     // A project with its own page owns its address; the filter state would
     // mean nothing there, and /lab/[slug] redirects to it anyway.
-    if (project.detailHref) return project.detailHref;
+    if (project.detailHref) return hrefForProject(project);
     const p = new URLSearchParams();
     if (filter !== "all") p.set("filter", filter);
     if (kind) p.set("kind", kind);

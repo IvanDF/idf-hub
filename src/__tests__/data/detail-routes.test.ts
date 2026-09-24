@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import { PROJECTS } from '@/data/projects'
+import { hrefForProject } from '@/types/project'
 
 const CONFIG = readFileSync(join(process.cwd(), 'next.config.ts'), 'utf8')
 
@@ -36,5 +37,19 @@ describe('projects with a page of their own', () => {
     OWN_PAGE.forEach(p => {
       expect(p.links?.caseStudy).not.toBe(p.detailHref)
     })
+  })
+})
+
+describe('hrefForProject', () => {
+  it('sends a project with its own page there, and everything else to /lab', () => {
+    PROJECTS.forEach(p => {
+      expect(hrefForProject(p)).toBe(p.detailHref ?? `/lab/${p.id}`)
+    })
+  })
+
+  // The terminal's `open` and the Lab list both used to build this string by
+  // hand, so one of them would always be the last to learn about a new route.
+  it('never returns a /lab path for a project with its own page', () => {
+    OWN_PAGE.forEach(p => expect(hrefForProject(p)).not.toMatch(/^\/lab\//))
   })
 })

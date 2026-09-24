@@ -163,6 +163,32 @@ export function buildSoundOutput(
   ];
 }
 
+/**
+ * Output for `ygg`. Reskinning the panel is the point, so the lines are short
+ * — the change is the message. The link is the reason the command exists:
+ * someone who likes the look should be one keystroke from where it came from.
+ *
+ * @param on - Whether the skin was just turned on or off.
+ */
+export function buildYggOutput(on: boolean): CommandOutput[] {
+  if (!on) {
+    return [{ type: "success", content: "Back to the house style." }];
+  }
+  return [
+    { type: "success", content: "ᛉ  Yggdrasil — the palette my tmux runs on." },
+    {
+      type: "text",
+      content: "Violet is what you are on, blue is the active edge, stone is spent.",
+    },
+    {
+      type: "text",
+      content: "The tmux, Neovim and Obsidian themes are on the project page.",
+      cta: { label: "→ open it", cmd: "open yggdrasil" },
+    },
+    { type: "system", content: "`ygg` again to put it back." },
+  ];
+}
+
 /** Output lines for the admin `help` command. */
 export const ADMIN_HELP_OUTPUT: CommandOutput[] = [
   { type: "system", content: "┌── admin terminal ──" },

@@ -15,3 +15,9 @@ export type HistoryItem = {
   command: string;
   output?: CommandOutput[];
 };
+
+/**
+ * A look the terminal panel can wear. Separate from the site theme: `theme`
+ * flips light and dark everywhere, a skin only repaints this panel.
+ */
+export type TerminalSkin = "default" | "yggdrasil";

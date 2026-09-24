@@ -1,17 +1,18 @@
 "use client";
 
 import { PROJECTS } from "@/data/projects";
+import { hrefForProject } from "@/types/project";
 import { useAudio } from "@/context/AudioContext";
 import type React from "react";
 import { useCallback } from "react";
 import { ADMIN_COMMANDS, VALID_COMMANDS } from "@/lib/terminal/Terminal.constants";
 import { PLAY_OUTPUT, buildBrainOutput } from "@/lib/terminal/Terminal.brain";
-import { buildSoundOutput } from "@/lib/terminal/Terminal.data";
+import { buildSoundOutput, buildYggOutput } from "@/lib/terminal/Terminal.data";
 import { buildBrandOutput } from "@/lib/terminal/brand.data";
 import { buildInfoOutput } from "@/lib/terminal/Terminal.help";
 import { buildShareOutput } from "@/lib/terminal/Terminal.share";
 import { buildHintOutput, closestCommand } from "@/lib/terminal/Terminal.suggest";
-import type { CommandOutput, HistoryItem } from "@/types/terminal";
+import type { CommandOutput, HistoryItem, TerminalSkin } from "@/types/terminal";
 
 type SiteCommandResult = {
   outputs: CommandOutput[];
@@ -29,6 +30,7 @@ type UseSiteCommandsOptions = {
   setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setGameActive: React.Dispatch<React.SetStateAction<boolean>>;
+  setSkin: React.Dispatch<React.SetStateAction<TerminalSkin>>;
   getAuthUser: () => Promise<{ email?: string | null } | null>;
   signOut: () => Promise<void>;
   /** Drives the "did you mean" pool: admin typos get admin suggestions. */
@@ -48,6 +50,7 @@ export function useSiteCommands({
   setHistory,
   setIsOpen,
   setGameActive,
+  setSkin,
   getAuthUser,
   signOut,
   context = "site",
@@ -67,6 +70,20 @@ export function useSiteCommands({
       if (info) return { outputs: info, handled: true };
 
       switch (cmd) {
+        case "ygg":
+        case "yggdrasil":
+        case "tmux": {
+          // Toggle, so the same word undoes it — nobody should have to guess
+          // a second command to get their terminal back.
+          let turnedOn = false;
+          setSkin((current) => {
+            turnedOn = current === "default";
+            return turnedOn ? "yggdrasil" : "default";
+          });
+          outputs = buildYggOutput(turnedOn);
+          break;
+        }
+
         case "sound":
         case "audio":
         case "music":
@@ -252,8 +269,9 @@ export function useSiteCommands({
             break;
           }
           outputs = [{ type: "success", content: `Opening ${target.title}...` }];
-          router.prefetch(`/lab/${target.id}`);
-          setTimeout(() => { router.push(`/lab/${target.id}`); setIsOpen(false); }, 400);
+          const href = hrefForProject(target);
+          router.prefetch(href);
+          setTimeout(() => { router.push(href); setIsOpen(false); }, 400);
           break;
         }
 
@@ -325,7 +343,7 @@ export function useSiteCommands({
 
       return { outputs, handled: true };
     },
-    [router, toggleTheme, playLightOn, playError, discoveredEggs, setHistory, setIsOpen, setGameActive, getAuthUser, signOut, context, audioEnabled, isMuted, toggleAudio, toggleMute],
+    [router, toggleTheme, playLightOn, playError, discoveredEggs, setHistory, setIsOpen, setGameActive, setSkin, getAuthUser, signOut, context, audioEnabled, isMuted, toggleAudio, toggleMute],
   );
 
   return { handleSiteCommand };

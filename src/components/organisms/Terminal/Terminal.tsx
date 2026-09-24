@@ -322,7 +322,12 @@ export default function Terminal({
       terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
   }, [history, transcript, isListening, voiceError]);
 
+  // Skins are a terminal concern, not a site theme: `theme` still flips the
+  // whole site between light and dark, while this only reskins the panel.
+  const [skin, setSkin] = useState<"default" | "yggdrasil">("default");
+
   const { executeCommand } = useTerminalCommands({
+    setSkin,
     router,
     toggleTheme,
     playLightOn,
@@ -430,6 +435,7 @@ export default function Terminal({
     <TerminalOverlay onClose={() => setIsOpen(false)}>
       <div
         className={`${styles.terminalContainer} ${context === "admin" ? styles.admin : ""} ${discoveredEggs.size >= TOTAL_EASTER_EGGS ? styles.golden : ""}`}
+        data-skin={skin === "default" ? undefined : skin}
         onClick={(e) => e.stopPropagation()}
       >
         <TerminalHeader />

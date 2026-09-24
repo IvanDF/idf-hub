@@ -4,7 +4,7 @@ import type React from "react";
 import { useCallback } from "react";
 import { EASTER_EGGS, TOTAL_EASTER_EGGS } from "@/lib/terminal/Terminal.constants";
 import { EASTER_EGG_RESPONSES } from "@/lib/terminal/Terminal.data";
-import type { CommandOutput, HistoryItem } from "@/types/terminal";
+import type { CommandOutput, HistoryItem, TerminalSkin } from "@/types/terminal";
 import { useAdminCommands } from "./useAdminCommands";
 import { useSiteCommands } from "./useSiteCommands";
 
@@ -25,6 +25,7 @@ type UseTerminalCommandsOptions = {
   getAuthUser: () => Promise<{ email?: string | null } | null>;
   signOut: () => Promise<void>;
   setGameActive: React.Dispatch<React.SetStateAction<boolean>>;
+  setSkin: React.Dispatch<React.SetStateAction<TerminalSkin>>;
   context?: "site" | "admin";
 };
 
@@ -49,12 +50,14 @@ export function useTerminalCommands({
   getAuthUser,
   signOut,
   setGameActive,
+  setSkin,
   context = "site",
 }: UseTerminalCommandsOptions): {
   executeCommand: (cmdRaw: string) => Promise<void>;
 } {
   const { handleAdminCommand } = useAdminCommands({ router, setIsOpen });
   const { handleSiteCommand } = useSiteCommands({
+    setSkin,
     router,
     toggleTheme,
     playLightOn,
