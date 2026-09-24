@@ -1,4 +1,8 @@
-import type { ProjectCategory, ProjectPlatform } from "@/types/project";
+import type {
+  ProjectCategory,
+  ProjectKind,
+  ProjectPlatform,
+} from "@/types/project";
 
 /** A project row as returned from the API / stored in state. */
 export interface ProjectRow {
@@ -7,6 +11,7 @@ export interface ProjectRow {
   description: string;
   longDescription?: string;
   category: ProjectCategory;
+  kind?: ProjectKind;
   platform?: ProjectPlatform;
   tags: string[];
   year: string;
@@ -39,6 +44,7 @@ export type FormState = {
   description: string;
   longDescription?: string;
   category: ProjectCategory;
+  kind?: ProjectKind;
   platform?: ProjectPlatform;
   tags: string;
   year: string;

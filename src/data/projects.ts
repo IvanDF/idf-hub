@@ -14,7 +14,7 @@ export const PROJECTS: Project[] = [
     title: "Yggdrasil",
     description: "A self-hosted home infrastructure on one old laptop: home automation, media, a synced second brain and a Telegram assistant. Every service is a container, every change is written down.",
     longDescription: "It started as a media server and became a small operating system for a life: the house, the notes, the training plan and the backups, all running on hardware I own, reachable only from my own devices.",
-    category: "DEV",
+    category: "CODE",
     platform: "github",
     tags: [
       "Self-hosting",
@@ -96,11 +96,12 @@ export const PROJECTS: Project[] = [
     ],
     links: {
       repo: "https://github.com/IvanDF/yggdrasil",
+      caseStudy: "/yggdrasil",
     },
     // Placeholder: the entry pointed at /projects/yggdrasil/thumb.svg,
     // which is not in public/. Swap it for a real image when there is one.
     media: {
-      thumbnail: "/assets/placeholder.svg",
+      thumbnail: "/projects/yggdrasil/thumb.svg",
       fit: "contain",
     },
     interaction: "spotlight",
@@ -116,7 +117,7 @@ export const PROJECTS: Project[] = [
       "Interactive digital business card for cosplay and gaming events, optimized for fast contact sharing and persona-based branding.",
     longDescription:
       "A high-impact personal card experience designed to replace static social links with contextual profile variants tailored for events and conventions.",
-    category: "DEV",
+    category: "CODE",
     platform: "github",
     tags: ["React", "Vite", "Digital Identity"],
     year: "2023",
@@ -178,7 +179,7 @@ export const PROJECTS: Project[] = [
       "Web app to apply real-time filters to images directly in the browser, inspired by Instagram-style effects.",
     longDescription:
       "A React application that applies CSS and canvas-based filters to images in real time, built with a strong focus on component reusability and instant visual feedback. Figma was used for UI design.",
-    category: "DEV",
+    category: "CODE",
     platform: "github",
     tags: ["React", "Hooks", "Image Processing", "SCSS"],
     year: "2021",
@@ -235,7 +236,7 @@ export const PROJECTS: Project[] = [
       "Full-stack recipe app themed around Breath of the Wild, with a Laravel REST API and a React TypeScript frontend.",
     longDescription:
       "A full-stack project featuring a Lumen/Laravel REST API backend and a TypeScript React frontend. Users can explore Zelda-inspired recipes with data fetched via REST.",
-    category: "DEV",
+    category: "CODE",
     platform: "github",
     tags: ["React", "TypeScript", "Laravel", "REST API"],
     year: "2022",
@@ -287,7 +288,7 @@ export const PROJECTS: Project[] = [
       "Netflix-inspired movie and TV search app powered by the TMDB API, built with Vue.js.",
     longDescription:
       "A responsive Vue.js application that queries the TMDB API to search for movies and TV series, displaying results in a card grid with dynamic info and poster images.",
-    category: "DEV",
+    category: "CODE",
     platform: "github",
     tags: ["Vue.js", "AJAX", "API", "TMDB"],
     year: "2020",
@@ -330,7 +331,7 @@ export const PROJECTS: Project[] = [
       "Pixel-faithful responsive clone of the Spotify Web Player UI built with pure HTML and CSS.",
     longDescription:
       "A pure HTML/CSS reproduction of the Spotify Web Player interface with a focus on responsive layout precision and visual accuracy.",
-    category: "DEV",
+    category: "CODE",
     platform: "github",
     tags: ["HTML", "CSS", "Responsive"],
     year: "2020",
@@ -374,7 +375,7 @@ export const PROJECTS: Project[] = [
       "To-do app with separate frontend and backend layers connected via API, built as a full-stack architecture exercise.",
     longDescription:
       "A full-stack project with Vue on the frontend and Laravel/PHP on the backend, designed to practice API-driven development, CRUD workflows, and database-backed task management.",
-    category: "DEV",
+    category: "CODE",
     platform: "github",
     tags: ["Vue", "Laravel", "PHP", "MySQL", "API"],
     year: "2021",
@@ -421,7 +422,7 @@ export const PROJECTS: Project[] = [
       "Sign-up and onboarding flow prototype focused on step clarity, state management, and responsive UI.",
     longDescription:
       "A React/TypeScript onboarding flow experiment exploring progressive disclosure, validation states, and visual continuity across sign-up steps.",
-    category: "DEV",
+    category: "CODE",
     platform: "github",
     tags: ["React", "TypeScript", "Onboarding", "UX"],
     year: "2021",
@@ -471,7 +472,7 @@ export const PROJECTS: Project[] = [
       "VS Code theme extension with dual variants, semantic token mapping, and contrast-aware palettes for long coding sessions.",
     longDescription:
       'A complete editor theme pack featuring "Portal Gun Dark" and "Citadel Light", with semantic token mapping, readability-first color decisions, and marketplace-ready packaging.',
-    category: "VSCODE",
+    category: "CODE",
     platform: "vscode-marketplace",
     tags: ["VS Code", "Theme", "Design System"],
     year: "2026",
@@ -540,7 +541,7 @@ export const PROJECTS: Project[] = [
       "VS Code extension that surfaces Azure DevOps pipeline status in a terminal-style panel to reduce context switching.",
     longDescription:
       "A focused TypeScript extension built on the VS Code API and Azure DevOps REST APIs to keep build visibility inside the editor with a low-noise command-first UX.",
-    category: "VSCODE",
+    category: "CODE",
     platform: "github",
     tags: ["VS Code Extension", "TypeScript", "Azure DevOps"],
     year: "2026",
@@ -600,7 +601,8 @@ export const PROJECTS: Project[] = [
       "3D model animation brought to life on the web with GSAP and CSS, exported from Blender.",
     longDescription:
       "A creative experiment combining a Blender 3D model with GSAP-driven animations on the web. The static model is exported and animated entirely with CSS and JavaScript for a smooth cinematic experience in the browser.",
-    category: "EXPERIMENT",
+    category: "CRAFT",
+    kind: "experiment",
     platform: "github",
     tags: ["Blender", "GSAP", "3D", "CSS Animation"],
     year: "2022",
@@ -638,7 +640,8 @@ export const PROJECTS: Project[] = [
       "Classic Snake game reimagined in a 3D JavaScript environment.",
     longDescription:
       "A 3D take on the timeless Snake game, built with vanilla JavaScript. The project explores game loop logic, collision detection, and 3D rendering without a dedicated game engine.",
-    category: "EXPERIMENT",
+    category: "CRAFT",
+    kind: "experiment",
     platform: "github",
     tags: ["JavaScript", "3D", "Game", "Canvas"],
     year: "2023",
@@ -675,7 +678,8 @@ export const PROJECTS: Project[] = [
       "Pure CSS visual recreation of a Nintendo Switch OLED with polished controls and hardware-inspired composition.",
     longDescription:
       "A front-end style exercise focused on high-fidelity object recreation in CSS. The project explores gradients, shape composition, and layered shadows to mimic physical product design in a browser-only canvas.",
-    category: "CODEPEN",
+    category: "CRAFT",
+    kind: "experiment",
     platform: "codepen",
     tags: ["CodePen", "CSS Art", "UI Recreation"],
     year: "2022",
@@ -710,7 +714,8 @@ export const PROJECTS: Project[] = [
       "Interactive image preview slider prototype with navigation controls and smooth transition behavior.",
     longDescription:
       "A lightweight UI component prototype built in CodePen to test interaction rhythm, visual hierarchy, and motion between preview states.",
-    category: "CODEPEN",
+    category: "CRAFT",
+    kind: "experiment",
     platform: "codepen",
     tags: ["CodePen", "Slider", "Interaction Design"],
     year: "2022",
@@ -744,7 +749,8 @@ export const PROJECTS: Project[] = [
       "Animated anchor-based navigation concept focused on movement, section linking, and responsive menu behavior.",
     longDescription:
       "A navigation pattern experiment built on CodePen to refine timing, link emphasis, and animated transitions for one-page layouts.",
-    category: "CODEPEN",
+    category: "CRAFT",
+    kind: "experiment",
     platform: "codepen",
     tags: ["CodePen", "Navbar", "Animation"],
     year: "2022",
@@ -782,10 +788,7 @@ export const PROJECTS: Project[] = [
       "Figma plugin that converts selected design nodes into reusable React icon components, with optional motion-ready output.",
     longDescription:
       "Icon Builder is a Figma plugin focused on speeding up design-to-code flow for icon systems. It exports structured React components, supports wrapper patterns, and includes options for animated integrations.",
-    category: "CREATIVE",
-    // Filed under Design in the Lab, but the story here is a technical one:
-    // the page reads better as a decision log than as a mockup sheet.
-    template: "code",
+    category: "CODE",
     platform: "figma",
     tags: ["Figma Plugin", "Design to Code", "React Icons"],
     year: "2025",
@@ -845,7 +848,8 @@ export const PROJECTS: Project[] = [
       "Personal finance workspace in Notion with recurring costs, month/day summaries, and history views.",
     longDescription:
       "A structured Notion system for tracking recurring and previsional payments. Includes summary charts, historical logs, and integration notes for Apple Shortcuts automation.",
-    category: "MAKER",
+    category: "CRAFT",
+    kind: "template",
     platform: "notion",
     tags: ["Notion", "Productivity", "Finance"],
     year: "2023",
@@ -885,7 +889,8 @@ export const PROJECTS: Project[] = [
       "Knowledge and reading dashboard with library, genres, authors, yearly board, and personal reading stats.",
     longDescription:
       "A Notion reading operating system that organizes books by year, author, and genre with aggregated stats for pages, audiobooks, and active reading pipeline.",
-    category: "MAKER",
+    category: "CRAFT",
+    kind: "template",
     platform: "notion",
     tags: ["Notion", "Knowledge Management", "Reading"],
     year: "2023",
@@ -924,7 +929,8 @@ export const PROJECTS: Project[] = [
       "Meal-planning and kitchen workflow workspace with weekly planning, recipes, shopping list, and ingredient tracking.",
     longDescription:
       "An advanced Notion setup for food workflow management: weekly meal planning, recipe organization, shopping synchronization, and ingredient inventory including out-of-stock visibility.",
-    category: "MAKER",
+    category: "CRAFT",
+    kind: "template",
     platform: "notion",
     tags: ["Notion", "Meal Planning", "System Design"],
     year: "2023",
@@ -967,7 +973,8 @@ export const PROJECTS: Project[] = [
       "iOS Shortcut to speed up migration and lookup flow between Spotify content and Apple Music.",
     longDescription:
       "An automation shortcut designed to reduce friction when moving between Spotify and Apple Music contexts, enabling faster handoff for tracks and listening sessions.",
-    category: "APPLE",
+    category: "CRAFT",
+    kind: "shortcut",
     platform: "apple-shortcuts",
     tags: ["Apple Shortcuts", "Automation", "Music"],
     year: "2023",
@@ -1007,7 +1014,8 @@ export const PROJECTS: Project[] = [
       "Apple Shortcut for interval training routines with quick-start flow suitable for short workout sessions.",
     longDescription:
       "A focused iOS automation shortcut created to launch and support Tabata-style training routines with minimal setup and repeatable timing flow.",
-    category: "APPLE",
+    category: "CRAFT",
+    kind: "shortcut",
     platform: "apple-shortcuts",
     tags: ["Apple Shortcuts", "Fitness", "Automation"],
     year: "2023",
@@ -1051,7 +1059,7 @@ export const PROJECTS: Project[] = [
       "Minimalist graphic design for apparel featuring a cocktail glass with a witty tagline, created for print production.",
     longDescription:
       "A custom shirt design project combining playful illustration with minimalist typography. The design features a gin-tonic glass with the phrase 'let the party be-gin' as a clever visual pun, optimized for screen printing.",
-    category: "CREATIVE",
+    category: "DESIGN",
     platform: "web",
     tags: ["Design", "Apparel", "Print", "Illustrator"],
     year: "2023",
@@ -1115,7 +1123,7 @@ export const PROJECTS: Project[] = [
       "Custom phone case graphics created on commission, featuring diverse design styles and artistic approaches.",
     longDescription:
       "A commissioned project designing multiple phone cover variations. Each design brings a distinct aesthetic perspective suitable for custom case production, showcasing versatility in commercial graphic design.",
-    category: "CREATIVE",
+    category: "DESIGN",
     platform: "web",
     tags: ["Design", "Merchandise", "Commercial", "Illustrator"],
     year: "2022",
@@ -1187,7 +1195,8 @@ export const PROJECTS: Project[] = [
       "Complex portraiture and digital compositing project featuring a single performer in dual protagonist/antagonist roles through narrative symmetry.",
     longDescription:
       "An ambitious cosplay photography project bringing the Seven Deadly Sins aesthetic to life through multi-plate studio compositing. Using single-subject mirroring and landscape symmetry, the final piece creates a static narrative tension between hero and villain archetypes.",
-    category: "CREATIVE",
+    category: "CRAFT",
+    kind: "photo",
     platform: "web",
     tags: ["Photography", "Compositing", "Cosplay", "Affinity", "Narrative"],
     year: "2024",

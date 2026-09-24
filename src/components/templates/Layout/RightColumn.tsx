@@ -14,7 +14,8 @@ export default function RightColumn() {
   const autoHide =
     pathname.startsWith("/lab") ||
     pathname.startsWith("/about") ||
-    pathname.startsWith("/time-machine");
+    pathname.startsWith("/time-machine") ||
+    pathname.startsWith("/yggdrasil");
 
   return (
     <aside className={`${styles.rightColumn} ${autoHide ? styles.autoHide : ""}`}>

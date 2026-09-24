@@ -134,6 +134,26 @@
   }
 }
 
+// Craft's subcategories. A modifier on .filters rather than a second set of
+// rules: same row behaviour, including the horizontal scroll on mobile. Pulled
+// up under the group it belongs to, and set back a step so the hierarchy reads
+// without a heading announcing it.
+.subFilters {
+  margin-top: -$spacing-md;
+  margin-left: $spacing-md;
+  margin-bottom: $spacing-xl;
+
+  .filterBtn {
+    font-size: $font-size-2xs;
+    padding: $spacing-2xs $spacing-sm;
+    border-width: $border-hairline;
+  }
+
+  @include mobile {
+    margin-left: 0;
+  }
+}
+
 .filterBtn {
   background: transparent;
   border: $border-base solid color-mix(in srgb, var(--color-text) 35%, transparent);

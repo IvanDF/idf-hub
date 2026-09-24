@@ -1,0 +1,232 @@
+/* Yggdrasil — an Obsidian theme from the palette of Ivan Del Fatti's tmux and site. */
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Josefin+Slab:wght@500;700&family=Geist+Mono:wght@400;600&display=swap");
+
+body {
+  --font-text-theme: "Josefin Sans", "Inter", system-ui, sans-serif;
+  --font-interface-theme: "Josefin Sans", "Inter", system-ui, sans-serif;
+  --font-monospace-theme: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  --ygg-display: "Josefin Slab", Georgia, serif;
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-l: 14px;
+  --h1-weight: 700;
+  --h2-weight: 700;
+  --line-height-normal: 1.65;
+}
+
+.theme-dark {
+  --ygg-volta0: #0a0a0a;
+  --ygg-volta1: #0d1117;
+  --ygg-volta2: #1a1a2e;
+  --ygg-volta4: #8b5cf6;
+  --ygg-volta5: #a78bfa;
+  --ygg-volta6: #c4b5fd;
+  --ygg-lario0: #3b82f6;
+  --ygg-lario1: #60a5fa;
+  --ygg-lario2: #93c5fd;
+  --ygg-slate: #f3f4f6;
+  --ygg-stone: #64748b;
+  --ygg-berry: #ef4444;
+  --ygg-emerald: #4ade80;
+
+  --accent-h: 258;
+  --accent-s: 90%;
+  --accent-l: 66%;
+  --ygg-paper: #1f1e1b;
+  --ygg-paper-deep: #1a1917;
+  --ygg-paper-edge: #2e2c28;
+  --background-primary: var(--ygg-paper);
+  --background-primary-alt: #252420;
+  --background-secondary: var(--ygg-paper-deep);
+  --background-secondary-alt: #161513;
+  --background-modifier-border: var(--ygg-paper-edge);
+  --background-modifier-hover: rgba(139, 92, 246, 0.1);
+  --background-modifier-active-hover: rgba(139, 92, 246, 0.18);
+  --text-normal: #e6e2d8;
+  --text-muted: #a8a397;
+  --text-faint: #77736a;
+  --text-accent: var(--ygg-volta5);
+  --text-accent-hover: var(--ygg-volta6);
+  --text-selection: rgba(139, 92, 246, 0.3);
+  --link-color: var(--ygg-lario1);
+  --link-color-hover: var(--ygg-lario2);
+  --link-external-color: var(--ygg-lario1);
+  --link-unresolved-color: var(--ygg-stone);
+  --h1-color: var(--ygg-volta5);
+  --h2-color: var(--ygg-lario1);
+  --h3-color: var(--ygg-volta6);
+  --h4-color: var(--ygg-lario2);
+  --h5-color: var(--ygg-slate);
+  --h6-color: #94a3b8;
+  --code-background: var(--ygg-paper-deep);
+  --code-normal: var(--ygg-volta6);
+  --blockquote-border-color: var(--ygg-volta4);
+  --checkbox-color: var(--ygg-volta4);
+  --checkbox-border-color: var(--ygg-stone);
+  --tag-color: var(--ygg-volta6);
+  --tag-background: rgba(139, 92, 246, 0.14);
+  --tag-background-hover: rgba(139, 92, 246, 0.24);
+  --interactive-accent: var(--ygg-volta4);
+  --interactive-accent-hover: var(--ygg-volta5);
+  --color-red: var(--ygg-berry);
+  --color-green: var(--ygg-emerald);
+  --color-blue: var(--ygg-lario1);
+  --color-purple: var(--ygg-volta5);
+}
+
+.theme-light {
+  --ygg-cream: #e7e2d6;
+  --ygg-card: #efebe2;
+  --ygg-ink: #2a2825;
+  --ygg-muted: #6b675e;
+  --ygg-lario: #2563eb;
+  --ygg-volta: #8b5cf6;
+  --ygg-volta-text: #6d28d9;
+
+  --accent-h: 258;
+  --accent-s: 90%;
+  --accent-l: 66%;
+  --background-primary: var(--ygg-card);
+  --background-primary-alt: var(--ygg-cream);
+  --background-secondary: var(--ygg-cream);
+  --background-secondary-alt: #e4e0d6;
+  --background-modifier-border: #d6d0c2;
+  --background-modifier-hover: rgba(139, 92, 246, 0.08);
+  --background-modifier-active-hover: rgba(139, 92, 246, 0.14);
+  --text-normal: var(--ygg-ink);
+  --text-muted: var(--ygg-muted);
+  --text-faint: #94a3b8;
+  --text-accent: var(--ygg-volta-text);
+  --text-accent-hover: var(--ygg-volta);
+  --text-selection: rgba(139, 92, 246, 0.22);
+  --link-color: var(--ygg-volta-text);
+  --link-color-hover: var(--ygg-volta);
+  --link-external-color: var(--ygg-lario);
+  --link-unresolved-color: var(--ygg-muted);
+  --h1-color: var(--ygg-ink);
+  --h2-color: var(--ygg-volta-text);
+  --h3-color: var(--ygg-lario);
+  --blockquote-border-color: var(--ygg-volta);
+  --checkbox-color: var(--ygg-volta);
+  --tag-color: var(--ygg-volta-text);
+  --tag-background: rgba(139, 92, 246, 0.12);
+  --tag-background-hover: rgba(139, 92, 246, 0.2);
+  --interactive-accent: var(--ygg-volta);
+  --interactive-accent-hover: var(--ygg-volta-text);
+}
+
+.theme-light .mod-root .workspace-tab-header.is-active {
+  box-shadow: inset 0 -2px 0 var(--ygg-volta);
+}
+
+/* Paper: a faint grain over every surface, like an e-ink page. */
+body {
+  --ygg-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
+}
+.workspace-leaf-content,
+.workspace-split.mod-left-split,
+.workspace-split.mod-right-split,
+.modal,
+.prompt {
+  background-image: var(--ygg-grain);
+}
+.theme-dark .markdown-rendered img,
+.theme-dark .markdown-source-view img {
+  filter: brightness(0.92) contrast(0.95);
+}
+
+/* Display type for titles, like the site. */
+.inline-title,
+.markdown-rendered h1,
+.markdown-rendered h2,
+.HyperMD-header-1,
+.HyperMD-header-2 {
+  font-family: var(--ygg-display);
+  letter-spacing: 0.01em;
+}
+
+/* The Algiz rune marks the top of every note, as it marks the tmux status bar. */
+.inline-title::before {
+  content: "ᛉ ";
+  color: var(--interactive-accent);
+  font-weight: 700;
+}
+
+/* Horizontal rules become a row of runes. */
+.markdown-rendered hr {
+  border: none;
+  text-align: center;
+  overflow: visible;
+  height: 1.5em;
+  margin: 2em 0;
+}
+.markdown-rendered hr::after {
+  content: "ᚠ · ᚢ · ᚦ · ᚨ · ᚱ";
+  color: var(--text-faint);
+  letter-spacing: 0.4em;
+  font-size: 0.85em;
+}
+
+/* Blockquotes: a quiet card with a violet edge. */
+.markdown-rendered blockquote {
+  background: var(--background-primary-alt);
+  border-radius: 0 var(--radius-m) var(--radius-m) 0;
+  padding: 0.6em 1em;
+  font-style: italic;
+}
+
+/* Tags as small pills. */
+.tag {
+  border-radius: 999px;
+  padding: 0.1em 0.65em;
+  font-weight: 600;
+}
+
+/* Active tab behaves like the current tmux window: filled accent, dark text. */
+.theme-dark .workspace-tab-header.is-active .workspace-tab-header-inner-title,
+.theme-dark .workspace-tab-header.is-active .workspace-tab-header-inner-icon {
+  color: var(--ygg-volta6);
+}
+.theme-dark .mod-root .workspace-tab-header.is-active {
+  box-shadow: inset 0 -2px 0 var(--ygg-volta4);
+}
+
+/* Status bar like the tmux line: dark, muted, a violet accent on hover. */
+.status-bar {
+  background: var(--background-secondary);
+  border-top: 1px solid var(--background-modifier-border);
+  color: var(--text-faint);
+  font-family: var(--font-monospace-theme);
+  font-size: 0.78em;
+}
+.status-bar-item:hover {
+  color: var(--text-accent);
+}
+
+/* Active pane border in Lario blue, as in tmux. */
+.theme-dark .workspace-leaf.mod-active .view-header {
+  border-bottom: 1px solid var(--ygg-lario1);
+}
+
+/* Checked tasks fade instead of shouting. */
+.markdown-rendered li[data-task="x"],
+.markdown-source-view .HyperMD-task-line[data-task="x"] {
+  color: var(--text-faint);
+  text-decoration: line-through;
+}
+
+/* Callouts follow the palette. */
+.callout[data-callout="warning"] { --callout-color: 239, 68, 68; }
+.callout[data-callout="note"],
+.callout[data-callout="info"] { --callout-color: 96, 165, 250; }
+.callout[data-callout="tip"],
+.callout[data-callout="success"] { --callout-color: 74, 222, 128; }
+.callout[data-callout="quote"] { --callout-color: 167, 139, 250; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .nav-file-title,
+  .tag,
+  .status-bar-item {
+    transition: color 120ms ease, background-color 120ms ease;
+  }
+}

@@ -11,7 +11,8 @@ export default function LeftColumn() {
   const autoHide =
     pathname.startsWith("/lab") ||
     pathname.startsWith("/about") ||
-    pathname.startsWith("/time-machine");
+    pathname.startsWith("/time-machine") ||
+    pathname.startsWith("/yggdrasil");
 
   return (
     <aside className={`${styles.leftColumn} ${autoHide ? styles.autoHide : ""}`}>

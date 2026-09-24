@@ -9,6 +9,7 @@ export function mapDbRowToProject(row: Record<string, any>): Project {
     description: row.description,
     longDescription: row.long_description,
     category: row.category,
+    kind: row.kind ?? undefined,
     platform: row.platform,
     tags: row.tags ?? [],
     year: row.year,

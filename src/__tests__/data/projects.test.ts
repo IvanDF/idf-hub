@@ -1,9 +1,40 @@
 import { PROJECTS } from '@/data/projects'
-import type { ProjectCategory } from '@/types/project'
+import { templateFor } from '@/types/project'
+import type { ProjectCategory, ProjectKind } from '@/types/project'
 
-const VALID_CATEGORIES: ProjectCategory[] = [
-  'DEV', 'VSCODE', 'CREATIVE', 'MAKER', 'APPLE', 'CODEPEN', 'EXPERIMENT',
-]
+const VALID_CATEGORIES: ProjectCategory[] = ['CODE', 'DESIGN', 'CRAFT']
+const VALID_KINDS: ProjectKind[] = ['photo', 'template', 'shortcut', 'experiment']
+
+// Which template every project rendered with before the taxonomy changed.
+// Pinning it here is the safety property of that refactor: the categories were
+// reorganised to describe the work better, not to restyle any page.
+const TEMPLATE_BEFORE: Record<string, string> = {
+  "yggdrasil": "code",
+  "gabberg-icard": "code",
+  "filteroo": "code",
+  "zelda-cookbook": "code",
+  "vue-boolflix": "code",
+  "html-css-spotifyweb": "code",
+  "todo-fullstack": "code",
+  "signup-onboarding-flow": "code",
+  "rick-and-morty-theme": "code",
+  "check-your-pipes": "code",
+  "3d-blender-animation": "lab",
+  "snake-3d": "lab",
+  "codepen-nintendo-switch-oled": "lab",
+  "codepen-image-preview-slider": "lab",
+  "codepen-navbar-animated": "lab",
+  "figma-icon-builder": "code",
+  "notion-payment-tracker-2": "craft",
+  "notion-bookshelf-2": "craft",
+  "notion-recipes-advanced": "craft",
+  "shortcut-spotify-to-apple-music": "craft",
+  "shortcut-tabata": "craft",
+  "gin-tonic-tshirt": "design",
+  "phone-covers-design": "design",
+  "mirror-archetype-cosplay": "design"
+}
+
 const VALID_STATUSES = ['live', 'in-progress', 'archived', 'concept']
 
 describe('PROJECTS data', () => {
@@ -82,6 +113,29 @@ describe('PROJECTS data', () => {
       const all = [...mockupSrcs, ...plateSrcs]
       expect(new Set(all).size).toBe(all.length)
     })
+  })
+
+  it('every kind is a valid one', () => {
+    PROJECTS.filter(p => p.kind).forEach(p => {
+      expect(VALID_KINDS).toContain(p.kind)
+    })
+  })
+
+  // Craft is the bucket that subdivides; a Craft project without a kind falls
+  // back to the plain craft template and disappears from every sub-filter.
+  it('every Craft project declares a kind', () => {
+    const missing = PROJECTS.filter(p => p.category === 'CRAFT' && !p.kind).map(p => p.id)
+    expect(missing).toEqual([])
+  })
+
+  it('only Craft carries a kind, for now', () => {
+    const stray = PROJECTS.filter(p => p.category !== 'CRAFT' && p.kind).map(p => p.id)
+    expect(stray).toEqual([])
+  })
+
+  it('renders every project with the template it used before the remap', () => {
+    const now = Object.fromEntries(PROJECTS.map(p => [p.id, templateFor(p)]))
+    expect(now).toEqual(TEMPLATE_BEFORE)
   })
 
   it('every decision states a choice and a reason', () => {

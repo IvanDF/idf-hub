@@ -1,5 +1,5 @@
 import { PROJECTS } from "@/data/projects";
-import { templateFor } from "@/types/project";
+import { labelFor, templateFor } from "@/types/project";
 import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -13,14 +13,6 @@ import CraftCase from "./templates/CraftCase";
 import DesignCase from "./templates/DesignCase";
 import LabCase from "./templates/LabCase";
 import styles from "./ProjectDetail.module.scss";
-
-/** Human label per template, shown instead of the raw category enum. */
-const KIND_LABEL = {
-  code: "Code",
-  design: "Design",
-  craft: "System",
-  lab: "Experiment",
-} as const;
 
 export async function generateStaticParams() {
   return PROJECTS.map((project) => ({ slug: project.id }));
@@ -102,7 +94,7 @@ export default async function ProjectPage({
         <BackLink projectId={project.id} />
       </Suspense>
 
-      <ProjectHeader project={project} kind={KIND_LABEL[template]} />
+      <ProjectHeader project={project} kind={labelFor(project)} />
 
       {template === "code" && <CodeCase project={project} frames={frames} />}
       {template === "design" && <DesignCase project={project} frames={frames} />}

@@ -1,16 +1,11 @@
-import type { ProjectCategory, ProjectPlatform } from "@/types/project";
+import type { ProjectCategory, ProjectKind, ProjectPlatform } from "@/types/project";
 import type { FormState } from "./admin.types";
 
 /** All valid project categories. */
-export const CATEGORIES: ProjectCategory[] = [
-  "DEV",
-  "VSCODE",
-  "CREATIVE",
-  "MAKER",
-  "APPLE",
-  "CODEPEN",
-  "EXPERIMENT",
-];
+export const CATEGORIES: ProjectCategory[] = ["CODE", "DESIGN", "CRAFT"];
+
+/** Subcategories. Craft is the bucket that subdivides; the rest leave it unset. */
+export const KINDS: ProjectKind[] = ["photo", "template", "shortcut", "experiment"];
 
 /** All valid project platforms. */
 export const PLATFORMS: ProjectPlatform[] = [
@@ -38,7 +33,7 @@ export const EMPTY_FORM: FormState = {
   title: "",
   description: "",
   longDescription: "",
-  category: "DEV",
+  category: "CODE",
   platform: undefined,
   tags: "",
   year: new Date().getFullYear().toString(),

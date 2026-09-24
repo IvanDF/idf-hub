@@ -22,12 +22,15 @@ interface BackLinkProps {
  * on-demand server render.
  */
 export default function BackLink({ projectId }: BackLinkProps) {
-  const filter = useSearchParams().get("filter");
+  const params_ = useSearchParams();
+  const filter = params_.get("filter");
+  const kind = params_.get("kind");
 
   // `from` rather than a #hash: the list reads it during render, so it can
   // open the Archive when the row lives in there before trying to scroll to it.
   const params = new URLSearchParams({ view: "lab", from: projectId });
   if (filter) params.set("filter", filter);
+  if (kind) params.set("kind", kind);
 
   return (
     <Link href={`/lab?${params}`} className={styles.backLink}>

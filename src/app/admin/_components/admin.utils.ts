@@ -11,6 +11,7 @@ export function rowToForm(row: ProjectRow): FormState {
     description: row.description,
     longDescription: row.longDescription ?? "",
     category: row.category,
+    kind: row.kind,
     platform: row.platform,
     tags: (row.tags ?? []).join(", "),
     year: row.year,
@@ -38,6 +39,7 @@ export function formToRow(form: FormState): ProjectApiPayload {
     description: form.description.trim(),
     long_description: form.longDescription?.trim() || undefined,
     category: form.category,
+    kind: form.kind || undefined,
     platform: form.platform || undefined,
     tags: form.tags
       .split(",")

@@ -1,0 +1,465 @@
+@use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
+@use "sass:color";
+@use "sass:map";
+
+// ── Yggdrasil: a tmux session, not a page ────────────────────────────────────
+// Always dark, whatever the site theme: this is the server's own world.
+$bg: $color-ygg-night;
+$line: $color-ygg-ink;
+$text: $color-slate-dark;
+$muted: $color-slate-muted;
+$accent: $color-volta-light;
+$accent-soft: $color-volta-dark;
+$mist: $color-ygg-mist;
+$blue: $color-lario-dark;
+
+$swatches: (
+  "volta": $color-volta-light,
+  "volta-light": $color-volta-dark,
+  "volta-mist": $color-ygg-mist,
+  "lario": $color-lario-dark,
+  "night": $color-ygg-night,
+  "ink": $color-ygg-ink,
+  "stone": $color-slate-muted,
+  "slate": $color-slate-dark,
+);
+
+.page {
+  min-height: 100vh;
+  background: $bg;
+  color: $text;
+  font-family: $font-family-mono;
+  font-size: $font-size-base;
+  display: flex;
+  flex-direction: column;
+}
+
+// ── Status line ──
+.tmux {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-xs $spacing-md;
+  background: $bg;
+  border-bottom: 1px solid $line;
+  color: $muted;
+  font-size: $font-size-sm;
+}
+.tmuxLeft,
+.tmuxRight {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  color: $accent;
+}
+.tmuxRune {
+  font-size: $font-size-md;
+}
+.tmuxWindow {
+  background: $accent;
+  color: $color-silk-dark;
+  font-weight: 700;
+  padding: 0 $spacing-xs;
+}
+.tmuxStat {
+  display: none;
+  color: $muted;
+
+  b {
+    color: $mist;
+    font-weight: 600;
+  }
+
+  @include bp-up($breakpoint-xl) {
+    display: inline;
+  }
+}
+.tmuxClock {
+  color: $muted;
+}
+
+// ── Pane ──
+.pane {
+  flex: 1;
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: $spacing-xl $spacing-md $spacing-xxl;
+  border-left: 1px solid $blue;
+
+  @include bp-up($breakpoint-xl) {
+    padding: $spacing-2xl $spacing-2xl $spacing-xxl;
+  }
+}
+
+// ── Hero ──
+.hero {
+  padding-bottom: $spacing-2xl;
+  border-bottom: 1px solid $line;
+}
+.prompt {
+  color: $muted;
+  margin-bottom: $spacing-lg;
+}
+.promptUser {
+  color: $accent;
+  margin-right: $spacing-2xs;
+}
+.promptPath {
+  color: $blue;
+  margin-right: $spacing-2xs;
+}
+.title {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-md;
+  font-family: $font-family-display;
+  font-size: $font-size-h1-fluid;
+  line-height: 1;
+  color: $text;
+}
+.titleRune {
+  color: $accent;
+}
+.lede {
+  margin-top: $spacing-md;
+  font-family: $font-family-primary;
+  font-size: $font-size-lg;
+  color: $mist;
+}
+.intro {
+  margin-top: $spacing-lg;
+  max-width: 40rem;
+  line-height: 1.7;
+  color: $text;
+}
+
+// ── Sections ──
+.section {
+  padding: $spacing-2xl 0;
+  border-bottom: 1px solid $line;
+}
+.heading {
+  font-size: $font-size-md;
+  color: $accent;
+  text-transform: lowercase;
+
+  span {
+    color: $muted;
+    margin-right: $spacing-xs;
+  }
+}
+.sectionLede {
+  margin-top: $spacing-xs;
+  color: $muted;
+}
+
+// ── Tree ──
+.tree {
+  margin-top: $spacing-lg;
+  display: grid;
+  gap: $spacing-lg;
+
+  @include bp-up($breakpoint-xl) {
+    grid-template-columns: 3fr 2fr;
+    align-items: start;
+  }
+}
+.treeLayers {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+.treeLayer {
+  display: grid;
+  gap: $spacing-xs;
+  padding-left: $spacing-md;
+  border-left: 2px solid $line;
+
+  &[data-layer="branches"] {
+    border-color: $accent;
+  }
+  &[data-layer="trunk"] {
+    border-color: $blue;
+  }
+  &[data-layer="roots"] {
+    border-color: $muted;
+  }
+}
+.treeLabel {
+  color: $muted;
+  font-size: $font-size-sm;
+}
+.treeNodes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  list-style: none;
+  padding: 0;
+}
+.treeNode {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  min-height: 44px;
+  padding: $spacing-xs $spacing-md;
+  background: transparent;
+  border: 1px solid $line;
+  border-radius: $radius-sm;
+  color: $text;
+  font: inherit;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $accent-soft;
+  }
+  &:focus-visible {
+    outline: 2px solid $blue;
+    outline-offset: 2px;
+  }
+  &[aria-pressed="true"] {
+    background: $accent;
+    border-color: $accent;
+    color: $color-silk-dark;
+    font-weight: 700;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color 150ms ease, border-color 150ms ease;
+  }
+}
+.treeRune {
+  font-size: $font-size-md;
+}
+.realmCard {
+  padding: $spacing-lg;
+  border: 1px solid $line;
+  border-left: 2px solid $blue;
+  border-radius: $radius-md;
+  background: color.adjust($line, $alpha: -0.5);
+}
+.realmMyth {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  color: $muted;
+  font-size: $font-size-sm;
+}
+.realmRune {
+  color: $accent;
+  font-size: $font-size-lg;
+}
+.realmName {
+  margin-top: $spacing-sm;
+  font-family: $font-family-display;
+  font-size: $font-size-lg;
+  color: $text;
+}
+.realmRole {
+  font-family: $font-family-mono;
+  font-size: $font-size-base;
+  color: $mist;
+}
+.realmDetail {
+  margin-top: $spacing-sm;
+  line-height: 1.7;
+}
+
+// ── Laws ──
+.laws {
+  margin-top: $spacing-lg;
+  display: grid;
+  gap: $spacing-md;
+  list-style: none;
+  padding: 0;
+
+  @include bp-up($breakpoint-xl) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.law {
+  padding: $spacing-md;
+  border: 1px solid $line;
+  border-radius: $radius-md;
+}
+.lawIndex {
+  color: $accent;
+  font-size: $font-size-sm;
+}
+.lawTitle {
+  margin-top: $spacing-xs;
+  font-family: $font-family-primary;
+  font-size: $font-size-md;
+  font-weight: 700;
+  color: $text;
+}
+.lawBody {
+  margin-top: $spacing-xs;
+  color: $muted;
+  line-height: 1.6;
+}
+
+// ── Day ──
+.day {
+  margin-top: $spacing-lg;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: $spacing-md;
+}
+.dayItem {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: $spacing-md;
+}
+.dayTime {
+  color: $blue;
+  font-weight: 600;
+}
+.dayTitle {
+  font-family: $font-family-primary;
+  font-size: $font-size-md;
+  font-weight: 700;
+  color: $text;
+}
+.dayBody {
+  margin-top: $spacing-2xs;
+  color: $muted;
+  line-height: 1.6;
+}
+
+// ── Forge ──
+.forge {
+  margin-top: $spacing-lg;
+  display: grid;
+  gap: $spacing-lg;
+}
+.palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  list-style: none;
+  padding: 0;
+}
+.swatch {
+  display: grid;
+  gap: $spacing-2xs;
+  min-width: 6rem;
+
+  @each $name, $color in $swatches {
+    &[data-swatch="#{$name}"] .swatchChip {
+      background: $color;
+    }
+  }
+}
+.swatchChip {
+  display: block;
+  height: $spacing-xl;
+  border: 1px solid $line;
+  border-radius: $radius-sm;
+}
+.swatchName {
+  color: $text;
+  font-size: $font-size-sm;
+}
+.swatchHex {
+  color: $muted;
+  font-size: $font-size-sm;
+}
+.forgeItems {
+  display: grid;
+  gap: $spacing-md;
+  list-style: none;
+  padding: 0;
+
+  @include bp-up($breakpoint-xl) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.forgeItem {
+  padding: $spacing-md;
+  border: 1px solid $line;
+  border-radius: $radius-md;
+
+  &[data-status="forging"] {
+    border-style: dashed;
+    opacity: 0.75;
+  }
+}
+.forgeTarget {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  color: $blue;
+  font-size: $font-size-sm;
+}
+.forgeBadge {
+  color: $muted;
+  border: 1px solid $line;
+  border-radius: $radius-full;
+  padding: 0 $spacing-xs;
+}
+.forgeName {
+  margin-top: $spacing-xs;
+  font-family: $font-family-display;
+  font-size: $font-size-lg;
+  color: $text;
+}
+.forgeBody {
+  margin-top: $spacing-xs;
+  color: $muted;
+  line-height: 1.6;
+}
+.forgeLinks {
+  margin-top: $spacing-md;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+.forgeLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: $accent-soft;
+  text-decoration: none;
+
+  &:hover {
+    color: $mist;
+  }
+  &:focus-visible {
+    outline: 2px solid $blue;
+    outline-offset: 2px;
+  }
+}
+
+// ── Footer ──
+.footer {
+  padding-top: $spacing-2xl;
+  display: grid;
+  gap: $spacing-sm;
+}
+.footerLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: $accent-soft;
+  text-decoration: none;
+
+  &:hover {
+    color: $mist;
+  }
+  &:focus-visible {
+    outline: 2px solid $blue;
+    outline-offset: 2px;
+  }
+}
+.footerNote {
+  margin-top: $spacing-md;
+  color: $muted;
+  font-size: $font-size-sm;
+}

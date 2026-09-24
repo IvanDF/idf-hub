@@ -2,7 +2,7 @@
 
 import Text from "@/components/atoms/text";
 import styles from "../page.module.scss";
-import { CATEGORIES, INTERACTIONS, LAYOUTS, PLATFORMS, STATUSES } from "./admin.constants";
+import { CATEGORIES, INTERACTIONS, LAYOUTS, PLATFORMS, STATUSES, KINDS } from "./admin.constants";
 import type { FormState } from "./admin.types";
 
 type ChangeHandler = React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
@@ -93,6 +93,11 @@ export function AdminProjectForm({ form, editingId, saving, formError, onChange,
             <select name="category" value={form.category} onChange={onChange} className={styles.input} required>
               {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
+          </Field>
+
+          {/* Optional: only Craft subdivides, so the other two leave it unset. */}
+          <Field label="Kind">
+            <OptSelect name="kind" value={form.kind ?? ""} onChange={onChange} items={KINDS} />
           </Field>
 
           <Field label="Platform">

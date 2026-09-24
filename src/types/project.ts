@@ -1,11 +1,20 @@
-export type ProjectCategory =
-  | "DEV"
-  | "VSCODE"
-  | "CREATIVE"
-  | "MAKER"
-  | "APPLE"
-  | "CODEPEN"
-  | "EXPERIMENT";
+/**
+ * What kind of work this is — and only that.
+ *
+ * The previous seven values collapsed three different axes into one list:
+ * discipline (DEV, CREATIVE), intent (MAKER, EXPERIMENT) and platform
+ * (VSCODE, APPLE, CODEPEN). The platform is already its own field, so three
+ * of the seven restated data the record carried anyway, and a Figma plugin
+ * ended up filed under Design because of where it runs rather than what it is.
+ */
+export type ProjectCategory = "CODE" | "DESIGN" | "CRAFT";
+
+/**
+ * Subcategory. Craft is the broad bucket, so it is the one that subdivides;
+ * the field is free-standing rather than Craft-only so Code or Design can
+ * adopt subcategories later without a type migration.
+ */
+export type ProjectKind = "photo" | "template" | "shortcut" | "experiment";
 
 export type ProjectPlatform =
   | "github"
@@ -22,22 +31,56 @@ export type ProjectPlatform =
  */
 export type ProjectTemplate = "code" | "design" | "craft" | "lab";
 
-const TEMPLATE_BY_CATEGORY: Record<ProjectCategory, ProjectTemplate> = {
-  DEV: "code",
-  VSCODE: "code",
-  CREATIVE: "design",
-  MAKER: "craft",
-  APPLE: "craft",
-  EXPERIMENT: "lab",
-  CODEPEN: "lab",
+/**
+ * Which template a Craft project renders with. Photography is a composed
+ * image, so it reads like design work — DesignCase already shows the finals
+ * and then the plates they were built from. Experiments want the live embed
+ * and a short write-up; templates and shortcuts want "what it does".
+ */
+const TEMPLATE_BY_KIND: Record<ProjectKind, ProjectTemplate> = {
+  photo: "design",
+  template: "craft",
+  shortcut: "craft",
+  experiment: "lab",
 };
 
 /**
  * Resolves which detail template a project renders with.
+ *
+ * Craft covers several kinds of work, so it defers to `kind`; Code and Design
+ * each mean one thing. A Craft project with no kind falls back to the plain
+ * craft template rather than throwing — the data test catches the omission.
+ *
  * @param project - The project to classify.
  */
 export function templateFor(project: Project): ProjectTemplate {
-  return project.template ?? TEMPLATE_BY_CATEGORY[project.category];
+  if (project.template) return project.template;
+  if (project.category === "CODE") return "code";
+  if (project.category === "DESIGN") return "design";
+  return project.kind ? TEMPLATE_BY_KIND[project.kind] : "craft";
+}
+
+/** Chip text per kind, for the Craft projects. */
+const LABEL_BY_KIND: Record<ProjectKind, string> = {
+  photo: "Photo",
+  template: "Template",
+  shortcut: "Shortcut",
+  experiment: "Experiment",
+};
+
+/**
+ * The words shown on the project's chip, in the list and on its own page.
+ *
+ * Deliberately not derived from the template: a photo project renders with
+ * the design template, and labelling it "Design" would describe the layout
+ * rather than the work.
+ *
+ * @param project - The project to label.
+ */
+export function labelFor(project: Project): string {
+  if (project.category === "CODE") return "Code";
+  if (project.category === "DESIGN") return "Design";
+  return project.kind ? LABEL_BY_KIND[project.kind] : "Craft";
 }
 
 /** A technical decision, why it was taken, and what it cost. */
@@ -80,6 +123,8 @@ export interface Project {
   description: string;
   longDescription?: string;
   category: ProjectCategory;
+  /** Subcategory. Required in practice for Craft; see the data test. */
+  kind?: ProjectKind;
   /** Overrides the category-derived detail template. Rarely needed. */
   template?: ProjectTemplate;
   platform?: ProjectPlatform;

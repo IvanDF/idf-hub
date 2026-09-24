@@ -1,7 +1,8 @@
 "use client";
 
 import { PROJECTS } from "@/data/projects";
-import type { Project } from "@/types/project";
+import { labelFor } from "@/types/project";
+import type { Project, ProjectCategory, ProjectKind } from "@/types/project";
 import CareerPath from "@/components/organisms/career-path";
 import WorkFork from "@/components/organisms/work-fork";
 import Text from "@/components/atoms/text";
@@ -11,25 +12,33 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.scss";
 
-type FilterGroup = "all" | "code" | "design" | "craft" | "lab";
+type FilterGroup = "all" | "code" | "design" | "craft";
 type View = "career" | "lab";
 
-const FILTERS: { label: string; group: FilterGroup }[] = [
+const FILTERS: { label: string; group: FilterGroup; category?: ProjectCategory }[] = [
   { label: "All", group: "all" },
-  { label: "Code", group: "code" },
-  { label: "Design", group: "design" },
-  { label: "Craft", group: "craft" },
-  { label: "Lab", group: "lab" },
+  { label: "Code", group: "code", category: "CODE" },
+  { label: "Design", group: "design", category: "DESIGN" },
+  { label: "Craft", group: "craft", category: "CRAFT" },
 ];
 
-function matchesGroup(p: Project, group: FilterGroup): boolean {
-  if (group === "all") return true;
-  const c = p.category;
-  if (group === "code") return c === "DEV" || c === "VSCODE";
-  if (group === "design") return c === "CREATIVE";
-  if (group === "craft") return c === "MAKER" || c === "APPLE";
-  if (group === "lab") return c === "EXPERIMENT" || c === "CODEPEN";
-  return false;
+/**
+ * Craft covers several kinds of work, so it is the one group that subdivides.
+ * The second row only appears once Craft is chosen — the top level stays at
+ * three, and these can grow without crowding it.
+ */
+const KIND_FILTERS: { label: string; kind: ProjectKind }[] = [
+  { label: "Photo", kind: "photo" },
+  { label: "Templates", kind: "template" },
+  { label: "Shortcuts", kind: "shortcut" },
+  { label: "Experiments", kind: "experiment" },
+];
+
+function matchesGroup(p: Project, group: FilterGroup, kind: ProjectKind | null): boolean {
+  const filter = FILTERS.find((f) => f.group === group);
+  if (filter?.category && p.category !== filter.category) return false;
+  // `kind` only ever narrows within Craft; the UI does not offer it elsewhere.
+  return !kind || p.kind === kind;
 }
 
 /**
@@ -57,6 +66,14 @@ export default function Lab() {
   const filter: FilterGroup =
     rawFilter && FILTERS.some((f) => f.group === rawFilter) ? rawFilter : "all";
 
+  // Only meaningful inside Craft: a stale ?kind on another group is ignored
+  // rather than silently emptying the list.
+  const rawKind = searchParams.get("kind") as ProjectKind | null;
+  const kind: ProjectKind | null =
+    filter === "craft" && rawKind && KIND_FILTERS.some((k) => k.kind === rawKind)
+      ? rawKind
+      : null;
+
   // Two work stories, one route: no view param shows the fork; old deep links
   // with only ?filter keep landing straight in the lab.
   const rawView = searchParams.get("view");
@@ -78,8 +95,17 @@ export default function Lab() {
     const p = new URLSearchParams(searchParams.toString());
     if (group === "all") p.delete("filter");
     else p.set("filter", group);
+    // Craft owns the second row, so the subcategory leaves with it.
+    if (group !== "craft") p.delete("kind");
     const q = p.toString();
     router.replace(q ? `${pathname}?${q}` : pathname, { scroll: false });
+  };
+
+  const setKind = (next: ProjectKind | null) => {
+    const p = new URLSearchParams(searchParams.toString());
+    if (next) p.set("kind", next);
+    else p.delete("kind");
+    router.replace(`${pathname}?${p.toString()}`, { scroll: false });
   };
 
   // Real links instead of router.push-on-click: the detail pages are static,
@@ -87,17 +113,18 @@ export default function Lab() {
   const hrefFor = (project: Project) => {
     const p = new URLSearchParams();
     if (filter !== "all") p.set("filter", filter);
+    if (kind) p.set("kind", kind);
     const q = p.toString();
     return q ? `/lab/${project.id}?${q}` : `/lab/${project.id}`;
   };
 
   // Experiments live in the same list as client/product work but carry a
   // subtle visual marker so the two read differently at a glance.
-  const kindOf = (p: Project) =>
-    matchesGroup(p, "lab") ? "experiment" : undefined;
+  const markerFor = (p: Project) =>
+    p.kind === "experiment" ? "experiment" : undefined;
 
-  const live = LIVE.filter((p) => matchesGroup(p, filter));
-  const archived = ARCHIVED.filter((p) => matchesGroup(p, filter));
+  const live = LIVE.filter((p) => matchesGroup(p, filter, kind));
+  const archived = ARCHIVED.filter((p) => matchesGroup(p, filter, kind));
 
   // Which row the visitor just came back from, if any.
   const returningTo = searchParams.get("from");
@@ -181,7 +208,7 @@ export default function Lab() {
 
         {view === "lab" && (
           <motion.div
-            key={`lab-${filter}`}
+            key={`lab-${filter}-${kind ?? ""}`}
             initial={{ opacity: 0, x: 14 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 8 }}
@@ -200,6 +227,33 @@ export default function Lab() {
               ))}
             </nav>
 
+            {/* Craft is the one group with subcategories, so this row exists
+                only while Craft is chosen. The top level stays at three. */}
+            {filter === "craft" && (
+              <nav
+                className={`${styles.filters} ${styles.subFilters}`}
+                aria-label="Craft subcategories"
+              >
+                <button
+                  onClick={() => setKind(null)}
+                  className={`${styles.filterBtn} ${!kind ? styles.active : ""}`}
+                  aria-pressed={!kind}
+                >
+                  All
+                </button>
+                {KIND_FILTERS.map((k) => (
+                  <button
+                    key={k.kind}
+                    onClick={() => setKind(k.kind)}
+                    className={`${styles.filterBtn} ${kind === k.kind ? styles.active : ""}`}
+                    aria-pressed={kind === k.kind}
+                  >
+                    {k.label}
+                  </button>
+                ))}
+              </nav>
+            )}
+
             <div className={styles.projectList} role="list">
               {live.map((project, i) => (
                 <Link
@@ -207,7 +261,7 @@ export default function Lab() {
                   id={project.id}
                   role="listitem"
                   className={styles.projectRow}
-                  data-kind={kindOf(project)}
+                  data-kind={markerFor(project)}
                   href={hrefFor(project)}
                 >
                   <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>
@@ -216,7 +270,7 @@ export default function Lab() {
                     <span className={styles.rowDesc}>{project.description}</span>
                   </div>
                   <div className={styles.rowMeta}>
-                    <span className={styles.rowCategory}>{project.category}</span>
+                    <span className={styles.rowCategory}>{labelFor(project)}</span>
                     <span className={styles.rowYear}>{project.year}</span>
                     {/* ︎ forces text presentation: without it iOS falls back
                         to Apple Color Emoji when the webfont lacks the glyph */}
@@ -259,7 +313,7 @@ export default function Lab() {
                           id={project.id}
                           role="listitem"
                           className={`${styles.projectRow} ${styles.archivedRow}`}
-                          data-kind={kindOf(project)}
+                          data-kind={markerFor(project)}
                           href={hrefFor(project)}
                         >
                           <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>
@@ -268,7 +322,7 @@ export default function Lab() {
                             <span className={styles.rowDesc}>{project.description}</span>
                           </div>
                           <div className={styles.rowMeta}>
-                            <span className={styles.rowCategory}>{project.category}</span>
+                            <span className={styles.rowCategory}>{labelFor(project)}</span>
                             <span className={styles.rowYear}>{project.year}</span>
                           </div>
                         </Link>
