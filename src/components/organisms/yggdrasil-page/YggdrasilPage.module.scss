@@ -60,11 +60,60 @@ $swatches: (
 .tmuxRune {
   font-size: $font-size-md;
 }
+// The windows scroll sideways on a narrow screen rather than wrapping, which
+// is what a real status line does when it runs out of room.
+.tmuxWindows {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// Inactive windows read as tmux's window-status-style: muted, no fill. The
+// current one takes window-status-current-style straight from the bundled
+// tmux.conf — violet behind, near-black in front, bold.
 .tmuxWindow {
-  background: $accent;
-  color: $color-silk-dark;
-  font-weight: 700;
+  all: unset;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
   padding: 0 $spacing-xs;
+  color: $muted;
+  transition: color 0.15s ease;
+
+  // A status line is thin by design, and 16px is a fine mouse target. Under a
+  // finger it is not, so the windows take the full target height on small
+  // screens — the line stays a line on the desktop.
+  //
+  // Keyed to the breakpoint rather than `pointer: coarse` for two reasons: it
+  // is what the rest of this codebase uses, and it is the one of the two that
+  // can actually be verified in a headless browser, which reports a fine
+  // pointer whatever size the window is.
+  @include mobile {
+    min-height: $touch-target-min;
+    padding: 0 $spacing-sm;
+  }
+
+  &:hover {
+    color: $text;
+  }
+
+  &:focus-visible {
+    outline: 1px solid $accent;
+    outline-offset: -1px;
+  }
+
+  &[data-current="true"] {
+    background: $accent;
+    color: $color-silk-dark;
+    font-weight: 700;
+  }
 }
 .tmuxStat {
   display: none;

@@ -44,16 +44,16 @@ export default function YggdrasilPage() {
           </p>
         </section>
 
-        <section className={styles.section} aria-labelledby="ygg-tree">
-          <h2 id="ygg-tree" className={styles.heading}>
+        <section id="ygg-tree" className={styles.section} aria-labelledby="ygg-tree-h">
+          <h2 id="ygg-tree-h" className={styles.heading}>
             <span aria-hidden="true">#</span> the tree
           </h2>
           <p className={styles.sectionLede}>Choose a branch.</p>
           <RealmTree />
         </section>
 
-        <section className={styles.section} aria-labelledby="ygg-laws">
-          <h2 id="ygg-laws" className={styles.heading}>
+        <section id="ygg-laws" className={styles.section} aria-labelledby="ygg-laws-h">
+          <h2 id="ygg-laws-h" className={styles.heading}>
             <span aria-hidden="true">#</span> the laws
           </h2>
           <ol className={styles.laws}>
@@ -67,8 +67,8 @@ export default function YggdrasilPage() {
           </ol>
         </section>
 
-        <section className={styles.section} aria-labelledby="ygg-decisions">
-          <h2 id="ygg-decisions" className={styles.heading}>
+        <section id="ygg-decisions" className={styles.section} aria-labelledby="ygg-decisions-h">
+          <h2 id="ygg-decisions-h" className={styles.heading}>
             <span aria-hidden="true">#</span> the decisions
           </h2>
           <p className={styles.sectionLede}>
@@ -78,15 +78,15 @@ export default function YggdrasilPage() {
           <Decisions decisions={decisions} />
         </section>
 
-        <section className={styles.section} aria-labelledby="ygg-day">
-          <h2 id="ygg-day" className={styles.heading}>
+        <section id="ygg-day" className={styles.section} aria-labelledby="ygg-day-h">
+          <h2 id="ygg-day-h" className={styles.heading}>
             <span aria-hidden="true">#</span> a day in the tree
           </h2>
           <DayTimeline />
         </section>
 
-        <section className={styles.section} aria-labelledby="ygg-forge">
-          <h2 id="ygg-forge" className={styles.heading}>
+        <section id="ygg-forge" className={styles.section} aria-labelledby="ygg-forge-h">
+          <h2 id="ygg-forge-h" className={styles.heading}>
             <span aria-hidden="true">#</span> the forge
           </h2>
           <p className={styles.sectionLede}>The themes this setup runs on. Take them.</p>

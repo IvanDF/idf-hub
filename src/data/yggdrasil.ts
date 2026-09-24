@@ -168,6 +168,20 @@ export const YGG_FORGE: YggForgeItem[] = [
   },
 ];
 
+/**
+ * The page's sections, as tmux windows. The status bar numbers them and
+ * highlights the one you are in, so the bar is navigation rather than
+ * decoration — and because one list drives both, a window cannot point at a
+ * section that does not exist.
+ */
+export const YGG_SECTIONS: { n: number; id: string; label: string }[] = [
+  { n: 1, id: "ygg-tree", label: "tree" },
+  { n: 2, id: "ygg-laws", label: "laws" },
+  { n: 3, id: "ygg-decisions", label: "decisions" },
+  { n: 4, id: "ygg-day", label: "day" },
+  { n: 5, id: "ygg-forge", label: "forge" },
+];
+
 /** Palette shared by every theme in the forge, in the order tmux uses it. */
 export const YGG_PALETTE: { name: string; hex: string }[] = [
   { name: "volta", hex: "#8b5cf6" },
