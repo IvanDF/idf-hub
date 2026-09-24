@@ -177,4 +177,47 @@ mkdirSync(OUT_DIR, { recursive: true });
   writeWav("air.wav", buf);
 }
 
+// ── rune: the Norse layer for /yggdrasil ─────────────────────────────────────
+// What reads as Nordic is the open fifth with no third in it: the third is
+// what decides major or minor, and leaving it out gives the archaic, modal
+// sound. So this is a C-G drone held under the whole loop, plus a bowed call
+// an octave and a half up entering on each block.
+//
+// C and G sit consonantly over every chord in the grid — root+fifth on C,
+// fourth+root on G (a sus colour, which is the point), third+seventh on Am,
+// fifth+ninth on F — so it can play through the progression without ever
+// needing to move.
+{
+  const buf = new Float64Array(N);
+
+  // Bowed tone: odd harmonics only, which keeps it hollow rather than reedy.
+  const bow = (f, t) =>
+    sine(f, t) * 0.7 + sine(f * 3, t) * 0.12 + sine(f * 5, t) * 0.05;
+
+  // The drone: one unbroken note across the loop, so there is no seam to hear.
+  // Two detuned pairs give it the beating of a bowed string section.
+  addNote(buf, 0, DURATION, freq(C2), 0.55, bow, 2.5, 2.5);
+  addNote(buf, 0, DURATION, freq(C2) * 1.002, 0.3, sine, 3.0, 3.0);
+  addNote(buf, 0, DURATION, freq(G2), 0.35, bow, 2.8, 2.8);
+  addNote(buf, 0, DURATION, freq(G2) * 0.998, 0.2, sine, 3.2, 3.2);
+
+  // The call: an open fifth up high, one per block, long attack so it swells
+  // in rather than strikes. Alternating so it does not repeat identically.
+  const calls = [
+    [C4, G4],
+    [G3, D4],
+    [C4, G4],
+    [F3, C4],
+  ];
+  for (let block = 0; block < 4; block++) {
+    const t0 = block * BLOCK;
+    for (const m of calls[block]) {
+      addNote(buf, t0 + BEAT, BLOCK - 2 * BEAT, freq(m), 0.18, bow, 1.8, 2.0);
+    }
+  }
+
+  normalize(buf, 0.42);
+  writeWav("rune.wav", buf);
+}
+
 console.log("done ->", OUT_DIR);
