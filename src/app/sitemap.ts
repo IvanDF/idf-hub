@@ -7,7 +7,7 @@ const siteUrl =
 // /secrets is deliberately absent: an easter egg loses its point once a
 // sitemap hands it to every crawler.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["/", "/lab", "/about", "/time-machine"];
+  const routes = ["/", "/lab", "/about", "/time-machine", "/yggdrasil"];
 
   return [
     ...routes.map((route) => ({
