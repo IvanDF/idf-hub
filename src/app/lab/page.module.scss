@@ -1,6 +1,8 @@
 @use "@/styles/variables" as *;
 @use "@/styles/mixins" as *;
 
+@include reveal-keyframes;
+
 // ── View tabs: jump between the two stories without going back ───────────────
 .viewTabs {
   display: inline-flex;
@@ -204,6 +206,9 @@
   align-items: center;
   gap: $spacing-lg;
   padding: $spacing-lg $spacing-xs;
+  // Each row runs on its own entry, so the stagger falls out of the layout
+  // instead of being hand-tuned with delays.
+  @include reveal;
   // Squircle from the design system so the inverted hover block never shows
   // 90-degree corners; the hairline below stays as the list separator.
   border-radius: var(--route-card-radius, #{$radius-lg});

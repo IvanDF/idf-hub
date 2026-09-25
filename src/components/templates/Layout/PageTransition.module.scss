@@ -4,3 +4,27 @@
   width: 100%;
   min-height: 100%;
 }
+// Arrival, not a gate. The element's resting state is fully visible — this
+// animation has no fill-mode, so before it runs and after it ends the page is
+// simply itself. That is the difference from the framer wrapper this replaces,
+// which held the whole page at opacity:0 until JavaScript said otherwise and
+// left it blank forever when WebKit dropped the animation.
+//
+// Keyed on the route so it replays on navigation: the pages are static and
+// fast, and a short rise reads as arriving somewhere rather than as a jump.
+@media (prefers-reduced-motion: no-preference) {
+  .container {
+    animation: page-in 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

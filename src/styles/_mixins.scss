@@ -172,3 +172,73 @@
   background-size: auto 12px;
   pointer-events: none;
 }
+
+
+// ── Scroll reveals ───────────────────────────────────────────────────────────
+// Motion layered on top of content that is already visible. The base rules
+// never set opacity, so if either guard fails — reduced motion, or a browser
+// without scroll-driven animations — the element renders normally and nothing
+// is hidden. That is exactly the constraint the earlier reveals broke: they
+// used IntersectionObserver with a framer `initial={{opacity: 0}}`, and when
+// the callback did not fire the text stayed invisible forever. A scroll
+// timeline has no callback to miss — progress is a pure function of scroll
+// position.
+//
+// Only opacity and transform, both composited: no layout, no paint.
+//
+// USAGE: call `reveal-keyframes` once at the top level of the module, then
+// `reveal` inside selectors. The keyframes have to be declared in the same
+// file that references them — CSS Modules rewrites an animation-name to a
+// scoped one, so a copy in globals.scss would be named `reveal-in` while the
+// rule asks for `<hash>__reveal-in` and nothing animates at all.
+
+/// Declare once per module, at the top level.
+@mixin reveal-keyframes {
+  @keyframes reveal-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  // Leaving is gentler than arriving, and deliberately never reaches zero: at
+  // the far end the content is still legible, so stopping mid-scroll can never
+  // leave anything hidden.
+  @keyframes reveal-out {
+    from {
+      opacity: 1;
+      transform: none;
+    }
+    to {
+      opacity: 0.45;
+      transform: translateY(-10px);
+    }
+  }
+}
+
+/// Fade and rise as the element enters the viewport.
+/// @param {Percentage} $until - how far into the entry the motion finishes.
+@mixin reveal($until: 55%) {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry $until;
+    }
+  }
+}
+
+/// Rise on the way in, settle back on the way out.
+@mixin reveal-both($until: 55%) {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      animation: reveal-in linear both, reveal-out linear both;
+      animation-timeline: view(), view();
+      animation-range: entry 0% entry $until, exit 30% exit 100%;
+    }
+  }
+}
