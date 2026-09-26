@@ -48,3 +48,6 @@ public/storybook/
 # local dev docs (design notes, tasks, open points — not for repo)
 /_dev/
 /docs/brand-kit.md
+
+# Playwright MCP scratch output (screenshots, console logs)
+.playwright-mcp/

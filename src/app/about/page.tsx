@@ -80,7 +80,7 @@ export default function AboutPage() {
       </div>
 
       {/* ── INTRO ────────────────────────────────────────────────────── */}
-      <section className={styles.manifesto}>
+      <section className={styles.manifesto} data-reveal="">
         <Text as="p" variant="body" className={styles.manifestoText}>
           Driven by curiosity, refined through design. Exploring patterns,
           questioning assumptions, and solving problems from unexpected angles.
@@ -88,7 +88,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── NEUROSCIENCE ─────────────────────────────────────────────── */}
-      <section className={styles.neuro}>
+      <section className={styles.neuro} data-reveal="">
         <Text as="span" variant="label" className={styles.cellLabel}>
           The software side
         </Text>
@@ -114,7 +114,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── GRID ─────────────────────────────────────────────────────── */}
-      <section className={styles.grid}>
+      <section className={styles.grid} data-reveal="">
         {/* Interests block */}
         <div className={`${styles.cell} ${styles.cellInterests}`}>
           <Text as="span" variant="label" className={styles.cellLabel}>Interests</Text>
@@ -146,7 +146,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── BRAND TAGLINE ────────────────────────────────────────────── */}
-      <section className={styles.tagline}>
+      <section className={styles.tagline} data-reveal="">
         <div className={styles.taglineInner}>
           <TextScramble
             as="p"

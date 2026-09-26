@@ -21,6 +21,7 @@ export default function CareerPath() {
         <li
           key={`${step.years}-${step.role}`}
           className={styles.step}
+          data-reveal="both"
           data-current={step.current || undefined}
         >
           <span className={styles.watermark} aria-hidden="true">

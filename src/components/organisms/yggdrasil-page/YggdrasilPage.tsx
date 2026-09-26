@@ -44,7 +44,7 @@ export default function YggdrasilPage() {
           </p>
         </section>
 
-        <section id="ygg-tree" className={styles.section} aria-labelledby="ygg-tree-h">
+        <section id="ygg-tree" data-reveal="" className={styles.section} aria-labelledby="ygg-tree-h">
           <h2 id="ygg-tree-h" className={styles.heading}>
             <span aria-hidden="true">#</span> the tree
           </h2>
@@ -52,7 +52,7 @@ export default function YggdrasilPage() {
           <RealmTree />
         </section>
 
-        <section id="ygg-laws" className={styles.section} aria-labelledby="ygg-laws-h">
+        <section id="ygg-laws" data-reveal="" className={styles.section} aria-labelledby="ygg-laws-h">
           <h2 id="ygg-laws-h" className={styles.heading}>
             <span aria-hidden="true">#</span> the laws
           </h2>
@@ -67,7 +67,7 @@ export default function YggdrasilPage() {
           </ol>
         </section>
 
-        <section id="ygg-decisions" className={styles.section} aria-labelledby="ygg-decisions-h">
+        <section id="ygg-decisions" data-reveal="" className={styles.section} aria-labelledby="ygg-decisions-h">
           <h2 id="ygg-decisions-h" className={styles.heading}>
             <span aria-hidden="true">#</span> the decisions
           </h2>
@@ -78,14 +78,14 @@ export default function YggdrasilPage() {
           <Decisions decisions={decisions} />
         </section>
 
-        <section id="ygg-day" className={styles.section} aria-labelledby="ygg-day-h">
+        <section id="ygg-day" data-reveal="" className={styles.section} aria-labelledby="ygg-day-h">
           <h2 id="ygg-day-h" className={styles.heading}>
             <span aria-hidden="true">#</span> a day in the tree
           </h2>
           <DayTimeline />
         </section>
 
-        <section id="ygg-forge" className={styles.section} aria-labelledby="ygg-forge-h">
+        <section id="ygg-forge" data-reveal="" className={styles.section} aria-labelledby="ygg-forge-h">
           <h2 id="ygg-forge-h" className={styles.heading}>
             <span aria-hidden="true">#</span> the forge
           </h2>

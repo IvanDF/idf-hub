@@ -27,7 +27,7 @@ export default function LabCase({ project, frames, codepen }: LabCaseProps) {
   return (
     <>
       {codepen && (
-        <section className={styles.embed}>
+        <section className={styles.embed} data-reveal="">
           {/* Live pen instead of screenshots: the work IS the interaction */}
           <iframe
             className={styles.embedFrame}
@@ -47,7 +47,7 @@ export default function LabCase({ project, frames, codepen }: LabCaseProps) {
         />
       )}
 
-      <section className={styles.experiment}>
+      <section className={styles.experiment} data-reveal="">
         {question && (
           <div className={styles.experimentBlock}>
             <Text as="h2" variant="h2" className={styles.actTitle}>

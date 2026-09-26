@@ -1,8 +1,6 @@
 @use "@/styles/variables" as *;
 @use "@/styles/mixins" as *;
 
-@include reveal-keyframes;
-
 // ── Scroll-driven chapters: one viewport per career step ─────────────────────
 // The period is a giant watermark behind each chapter; content sits on a thin
 // spine on the left. The current role is the only accented chapter.
@@ -14,9 +12,6 @@
 }
 
 .step {
-  // Each chapter fills the screen, so it settles back as it leaves rather
-  // than snapping away — the motion is what carries the eye to the next one.
-  @include reveal-both;
   position: relative;
   min-height: 86svh;
   display: flex;

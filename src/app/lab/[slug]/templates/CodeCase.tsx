@@ -48,7 +48,7 @@ export default function CodeCase({ project, frames }: CodeCaseProps) {
       )}
 
       {brief.length > 0 && (
-        <section className={styles.acts}>
+        <section className={styles.acts} data-reveal="">
           {brief.map((act, i) => (
             <div key={act.label} className={styles.act}>
               <div className={styles.actNum}>{String(i + 1).padStart(2, "0")}</div>
@@ -66,7 +66,7 @@ export default function CodeCase({ project, frames }: CodeCaseProps) {
       )}
 
       {decisions.length > 0 && (
-        <section className={styles.decisions} aria-label="Technical decisions">
+        <section className={styles.decisions} data-reveal="" aria-label="Technical decisions">
           <div className={styles.sectionHead}>
             <Text as="h2" variant="h2" className={styles.sectionTitle}>
               Decisions
@@ -99,7 +99,7 @@ export default function CodeCase({ project, frames }: CodeCaseProps) {
       )}
 
       {project.solution && (
-        <section className={styles.outcome}>
+        <section className={styles.outcome} data-reveal="">
           <Text as="h2" variant="h2" className={styles.sectionTitle}>
             Outcome
           </Text>

@@ -61,7 +61,7 @@ export default function DesignCase({ project, frames }: DesignCaseProps) {
       )}
 
       {brief.length > 0 && (
-        <section className={styles.acts}>
+        <section className={styles.acts} data-reveal="">
           {brief.map((act, i) => (
             <div key={act.label} className={styles.act}>
               <div className={styles.actNum}>{String(i + 1).padStart(2, "0")}</div>

@@ -1,5 +1,7 @@
 "use client";
 
+import { useInterfaceSounds } from "@/hooks/useInterfaceSounds";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { usePathname } from "next/navigation";
 import styles from "./PageTransition.module.scss";
 
@@ -22,6 +24,10 @@ export default function PageTransition({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+
+  // Covers the browsers the CSS path does not reach. No-op where it does.
+  useScrollReveal();
+  useInterfaceSounds();
 
   return (
     <div key={pathname} className={styles.container}>

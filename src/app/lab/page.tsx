@@ -264,6 +264,7 @@ export default function Lab() {
                   id={project.id}
                   role="listitem"
                   className={styles.projectRow}
+                  data-reveal=""
                   data-kind={markerFor(project)}
                   data-own-page={project.detailHref ? "true" : undefined}
                   href={hrefFor(project)}
@@ -323,6 +324,7 @@ export default function Lab() {
                           id={project.id}
                           role="listitem"
                           className={`${styles.projectRow} ${styles.archivedRow}`}
+                          data-reveal=""
                           data-kind={markerFor(project)}
                           data-own-page={project.detailHref ? "true" : undefined}
                           href={hrefFor(project)}

@@ -436,6 +436,9 @@ export default function Terminal({
       <div
         className={`${styles.terminalContainer} ${context === "admin" ? styles.admin : ""} ${discoveredEggs.size >= TOTAL_EASTER_EGGS ? styles.golden : ""}`}
         data-skin={skin === "default" ? undefined : skin}
+        // Its own sound vocabulary — type, command, glitch — so the global
+        // click note would only double up on it.
+        data-no-sound
         onClick={(e) => e.stopPropagation()}
       >
         <TerminalHeader />

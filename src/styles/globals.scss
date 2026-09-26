@@ -231,6 +231,86 @@ canvas {
   border: 0;
 }
 
+/* ── Scroll reveals ──────────────────────────────────────────────────────────
+
+   Driven by an attribute, so one rule covers the whole site and the keyframes
+   sit in the same file that references them. (A copy in a CSS Module gets its
+   animation-name rewritten to a scoped one while a shared keyframe keeps the
+   plain name — it builds, it ships, and nothing animates. That happened.)
+
+   Two paths, and the fallback is the point. `animation-timeline` is Chrome
+   115+ and Safari 26+ only, so the native path alone means most visitors —
+   including anyone on Safari 18 — see no motion at all. The JS fallback in
+   useScrollReveal covers the rest.
+
+   Whichever path runs, the resting state here is visible: no rule below sets
+   opacity outside an animation. That is what the earlier framer reveals got
+   wrong, and it is not negotiable. */
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Leaving is gentler than arriving and stops short of zero: pausing mid-scroll
+   can never leave anything unreadable. */
+@keyframes reveal-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0.45;
+    transform: translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    [data-reveal] {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+
+    [data-reveal="both"] {
+      animation: reveal-in linear both, reveal-out linear both;
+      animation-timeline: view(), view();
+      animation-range: entry 0% entry 55%, exit 30% exit 100%;
+    }
+  }
+}
+
+/* ── Microinteractions ───────────────────────────────────────────────────────
+
+   The floor, not the ceiling: a baseline every interactive thing gets for
+   free, written with bare element selectors so any component with its own
+   `:active` or focus ring wins on specificity without having to fight. */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* A press should be felt. `translate` composites, so this costs nothing and
+     cannot reflow the row the control sits in. */
+  a:active,
+  summary:active,
+  button:not(:disabled):active,
+  [role="button"]:not([aria-disabled="true"]):active {
+    translate: 0 1px;
+  }
+}
+
+/* The focus ring is the keyboard's cursor, not decoration — so it lives
+   outside the reduced-motion guard and never animates in. */
+:focus-visible {
+  outline: $border-base solid var(--color-accent);
+  outline-offset: 3px;
+}
+
 /* ── Carved Brutalism — Ink ──────────────────────────────────────────────────
 
    Two ways to get the hand-cut edge, and they are not interchangeable.

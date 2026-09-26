@@ -1,8 +1,6 @@
 @use "@/styles/variables" as *;
 @use "@/styles/mixins" as *;
 
-@include reveal-keyframes;
-
 .container {
   min-height: 100vh;
   padding: $spacing-xxl $spacing-md $spacing-xxl;
@@ -141,7 +139,6 @@
   gap: $spacing-lg;
   padding: $spacing-xl 0;
   border-bottom: $border-hairline solid var(--color-divider);
-  @include reveal;
 
   &:first-child {
     border-top: none;
@@ -195,7 +192,6 @@
 .media {
   margin-bottom: $spacing-2xl;
   @include ink-frame;
-  @include reveal;
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr;
@@ -317,6 +313,7 @@
   display: inline-flex;
   align-items: center;
   gap: $spacing-2xs;
+  position: relative;
   font-family: $font-family-mono;
   font-size: $font-size-xs;
   text-transform: uppercase;
@@ -414,7 +411,6 @@
   position: relative;
   padding: $spacing-lg 0 $spacing-lg $spacing-2xl;
   border-top: $border-hairline solid var(--color-divider);
-  @include reveal;
 
   &::before {
     content: counter(decision, decimal-leading-zero);
@@ -555,7 +551,6 @@
   display: flex;
   flex-direction: column;
   gap: $spacing-md;
-  @include reveal;
 }
 
 .plateFrame {

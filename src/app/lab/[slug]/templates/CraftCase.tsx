@@ -27,7 +27,7 @@ export default function CraftCase({ project, frames }: CraftCaseProps) {
   return (
     <>
       {moves.length > 0 && (
-        <section className={styles.moves} aria-label="What it does">
+        <section className={styles.moves} data-reveal="" aria-label="What it does">
           <div className={styles.sectionHead}>
             <Text as="h2" variant="h2" className={styles.sectionTitle}>
               What it does
@@ -55,7 +55,7 @@ export default function CraftCase({ project, frames }: CraftCaseProps) {
       />
 
       {brief.length > 0 && (
-        <section className={styles.acts}>
+        <section className={styles.acts} data-reveal="">
           {brief.map((act, i) => (
             <div key={act.label} className={styles.act}>
               <div className={styles.actNum}>{String(i + 1).padStart(2, "0")}</div>

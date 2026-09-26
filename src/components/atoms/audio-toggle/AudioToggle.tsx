@@ -37,6 +37,7 @@ export default function AudioToggle({ className }: AudioToggleProps) {
   if (!isEnabled) {
     return (
       <span
+        data-no-sound
         className={`${styles.nudgeAnchor} ${className || ""}`}
         onPointerEnter={nudge.reveal}
       >
@@ -71,7 +72,7 @@ export default function AudioToggle({ className }: AudioToggleProps) {
   }
 
   return (
-    <div className={`${styles.container} ${className || ""}`}>
+    <div data-no-sound className={`${styles.container} ${className || ""}`}>
       <Button
         variant="ghost"
         stamp={false}

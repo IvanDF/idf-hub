@@ -3,8 +3,6 @@
 @use "sass:color";
 @use "sass:map";
 
-@include reveal-keyframes;
-
 // ── Yggdrasil: a tmux session, not a page ────────────────────────────────────
 // Always dark, whatever the site theme: this is the server's own world.
 $bg: $color-ygg-night;
@@ -192,7 +190,6 @@ $swatches: (
 
 // ── Sections ──
 .section {
-  @include reveal;
   padding: $spacing-2xl 0;
   border-bottom: 1px solid $line;
 }
