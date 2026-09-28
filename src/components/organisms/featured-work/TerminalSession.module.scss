@@ -1,0 +1,226 @@
+@use "@/styles/variables" as *;
+
+.session {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xxl;
+  margin-bottom: $spacing-xxl;
+  font-family: $font-family-mono;
+}
+
+.window {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  min-height: 70vh;
+  justify-content: center;
+}
+
+.prompt {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2xs;
+  margin: 0;
+  font-size: $font-size-sm;
+  letter-spacing: $letter-spacing-sm;
+}
+
+.user { color: var(--color-accent); }
+.host { color: var(--color-secondary, var(--color-accent)); }
+.path { opacity: 0.7; }
+.sep,
+.dollar { opacity: 0.45; }
+
+.command {
+  opacity: 0.9;
+  // The command types itself in: steps() over a character box, the way a
+  // terminal actually fills a line.
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.pane {
+  display: grid;
+  gap: $spacing-lg;
+  padding: $spacing-lg;
+  border: $border-hairline solid var(--color-divider);
+  border-radius: $radius-md;
+  background: rgba(var(--color-bg-rgb), 0.5);
+  grid-template-columns: 1fr;
+
+  @media (min-width: $breakpoint-lg) {
+    .window[data-visual="image"] & {
+      grid-template-columns: 1fr 0.9fr;
+      align-items: center;
+    }
+  }
+}
+
+.title {
+  margin: 0;
+  grid-column: 1;
+  font-family: $font-family-mono;
+  font-size: clamp(1.5rem, 1rem + 2.4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: $letter-spacing-tighter;
+}
+
+.titleLink {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-accent);
+  }
+}
+
+.blurb {
+  grid-column: 1;
+  margin: 0;
+  max-width: $container-sm;
+  font-family: $font-family-primary;
+  font-size: $font-size-md;
+  line-height: $line-height-body;
+  opacity: 0.78;
+}
+
+.facts {
+  grid-column: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-lg;
+  margin: 0;
+  font-size: $font-size-sm;
+
+  dt {
+    opacity: 0.45;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-md;
+  }
+
+  dd {
+    margin: 0;
+    color: var(--color-accent);
+  }
+}
+
+.visual {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  overflow: hidden;
+  border-radius: $radius-sm;
+  border: $border-hairline solid var(--color-divider);
+
+  @media (min-width: $breakpoint-lg) {
+    .window[data-visual="image"] & {
+      grid-column: 2;
+      grid-row: 1 / span 3;
+    }
+  }
+}
+
+.image { object-fit: cover; }
+.visual[data-fit="contain"] .image { object-fit: contain; }
+
+/* ── Status line ───────────────────────────────────────────────────────────── */
+
+.statusBar {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-2xs $spacing-sm;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-sm;
+  background: $color-ygg-ink;
+  color: $color-ygg-mist;
+  border-radius: $radius-sm;
+}
+
+.sessionName {
+  padding: 0 $spacing-xs;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-weight: 700;
+}
+
+.windows {
+  display: flex;
+  gap: $spacing-sm;
+  flex: 1;
+  overflow: hidden;
+}
+
+// Straight from the bundled tmux.conf, the same pair /yggdrasil uses.
+.win {
+  padding: 0 $spacing-2xs;
+  opacity: 0.6;
+  transition:
+    background-color $duration-micro $ease-out,
+    color $duration-micro $ease-out,
+    opacity $duration-micro $ease-out;
+
+  &[data-current] {
+    background: $color-ygg-mist;
+    color: $color-ygg-night;
+    font-weight: 700;
+    opacity: 1;
+  }
+}
+
+.clock { opacity: 0.5; }
+
+/* ── Scroll-driven passes ───────────────────────────────────────────────────
+   The finished window is what is styled above; these only play as it crosses
+   the viewport, and are absent where `animation-timeline` or motion is not
+   available. Nothing here leaves opacity 0 at rest. */
+
+@keyframes term-type {
+  from { max-width: 0; }
+  to { max-width: 100%; }
+}
+
+@keyframes term-open {
+  from {
+    opacity: 0;
+    scale: 0.985;
+    translate: 0 18px;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes term-dim {
+  from { opacity: 1; }
+  to { opacity: 0.3; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .command {
+      animation: term-type linear both;
+      animation-timeline: view();
+      animation-range: entry 8% entry 42%;
+    }
+
+    .pane {
+      animation: term-open linear both;
+      animation-timeline: view();
+      animation-range: entry 6% entry 52%;
+    }
+
+    .window {
+      animation: term-dim linear both;
+      animation-timeline: view();
+      animation-range: exit 30% exit 100%;
+    }
+  }
+}

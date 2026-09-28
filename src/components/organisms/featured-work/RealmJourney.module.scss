@@ -1,0 +1,221 @@
+@use "@/styles/variables" as *;
+
+.journey {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xxl;
+  margin-bottom: $spacing-xxl;
+}
+
+.realm {
+  position: relative;
+  display: grid;
+  align-items: center;
+  min-height: 80vh;
+  // One cell, three layers stacked in it: that is what makes the parallax
+  // read as depth rather than as three rows sliding.
+  grid-template-columns: 1fr;
+  isolation: isolate;
+  border-radius: $radius-lg;
+  padding: $spacing-xl $spacing-lg;
+  // Deliberately NOT `overflow: hidden`. It was, to keep the scenery word
+  // inside the realm, and it clipped the content instead: a long title plus a
+  // tall image runs past 80vh and the top of the heading was cut off with no
+  // way to reach it. The far layer clips itself now.
+}
+
+/* ── Far layer ─────────────────────────────────────────────────────────────── */
+
+.far {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  // Clips itself so the realm does not have to, and so cannot cut the content.
+  overflow: hidden;
+  // Blurred and faint: the horizon, not something to read.
+  filter: blur($blur-sm);
+  opacity: 0.12;
+}
+
+.farWord {
+  font-family: $font-family-display;
+  font-size: clamp(5rem, 3rem + 14vw, 16rem);
+  line-height: 0.85;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-tightest;
+  white-space: nowrap;
+  color: var(--color-text);
+}
+
+/* ── Mid layer ─────────────────────────────────────────────────────────────── */
+
+.mid {
+  position: relative;
+  z-index: 1;
+  justify-self: end;
+  width: min(100%, 44ch);
+  // 4/3 rather than 4/5: the portrait ratio made the realm taller than the
+  // screen once a long title was set beside it.
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: $radius-lg;
+  box-shadow: var(--depth-md);
+
+  @media (max-width: $breakpoint-lg) {
+    justify-self: center;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.image { object-fit: cover; }
+.mid[data-fit="contain"] .image { object-fit: contain; }
+
+/* ── Near layer ────────────────────────────────────────────────────────────── */
+
+.near {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  max-width: $container-sm;
+  // Sits over the image on wide screens, beside it in effect.
+  grid-row: 1;
+  grid-column: 1;
+  justify-self: start;
+
+  @media (max-width: $breakpoint-lg) {
+    // On a phone the near layer must not cover the image: it goes below it.
+    grid-row: auto;
+    justify-self: stretch;
+    margin-top: $spacing-lg;
+    padding: $spacing-md;
+    border-radius: $radius-md;
+    background: rgba(var(--color-bg-rgb), 0.82);
+    backdrop-filter: blur($blur-sm);
+  }
+}
+
+.realm[data-visual="type"] .near {
+  justify-self: center;
+  text-align: center;
+  max-width: $container-md;
+
+  .meta {
+    justify-content: center;
+  }
+}
+
+.marker {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  letter-spacing: $letter-spacing-wide;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.title {
+  margin: 0;
+  font-family: $font-family-display;
+  // Capped lower than it wants to be: "The Mirror Archetype — Cosplay
+  // Compositing" sets to four lines at 4.5rem and pushes the realm past a
+  // screen on its own.
+  font-size: clamp(2rem, 1.2rem + 2.6vw, 3.25rem);
+  line-height: $line-height-h1;
+  letter-spacing: $letter-spacing-h1;
+  // Reads against the image behind it without a slab of background.
+  text-shadow: 0 2px 18px rgba(var(--color-bg-rgb), 0.85);
+}
+
+.titleLink {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-accent);
+  }
+}
+
+.blurb {
+  margin: 0;
+  font-size: $font-size-md;
+  line-height: $line-height-body;
+  opacity: 0.85;
+  text-shadow: 0 1px 12px rgba(var(--color-bg-rgb), 0.9);
+}
+
+.meta {
+  display: flex;
+  gap: $spacing-xs;
+  margin: 0;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  letter-spacing: $letter-spacing-md;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+/* ── Scroll-driven passes ───────────────────────────────────────────────────
+   The three layers travel at different rates across the whole crossing — this
+   is the parallax, not an entrance — so the range is `cover`, not `entry`.
+   Without `animation-timeline` the realm is a finished, static composition. */
+
+@keyframes drift-far {
+  from { translate: 0 -8%; }
+  to { translate: 0 8%; }
+}
+
+@keyframes drift-mid {
+  from { translate: 0 12%; scale: 1.06; }
+  to { translate: 0 -6%; scale: 1; }
+}
+
+// Small on purpose. Every layer already travels at scroll speed; these are the
+// differences on top of it, and the near layer is the one being read — give it
+// the same delta as the scenery and the text races the page.
+@keyframes drift-near {
+  from { translate: 0 5%; }
+  to { translate: 0 -3%; }
+}
+
+@keyframes realm-arrive {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .far {
+      animation: drift-far linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+
+    .mid {
+      animation: drift-mid linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+
+    .near {
+      animation: drift-near linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+
+    // A short arrival on top of the drift, so a realm does not slide in
+    // already fully present.
+    .title,
+    .blurb,
+    .marker {
+      animation: realm-arrive linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 50%;
+    }
+  }
+}
