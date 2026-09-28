@@ -86,7 +86,7 @@
   pointer-events: none;
   z-index: 100;
   opacity: 0.45;
-  transition: opacity 0.3s ease;
+  transition: opacity $duration-slow ease;
   // No ink filter here. `filter: url(#...)` is an feTurbulence +
   // feDisplacementMap pass, and WebKit will not cache the filtered layer of a
   // fixed or full-height element sitting over scrolling content — it re-runs

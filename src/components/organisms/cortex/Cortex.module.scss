@@ -87,9 +87,9 @@ $test-colors: (
   flex-direction: column;
   gap: $spacing-2xs;
   transition:
-    border-color 0.2s,
-    background 0.2s,
-    transform 0.1s ease;
+    border-color $duration-base,
+    background $duration-base,
+    transform $duration-instant ease;
 
   &:hover,
   &:focus-visible {
@@ -208,9 +208,9 @@ $test-colors: (
   letter-spacing: $letter-spacing-md;
   box-shadow: var(--depth-sm);
   transition:
-    box-shadow 0.2s,
-    transform 0.1s ease,
-    opacity 0.2s;
+    box-shadow $duration-base,
+    transform $duration-instant ease,
+    opacity $duration-base;
 
   &:hover,
   &:focus-visible {
@@ -318,7 +318,7 @@ $test-colors: (
   text-transform: uppercase;
   letter-spacing: $letter-spacing-sm;
   color: var(--color-bg);
-  transition: transform 0.1s ease, opacity 0.2s;
+  transition: transform $duration-instant ease, opacity $duration-base;
 
   &:hover,
   &:focus-visible {
@@ -352,7 +352,7 @@ $test-colors: (
   cursor: pointer;
   border-radius: $radius-md;
   opacity: 0.35;
-  transition: opacity 0.12s linear, transform 0.1s ease;
+  transition: opacity $duration-micro linear, transform $duration-instant ease;
 
   &:active {
     transform: scale(0.97);
@@ -407,7 +407,7 @@ $test-colors: (
   text-decoration: none;
   color: var(--color-text);
   opacity: 0.7;
-  transition: opacity 0.2s, color 0.2s;
+  transition: opacity $duration-base, color $duration-base;
 
   &:hover {
     opacity: 1;

@@ -38,7 +38,7 @@
   box-shadow:
     0 2px 8px color.adjust($color-black, $alpha: -0.92),
     0 8px 32px color.adjust($color-black, $alpha: -0.94);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: box-shadow $duration-slow ease, transform $duration-slow ease;
   cursor: default;
 
   &:hover {

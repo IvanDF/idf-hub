@@ -35,6 +35,27 @@ export const DESIGN_SYSTEM = {
     twitter:
       "linear-gradient(150deg, #041f38 0%, #0a111b 48%, #132b33 100%)",
   },
+  // Motion — the JS mirror of the scale in _variables.scss.
+  // Kept in sync by hand because framer-motion and the Web Animations API
+  // cannot read SCSS variables. Durations are in seconds (framer's unit) and
+  // easings are bezier tuples (framer's format), so both drop straight into a
+  // `transition`. Change a value here and you must change it there.
+  motion: {
+    duration: {
+      instant: 0.1,
+      micro: 0.15,
+      base: 0.2,
+      slow: 0.3,
+      slower: 0.4,
+      reveal: 0.52,
+    },
+    ease: {
+      standard: [0.2, 0, 0.2, 1],
+      outExpo: [0.16, 1, 0.3, 1],
+      back: [0.175, 0.885, 0.32, 1.275],
+      inOut: [0.645, 0.045, 0.355, 1],
+    },
+  },
   // Font families are loaded via next/font in layout.tsx
   // and exposed through SCSS variables / the Text component
 } as const;

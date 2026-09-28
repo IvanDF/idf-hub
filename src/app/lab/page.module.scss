@@ -25,9 +25,9 @@
   text-transform: uppercase;
   opacity: 0.55;
   transition:
-    opacity 0.2s,
-    background 0.2s,
-    color 0.2s;
+    opacity $duration-base,
+    background $duration-base,
+    color $duration-base;
 
   &:hover {
     opacity: 1;
@@ -168,10 +168,10 @@
   border-radius: var(--route-filter-radius, #{$radius-md});
   cursor: pointer;
   transition:
-    opacity 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease,
-    background 0.15s ease;
+    opacity $duration-micro ease,
+    border-color $duration-micro ease,
+    color $duration-micro ease,
+    background $duration-micro ease;
   white-space: nowrap;
   min-height: $touch-target-min;
 
@@ -210,8 +210,8 @@
   border-bottom: $border-hairline solid color-mix(in srgb, var(--color-text) 20%, transparent);
   cursor: pointer;
   transition:
-    background 0.12s ease,
-    border-color 0.12s ease;
+    background $duration-micro ease,
+    border-color $duration-micro ease;
   width: 100%;
   box-sizing: border-box;
 
@@ -293,7 +293,7 @@
   flex-shrink: 0;
   align-self: start;
   padding-top: $spacing-2xs;
-  transition: color 0.15s ease, translate 0.12s ease;
+  transition: color $duration-micro ease, translate $duration-micro ease;
 }
 
 .rowMain {
@@ -301,7 +301,7 @@
   flex-direction: column;
   gap: $spacing-2xs;
   min-width: 0;
-  transition: translate 0.12s ease;
+  transition: translate $duration-micro ease;
 }
 
 .rowTitle {
@@ -312,7 +312,7 @@
   color: var(--color-text);
   line-height: 1.1;
   text-transform: uppercase;
-  transition: color 0.15s ease;
+  transition: color $duration-micro ease;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -348,7 +348,7 @@
   line-height: 1;
   color: var(--color-accent);
   opacity: 0.75;
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  transition: opacity $duration-micro ease, transform $duration-micro ease;
 }
 
 .projectRow[data-kind="experiment"] {
@@ -375,7 +375,7 @@
   color: var(--color-text);
   opacity: 0.5;
   line-height: 1.4;
-  transition: color 0.15s ease, opacity 0.15s ease;
+  transition: color $duration-micro ease, opacity $duration-micro ease;
 
   @include mobile {
     display: none;
@@ -387,7 +387,7 @@
   align-items: center;
   gap: $spacing-sm;
   flex-shrink: 0;
-  transition: translate 0.12s ease;
+  transition: translate $duration-micro ease;
 }
 
 .rowCategory {
@@ -397,7 +397,7 @@
   letter-spacing: $letter-spacing-xl;
   color: var(--color-text);
   opacity: 0.35;
-  transition: color 0.15s ease;
+  transition: color $duration-micro ease;
 
   @include mobile {
     display: none;
@@ -409,14 +409,14 @@
   font-size: $font-size-xs;
   color: var(--color-text);
   opacity: 0.4;
-  transition: color 0.15s ease;
+  transition: color $duration-micro ease;
 }
 
 .rowArrow {
   font-size: $font-size-md;
   color: var(--color-text);
   opacity: 0.4;
-  transition: opacity 0.15s ease, transform 0.15s ease, color 0.15s ease;
+  transition: opacity $duration-micro ease, transform $duration-micro ease, color $duration-micro ease;
   line-height: 1;
 }
 
@@ -450,7 +450,7 @@
   letter-spacing: $letter-spacing-lg;
   cursor: pointer;
   padding: $spacing-xs 0;
-  transition: opacity 0.15s ease;
+  transition: opacity $duration-micro ease;
   min-height: $touch-target-min;
   // Full stadium corner so the cursor envelope wraps this wide, short toggle
   // as a pill: 12px on a bare button this size reads as a hard rectangle.

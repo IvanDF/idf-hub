@@ -27,7 +27,7 @@
   pointer-events: all;
   backdrop-filter: blur($blur-md);
   -webkit-backdrop-filter: blur($blur-md);
-  animation: panelIn 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: panelIn $duration-slow $ease-out-expo;
 }
 
 .mic {
@@ -179,6 +179,9 @@
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0;
+  // The 0.25s is a stagger behind the first ring, not a duration: both rings
+  // belong to the one 1.4s shockwave effect, which is deliberately off the
+  // shared motion scale. Do not swap it for a $duration-* token.
   animation: expandRing2 1.4s ease-out 0.25s forwards;
 }
 

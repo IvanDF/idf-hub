@@ -26,10 +26,10 @@
   // NOTE: opted out of the global button stamp (data-no-stamp) — its hard
   // offset shadow reads wrong on cards this size.
   transition:
-    flex-grow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.3s ease,
-    background 0.3s ease,
-    box-shadow 0.3s ease;
+    flex-grow $duration-reveal $ease-out-expo,
+    border-color $duration-slow ease,
+    background $duration-slow ease,
+    box-shadow $duration-slow ease;
 
   &:focus-visible {
     outline: $border-base solid var(--color-accent);
@@ -81,7 +81,7 @@
   padding: $spacing-xl;
   overflow: hidden;
   // Content parallax (see WorkFork.tsx): eased so the lean trails the cursor
-  transition: translate 0.15s ease-out;
+  transition: translate $duration-micro $ease-out;
 }
 
 .lab .inner {
@@ -136,9 +136,12 @@
   max-height: 0;
   opacity: 0;
   overflow: hidden;
+  // The trailing $duration-instant on `opacity` is a delay, not a duration:
+  // the copy fades in just after the box has started opening. Same scale on
+  // purpose — a 100ms beat is the same 100ms everywhere.
   transition:
-    max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.3s ease 0.1s;
+    max-height $duration-reveal $ease-out-expo,
+    opacity $duration-slow ease $duration-instant;
 
   li::before {
     content: "▸ ";

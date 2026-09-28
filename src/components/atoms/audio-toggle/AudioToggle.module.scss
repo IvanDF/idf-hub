@@ -89,7 +89,7 @@
   border-radius: var(--route-card-radius, #{$radius-lg});
   padding: $spacing-xs $spacing-sm;
   box-shadow: var(--depth-sm);
-  animation: audio-bubble-in 0.25s ease both;
+  animation: audio-bubble-in $duration-slow ease both;
 
   // The tail, pointing down at the control it is talking about.
   &::after {
@@ -116,7 +116,7 @@
   line-height: 1;
   padding: $spacing-2xs;
   opacity: 0.5;
-  transition: opacity 0.15s ease;
+  transition: opacity $duration-micro ease;
 
   &:hover,
   &:focus-visible {

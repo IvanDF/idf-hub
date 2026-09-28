@@ -4,7 +4,7 @@
 
 // Glitch effect for body when .glitch-active is present
 body.glitch-active {
-  animation: glitch-bg 0.4s linear;
+  animation: glitch-bg $duration-slower linear;
 }
 
 @keyframes glitch-bg {
@@ -165,8 +165,8 @@ body {
 
   @media (prefers-reduced-motion: no-preference) {
     transition:
-      background-color 0.4s ease,
-      color 0.4s ease;
+      background-color $duration-slower ease,
+      color $duration-slower ease;
   }
 
   /* Custom Cursor Logic - Desktop Only */
@@ -382,8 +382,8 @@ button:not([data-no-stamp]),
 [role="button"]:not([data-no-stamp]) {
   box-shadow: var(--depth-sm);
   transition:
-    box-shadow 0.12s ease,
-    transform 0.12s ease;
+    box-shadow $duration-micro ease,
+    transform $duration-micro ease;
 
   &:hover {
     box-shadow: var(--depth-md);

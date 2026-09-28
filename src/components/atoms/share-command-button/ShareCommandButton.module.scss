@@ -1,10 +1,12 @@
+@use "@/styles/variables" as *;
+
 // ── Copied feedback state ─────────────────────────────────────────────────────
 .copied {
   color: var(--color-accent);
   opacity: 1;
 
   @media (prefers-reduced-motion: no-preference) {
-    animation: copyPulse 0.3s ease;
+    animation: copyPulse $duration-slow ease;
   }
 }
 

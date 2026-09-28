@@ -14,7 +14,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fadeIn 0.2s ease-out;
+  animation: fadeIn $duration-base ease-out;
 }
 
 .terminalHeader {
@@ -41,7 +41,7 @@
   border: none;
   cursor: pointer;
   flex-shrink: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity $duration-base ease;
 
   &:hover {
     opacity: 0.8;
@@ -77,12 +77,12 @@
   flex-direction: column;
   overflow: hidden;
   transition:
-    border-color 0.4s ease,
-    border-width 0.4s ease,
-    border-radius 0.4s ease,
-    box-shadow 0.4s ease;
+    border-color $duration-slower ease,
+    border-width $duration-slower ease,
+    border-radius $duration-slower ease,
+    box-shadow $duration-slower ease;
 
-  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideUp $duration-slow $ease-out-expo;
 }
 
 .admin {
@@ -188,7 +188,7 @@
   line-height: 1.6;
   word-break: break-word;
   opacity: 0;
-  animation: typeIn 0.3s ease forwards;
+  animation: typeIn $duration-slow ease forwards;
 
   &.error {
     color: rgba(var(--color-error-rgb), 1);
@@ -253,7 +253,7 @@
   min-height: $size-control-sm;
   padding: 0 $spacing-sm;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all $duration-base ease;
 
   &:hover {
     border-color: var(--color-accent);
@@ -286,7 +286,7 @@
     font-size: $font-size-xs;
     letter-spacing: $letter-spacing-md;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all $duration-base ease;
     opacity: 0.7;
 
     &:hover {
@@ -370,8 +370,8 @@
   font-size: $font-size-xs;
   cursor: pointer;
   transition:
-    background-color 0.15s,
-    color 0.15s;
+    background-color $duration-micro,
+    color $duration-micro;
   vertical-align: middle;
 
   &:hover {
@@ -559,12 +559,12 @@
   color: rgba(var(--color-text-rgb), 0.3);
   font-size: $font-size-xs;
   letter-spacing: $letter-spacing-md;
-  transition: color 0.2s ease;
+  transition: color $duration-base ease;
 
   span {
     transition:
-      color 0.2s ease,
-      text-shadow 0.2s ease;
+      color $duration-base ease,
+      text-shadow $duration-base ease;
   }
 }
 

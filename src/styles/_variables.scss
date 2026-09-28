@@ -210,3 +210,42 @@ $breakpoint-sm: 480px;
 $breakpoint-md: 576px;
 $breakpoint-lg: 700px;
 $breakpoint-xl: 768px;
+
+// Motion — Durations
+// =============================================================================
+// Six steps covering the three bands AGENTS.md §10 defines: micro-interactions
+// 80–150ms, transitions 200–350ms, reveals 400–600ms. The values are the ones
+// the codebase already converged on by hand, not fresh inventions — 200ms was
+// written 56 times and 150ms 41 times before these tokens existed.
+//
+// Merges: 120ms folded into 150ms and 250ms into 300ms (both pairs are
+// indistinguishable in use); the lone 320ms became 300ms. Ambient loops
+// (tickers, drifting backgrounds, 1s–22s) are deliberately NOT tokenised —
+// they are per-effect timing, not a shared scale, and a token would imply
+// they are interchangeable.
+$duration-instant: 100ms; // press/tap feedback — must land inside the tap
+$duration-micro: 150ms; // hover, focus, colour and opacity shifts
+$duration-base: 200ms; // the default: most state changes
+$duration-slow: 300ms; // compound transitions, panels, layout-adjacent moves
+$duration-slower: 400ms; // overlays, modals, route-level changes
+$duration-reveal: 520ms; // scroll reveals and first arrivals
+
+// Motion — Easing
+// =============================================================================
+// Five intentional curves, from the eight written by hand before this scale.
+// cubic-bezier(0.22, 1, 0.36, 1) (outQuint) was folded into $ease-out-expo —
+// the two are indistinguishable. cubic-bezier(0.645, 0.045, 0.355, 1) is kept
+// as $ease-in-out because the bare keyword is noticeably lazier in the middle.
+//
+// One curve is deliberately NOT here: the outQuad in the Fus-Ro-Dah scatter
+// (globals.scss). It is tuned to that one 2.5s effect, is used nowhere else,
+// and promoting it to a token would invite reuse it was never shaped for.
+//
+// Rule of thumb: things arriving use an -out curve (fast start, soft landing),
+// things leaving can be linear or -in, and only a release that should feel
+// physical gets $ease-back.
+$ease-out: ease-out; // the workhorse for hover/focus
+$ease-standard: cubic-bezier(0.2, 0, 0.2, 1); // neutral state change
+$ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1); // decelerating arrival: reveals
+$ease-back: cubic-bezier(0.175, 0.885, 0.32, 1.275); // overshoot: press release
+$ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1); // symmetric: loops, pulses

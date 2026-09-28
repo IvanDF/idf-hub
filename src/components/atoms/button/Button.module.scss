@@ -21,11 +21,11 @@
   text-transform: uppercase;
   user-select: none;
   transition:
-    opacity 0.2s,
-    border-color 0.2s,
-    background 0.2s,
-    box-shadow 0.2s,
-    transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity $duration-base,
+    border-color $duration-base,
+    background $duration-base,
+    box-shadow $duration-base,
+    transform $duration-instant $ease-back;
 
   &:focus-visible {
     outline: $border-base solid var(--color-accent);

@@ -133,7 +133,7 @@
   border: $border-hairline solid var(--color-accent);
   border-radius: $radius-sm;
   padding: $spacing-2xs $spacing-sm;
-  transition: background 0.15s, color 0.15s;
+  transition: background $duration-micro, color $duration-micro;
 
   &:hover {
     background: var(--color-accent);

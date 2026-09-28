@@ -228,7 +228,7 @@
   text-decoration: none;
   color: var(--color-accent);
   white-space: nowrap;
-  transition: opacity 0.2s;
+  transition: opacity $duration-base;
 
   &:hover {
     opacity: 0.75;
@@ -491,8 +491,8 @@
   opacity: 0.5;
   white-space: nowrap;
   transition:
-    opacity 0.2s,
-    color 0.2s;
+    opacity $duration-base,
+    color $duration-base;
 
   &:hover {
     opacity: 1;

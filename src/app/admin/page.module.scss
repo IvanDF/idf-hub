@@ -67,7 +67,7 @@
   border-radius: $radius-sm;
   padding: 0.4rem 0.75rem;
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s;
+  transition: color $duration-base, border-color $duration-base;
 
   &:hover {
     color: var(--color-text);
@@ -84,7 +84,7 @@
   border-radius: $radius-sm;
   padding: 0.4rem 0.75rem;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: opacity $duration-base;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -109,7 +109,7 @@
   border-radius: $radius-sm;
   padding: 0.4rem 0.75rem;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: opacity $duration-base;
 
   &:hover {
     opacity: 0.7;
@@ -157,7 +157,7 @@
   border-radius: $radius-sm;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: opacity $duration-base;
 
   &:hover {
     opacity: 0.85;
@@ -277,7 +277,7 @@
   border-radius: $radius-sm;
   background: transparent;
   cursor: pointer;
-  transition: background-color 0.15s, color 0.15s;
+  transition: background-color $duration-micro, color $duration-micro;
 }
 
 .editBtn {
@@ -347,7 +347,7 @@
   border-radius: $radius-sm;
   cursor: pointer;
   padding: 0.2rem 0.4rem;
-  transition: color 0.15s;
+  transition: color $duration-micro;
 
   &:hover {
     color: var(--color-text);
@@ -401,7 +401,7 @@
   padding: 0.5rem 0.65rem;
   outline: none;
   width: 100%;
-  transition: border-color 0.15s;
+  transition: border-color $duration-micro;
 
   &:focus-visible {
     outline: $border-base solid var(--color-accent);
@@ -447,7 +447,7 @@
   border-radius: $radius-sm;
   padding: 0.5rem 0.9rem;
   cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color $duration-micro, border-color $duration-micro;
 
   &:hover:not(:disabled) {
     color: var(--color-text);
@@ -464,7 +464,7 @@
   border-radius: $radius-sm;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: opacity $duration-micro;
 
   &:disabled {
     opacity: 0.6;
@@ -515,7 +515,7 @@
   border: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: opacity $duration-micro;
 
   &:disabled {
     opacity: 0.6;

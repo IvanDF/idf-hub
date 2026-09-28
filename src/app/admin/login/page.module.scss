@@ -36,7 +36,7 @@
   border-radius: $radius-sm;
   padding: 0.35rem 0.65rem;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: opacity $duration-base;
   z-index: 100;
 
   &:hover {
@@ -53,7 +53,7 @@
   border: $border-hairline solid var(--color-divider);
   border-radius: $radius-sm;
   padding: 0.35rem 0.65rem;
-  transition: color 0.2s, border-color 0.2s;
+  transition: color $duration-base, border-color $duration-base;
   z-index: 100;
 
   &:hover {
@@ -121,7 +121,7 @@
   border-radius: $radius-sm;
   padding: 0.65rem 0.75rem;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color $duration-base;
   width: 100%;
 
   &::placeholder {
@@ -155,7 +155,7 @@
   border-radius: $radius-sm;
   padding: 0.75rem 1rem;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: opacity $duration-base;
   margin-top: 0.5rem;
 
   &:hover:not(:disabled) {
@@ -240,7 +240,7 @@
   padding: 0.4rem 0.75rem;
   cursor: pointer;
   text-align: left;
-  transition: color 0.2s, border-color 0.2s;
+  transition: color $duration-base, border-color $duration-base;
 
   &:hover {
     color: var(--color-text);

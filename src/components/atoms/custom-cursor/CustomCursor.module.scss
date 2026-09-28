@@ -38,7 +38,7 @@
   // them compose instead of overwriting each other.
   scale: 0;
   opacity: 0;
-  transition: scale 0.15s ease, opacity 0.15s ease;
+  transition: scale $duration-micro ease, opacity $duration-micro ease;
 
   &[data-active="true"] {
     scale: 1;

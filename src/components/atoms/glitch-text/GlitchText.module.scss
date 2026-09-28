@@ -4,7 +4,7 @@
   display: inline-block;
   font-family: $font-family-mono;
   cursor: default;
-  transition: color 0.2s;
+  transition: color $duration-base;
 
   &:hover {
     color: var(--color-accent);

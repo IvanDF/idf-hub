@@ -177,7 +177,7 @@
   color: var(--color-accent);
   padding: $spacing-2xs $spacing-sm;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: background $duration-micro, color $duration-micro;
 
   &:hover:not(:disabled) {
     background: var(--color-accent);

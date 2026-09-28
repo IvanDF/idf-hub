@@ -85,7 +85,7 @@ $swatches: (
   align-items: center;
   padding: 0 $spacing-xs;
   color: $muted;
-  transition: color 0.15s ease;
+  transition: color $duration-micro ease;
 
   // A status line is thin by design, and 16px is a fine mouse target. Under a
   // finger it is not, so the windows take the full target height on small
@@ -279,7 +279,7 @@ $swatches: (
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: background-color 150ms ease, border-color 150ms ease;
+    transition: background-color $duration-micro ease, border-color $duration-micro ease;
   }
 }
 .treeRune {
