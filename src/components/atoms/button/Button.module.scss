@@ -40,8 +40,12 @@
   }
 
   &:active {
-    // Pressed by exactly the carved border depth
-    translate: $border-base $border-base;
+    // Pressed by exactly the carved border depth. Set on both channels — see
+    // the note in globals.scss: the custom property is what reaches a control
+    // the cursor's magnetism has adopted, `translate` covers the rest.
+    --press-x: #{$border-base};
+    --press-y: #{$border-base};
+    translate: var(--press-x) var(--press-y);
   }
 }
 
@@ -145,9 +149,12 @@
     box-shadow: none;
   }
 
-  // Opted out of the stamp: no shadow, and no press offset either. Only
-  // `translate` is reset — a hint wobble, if one is showing, still plays.
+  // Opted out of the stamp: no shadow, and no press offset either. Both press
+  // channels are zeroed; `scale`/`rotate` are untouched, so a hint wobble, if
+  // one is showing, still plays.
   &:active {
+    --press-x: 0px;
+    --press-y: 0px;
     translate: none;
   }
 }

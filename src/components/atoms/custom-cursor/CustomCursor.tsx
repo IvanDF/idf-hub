@@ -105,9 +105,31 @@ export default function CustomCursor() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsVisible(true);
 
+    // Writes the magnet offset, leaving the press its own term.
+    //
+    // An inline style beats every stylesheet rule that is not `!important`, and
+    // the magnet writes `translate` inline on each mousemove. A press rule in
+    // CSS therefore could not move a magnetised control at all: both the global
+    // `a:active { translate: 0 1px }` baseline and the Button's carved 2px
+    // press were silently dead on every control small enough to be adopted —
+    // which on a fine pointer is nearly all of them.
+    //
+    // Composing as a sum fixes it without either side knowing the other: CSS
+    // contributes `--press-x` / `--press-y` on `:active` and the magnet keeps
+    // ownership of the property.
+    const writeMagnetOffset = (el: HTMLElement, x: number, y: number) => {
+      el.style.setProperty(
+        "translate",
+        `calc(${x.toFixed(2)}px + var(--press-x, 0px)) ` +
+          `calc(${y.toFixed(2)}px + var(--press-y, 0px))`,
+      );
+    };
+
     const resetMagnetElement = (entry: MagnetEntry | null) => {
       if (!entry?.eligible) return;
-      entry.el.style.setProperty("translate", "0px 0px");
+      // Zeroed rather than removed, so a control with a `translate` transition
+      // eases back instead of snapping. The press term has to survive that.
+      writeMagnetOffset(entry.el, 0, 0);
       entry.el.style.removeProperty("will-change");
     };
 
@@ -164,10 +186,13 @@ export default function CustomCursor() {
     // shifted) center of an enveloped control, or the pointer itself.
     const applyGlobalMagnetism = (e: MouseEvent): { x: number; y: number } => {
       const pointer = { x: e.clientX, y: e.clientY };
-      const source = e.target as HTMLElement | null;
-      const candidate = source?.closest(
+      // Narrowed rather than cast: a mousemove dispatched straight at `window`
+      // has a target with no `closest`, and the cast let that through as a
+      // throw. Same guard as useInterfaceSounds.
+      const source = e.target instanceof Element ? e.target : null;
+      const candidate = source?.closest<HTMLElement>(
         "a, button, [role='button'], [data-magnetized='true']",
-      ) as HTMLElement | null;
+      );
 
       // Keep local Magnetic components in control, and stay plain over
       // surfaces that opt out entirely (e.g. the 3D business card, where the
@@ -222,10 +247,7 @@ export default function CustomCursor() {
 
       entry.ox = offsetX;
       entry.oy = offsetY;
-      entry.el.style.setProperty(
-        "translate",
-        `${offsetX.toFixed(2)}px ${offsetY.toFixed(2)}px`,
-      );
+      writeMagnetOffset(entry.el, offsetX, offsetY);
 
       // The blob rides the control: same center, same magnet parallax.
       return { x: centerX + offsetX, y: centerY + offsetY };

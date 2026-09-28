@@ -295,12 +295,25 @@ canvas {
 
 @media (prefers-reduced-motion: no-preference) {
   /* A press should be felt. `translate` composites, so this costs nothing and
-     cannot reflow the row the control sits in. */
+     cannot reflow the row the control sits in.
+
+     Two channels, because the custom cursor's magnetism writes `translate`
+     inline and an inline style outranks any rule here. `--press-y` is the one
+     the magnet reads and adds to its own offset; the `translate` below is the
+     path for everything the magnet never adopts — touch devices, and controls
+     past its 480x120 size gate. Both land on the same 1px.
+
+     The disabled guards are wrapped in `:where()` so they weigh nothing:
+     `button:not(:disabled):active` scores (0,2,1) — a `:not()` counts as a
+     class — which quietly outranked `.button:active` (0,2,0) and flattened the
+     Button's carved 2px press to this 1px baseline. `:where()` restores what
+     the paragraph above claims: a component always wins. */
   a:active,
   summary:active,
-  button:not(:disabled):active,
-  [role="button"]:not([aria-disabled="true"]):active {
-    translate: 0 1px;
+  button:where(:not(:disabled)):active,
+  [role="button"]:where(:not([aria-disabled="true"])):active {
+    --press-y: 1px;
+    translate: 0 var(--press-y);
   }
 }
 
