@@ -144,6 +144,15 @@ export interface Project {
    * project has one address instead of two pages saying the same thing.
    */
   detailHref?: string;
+  /**
+   * Position in the Work showcase, 1-based. Absent means the project lives in
+   * the index below it and nowhere else.
+   *
+   * A number rather than a boolean because the showcase is a sequence, not a
+   * set: the order is the argument it makes, so it belongs in the data instead
+   * of a separate array of ids that could drift out of step with this file.
+   */
+  featured?: number;
   platform?: ProjectPlatform;
   tags: string[];
   /** Display year. Must agree with the year in `date` when both are set. */

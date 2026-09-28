@@ -111,6 +111,21 @@
   // applies var(--ink) to its own in-flow content root instead, so the
   // filtered layer is cached and simply translated while scrolling.
 
+  // This is the element that actually scrolls — html and body are both
+  // overflow: hidden — so scroll snapping has to be declared here rather than
+  // in the page module that wants it. Scoped with :has() so it reaches only the
+  // pages carrying a showcase, and `proximity` rather than `mandatory` because
+  // the index below the showcase has to stay freely scrollable.
+  &:has([data-featured-work]) {
+    scroll-snap-type: y proximity;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:has([data-featured-work]) {
+      scroll-snap-type: none;
+    }
+  }
+
   // Custom Scrollbar
   &::-webkit-scrollbar {
     width: $size-scrollbar;

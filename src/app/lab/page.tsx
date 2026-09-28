@@ -4,6 +4,7 @@ import { PROJECTS } from "@/data/projects";
 import { hrefForProject, labelFor } from "@/types/project";
 import type { Project, ProjectCategory, ProjectKind } from "@/types/project";
 import CareerPath from "@/components/organisms/career-path";
+import FeaturedWork from "@/components/organisms/featured-work";
 import WorkFork from "@/components/organisms/work-fork";
 import Text from "@/components/atoms/text";
 import { AnimatePresence, motion } from "framer-motion";
@@ -48,7 +49,12 @@ function matchesGroup(p: Project, group: FilterGroup, kind: ProjectKind | null):
 const byNewestFirst = (a: Project, b: Project) =>
   (b.date ?? `${b.year}-06`).localeCompare(a.date ?? `${a.year}-06`);
 
-const LIVE = PROJECTS.filter((p) => p.status === "live").sort(byNewestFirst);
+// The showcase carries the featured projects, so the index below is everything
+// else. Listing them in both places would make the page repeat itself, and the
+// showcase is already above the filters where it cannot be scrolled past.
+const LIVE = PROJECTS.filter((p) => p.status === "live" && !p.featured).sort(
+  byNewestFirst,
+);
 const ARCHIVED = PROJECTS.filter((p) => p.status !== "live").sort(byNewestFirst);
 
 const VIEW_TABS: { view: View; label: string }[] = [
@@ -209,6 +215,12 @@ export default function Lab() {
           </section>
         )}
 
+        {/* Outside the filter-keyed wrapper below on purpose. The showcase is
+            the selection, not a view of the collection, so a filter change must
+            not re-mount it — and that wrapper animates from opacity 0, which is
+            the one thing the reveals are not allowed to depend on. */}
+        {view === "lab" && <FeaturedWork />}
+
         {view === "lab" && (
           <motion.div
             key={`lab-${filter}-${kind ?? ""}`}
@@ -217,6 +229,12 @@ export default function Lab() {
             exit={{ opacity: 0, x: 8 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
+            {/* Names the break between the showcase above and the index here,
+                so the shorter list does not read as the whole of the work. */}
+            <Text as="h2" variant="mono" className={styles.indexTitle}>
+              Everything else
+            </Text>
+
             <nav className={styles.filters} aria-label="Project filters">
               {FILTERS.map(({ label, group }) => (
                 <button

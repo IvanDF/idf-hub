@@ -11,6 +11,7 @@ export const PROJECTS: Project[] = [
   // ----------------------------------------------------------------------
   {
     id: "yggdrasil",
+    featured: 1,
     title: "Yggdrasil",
     description: "A self-hosted home infrastructure on one old laptop: home automation, media, a synced second brain and a Telegram assistant. Every service is a container, every change is written down.",
     longDescription: "It started as a media server and became a small operating system for a life: the house, the notes, the training plan and the backups, all running on hardware I own, reachable only from my own devices.",
@@ -467,6 +468,7 @@ export const PROJECTS: Project[] = [
   // ----------------------------------------------------------------------
   {
     id: "rick-and-morty-theme",
+    featured: 3,
     title: "Rick and Morty Theme",
     description:
       "VS Code theme extension with dual variants, semantic token mapping, and contrast-aware palettes for long coding sessions.",
@@ -783,6 +785,7 @@ export const PROJECTS: Project[] = [
   // ----------------------------------------------------------------------
   {
     id: "figma-icon-builder",
+    featured: 2,
     title: "Icon Builder",
     description:
       "Figma plugin that converts selected design nodes into reusable React icon components, with optional motion-ready output.",
@@ -1190,6 +1193,7 @@ export const PROJECTS: Project[] = [
   // ----------------------------------------------------------------------
   {
     id: "mirror-archetype-cosplay",
+    featured: 4,
     title: "The Mirror Archetype — Cosplay Compositing",
     description:
       "Complex portraiture and digital compositing project featuring a single performer in dual protagonist/antagonist roles through narrative symmetry.",

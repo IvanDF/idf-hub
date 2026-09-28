@@ -188,6 +188,15 @@
   }
 }
 
+// Marks where the curated showcase ends and the full index begins.
+.indexTitle {
+  margin: 0 0 $spacing-md;
+  font-size: $font-size-sm;
+  letter-spacing: $letter-spacing-wide;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
 // ── Project list ──────────────────────────────────────────────────────────────
 .projectList {
   display: flex;
