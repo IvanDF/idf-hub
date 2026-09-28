@@ -133,7 +133,10 @@ const personJsonLd = {
   name: "Ivan Del Fatti",
   alternateName: "iDF",
   url: siteUrl,
-  jobTitle: "Full-Stack Developer & UI/UX Designer",
+  // No `jobTitle`. The field invites exactly the label the brand rules rule
+  // out — "Full-Stack Developer & UI/UX Designer" was sitting here, shipping on
+  // every page — and schema.org does not require it. The description carries
+  // the positioning instead, which is the one that was written on purpose.
   description: "Driven by curiosity, refined through design.",
   sameAs: socials.map((s) => s.href),
 };
