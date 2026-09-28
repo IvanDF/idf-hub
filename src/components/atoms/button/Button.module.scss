@@ -20,12 +20,19 @@
   letter-spacing: $letter-spacing-md;
   text-transform: uppercase;
   user-select: none;
+  // `translate`, `scale` and `rotate` are animated as individual properties,
+  // not through `transform`. The press offset and the theme-toggle hint wobble
+  // are set by different rules at equal specificity, so as a single `transform`
+  // the later one silently won and the press feedback disappeared while a hint
+  // was showing. As separate properties they compose instead of competing.
   transition:
     opacity $duration-base,
     border-color $duration-base,
     background $duration-base,
     box-shadow $duration-base,
-    transform $duration-instant $ease-back;
+    translate $duration-instant $ease-back,
+    scale $duration-base $ease-back,
+    rotate $duration-base $ease-back;
 
   &:focus-visible {
     outline: $border-base solid var(--color-accent);
@@ -34,7 +41,7 @@
 
   &:active {
     // Pressed by exactly the carved border depth
-    transform: translate($border-base, $border-base);
+    translate: $border-base $border-base;
   }
 }
 
@@ -85,20 +92,26 @@
     background: rgba(var(--color-super-dark-rgb), 0.1);
   }
 
+  // Escalating nudge after repeated clicks. Alternating rotation so each step
+  // reads as a new wobble rather than a bigger version of the last one.
   &[data-hint="1"] {
-    transform: scale(1.05) rotate(2deg);
+    scale: 1.05;
+    rotate: 2deg;
   }
 
   &[data-hint="2"] {
-    transform: scale(1.1) rotate(-2deg);
+    scale: 1.1;
+    rotate: -2deg;
   }
 
   &[data-hint="3"] {
-    transform: scale(1.15) rotate(2deg);
+    scale: 1.15;
+    rotate: 2deg;
   }
 
   &[data-hint="4"] {
-    transform: scale(1.2) rotate(-2deg);
+    scale: 1.2;
+    rotate: -2deg;
   }
 }
 
@@ -130,10 +143,11 @@
 
   &:hover {
     box-shadow: none;
-    transform: none;
   }
 
+  // Opted out of the stamp: no shadow, and no press offset either. Only
+  // `translate` is reset — a hint wobble, if one is showing, still plays.
   &:active {
-    transform: none;
+    translate: none;
   }
 }
