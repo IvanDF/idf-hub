@@ -245,7 +245,15 @@ canvas {
 
    Whichever path runs, the resting state here is visible: no rule below sets
    opacity outside an animation. That is what the earlier framer reveals got
-   wrong, and it is not negotiable. */
+   wrong, and it is not negotiable.
+
+   One way to break this silently: `all: unset` on a revealed element. It resets
+   `animation-name` and `animation-timeline` too, and a CSS-module class ties
+   this rule on specificity (0,1,0) while loading later — so the reset wins and
+   nothing animates, with no error anywhere. That is exactly what happened to
+   the Lab project rows. If a component needs to strip UA chrome, reset the
+   handful of properties it actually means (see .mediaFrameClickable and
+   .projectRow) instead of reaching for `all`. */
 
 @keyframes reveal-in {
   from {

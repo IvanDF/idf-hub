@@ -198,7 +198,13 @@
 }
 
 .projectRow {
-  all: unset;
+  // Targeted anchor reset rather than `all: unset`. `all` also resets
+  // `animation-name` and `animation-timeline`, and since this class and the
+  // global `[data-reveal]` rule both score (0,1,0) the module — loading later —
+  // won: every row carries `data-reveal` and none of them animated. Same reason
+  // .mediaFrameClickable avoids `all: unset` in ProjectDetail.module.scss.
+  color: inherit;
+  text-decoration: none;
   display: grid;
   grid-template-columns: $spacing-2xl 1fr auto;
   align-items: center;
