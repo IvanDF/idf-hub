@@ -17,10 +17,6 @@
   min-height: 78vh;
   grid-template-columns: 1fr;
 
-  // Snap is opt-in per slide; the scroller turns it on only on pages that
-  // contain a showcase — see .main:has([data-featured-work]) in layout.
-  scroll-snap-align: center;
-
   @media (min-width: $breakpoint-lg) {
     grid-template-columns: 1fr 1fr;
 
