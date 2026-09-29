@@ -4,7 +4,10 @@ import { PROJECTS } from "@/data/projects";
 import { hrefForProject, labelFor } from "@/types/project";
 import type { Project, ProjectCategory, ProjectKind } from "@/types/project";
 import CareerPath from "@/components/organisms/career-path";
-import FeaturedWork from "@/components/organisms/featured-work";
+import FeaturedWork, {
+  FEATURED,
+  InkCards,
+} from "@/components/organisms/featured-work";
 import WorkFork from "@/components/organisms/work-fork";
 import Text from "@/components/atoms/text";
 import { AnimatePresence, motion } from "framer-motion";
@@ -229,12 +232,15 @@ export default function Lab() {
             exit={{ opacity: 0, x: 8 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            {/* Names the break between the showcase above and the index here,
-                so the shorter list does not read as the whole of the work. */}
-            <Text as="h2" variant="mono" className={styles.indexTitle}>
-              Everything else
-            </Text>
+            {/* No heading between the plates above and the cards below: the
+                weight stepping down is what marks the change, and a title here
+                put a seam back in the page. The filters are a quiet row rather
+                than a block for the same reason — they are a utility, not a
+                chapter break.
 
+                They stay above the work they filter even though the rest of the
+                descent argues for burying them: controls under their own
+                results mean filtering scrolls the answer off screen. */}
             <nav className={styles.filters} aria-label="Project filters">
               {FILTERS.map(({ label, group }) => (
                 <button
@@ -275,39 +281,12 @@ export default function Lab() {
               </nav>
             )}
 
-            <div className={styles.projectList} role="list">
-              {live.map((project, i) => (
-                <Link
-                  key={project.id}
-                  id={project.id}
-                  role="listitem"
-                  className={styles.projectRow}
-                  data-reveal=""
-                  data-kind={markerFor(project)}
-                  data-own-page={project.detailHref ? "true" : undefined}
-                  href={hrefFor(project)}
-                >
-                  <span className={styles.rowNum}>{String(i + 1).padStart(2, "0")}</span>
-                  <div className={styles.rowMain}>
-                    <span className={styles.rowTitle}>{project.title}</span>
-                    <span className={styles.rowDesc}>{project.description}</span>
-                  </div>
-                  <div className={styles.rowMeta}>
-                    <span className={styles.rowCategory}>{labelFor(project)}</span>
-                    <span className={styles.rowYear}>{project.year}</span>
-                    {/* ︎ forces text presentation: without it iOS falls back
-                        to Apple Color Emoji when the webfont lacks the glyph */}
-                    {project.detailHref ? (
-                      <span className={styles.rowRune} aria-label="has its own page">
-                        ᛉ
-                      </span>
-                    ) : (
-                      project.status === "live" && <span className={styles.rowArrow}>{"↗︎"}</span>
-                    )}
-                  </div>
-                </Link>
-              ))}
-            </div>
+            {/* The middle of the descent. Same ink frame and the same
+                typography as the plates above, at half the weight and two to a
+                row — the step down is the hierarchy, so no heading or rule is
+                needed to announce it. Numbering carries on from the showcase
+                rather than restarting, because this is the same sequence. */}
+            <InkCards projects={live} startIndex={FEATURED.length + 1} />
 
             {live.length === 0 && <Text as="p" variant="body" className={styles.empty}>Nothing here yet.</Text>}
 

@@ -2,10 +2,7 @@
 
 import { PROJECTS } from "@/data/projects";
 import type { Project } from "@/types/project";
-import { useSearchParams } from "next/navigation";
 import InkPlate from "./InkPlate";
-import RealmJourney from "./RealmJourney";
-import TerminalSession from "./TerminalSession";
 
 /** Showcase order comes from the data, so this file has no list to keep in step. */
 export const FEATURED: Project[] = PROJECTS.filter((p) => p.featured).sort(
@@ -24,34 +21,19 @@ export function hasHeroImage(project: Project) {
   return !project.media.thumbnail.endsWith(".svg");
 }
 
-export type Experiment = "ink" | "terminal" | "realms";
-
-const EXPERIMENTS: Record<string, Experiment> = {
-  a: "ink",
-  b: "terminal",
-  c: "realms",
-  ink: "ink",
-  terminal: "terminal",
-  realms: "realms",
-};
-
 /**
- * The Work showcase, in three readings of the same four projects.
+ * The top of the Work descent: the four projects that carry the portfolio, one
+ * screen each.
  *
- * `?exp=a|b|c` picks one. They are alternatives to choose between, not a
- * feature — once one wins the other two come out, along with this switch.
+ * It is the heaviest of three tiers that step down without a break — full
+ * plates here, half-weight cards in InkCards, compact rows for the archive —
+ * so the page never switches from an experience to a table.
  *
- * Every variant is scroll-driven through `animation-timeline: view()`, and
- * every one degrades to its finished, static layout where that is missing
- * (Safari 18, Firefox) or where reduced motion is asked for. Nothing commits
- * `opacity: 0` to an element's resting style: the scar in globals.scss above
- * the reveal rules is about exactly that, and it applies here too.
+ * Motion is scrubbed by `animation-timeline: view()` and degrades to the
+ * finished static plate where that is missing (Safari 18, Firefox) or reduced
+ * motion is asked for. No resting style commits `opacity: 0`; the scar above
+ * the reveal rules in globals.scss is about exactly that.
  */
 export default function FeaturedWork() {
-  const params = useSearchParams();
-  const variant = EXPERIMENTS[params.get("exp") ?? ""] ?? "ink";
-
-  if (variant === "terminal") return <TerminalSession />;
-  if (variant === "realms") return <RealmJourney />;
   return <InkPlate />;
 }
