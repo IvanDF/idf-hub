@@ -5,6 +5,12 @@ export type CommandOutput = {
   content: string | ReactNode;
   cta?: { label: string; cmd: string };
   /**
+   * Turns the line into an outbound link. Kept here rather than as JSX in the
+   * data files so those stay plain `.ts` — the renderer owns the anchor, the
+   * data owns the destination.
+   */
+  href?: string;
+  /**
    * Render the line as written, without wrapping. For output that draws in
    * columns — where a wrap at a word boundary would shear the layout in half.
    */

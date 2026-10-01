@@ -665,3 +665,20 @@
     }
   }
 }
+
+// An output line that goes somewhere — the cheers journal links each toast to
+// the trip it was collected on.
+.outLink {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color $duration-micro $ease-out;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-accent);
+    text-decoration-style: solid;
+  }
+}
