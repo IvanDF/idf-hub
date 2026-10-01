@@ -4,13 +4,8 @@ import { PROJECTS } from "@/data/projects";
 import { hrefForProject, labelFor } from "@/types/project";
 import type { Project, ProjectCategory, ProjectKind } from "@/types/project";
 import CareerPath from "@/components/organisms/career-path";
-import FeaturedWork, {
-  FEATURED,
-  InkCards,
-} from "@/components/organisms/featured-work";
+import WorkDeck from "@/components/organisms/work-deck";
 import WorkFork from "@/components/organisms/work-fork";
-import WorkMap from "@/components/organisms/work-map";
-import type { MapAxis } from "@/lib/work-map/positions";
 import Text from "@/components/atoms/text";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
@@ -19,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.scss";
 
 type FilterGroup = "all" | "code" | "design" | "craft";
-type View = "career" | "lab" | "map";
+type View = "career" | "lab";
 
 const FILTERS: { label: string; group: FilterGroup; category?: ProjectCategory }[] = [
   { label: "All", group: "all" },
@@ -54,18 +49,15 @@ function matchesGroup(p: Project, group: FilterGroup, kind: ProjectKind | null):
 const byNewestFirst = (a: Project, b: Project) =>
   (b.date ?? `${b.year}-06`).localeCompare(a.date ?? `${a.year}-06`);
 
-// The showcase carries the featured projects, so the index below is everything
-// else. Listing them in both places would make the page repeat itself, and the
-// showcase is already above the filters where it cannot be scrolled past.
-const LIVE = PROJECTS.filter((p) => p.status === "live" && !p.featured).sort(
-  byNewestFirst,
-);
+// Everything live goes in the deck, featured first. There is no second tier
+// below it any more: the deck already holds the whole of the current work, and
+// a grid repeating it was the seam this page kept growing back.
+const LIVE = PROJECTS.filter((p) => p.status === "live").sort(byNewestFirst);
 const ARCHIVED = PROJECTS.filter((p) => p.status !== "live").sort(byNewestFirst);
 
 const VIEW_TABS: { view: View; label: string }[] = [
   { view: "career", label: "The Path" },
   { view: "lab", label: "The Lab" },
-  { view: "map", label: "The Map" },
 ];
 
 export default function Lab() {
@@ -90,15 +82,12 @@ export default function Lab() {
   // with only ?filter keep landing straight in the lab.
   const rawView = searchParams.get("view");
   const view: View | null =
-    rawView === "career" || rawView === "lab" || rawView === "map"
+    rawView === "career" || rawView === "lab"
       ? rawView
       : rawFilter
         ? "lab"
         : null;
 
-  // Two readings of the same work, side by side while they are being compared.
-  // `?axis=` only means anything on the map; anywhere else it is ignored.
-  const axis: MapAxis = searchParams.get("axis") === "time" ? "time" : "discipline";
 
   const setView = (v: View) => {
     const p = new URLSearchParams(searchParams.toString());
@@ -115,12 +104,6 @@ export default function Lab() {
     if (group !== "craft") p.delete("kind");
     const q = p.toString();
     router.replace(q ? `${pathname}?${q}` : pathname, { scroll: false });
-  };
-
-  const setAxis = (next: MapAxis) => {
-    const p = new URLSearchParams(searchParams.toString());
-    p.set("axis", next);
-    router.replace(`${pathname}?${p.toString()}`, { scroll: false });
   };
 
   const setKind = (next: ProjectKind | null) => {
@@ -185,9 +168,7 @@ export default function Lab() {
               ? "Ten years, no straight line."
               : view === "lab"
                 ? "Where the curiosity goes after hours."
-                : view === "map"
-                  ? "The same work, two ways of reading it."
-                  : "Two stories. Pick an angle."}
+                : "Two stories. Pick an angle."}
           </Text>
           {view !== null && (
             <nav className={styles.viewTabs} aria-label="Work views">
@@ -233,32 +214,12 @@ export default function Lab() {
           </section>
         )}
 
-        {view === "map" && (
-          <section key="map" aria-label="Work map">
-            {/* Two readings side by side while the shape of the place is
-                being decided. One of them goes once that is settled. */}
-            <nav className={styles.filters} aria-label="Map reading">
-              {(["discipline", "time"] as const).map((a) => (
-                <button
-                  key={a}
-                  onClick={() => setAxis(a)}
-                  className={`${styles.filterBtn} ${axis === a ? styles.active : ""}`}
-                  aria-pressed={axis === a}
-                >
-                  {a === "discipline" ? "By discipline" : "By time"}
-                </button>
-              ))}
-            </nav>
 
-            <WorkMap axis={axis} />
-          </section>
-        )}
-
-        {/* Outside the filter-keyed wrapper below on purpose. The showcase is
-            the selection, not a view of the collection, so a filter change must
-            not re-mount it — and that wrapper animates from opacity 0, which is
-            the one thing the reveals are not allowed to depend on. */}
-        {view === "lab" && <FeaturedWork />}
+        {/* Outside the filter-keyed wrapper below on purpose. The deck is the
+            selection, not a view of the collection, so a filter change must not
+            re-mount it — and that wrapper animates from opacity 0, which is the
+            one thing the scroll-driven passes must never depend on. */}
+        {view === "lab" && <WorkDeck projects={live} />}
 
         {view === "lab" && (
           <motion.div
@@ -317,12 +278,6 @@ export default function Lab() {
               </nav>
             )}
 
-            {/* The middle of the descent. Same ink frame and the same
-                typography as the plates above, at half the weight and two to a
-                row — the step down is the hierarchy, so no heading or rule is
-                needed to announce it. Numbering carries on from the showcase
-                rather than restarting, because this is the same sequence. */}
-            <InkCards projects={live} startIndex={FEATURED.length + 1} />
 
             {live.length === 0 && <Text as="p" variant="body" className={styles.empty}>Nothing here yet.</Text>}
 

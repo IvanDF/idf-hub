@@ -1,0 +1,215 @@
+@use "@/styles/variables" as *;
+
+.deck {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  margin-bottom: $spacing-xxl;
+  // The rail bleeds past the page gutters so a card can sit dead centre with
+  // its neighbours showing on both sides.
+  margin-inline: calc(-1 * #{$spacing-lg});
+}
+
+.hint {
+  margin: 0;
+  padding-inline: $spacing-lg;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  letter-spacing: $letter-spacing-wide;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+
+.arrow {
+  color: var(--color-accent);
+}
+
+/* ── The rail ──────────────────────────────────────────────────────────────
+   One mechanic on every device: a scroll-snap strip. Touch gets a native
+   swipe with its own momentum, a trackpad gets a flick, a mouse gets a drag on
+   the scrollbar, and Tab walks the cards while the browser scrolls each one
+   into view. No gesture library, no JavaScript, nothing to break. */
+
+.rail {
+  display: flex;
+  gap: $spacing-lg;
+  margin: 0;
+  padding: $spacing-md $spacing-lg;
+  list-style: none;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  // Momentum on iOS, and no rubber-banding of the page behind it.
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+
+  // The scrollbar is the one affordance that says "there is more sideways",
+  // so it stays — just quieter than the browser default.
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-divider) transparent;
+
+  &::-webkit-scrollbar {
+    height: $size-scrollbar;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-divider);
+    border-radius: $radius-full;
+  }
+}
+
+.slot {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  // Wide enough to read, narrow enough that the next card shows at the edge —
+  // the peek is what tells you the deck continues.
+  width: min(86vw, 520px);
+}
+
+.card {
+  // Targeted reset. Never `all: unset`: it also wipes animation-name, which is
+  // what drives the focus pass below.
+  color: inherit;
+  text-decoration: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  height: 100%;
+}
+
+.frame {
+  position: relative;
+  display: block;
+  // 4/3 on a phone, where the card has the screen to itself; 3/2 from the
+  // breakpoint up, where the page header takes the top 270px and a 4/3 frame
+  // pushed the card's last line just past the fold.
+  aspect-ratio: 4 / 3;
+  width: 100%;
+
+  @media (min-width: $breakpoint-lg) {
+    aspect-ratio: 3 / 2;
+  }
+  overflow: hidden;
+  border-radius: $radius-lg;
+  background: var(--color-card, var(--color-bg));
+  // The hand-drawn frame the rest of the site prints things in.
+  border: 10px solid transparent;
+  border-image: var(--ink-frame) 20 / 10px round;
+}
+
+.image {
+  object-fit: cover;
+  transition: scale $duration-slower $ease-out-expo;
+}
+
+.frame[data-fit="contain"] .image {
+  object-fit: contain;
+}
+
+.card:hover .image,
+.card:focus-visible .image {
+  scale: 1.05;
+}
+
+// No screenshot yet: the frame holds the kind of work as type rather than a
+// stretched icon.
+.frame[data-plate="type"] {
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--color-text) 4%, transparent);
+}
+
+.plateMark {
+  font-family: $font-family-display;
+  font-size: clamp(1.75rem, 1rem + 3vw, 3rem);
+  letter-spacing: $letter-spacing-lg;
+  text-transform: uppercase;
+  opacity: 0.3;
+}
+
+/* ── The card body ─────────────────────────────────────────────────────────── */
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  padding-inline: $spacing-2xs;
+}
+
+.count {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  letter-spacing: $letter-spacing-wide;
+  color: var(--color-accent);
+}
+
+.title {
+  font-family: $font-family-display;
+  font-size: $font-size-h3-fluid;
+  line-height: $line-height-h3;
+  // Underline grows from the left, as on every other title on the site.
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% $border-base;
+  transition: background-size $duration-slow $ease-out-expo;
+}
+
+.card:hover .title,
+.card:focus-visible .title {
+  background-size: 100% $border-base;
+}
+
+.blurb {
+  font-size: $font-size-base;
+  line-height: $line-height-small;
+  opacity: 0.72;
+}
+
+.meta {
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  letter-spacing: $letter-spacing-md;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+
+/* ── The stack ─────────────────────────────────────────────────────────────
+   Cards grow into the middle and settle back as they leave, scrubbed by the
+   scroll itself. `view(x)` is the horizontal timeline, so this follows the
+   rail rather than the page.
+
+   Nothing here is load-bearing: without view timelines (Safari 18, Firefox) or
+   under reduced motion, every card simply sits at full size. The resting
+   style is the finished card — the scar above the reveal rules in globals.scss
+   applies here too. */
+
+@keyframes deck-focus {
+  0% {
+    scale: 0.9;
+    opacity: 0.55;
+  }
+  50% {
+    scale: 1;
+    opacity: 1;
+  }
+  100% {
+    scale: 0.9;
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view(x)) {
+    .slot {
+      animation: deck-focus linear both;
+      animation-timeline: view(x);
+      // The whole crossing of the rail, so the peak lands at centre.
+      animation-range: cover 0% cover 100%;
+      // The scale is about the card's own middle, not its corner.
+      transform-origin: center center;
+    }
+  }
+}
