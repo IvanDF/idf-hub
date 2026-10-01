@@ -1,0 +1,113 @@
+@use "@/styles/variables" as *;
+
+.grid {
+  display: grid;
+  gap: $spacing-xl;
+  grid-template-columns: 1fr;
+
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-xxl $spacing-xl;
+  }
+}
+
+.card {
+  // Targeted anchor reset, never `all: unset` — that also wipes
+  // `animation-name` and would kill the reveal, exactly as it did on
+  // .projectRow. See the note above the reveal rule in globals.scss.
+  color: inherit;
+  text-decoration: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  min-width: 0;
+}
+
+.frame {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  overflow: hidden;
+  border-radius: $radius-md;
+  background: var(--color-card, var(--color-bg));
+  // The same hand-drawn frame the full plates use, at the finer weight — the
+  // continuity between the tiers is carried by this more than by anything else.
+  border: 5px solid transparent;
+  border-image: var(--ink-frame-fine) 20 / 5px round;
+}
+
+// No screenshot yet: the frame holds the kind of work as type instead of a
+// stretched icon. Same idea as the Yggdrasil plate.
+.frame[data-plate="type"] {
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--color-text) 4%, transparent);
+}
+
+.plateMark {
+  font-family: $font-family-display;
+  font-size: clamp(1.5rem, 1rem + 2.5vw, 2.5rem);
+  letter-spacing: $letter-spacing-lg;
+  text-transform: uppercase;
+  opacity: 0.35;
+}
+
+.image {
+  object-fit: cover;
+  transition: scale $duration-slow $ease-out-expo;
+}
+
+.card:hover .image,
+.card:focus-visible .image {
+  scale: 1.04;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-xs;
+  min-width: 0;
+}
+
+.num {
+  flex: none;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  letter-spacing: $letter-spacing-wide;
+  color: var(--color-accent);
+}
+
+.title {
+  font-family: $font-family-display;
+  font-size: $font-size-h4-fluid;
+  line-height: $line-height-h4;
+  // Grows its underline from the left, like the titles on the full plates.
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% $border-hairline;
+  transition: background-size $duration-slow $ease-out-expo;
+}
+
+.card:hover .title,
+.card:focus-visible .title {
+  background-size: 100% $border-hairline;
+}
+
+.desc {
+  font-size: $font-size-base;
+  line-height: $line-height-small;
+  opacity: 0.7;
+}
+
+.meta {
+  display: flex;
+  gap: $spacing-xs;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  letter-spacing: $letter-spacing-md;
+  text-transform: uppercase;
+  opacity: 0.5;
+}

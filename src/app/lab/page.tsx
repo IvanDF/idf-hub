@@ -4,7 +4,10 @@ import { PROJECTS } from "@/data/projects";
 import { hrefForProject, labelFor } from "@/types/project";
 import type { Project, ProjectCategory, ProjectKind } from "@/types/project";
 import CareerPath from "@/components/organisms/career-path";
-import WorkDeck from "@/components/organisms/work-deck";
+import FeaturedWork, {
+  FEATURED,
+  InkCards,
+} from "@/components/organisms/featured-work";
 import WorkFork from "@/components/organisms/work-fork";
 import Text from "@/components/atoms/text";
 import { AnimatePresence, motion } from "framer-motion";
@@ -49,10 +52,11 @@ function matchesGroup(p: Project, group: FilterGroup, kind: ProjectKind | null):
 const byNewestFirst = (a: Project, b: Project) =>
   (b.date ?? `${b.year}-06`).localeCompare(a.date ?? `${a.year}-06`);
 
-// Everything live goes in the deck, featured first. There is no second tier
-// below it any more: the deck already holds the whole of the current work, and
-// a grid repeating it was the seam this page kept growing back.
-const LIVE = PROJECTS.filter((p) => p.status === "live").sort(byNewestFirst);
+// The story carries the featured projects; the index below is everything else.
+// Listing them in both places would make the page repeat itself.
+const LIVE = PROJECTS.filter((p) => p.status === "live" && !p.featured).sort(
+  byNewestFirst,
+);
 const ARCHIVED = PROJECTS.filter((p) => p.status !== "live").sort(byNewestFirst);
 
 const VIEW_TABS: { view: View; label: string }[] = [
@@ -215,11 +219,11 @@ export default function Lab() {
         )}
 
 
-        {/* Outside the filter-keyed wrapper below on purpose. The deck is the
+        {/* Outside the filter-keyed wrapper below on purpose. The story is the
             selection, not a view of the collection, so a filter change must not
             re-mount it — and that wrapper animates from opacity 0, which is the
             one thing the scroll-driven passes must never depend on. */}
-        {view === "lab" && <WorkDeck projects={live} />}
+        {view === "lab" && <FeaturedWork />}
 
         {view === "lab" && (
           <motion.div
@@ -278,6 +282,11 @@ export default function Lab() {
               </nav>
             )}
 
+            {/* The middle of the descent: same ink frame and typography as the
+                plates above, at half the weight and two to a row. The step down
+                is the hierarchy, so no heading announces it, and the numbering
+                carries on from the story rather than restarting. */}
+            <InkCards projects={live} startIndex={FEATURED.length + 1} />
 
             {live.length === 0 && <Text as="p" variant="body" className={styles.empty}>Nothing here yet.</Text>}
 
