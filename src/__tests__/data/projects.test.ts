@@ -9,6 +9,9 @@ const VALID_KINDS: ProjectKind[] = ['photo', 'template', 'shortcut', 'experiment
 // Pinning it here is the safety property of that refactor: the categories were
 // reorganised to describe the work better, not to restyle any page.
 const TEMPLATE_BEFORE: Record<string, string> = {
+  // Added after that refactor. Category DESIGN, template pinned to code on the
+  // record, because the decision log is what carries this one.
+  "sula-platform": "code",
   "yggdrasil": "code",
   "gabberg-icard": "code",
   "filteroo": "code",

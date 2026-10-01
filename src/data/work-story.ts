@@ -35,6 +35,10 @@ export const BEATS: StoryBeat[] = [
     text: "Start with what everything else runs on.",
   },
   {
+    before: "sula-platform",
+    text: "The same question at work, with a company's money riding on the answer.",
+  },
+  {
     before: "figma-icon-builder",
     text: "Owning a system teaches you what a system should ask of the people using it. The next one asked less.",
   },
