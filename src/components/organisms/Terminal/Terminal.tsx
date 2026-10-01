@@ -10,6 +10,7 @@ import { useTerminalBridge } from "@/hooks/terminal/useTerminalBridge";
 import { useTerminalCommands } from "@/hooks/terminal/useTerminalCommands";
 import { useTerminalInput } from "@/hooks/terminal/useTerminalInput";
 import { useTerminalKeyboard } from "@/hooks/terminal/useTerminalKeyboard";
+import { COMMAND_WORDS } from "@/lib/terminal/Terminal.registry";
 import {
   ADMIN_COMMANDS,
   ASCII_ART,
@@ -18,7 +19,6 @@ import {
   PROJECT_CATEGORIES,
   SEARCH_COMMANDS,
   TOTAL_EASTER_EGGS,
-  VALID_COMMANDS,
 } from "@/lib/terminal/Terminal.constants";
 import type { HistoryItem } from "@/types/terminal";
 import { useRouter } from "next/navigation";
@@ -380,7 +380,7 @@ export default function Terminal({
   const suggestion = (() => {
     if (!input?.trim()) return "";
     const lo = input.toLowerCase();
-    const cmds = context === "admin" ? ADMIN_COMMANDS : VALID_COMMANDS;
+    const cmds = context === "admin" ? ADMIN_COMMANDS : COMMAND_WORDS;
     const spaceIdx = lo.indexOf(" ");
     if (spaceIdx !== -1) {
       const cmd = lo.slice(0, spaceIdx);
