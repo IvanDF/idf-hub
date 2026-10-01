@@ -9,6 +9,8 @@ import FeaturedWork, {
   InkCards,
 } from "@/components/organisms/featured-work";
 import WorkFork from "@/components/organisms/work-fork";
+import WorkMap from "@/components/organisms/work-map";
+import type { MapAxis } from "@/lib/work-map/positions";
 import Text from "@/components/atoms/text";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
@@ -17,7 +19,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.scss";
 
 type FilterGroup = "all" | "code" | "design" | "craft";
-type View = "career" | "lab";
+type View = "career" | "lab" | "map";
 
 const FILTERS: { label: string; group: FilterGroup; category?: ProjectCategory }[] = [
   { label: "All", group: "all" },
@@ -63,6 +65,7 @@ const ARCHIVED = PROJECTS.filter((p) => p.status !== "live").sort(byNewestFirst)
 const VIEW_TABS: { view: View; label: string }[] = [
   { view: "career", label: "The Path" },
   { view: "lab", label: "The Lab" },
+  { view: "map", label: "The Map" },
 ];
 
 export default function Lab() {
@@ -87,11 +90,15 @@ export default function Lab() {
   // with only ?filter keep landing straight in the lab.
   const rawView = searchParams.get("view");
   const view: View | null =
-    rawView === "career" || rawView === "lab"
+    rawView === "career" || rawView === "lab" || rawView === "map"
       ? rawView
       : rawFilter
         ? "lab"
         : null;
+
+  // Two readings of the same work, side by side while they are being compared.
+  // `?axis=` only means anything on the map; anywhere else it is ignored.
+  const axis: MapAxis = searchParams.get("axis") === "time" ? "time" : "discipline";
 
   const setView = (v: View) => {
     const p = new URLSearchParams(searchParams.toString());
@@ -108,6 +115,12 @@ export default function Lab() {
     if (group !== "craft") p.delete("kind");
     const q = p.toString();
     router.replace(q ? `${pathname}?${q}` : pathname, { scroll: false });
+  };
+
+  const setAxis = (next: MapAxis) => {
+    const p = new URLSearchParams(searchParams.toString());
+    p.set("axis", next);
+    router.replace(`${pathname}?${p.toString()}`, { scroll: false });
   };
 
   const setKind = (next: ProjectKind | null) => {
@@ -172,7 +185,9 @@ export default function Lab() {
               ? "Ten years, no straight line."
               : view === "lab"
                 ? "Where the curiosity goes after hours."
-                : "Two stories. Pick an angle."}
+                : view === "map"
+                  ? "The same work, two ways of reading it."
+                  : "Two stories. Pick an angle."}
           </Text>
           {view !== null && (
             <nav className={styles.viewTabs} aria-label="Work views">
@@ -215,6 +230,27 @@ export default function Lab() {
           // animation could pin the whole section invisible.
           <section key="career" aria-label="Career">
             <CareerPath />
+          </section>
+        )}
+
+        {view === "map" && (
+          <section key="map" aria-label="Work map">
+            {/* Two readings side by side while the shape of the place is
+                being decided. One of them goes once that is settled. */}
+            <nav className={styles.filters} aria-label="Map reading">
+              {(["discipline", "time"] as const).map((a) => (
+                <button
+                  key={a}
+                  onClick={() => setAxis(a)}
+                  className={`${styles.filterBtn} ${axis === a ? styles.active : ""}`}
+                  aria-pressed={axis === a}
+                >
+                  {a === "discipline" ? "By discipline" : "By time"}
+                </button>
+              ))}
+            </nav>
+
+            <WorkMap axis={axis} />
           </section>
         )}
 
