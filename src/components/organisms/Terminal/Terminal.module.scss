@@ -666,19 +666,38 @@
   }
 }
 
-// An output line that goes somewhere — the cheers journal links each toast to
-// the trip it was collected on.
-.outLink {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-style: dotted;
-  text-underline-offset: 3px;
+// A flag that opens the trip it was collected on. A bare emoji is about 18px
+// across — well under the 44px tap target a phone needs, and a travel journal
+// is read on a phone — so each one gets a real box around it.
+.flagLink,
+.flagPlain {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  // The WCAG minimum, not the compact control size: these are the only tap
+  // targets in the output and they sit inline in a dense list.
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
+  border-radius: $radius-sm;
+}
+
+.flagLink {
+  text-decoration: none;
   cursor: pointer;
-  transition: color $duration-micro $ease-out;
+  // Underline sits under the glyph rather than through it.
+  box-shadow: inset 0 -2px 0 -1px color-mix(in srgb, currentColor 45%, transparent);
+  transition:
+    background $duration-micro $ease-out,
+    box-shadow $duration-micro $ease-out;
 
   &:hover,
   &:focus-visible {
-    color: var(--color-accent);
-    text-decoration-style: solid;
+    background: color-mix(in srgb, var(--color-accent) 18%, transparent);
+    box-shadow: inset 0 -2px 0 -1px var(--color-accent);
   }
+}
+
+// Not every toast has a trip behind it; those flags carry no affordance.
+.flagPlain {
+  opacity: 0.75;
 }

@@ -20,18 +20,7 @@ export default function TerminalHistoryItem({ item, onExecuteCommand }: Terminal
           key={i}
           className={`${styles.line} ${styles[out.type]} ${out.pre ? styles.preLine : ""}`}
         >
-          {out.href ? (
-            <a
-              className={styles.outLink}
-              href={out.href}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {out.content}
-            </a>
-          ) : (
-            out.content
-          )}
+          {out.content}
           {out.cta && (
             <button className={styles.ctaBtn} onClick={() => onExecuteCommand(out.cta!.cmd)}>
               [{out.cta.label}]
