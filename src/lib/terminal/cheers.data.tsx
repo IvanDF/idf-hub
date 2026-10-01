@@ -32,8 +32,11 @@ export type CheersEntry = {
 
 const FINDPENGUINS = "https://findpenguins.com/idf.travel/trip";
 
-/** New Year in Vienna — where most of these were collected in one night. */
+/** New Year in Vienna — where several of these were collected in one night. */
 const VIENNA = "the-midwinter-run";
+
+/** The Baltic crossing: Estonia and Finland on the same journey. */
+const BALTIC = "the-baltic-crossing";
 
 export const CHEERS: CheersEntry[] = [
   { places: [{ flag: "🇬🇷", trip: "gates-of-athens" }], language: "Greek", phrase: "Yamas" },
@@ -79,8 +82,8 @@ export const CHEERS: CheersEntry[] = [
     language: "Basque",
     phrase: "Topa",
   },
-  { places: [{ flag: "🇪🇪", trip: VIENNA }], language: "Estonian", phrase: "Terviseks" },
-  { places: [{ flag: "🇫🇮", trip: VIENNA }], language: "Finnish", phrase: "Kippis" },
+  { places: [{ flag: "🇪🇪", trip: BALTIC }], language: "Estonian", phrase: "Terviseks" },
+  { places: [{ flag: "🇫🇮", trip: BALTIC }], language: "Finnish", phrase: "Kippis" },
 ];
 
 /**
