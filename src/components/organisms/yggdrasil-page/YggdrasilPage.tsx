@@ -21,7 +21,6 @@ export default function YggdrasilPage() {
 
   return (
     <div className={styles.page}>
-      <TmuxBar />
 
       <main className={styles.pane}>
         <section className={styles.hero} aria-labelledby="ygg-title">
@@ -102,6 +101,9 @@ export default function YggdrasilPage() {
           </p>
         </footer>
       </main>
+
+      {/* At the foot, where tmux puts it. */}
+      <TmuxBar />
     </div>
   );
 }

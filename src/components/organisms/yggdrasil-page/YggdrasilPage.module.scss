@@ -33,12 +33,19 @@ $swatches: (
   font-size: $font-size-base;
   display: flex;
   flex-direction: column;
+  // Clear the chrome rails. The page is full-bleed and the status line ran the
+  // whole width, so both vertical ink rules cut straight across it. The rails
+  // collapse to a $chrome-rail-peek sliver on this route, which is what has to
+  // be stepped over — not their full width.
+  padding-inline: calc(var(--chrome-rail-peek, 32px) + #{$spacing-sm});
 }
 
 // ── Status line ──
 .tmux {
   position: sticky;
-  top: 0;
+  // At the foot, where tmux keeps it.
+  bottom: 0;
+  margin-top: auto;
   z-index: 2;
   display: flex;
   justify-content: space-between;
@@ -46,7 +53,7 @@ $swatches: (
   gap: $spacing-md;
   padding: $spacing-xs $spacing-md;
   background: $bg;
-  border-bottom: 1px solid $line;
+  border-top: 1px solid $line;
   color: $muted;
   font-size: $font-size-sm;
 }
