@@ -25,7 +25,7 @@ function nextTrial(): Trial {
 
 /**
  * Stroop interference test: name the INK color, ignore the word. Tracks
- * accuracy and average response time across a fixed run — the classic demo
+ * accuracy and average response time across a fixed run, the classic demo
  * that reading is automatic and competes with color naming.
  */
 export default function StroopTest() {
@@ -88,7 +88,7 @@ export default function StroopTest() {
             <p className={styles.instruction}>
               A color word appears in a colored ink. Tap the button matching the{" "}
               <strong>ink</strong>, not the word. Your reading reflex will fight
-              you — that gap is the effect.
+              you. That gap is the effect.
             </p>
             <button type="button" className={styles.cta} onClick={start}>
               Start

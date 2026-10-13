@@ -131,7 +131,7 @@ export default function Terminal({
   }, []);
 
   // Persist / restore discovered eggs. Eggs can never be un-discovered, so an
-  // empty set is never worth writing — on mount it would only clobber the
+  // empty set is never worth writing, on mount it would only clobber the
   // saved progress before the restore effect's state update lands.
   useEffect(() => {
     const saved = localStorage.getItem("idf-easter-eggs");
@@ -191,7 +191,7 @@ export default function Terminal({
   }, [context]);
 
   // ASCII art animation for easter eggs. The last frame HOLDS for a beat
-  // before clearing — the art used to vanish the instant it finished.
+  // before clearing, the art used to vanish the instant it finished.
   const ASCII_FRAME_MS = 400;
   const ASCII_HOLD_MS = 4000;
   const getAsciiArt = (eggId: string): string[] => {
@@ -231,11 +231,11 @@ export default function Terminal({
             { type: "system", content: "┌── idf-hub :: admin terminal ──" },
             {
               type: "text",
-              content: "list — projects  │  add — new  │  status — stats",
+              content: "list · projects  │  add · new  │  status · stats",
             },
             {
               type: "text",
-              content: "logout — sign out  │  site — back to site",
+              content: "logout · sign out  │  site · back to site",
             },
             {
               type: "text",
@@ -255,11 +255,11 @@ export default function Terminal({
             },
             {
               type: "text",
-              content: "lab — projects  │  search — find  │  theme — toggle",
+              content: "lab · projects  │  search · find  │  theme · toggle",
             },
             {
               type: "text",
-              content: "admin — dashboard  │  whoami — auth status",
+              content: "admin · dashboard  │  whoami · auth status",
             },
             { type: "text", content: "⟁  joor zah frul...  ⟁" },
           ],
@@ -417,7 +417,7 @@ export default function Terminal({
 
   if (!isOpen) return null;
 
-  // Chips and [→ cta] buttons run their command immediately — filling the
+  // Chips and [→ cta] buttons run their command immediately, filling the
   // input and demanding a second Enter felt broken. Prefix commands (trailing
   // space, e.g. "search ") still populate the input: they need an argument.
   const executeQuickCommand = (cmd: string) => {
@@ -436,7 +436,7 @@ export default function Terminal({
       <div
         className={`${styles.terminalContainer} ${context === "admin" ? styles.admin : ""} ${discoveredEggs.size >= TOTAL_EASTER_EGGS ? styles.golden : ""}`}
         data-skin={skin === "default" ? undefined : skin}
-        // Its own sound vocabulary — type, command, glitch — so the global
+        // Its own sound vocabulary, type, command, glitch, so the global
         // click note would only double up on it.
         data-no-sound
         onClick={(e) => e.stopPropagation()}
@@ -559,7 +559,7 @@ export default function Terminal({
                   {voiceError && (
                     <div className={styles.voiceError}>
                       {voiceError === "network-error"
-                        ? "Chrome speech API needs HTTPS — works on production, not plain localhost."
+                        ? "Chrome speech API needs HTTPS. It works on production, not on plain localhost."
                         : voiceError}
                     </div>
                   )}

@@ -69,7 +69,7 @@ export const TerminalHistoryItemStory: StoryObj<typeof TerminalHistoryItem> = {
         output: [
           { type: 'system', content: '── NAVIGATE ──' },
           { type: 'text', content: 'lab / work', cta: { label: '→ open', cmd: 'lab' } },
-          { type: 'text', content: 'search [keyword] — find projects' },
+          { type: 'text', content: 'search [keyword] · find projects' },
           { type: 'success', content: 'Done.' },
         ],
       }}

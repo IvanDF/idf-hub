@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { DESIGN_SYSTEM } from '@/styles/design-system';
 
-/** Business card dimensions in Three.js units — maintains 85×54 mm ratio. */
+/** Business card dimensions in Three.js units, maintains 85×54 mm ratio. */
 const CARD_W = 8.56;
 const CARD_H = 5.4;
 const CARD_D = 0.04;
@@ -22,7 +22,7 @@ const MAX_BETA_DEGREES = 30;
 const STIFFNESS = 0.12;
 const DAMPING = 0.8;
 
-/** Edge colour for the card — matches the Ink / Slate-light design token (#111827). */
+/** Edge colour for the card, matches the Ink / Slate-light design token (#111827). */
 const CARD_EDGE_COLOR = DESIGN_SYSTEM.color.slateLight;
 
 /** Lerp factor for tilt smoothing. */
@@ -64,7 +64,7 @@ function BusinessCardMesh({ frontUrl, backUrl, isFlipped, reducedMotion }: CardS
     targetTiltY: 0,
   });
 
-  // Mouse tilt — desktop only
+  // Mouse tilt, desktop only
   useEffect(() => {
     if (reducedMotion) return;
     if (typeof window === 'undefined') return;
@@ -81,7 +81,7 @@ function BusinessCardMesh({ frontUrl, backUrl, isFlipped, reducedMotion }: CardS
     return () => window.removeEventListener('mousemove', onMove);
   }, [reducedMotion]);
 
-  // Gyroscope tilt — touch devices only
+  // Gyroscope tilt, touch devices only
   useEffect(() => {
     if (reducedMotion) return;
     if (typeof window === 'undefined') return;

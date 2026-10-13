@@ -8,7 +8,7 @@ interface ProductMockupProps {
 }
 
 /**
- * Presentation frame for design output shown on a product — a garment, a
+ * Presentation frame for design output shown on a product, a garment, a
  * case, a printed piece.
  *
  * The frames are supplied as finished images; nothing here draws the product.
@@ -36,7 +36,7 @@ export default function ProductMockup({ mockup, title }: ProductMockupProps) {
             >
               <Image
                 src={frame.src}
-                alt={`${title} — ${frame.label}`}
+                alt={`${title}, ${frame.label}`}
                 fill
                 className={styles.mockupImage}
                 sizes="(max-width: 768px) 90vw, 420px"

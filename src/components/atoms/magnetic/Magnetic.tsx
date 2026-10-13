@@ -10,7 +10,7 @@ interface MagneticProps {
 }
 
 /**
- * Magnetic hover effect wrapper — pulls children toward the cursor using spring physics.
+ * Magnetic hover effect wrapper, pulls children toward the cursor using spring physics.
  * Uses Framer Motion for physics-based animation that cannot be done with CSS.
  * @param children - React child element to wrap
  * @param strength - How strongly the element follows the cursor (0–1, default 0.5)

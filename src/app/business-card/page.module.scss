@@ -1,7 +1,7 @@
 @use "@/styles/variables" as *;
 @use "@/styles/mixins" as *;
 
-/** Full-viewport dark stage — always dark regardless of user theme. */
+/** Full-viewport dark stage, always dark regardless of user theme. */
 .stage {
   position: fixed;
   inset: 0;
@@ -20,7 +20,7 @@
   height: 100%;
 }
 
-/** "Tap to flip" hint — fades in then out, hidden once first flip occurs. */
+/** "Tap to flip" hint, fades in then out, hidden once first flip occurs. */
 .hint {
   position: absolute;
   bottom: 120px;
@@ -97,7 +97,7 @@
   }
 }
 
-/** Active variant pill — highlighted with accent colour. */
+/** Active variant pill, highlighted with accent colour. */
 .pillActive {
   border-color: $color-volta-dark;
   color: $color-volta-dark;

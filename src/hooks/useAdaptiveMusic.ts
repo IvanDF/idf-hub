@@ -26,7 +26,7 @@ type SceneMix = Record<StemId, number>;
 //
 // Two rooms have a voice of their own. Yggdrasil drops the melody and the
 // arps entirely and hands the room to the drone: no third anywhere in it, so
-// it reads modal rather than major. About goes the other way — almost no
+// it reads modal rather than major. About goes the other way, almost no
 // melody, carried by the airy pad with a little bowed body underneath, which
 // is as close to strings as this set of stems gets.
 const SCENES: Record<string, SceneMix> = {

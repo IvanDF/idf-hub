@@ -1,8 +1,8 @@
 import { DESIGN_SYSTEM } from "@/styles/design-system";
 
 /**
- * Console `%c` styles cannot read the page's CSS custom properties — devtools
- * renders them in its own context — so the brand tokens are resolved here at
+ * Console `%c` styles cannot read the page's CSS custom properties, devtools
+ * renders them in its own context, so the brand tokens are resolved here at
  * compile time from the design system, and the mono stack is spelled out
  * rather than referencing `--font-geist-mono`.
  */
@@ -12,7 +12,7 @@ const MONO =
 /** The dark-theme variants read correctly on both light and dark devtools. */
 export const CONSOLE_STYLE = {
   /**
-   * ASCII art block. No `line-height` on purpose — Safari's console drops it,
+   * ASCII art block. No `line-height` on purpose, Safari's console drops it,
    * so the art is pre-widened to the console's own row height instead
    * (see FACE_COLUMNS in Console.banner.ts).
    */
@@ -21,7 +21,7 @@ export const CONSOLE_STYLE = {
   wordmark: `color:${DESIGN_SYSTEM.color.voltaDark};font-family:${MONO};font-size:20px;font-weight:700;letter-spacing:2px`,
   /** Full name, next to the wordmark. */
   name: `color:${DESIGN_SYSTEM.color.slateMuted};font-family:${MONO};font-size:12px`,
-  /** The tagline — the one line that carries the brand. */
+  /** The tagline, the one line that carries the brand. */
   tagline: `color:${DESIGN_SYSTEM.color.larioDark};font-family:${MONO};font-size:13px;font-style:italic`,
   /** Secondary copy: roles, counts, footnotes. */
   muted: `color:${DESIGN_SYSTEM.color.slateMuted};font-family:${MONO};font-size:11px`,

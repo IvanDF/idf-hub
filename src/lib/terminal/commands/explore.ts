@@ -15,7 +15,7 @@ export const EXPLORE_COMMANDS: CommandEntry[] = [
     arg: "[keyword]",
     summary: "find projects by anything",
     detail:
-      "Matches titles, tags, stack and descriptions — try a technology rather than a name.",
+      "Matches titles, tags, stack and descriptions. Try a technology rather than a name.",
     category: "explore",
     cta: { label: "→ try", cmd: "search shader" },
     run: ({ args }) => {

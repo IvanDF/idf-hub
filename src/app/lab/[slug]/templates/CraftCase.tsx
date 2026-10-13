@@ -9,7 +9,7 @@ interface CraftCaseProps {
 }
 
 /**
- * Detail body for systems and automations — workspaces, shortcuts, personal
+ * Detail body for systems and automations, workspaces, shortcuts, personal
  * infrastructure. These are judged by what they remove from a day, so the
  * page leads with what the system does rather than how it was built.
  *

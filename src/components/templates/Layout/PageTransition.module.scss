@@ -4,7 +4,7 @@
   width: 100%;
   min-height: 100%;
 }
-// Arrival, not a gate. The element's resting state is fully visible — this
+// Arrival, not a gate. The element's resting state is fully visible, this
 // animation has no fill-mode, so before it runs and after it ends the page is
 // simply itself. That is the difference from the framer wrapper this replaces,
 // which held the whole page at opacity:0 until JavaScript said otherwise and

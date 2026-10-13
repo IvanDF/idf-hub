@@ -30,7 +30,7 @@ const TESTS = [
 type TestId = (typeof TESTS)[number]["id"];
 
 /**
- * Hidden "cortex lab" — three real cognitive tests, reached via the terminal
+ * Hidden "cortex lab", three real cognitive tests, reached via the terminal
  * `cortex` / `brain` commands. A nod to Ivan's neuroscience reading, framed as
  * play rather than a portfolio piece.
  */
@@ -40,11 +40,11 @@ export default function CortexPage() {
   return (
     <main className={styles.page}>
       <header className={styles.header}>
-        <span className={styles.eyebrow}>⬡ Cortex Lab — you found it</span>
+        <span className={styles.eyebrow}>⬡ Cortex Lab · you found it</span>
         <h1 className={styles.title}>Test your brain</h1>
         <p className={styles.lede}>
           I read a lot about how minds work, so here are three genuine cognitive
-          tasks from the literature. Not a benchmark — a mirror. Notice how each
+          tasks from the literature. Not a benchmark but a mirror. Notice how each
           one feels from the inside.
         </p>
       </header>
@@ -72,7 +72,7 @@ export default function CortexPage() {
 
       <footer className={styles.footer}>
         <p className={styles.footerNote}>
-          Results stay in your browser and reset on reload — nothing is stored or
+          Results stay in your browser and reset on reload, so nothing is stored or
           sent. Different angles, better questions: what would you measure next?
         </p>
         <Link href="/" className={styles.backLink}>

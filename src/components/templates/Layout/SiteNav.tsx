@@ -12,7 +12,7 @@ interface SiteNavProps {
 }
 
 /**
- * Primary site navigation links — shared by the desktop left rail and the
+ * Primary site navigation links, shared by the desktop left rail and the
  * mobile overlay so both render identical markup and styling.
  */
 export default function SiteNav({ onNavigate, showIndex = true }: SiteNavProps) {

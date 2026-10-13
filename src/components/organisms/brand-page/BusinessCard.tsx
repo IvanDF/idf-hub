@@ -14,10 +14,10 @@ interface BusinessCardProps {
 }
 
 const VARIANT_META: Record<CardVariant, { label: string; desc: string }> = {
-  dev: { label: "Developer", desc: "Tiled logo pattern — systematic, coded" },
-  creative: { label: "Creative", desc: "Face fusion — artistic, identity" },
-  general: { label: "General", desc: "Mark only — minimal, professional" },
-  maker: { label: "Maker", desc: "Greca pattern — crafted, structural" },
+  dev: { label: "Developer", desc: "Tiled logo pattern, systematic and coded" },
+  creative: { label: "Creative", desc: "Face fusion, artistic and personal" },
+  general: { label: "General", desc: "Mark only, minimal and professional" },
+  maker: { label: "Maker", desc: "Greca pattern, crafted and structural" },
 };
 
 // Shared iDF logo paths (200×200 viewBox from Frame 57)
@@ -47,7 +47,7 @@ function LogoPaths({ color = "currentColor" }: { color?: string }) {
   );
 }
 
-// ── Pattern: DEV — tiled logo grid ──────────────────────────────────────────────
+// ── Pattern: DEV, tiled logo grid ──────────────────────────────────────────────
 function PatternDev() {
   const positions = [
     [8, 4],
@@ -77,7 +77,7 @@ function PatternDev() {
   );
 }
 
-// ── Pattern: CREATIVE — fusion-4 face centred ───────────────────────────────────
+// ── Pattern: CREATIVE, fusion-4 face centred ───────────────────────────────────
 function PatternCreative() {
   const logo = (
     <>
@@ -110,7 +110,7 @@ function PatternCreative() {
   );
 }
 
-// ── Pattern: GENERAL — single large faint mark ──────────────────────────────────
+// ── Pattern: GENERAL, single large faint mark ──────────────────────────────────
 function PatternGeneral() {
   return (
     <g transform="translate(92, 6) scale(0.84)" opacity="0.08">
@@ -119,7 +119,7 @@ function PatternGeneral() {
   );
 }
 
-// ── Pattern: MAKER — fusion-1 greca (logo + vertical mirror, tiled) ─────────────
+// ── Pattern: MAKER, fusion-1 greca (logo + vertical mirror, tiled) ─────────────
 function PatternMaker() {
   const s = 0.5;
   const h = 187 * s;
@@ -182,7 +182,7 @@ export default function BusinessCard({
           xmlns="http://www.w3.org/2000/svg"
           className={styles.svg}
           role="img"
-          aria-label={`${name} — ${meta.label} business card`}
+          aria-label={`${name}, ${meta.label} business card`}
         >
           <defs>
             <clipPath id={`clip-card-${variant}`}>
@@ -201,7 +201,7 @@ export default function BusinessCard({
           {/* Accent bottom bar */}
           <rect x="0" y={H - 4} width={W} height="4" fill={DESIGN_SYSTEM.color.voltaLight} />
 
-          {/* Logo mark — top left */}
+          {/* Logo mark, top left */}
           <g transform="translate(20,16) scale(0.115)">
             <LogoPaths color={DESIGN_SYSTEM.color.voltaLight} />
           </g>

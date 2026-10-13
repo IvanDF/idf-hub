@@ -32,7 +32,7 @@ export default function LabCase({ project, frames, codepen }: LabCaseProps) {
           <iframe
             className={styles.embedFrame}
             src={`https://codepen.io/${codepen.user}/embed/${codepen.hash}?default-tab=result&theme-id=dark`}
-            title={`${project.title} — live on CodePen`}
+            title={`${project.title} live on CodePen`}
             loading="lazy"
             allowFullScreen
           />

@@ -11,7 +11,7 @@ import styles from "./layout.module.scss";
 /**
  * Mobile chrome: a carved burger that opens a full-screen overlay mirroring the
  * desktop rails. It composes the exact same shared components (SiteNav,
- * Identity, ThemeToggle, SocialLinks) — no duplicated markup, logic, or styles.
+ * Identity, ThemeToggle, SocialLinks), no duplicated markup, logic, or styles.
  */
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);

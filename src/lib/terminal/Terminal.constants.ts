@@ -39,7 +39,7 @@ export type EasterEgg = {
   category: string;
   name: string;
   hint: string;
-  /** If true, cannot be discovered by typing in the terminal — requires platform action */
+  /** If true, cannot be discovered by typing in the terminal, requires platform action */
   platformOnly?: boolean;
 };
 
@@ -77,7 +77,7 @@ export const EASTER_EGGS: EasterEgg[] = [
       "lubba",
       "dub dub",
     ],
-    hint: "Rick's catchphrase — the one that secretly means 'I am in great pain'.",
+    hint: "Rick's catchphrase, the one that secretly means 'I am in great pain'.",
     category: "R&M",
     name: "Wubba Lubba Dub Dub",
   },
@@ -86,16 +86,16 @@ export const EASTER_EGGS: EasterEgg[] = [
   {
     id: "ragnar",
     aliases: ["ragnar", "ragnar lothbrok", "ragnar lodbrok"],
-    hint: "“The Aesir will welcome me.” — type the Viking who said it.",
+    hint: "“The Aesir will welcome me.” Type the Viking who said it.",
     category: "Vikings",
     name: "Who Wants to be King",
   },
 
-  // Secret Features — platform-only (not discoverable by typing)
+  // Secret Features, platform-only (not discoverable by typing)
   {
     id: "theme_toggle",
     aliases: ["yoda", "dark side", "light side", "void", "super dark"],
-    hint: "Hammer the dark-mode toggle — five clicks within a second opens the void.",
+    hint: "Hammer the dark-mode toggle: five clicks within a second opens the void.",
     category: "Secret",
     name: "Into the Void",
     platformOnly: true,
@@ -131,7 +131,7 @@ export const EASTER_EGGS: EasterEgg[] = [
     name: "Unrelenting Force",
   },
 
-  // Travel — the `cheers` command unrolls a living journal of how to toast
+  // Travel, the `cheers` command unrolls a living journal of how to toast
   // in every language iDF has raised a glass in on the road.
   {
     id: "cheers",
@@ -152,12 +152,12 @@ export const EASTER_EGGS: EasterEgg[] = [
       "santé",
       "sante",
     ],
-    hint: "Every border has its own way to say “to your health.” Raise a glass — the terminal keeps the list.",
+    hint: "Every border has its own way to say “to your health.” Raise a glass. The terminal keeps the list.",
     category: "Travel",
     name: "Cheers Around the World",
   },
 
-  // Neuroscience — the `cortex` command opens a hidden lab of cognitive tests.
+  // Neuroscience, the `cortex` command opens a hidden lab of cognitive tests.
   {
     id: "cortex",
     aliases: ["cortex", "neuro", "neuroscience", "mind", "lab rat"],

@@ -4,7 +4,7 @@ import { socials } from "@/data/nav";
 import styles from "./layout.module.scss";
 
 /**
- * Typographic social-handle list — shared by the desktop right rail and the
+ * Typographic social-handle list, shared by the desktop right rail and the
  * mobile overlay.
  */
 export default function SocialLinks() {

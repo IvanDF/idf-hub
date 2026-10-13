@@ -11,7 +11,7 @@ interface DesignCaseProps {
 }
 
 /**
- * Detail body for design output — apparel, cases, print, composed images.
+ * Detail body for design output, apparel, cases, print, composed images.
  * The artwork comes first and large: for this work the object is the
  * argument. Reasoning sits underneath as a short brief, and the variants and
  * separations that did not ship are shown as the working.

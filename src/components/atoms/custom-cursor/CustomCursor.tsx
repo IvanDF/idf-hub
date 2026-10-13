@@ -9,7 +9,7 @@ import styles from "./CustomCursor.module.scss";
 // Magnetism (translating the hovered element) only reads as "magnetic" on
 // controls, not on large surfaces: full-width list rows dragged around force
 // the ink filter to re-run over the page every frame. The cap must still
-// admit wide CTAs (e.g. the ~470px time-machine action) — only row-scale
+// admit wide CTAs (e.g. the ~470px time-machine action), only row-scale
 // elements are excluded. The blob envelope has no such cost, so it applies
 // to every interactive element regardless of size.
 const MAX_MAGNET_WIDTH = 480;
@@ -111,7 +111,7 @@ export default function CustomCursor() {
     // the magnet writes `translate` inline on each mousemove. A press rule in
     // CSS therefore could not move a magnetised control at all: both the global
     // `a:active { translate: 0 1px }` baseline and the Button's carved 2px
-    // press were silently dead on every control small enough to be adopted —
+    // press were silently dead on every control small enough to be adopted
     // which on a fine pointer is nearly all of them.
     //
     // Composing as a sum fixes it without either side knowing the other: CSS
@@ -136,7 +136,7 @@ export default function CustomCursor() {
     // Re-reads the control's rect (minus our own translate) and re-targets
     // envelope + blob. Used after clicks that swap content, and whenever the
     // enveloped control resizes under the pointer (e.g. the Work fork cards
-    // growing on hover — the envelope used to stay frozen at entry size).
+    // growing on hover, the envelope used to stay frozen at entry size).
     const remeasureEntry = (entry: MagnetEntry) => {
       if (activeMagnetRef.current !== entry) return;
       const raw = entry.el.getBoundingClientRect();
@@ -280,7 +280,7 @@ export default function CustomCursor() {
 
       try {
         // Selector checks only. This runs on every mouseover, which fires
-        // each time the pointer crosses an element boundary — constantly over
+        // each time the pointer crosses an element boundary, constantly over
         // a page of text. The previous `getComputedStyle(target).cursor` test
         // forced a synchronous style recalculation on each of those, and it
         // was reached in the common case: plain content, where every cheaper
@@ -337,7 +337,7 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Central Dot (Instant Follow) — melts into compact enveloped controls,
+      {/* Central Dot (Instant Follow), melts into compact enveloped controls,
           stays visible inside large ones (or the pointer position gets lost in
           the inversion), and steps aside for the contextual glyph. */}
       <motion.div
@@ -359,7 +359,7 @@ export default function CustomCursor() {
         transition={{ duration: 0.15 }}
       />
 
-      {/* Contextual glyph (Instant Follow) — the affordance the blob carries:
+      {/* Contextual glyph (Instant Follow), the affordance the blob carries:
           "+" to zoom into an image, "−" to leave the open viewer. Blended as a
           negative like the dot so it reads on any background. Framer owns the
           follow transform; the reveal uses the independent CSS `scale`

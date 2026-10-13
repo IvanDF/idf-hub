@@ -37,7 +37,7 @@ export const NAVIGATE_COMMANDS: CommandEntry[] = [
     cta: { label: "→ open", cmd: "career" },
     run: navigate(
       "/lab?view=career",
-      "Walking The Path — ten years, no straight line...",
+      "Walking The Path · ten years, no straight line...",
     ),
   },
   {

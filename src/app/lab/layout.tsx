@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Selected projects by Ivan Del Fatti — design, code, and craft: interactive experiments, design systems, plugins, and creative work.",
+    "Selected projects by Ivan Del Fatti. Design, code, and craft: interactive experiments, design systems, plugins, and creative work.",
   alternates: { canonical: "/lab" },
 };
 

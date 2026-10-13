@@ -41,7 +41,7 @@ export default function ProjectMedia({ frames, title, fit }: ProjectMediaProps) 
           >
             <Image
               src={src}
-              alt={`${title} — frame ${i + 1}`}
+              alt={`${title}, frame ${i + 1}`}
               fill
               className={`${styles.mediaImg} ${
                 fit === "cover" ? styles.mediaCover : styles.mediaContain

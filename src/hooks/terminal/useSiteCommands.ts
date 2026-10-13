@@ -48,7 +48,7 @@ const NAVIGATE_DELAY_MS = 400;
  *
  * This used to be a 45-case switch that decided both what a word meant and
  * what it did, next to a separate hand-written list that decided what help
- * showed — which is how ten commands ended up runnable and undocumented. The
+ * showed, which is how ten commands ended up runnable and undocumented. The
  * registry owns both now, and this hook only assembles what the handlers need
  * and reports what came back.
  */
@@ -84,7 +84,7 @@ export function useSiteCommands({
         const pool = context === "admin" ? ADMIN_COMMANDS : COMMAND_WORDS;
         const suggested = closestCommand(cmd, pool);
         // suggested === cmd means the word is in the pool but unhandled in
-        // this context (e.g. an egg alias in admin) — a suggestion to retype
+        // this context (e.g. an egg alias in admin), a suggestion to retype
         // the same thing would be absurd.
         return {
           handled: true,

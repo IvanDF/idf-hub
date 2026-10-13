@@ -1,7 +1,7 @@
 @use "variables" as *;
 
 // ── Responsive breakpoint mixins ──────────────────────────────────────────────
-// Single source of truth for media queries — drive everything off $breakpoint-*
+// Single source of truth for media queries, drive everything off $breakpoint-*
 // so no component hardcodes raw px in @media. Usage: @include mobile { ... }
 @mixin bp-down($bp) {
   @media (max-width: $bp) {
@@ -140,7 +140,7 @@
 // old `filter: url(#idf-ink-wobble)`, which was feTurbulence evaluated per
 // composite and held Safari's GPU process at 600% CPU.
 //
-// border-image ignores border-radius — the asset carries the corner shape, cut
+// border-image ignores border-radius, the asset carries the corner shape, cut
 // to match --route-card-radius. Do not also set a radius on the element.
 
 /// Hand-cut frame for cards, panels and media.

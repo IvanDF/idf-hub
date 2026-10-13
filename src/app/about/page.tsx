@@ -7,7 +7,7 @@ import styles from "./page.module.scss";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Ivan Del Fatti — Driven by curiosity, refined through design.",
+  description: "Ivan Del Fatti. Driven by curiosity, refined through design.",
 };
 
 const ticker = [
@@ -73,7 +73,7 @@ export default function AboutPage() {
         <div className={styles.tickerTrack}>
           {[...ticker, ...ticker].map((word, i) => (
             <span key={i} className={styles.tickerItem}>
-              {word} <span className={styles.tickerDot}>—</span>
+              {word} <span className={styles.tickerDot}>·</span>
             </span>
           ))}
         </div>
@@ -93,7 +93,7 @@ export default function AboutPage() {
           The software side
         </Text>
         <Text as="p" variant="body" className={styles.neuroText}>
-          I read a lot about neuroscience — perception, attention, memory, the
+          I read a lot about neuroscience: perception, attention, memory, the
           quiet biases that shape every decision. It&rsquo;s the same instinct
           behind the design work: understand the system before you trust it.
           Good interfaces respect how a mind actually works.

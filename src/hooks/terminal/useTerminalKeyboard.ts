@@ -30,7 +30,7 @@ export function useTerminalKeyboard({
   gameActive = false,
 }: UseTerminalKeyboardOptions): void {
   // Name-click secret: SecretName (rail + About hero) fires this after three
-  // quick clicks on "IVAN DEL FATTI" — discover the egg and open the archive.
+  // quick clicks on "IVAN DEL FATTI", discover the egg and open the archive.
   useEffect(() => {
     const handleNameSecret = () => {
       discoverEgg("name_click");
@@ -48,7 +48,7 @@ export function useTerminalKeyboard({
       const isTyping =
         e.target instanceof HTMLInputElement ||
         e.target instanceof HTMLTextAreaElement;
-      // While typing, only the palette toggle and Escape stay global —
+      // While typing, only the palette toggle and Escape stay global
       // otherwise the terminal could never be closed from its own input.
       if (isTyping && !isToggle && e.key !== "Escape") return;
       if (isToggle) {

@@ -36,7 +36,7 @@ $swatches: (
   // Clear the chrome rails. The page is full-bleed and the status line ran the
   // whole width, so both vertical ink rules cut straight across it. The rails
   // collapse to a $chrome-rail-peek sliver on this route, which is what has to
-  // be stepped over — not their full width.
+  // be stepped over, not their full width.
   padding-inline: calc(var(--chrome-rail-peek, 32px) + #{$spacing-sm});
 }
 
@@ -83,7 +83,7 @@ $swatches: (
 
 // Inactive windows read as tmux's window-status-style: muted, no fill. The
 // current one takes window-status-current-style straight from the bundled
-// tmux.conf — violet behind, near-black in front, bold.
+// tmux.conf, violet behind, near-black in front, bold.
 .tmuxWindow {
   all: unset;
   cursor: pointer;
@@ -96,7 +96,7 @@ $swatches: (
 
   // A status line is thin by design, and 16px is a fine mouse target. Under a
   // finger it is not, so the windows take the full target height on small
-  // screens — the line stays a line on the desktop.
+  // screens, the line stays a line on the desktop.
   //
   // Keyed to the breakpoint rather than `pointer: coarse` for two reasons: it
   // is what the rest of this codebase uses, and it is the one of the two that

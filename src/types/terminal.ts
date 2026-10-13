@@ -6,7 +6,7 @@ export type CommandOutput = {
   cta?: { label: string; cmd: string };
   /**
    * Render the line as written, without wrapping. For output that draws in
-   * columns — where a wrap at a word boundary would shear the layout in half.
+   * columns, where a wrap at a word boundary would shear the layout in half.
    */
   pre?: boolean;
 };
@@ -61,7 +61,7 @@ export type CommandContext = {
 
 export type CommandResult = {
   outputs: CommandOutput[];
-  /** Skip pushing to history — for clear, snake, exit and the empty line. */
+  /** Skip pushing to history, for clear, snake, exit and the empty line. */
   skipHistory?: boolean;
 };
 
@@ -81,7 +81,7 @@ export type CommandEntry = {
   cta?: { label: string; cmd: string };
   /**
    * Runnable but kept out of the listing. For translated spellings and the
-   * aliases of aliases — `apri`, `ricerca` — which would double the length of
+   * aliases of aliases, `apri`, `ricerca`, which would double the length of
    * help without telling anyone anything new.
    */
   hidden?: boolean;

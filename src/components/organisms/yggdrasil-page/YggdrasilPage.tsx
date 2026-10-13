@@ -9,7 +9,7 @@ import TmuxBar from "./TmuxBar";
 import styles from "./YggdrasilPage.module.scss";
 
 /**
- * Yggdrasil — the home server as its own world. Deliberately unlike the rest
+ * Yggdrasil, the home server as its own world. Deliberately unlike the rest
  * of the site: a tmux session rather than a page, in the palette the whole
  * setup shares.
  */
@@ -39,7 +39,7 @@ export default function YggdrasilPage() {
           <p className={styles.intro}>
             One laptop from 2017. No port open to the internet. Every service named after a being
             from Norse myth, every change written down. It runs the house, keeps my notes, sends
-            the day&apos;s training and speaks to me every morning — on hardware I own.
+            the day&apos;s training and speaks to me every morning, on hardware I own.
           </p>
         </section>
 

@@ -28,7 +28,7 @@
   justify-content: space-between;
   // No ink filter here. `filter: url(#...)` is an feTurbulence +
   // feDisplacementMap pass, and WebKit will not cache the filtered layer of a
-  // fixed or full-height element sitting over scrolling content — it re-runs
+  // fixed or full-height element sitting over scrolling content: it re-runs
   // per-pixel Perlin noise on every composite. Measured on Ivan's Mac:
   // Safari's GPU process went from 600% CPU to 0.9% the moment this one
   // declaration was disabled. See .ink / .ink-fine in globals.scss for
@@ -114,7 +114,7 @@
   // No scroll snapping here, and it is worth saying why so it is not tried
   // again the same way. Snapping the showcase slides with `align: center` made
   // the page open 196px down with the header clipped, and any attempt to scroll
-  // back to the top snapped straight back down — the first screen of the site
+  // back to the top snapped straight back down. The first screen of the site
   // was unreachable. A tall first slide and a centred snap target always fight
   // the top of the document. If snapping returns it has to start below the
   // header, not at the first slide.
@@ -276,7 +276,7 @@
   opacity: 0.75;
   // Alignment is inherited: .leftColumn is flex-start and .rightColumn is
   // flex-end, so each rail's line hugs its own outer edge. Do not set
-  // align-self here — centring it collapses both to the middle of the rail.
+  // align-self here, centring it collapses both to the middle of the rail.
   //
   // The stroke runs down the centre of a 12px band, where the old 1px line sat
   // hard against the edge. The pull below puts the stroke back on that line;
@@ -315,7 +315,7 @@
 }
 
 // The terminal is the site's front door to everything hidden. The launcher
-// keeps the ghost typography (same type as the rest of the rail — no box)
+// keeps the ghost typography (same type as the rest of the rail, no box)
 // but at full presence: no resting fade, a real glow pulse, and a blinking
 // block cursor so it reads unmistakably as a live terminal prompt.
 .footer .terminalCta {
@@ -411,7 +411,7 @@
   }
 }
 
-// On mobile the desktop rails don't fit — they're hidden and replaced by the
+// On mobile the desktop rails don't fit, they're hidden and replaced by the
 // carved burger + overlay (MobileNav), which reuses the same components.
 @include mobile {
   .leftColumn,
@@ -420,7 +420,7 @@
   }
 }
 
-// ── Mobile chrome — carved burger + mirror overlay (MobileNav) ───────────────
+// ── Mobile chrome, carved burger + mirror overlay (MobileNav) ───────────────
 // Desktop-only by default; shown under @include mobile. The overlay reuses the
 // shared rail components, so only the burger and overlay shell live here.
 
@@ -446,7 +446,7 @@
 
   span {
     display: block;
-    width: 18px; // burger glyph line — icon geometry, not layout
+    width: 18px; // burger glyph line, icon geometry, not layout
     height: $border-base;
     background-color: var(--color-text);
     border-radius: $radius-full;
@@ -494,7 +494,7 @@
   }
 }
 
-// Top-left action — theme toggle, on the same row as the burger (top-right)
+// Top-left action, theme toggle, on the same row as the burger (top-right)
 .overlayHead {
   display: flex;
   align-items: center;
@@ -529,7 +529,7 @@
   }
 }
 
-// Bottom row — identity (left) and socials (right, vertical). The two blocks
+// Bottom row, identity (left) and socials (right, vertical). The two blocks
 // have different heights (3 rows vs 5 links), so they share the bottom
 // baseline: top-aligning left the socials hanging below the identity block.
 .overlayFoot {

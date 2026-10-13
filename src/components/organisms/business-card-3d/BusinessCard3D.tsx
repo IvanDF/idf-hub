@@ -10,7 +10,7 @@ import { filterKnownThreeWarnings } from "@/lib/three/console";
 filterKnownThreeWarnings();
 
 export interface BusinessCard3DProps {
-  /** Card variant — maps directly to SVG asset filenames. */
+  /** Card variant, maps directly to SVG asset filenames. */
   style: 'normal' | 'code' | 'design';
   /** Whether the card is showing its back face. */
   isFlipped: boolean;
@@ -22,7 +22,7 @@ export interface BusinessCard3DProps {
 
 /**
  * Full-viewport Three.js Canvas rendering the interactive 3D business card.
- * Must be loaded client-side only — use `next/dynamic` with `ssr: false`.
+ * Must be loaded client-side only, use `next/dynamic` with `ssr: false`.
  */
 export default function BusinessCard3D({
   style,
@@ -46,8 +46,8 @@ export default function BusinessCard3D({
       tabIndex={0}
       aria-label={
         isFlipped
-          ? 'Business card back — press Enter or Space to flip'
-          : 'Business card front — press Enter or Space to flip'
+          ? 'Business card back, press Enter or Space to flip'
+          : 'Business card front, press Enter or Space to flip'
       }
       className={styles.canvas}
       onClick={onFlip}

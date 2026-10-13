@@ -6,7 +6,7 @@ import styles from "./ProjectDetail.module.scss";
 interface PlateGridProps {
   plates: ProjectPlate[];
   title: string;
-  /** Section heading — "The Plates" for photography, "Separations" for print. */
+  /** Section heading, "The Plates" for photography, "Separations" for print. */
   heading: string;
   /** One line explaining what this set of artefacts is. */
   intro?: string;
@@ -48,7 +48,7 @@ export default function PlateGrid({
             <div className={styles.plateFrame}>
               <Image
                 src={plate.src}
-                alt={`${title} — ${plate.label}`}
+                alt={`${title}, ${plate.label}`}
                 fill
                 className={styles.plateImg}
                 sizes="(max-width: 768px) 100vw, 380px"

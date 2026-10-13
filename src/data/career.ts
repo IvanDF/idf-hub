@@ -4,7 +4,7 @@ export type StoryPhase = {
   body: string;
 };
 
-/** The exploded view of a chapter — the full story behind the timeline line. */
+/** The exploded view of a chapter, the full story behind the timeline line. */
 export type CareerStory = {
   intro: string;
   phases: StoryPhase[];
@@ -13,13 +13,13 @@ export type CareerStory = {
 };
 
 export type CareerStep = {
-  /** Display period — approximate labels are fine for the early, pre-CV years. */
+  /** Display period, approximate labels are fine for the early, pre-CV years. */
   years: string;
   role: string;
   place: string;
   /** One growth line, not a job description. */
   note: string;
-  /** Concrete work — migrations, systems, challenges. Recent roles earn more. */
+  /** Concrete work, migrations, systems, challenges. Recent roles earn more. */
   highlights?: string[];
   /** Set both to give the chapter an exploded page at /lab/path/[slug]. */
   slug?: string;
@@ -28,7 +28,7 @@ export type CareerStep = {
 };
 
 /**
- * The professional path, oldest first — the point is the arc: race timing as
+ * The professional path, oldest first, the point is the arc: race timing as
  * a school kid, waiter's double shifts, then a decade climbing from quality
  * control to IT Manager in Madrid. Side projects live in PROJECTS; this is
  * the career.
@@ -44,7 +44,7 @@ export const CAREER: CareerStep[] = [
     years: "the first real one",
     role: "Waiter",
     place: "Chinese restaurant",
-    note: "Full days, six days a week. Learned pace, pressure, and people — nothing since has felt too fast.",
+    note: "Full days, six days a week. Learned pace, pressure, and people. Nothing since has felt too fast.",
   },
   {
     years: "2016 – 2020",
@@ -54,7 +54,7 @@ export const CAREER: CareerStep[] = [
     highlights: [
       "Grew from quality control specialist to running the digital department",
       "Owned production workflows and trained the new hires",
-      "Graphic design skills meet process optimisation — the first bridge role",
+      "Graphic design skills meet process optimisation, the first bridge role",
     ],
   },
   {
@@ -70,7 +70,7 @@ export const CAREER: CareerStep[] = [
     note: "First code shipped for real clients.",
     highlights: [
       "Enterprise consulting: different teams, different stacks, complex contexts",
-      "The classic ladder — bug fixes, then features, then service integrations",
+      "The classic ladder: bug fixes, then features, then service integrations",
       "Usability and quality as the through-line, not an afterthought",
     ],
   },
@@ -95,11 +95,11 @@ export const CAREER: CareerStep[] = [
         },
         {
           title: "Owning the frontend",
-          body: "From tickets to architecture: scalable components, shared patterns, and a steady push on user experience. My design background stopped being a side note — UI decisions started from how people actually behave under financial anxiety.",
+          body: "From tickets to architecture: scalable components, shared patterns, and a steady push on user experience. My design background stopped being a side note. UI decisions started from how people actually behave under financial anxiety.",
         },
         {
           title: "Technical reference",
-          body: "By the end, new questions landed on my desk first. Not a title change — a trust change. The consultant badge stopped mattering; being the person who knew why things were built that way did.",
+          body: "By the end, new questions landed on my desk first. Not a title change but a trust change. The consultant badge stopped mattering; being the person who knew why things were built that way did.",
         },
       ],
       outcomes: [
@@ -115,18 +115,18 @@ export const CAREER: CareerStep[] = [
     place: "Romeo Founders, Madrid",
     note: "Where strategy, design and engineering meet.",
     highlights: [
-      "A custom design system built from scratch — zero external UI frameworks",
+      "A custom design system built from scratch, with zero external UI frameworks",
       "Leading the migration of 20+ repos, libraries and Web Components into one monorepo",
       "Frontend & product lead: making great ideas become intuitive products",
     ],
     slug: "romeo-founders",
     story: {
       intro:
-        "Leading frontend and product design of a platform designed from the ground up — the role where a decade of detours finally point in one direction: strategy, design and engineering in the same pair of hands.",
+        "Leading frontend and product design of a platform designed from the ground up, the role where a decade of detours finally point in one direction: strategy, design and engineering in the same pair of hands.",
       phases: [
         {
           title: "A design system with no training wheels",
-          body: "The platform's design system is built from scratch, without external UI frameworks. Every component, token and interaction exists because we decided it should — a foundation made for long-term growth and maintainability, not for the next demo.",
+          body: "The platform's design system is built from scratch, without external UI frameworks. Every component, token and interaction exists because we decided it should: a foundation made for long-term growth and maintainability, not for the next demo.",
         },
         {
           title: "Taming the polyrepo",
@@ -134,7 +134,7 @@ export const CAREER: CareerStep[] = [
         },
         {
           title: "Bridging three worlds",
-          body: "The job in one line: connect strategy, technology and design so that great ideas become intuitive products — and make sure the bridge holds when all three pull in different directions.",
+          body: "The job in one line: connect strategy, technology and design so that great ideas become intuitive products, and make sure the bridge holds when all three pull in different directions.",
         },
       ],
       outcomes: [

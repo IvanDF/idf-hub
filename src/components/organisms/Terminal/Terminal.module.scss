@@ -92,7 +92,7 @@
   max-height: none;
 }
 
-// All-eggs reward — the shell turns gold ($color-warning is the gold tone)
+// All-eggs reward, the shell turns gold ($color-warning is the gold tone)
 .golden {
   border-color: color.adjust($color-warning, $alpha: -0.25);
   box-shadow:
@@ -147,7 +147,7 @@
 }
 
 // ASCII art must keep its internal left alignment (centring each `pre` line
-// independently deforms the drawing) — the BLOCK is centred instead, and on
+// independently deforms the drawing), the BLOCK is centred instead, and on
 // small screens it scrolls inside its own box rather than being squashed by
 // negative letter-spacing.
 .asciiArt {
@@ -159,7 +159,7 @@
   // Monospace cells are ~0.6em wide but a full line-height tall, so the raw
   // drawing renders as a narrow vertical column (~0.7:1) even though the source
   // art (fusion-4-face.svg) is landscape (~1.19:1). A tight line-height plus a
-  // horizontal scaleX stretches it back out — the eyes spread, the mouth widens
+  // horizontal scaleX stretches it back out, the eyes spread, the mouth widens
   // and the whole face reads roughly square instead of squished.
   line-height: 0.95;
   transform: scaleX(1.5);
@@ -194,7 +194,7 @@
     color: rgba(var(--color-error-rgb), 1);
   }
 
-  // Column output — `brand` draws art beside text, and a wrap at a word
+  // Column output, `brand` draws art beside text, and a wrap at a word
   // boundary would shear the two apart. Scrolls sideways rather than reflow.
   &.preLine {
     display: block;
@@ -600,7 +600,7 @@
 // ── Yggdrasil skin ───────────────────────────────────────────────────────────
 // The palette the home server runs on, borrowed for the panel. Set by the
 // `ygg` command, scoped to the container so the rest of the site is untouched
-// — `theme` remains the thing that flips light and dark everywhere.
+//, `theme` remains the thing that flips light and dark everywhere.
 //
 // The values are literal rather than tokens on purpose: these are another
 // system's colours, quoted here, not part of this site's palette. They match
@@ -667,8 +667,8 @@
 }
 
 // A flag that opens the trip it was collected on. A bare emoji is about 18px
-// across — well under the 44px tap target a phone needs, and a travel journal
-// is read on a phone — so each one gets a real box around it.
+// across, well under the 44px tap target a phone needs, and a travel journal
+// is read on a phone, so each one gets a real box around it.
 .flagLink,
 .flagPlain {
   display: inline-flex;

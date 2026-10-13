@@ -1,5 +1,5 @@
 /**
- * What kind of work this is — and only that.
+ * What kind of work this is, and only that.
  *
  * The previous seven values collapsed three different axes into one list:
  * discipline (DEV, CREATIVE), intent (MAKER, EXPERIMENT) and platform
@@ -33,7 +33,7 @@ export type ProjectTemplate = "code" | "design" | "craft" | "lab";
 
 /**
  * Which template a Craft project renders with. Photography is a composed
- * image, so it reads like design work — DesignCase already shows the finals
+ * image, so it reads like design work, DesignCase already shows the finals
  * and then the plates they were built from. Experiments want the live embed
  * and a short write-up; templates and shortcuts want "what it does".
  */
@@ -49,7 +49,7 @@ const TEMPLATE_BY_KIND: Record<ProjectKind, ProjectTemplate> = {
  *
  * Craft covers several kinds of work, so it defers to `kind`; Code and Design
  * each mean one thing. A Craft project with no kind falls back to the plain
- * craft template rather than throwing — the data test catches the omission.
+ * craft template rather than throwing, the data test catches the omission.
  *
  * @param project - The project to classify.
  */
@@ -100,7 +100,7 @@ export interface ProjectDecision {
   choice: string;
   /** The reasoning behind it. */
   why: string;
-  /** What the choice gave up — omitted when it genuinely cost nothing. */
+  /** What the choice gave up, omitted when it genuinely cost nothing. */
   tradeoff?: string;
 }
 
@@ -119,7 +119,7 @@ export interface ProjectPlate {
 export type MockupKind = "tee" | "phone-case";
 
 /**
- * Finished product mockups, supplied as images. Nothing is drawn in code —
+ * Finished product mockups, supplied as images. Nothing is drawn in code
  * these are the designer's own renders or photographs of the printed piece.
  */
 export interface ProjectMockup {
@@ -159,7 +159,7 @@ export interface Project {
   year: string;
   /**
    * Month the work actually started, as `YYYY-MM`. Sourced from repository
-   * creation dates and image EXIF rather than memory — the year alone was
+   * creation dates and image EXIF rather than memory, the year alone was
    * drifting from reality.
    */
   date?: string;

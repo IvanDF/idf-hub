@@ -43,7 +43,7 @@ describe('carved ink assets', () => {
     expect(light.replace('#111827', 'X')).toBe(dark.replace('#f3f4f6', 'X'))
   })
 
-  // The generator is deterministic on purpose — no RNG — so a committed asset
+  // The generator is deterministic on purpose, no RNG, so a committed asset
   // that no longer matches its source means someone hand-edited the output.
   it('the committed assets match what the generator produces', () => {
     const before = EXPECTED.map(f => readFileSync(join(INK_DIR, f), 'utf8'))

@@ -10,7 +10,7 @@ import styles from "./PageTransition.module.scss";
  *
  * The framer version of this held every route at `initial={{opacity: 0}}` and
  * waited for JavaScript to animate it up. On WebKit that animation could be
- * dropped mid-flight, pinning the whole page at opacity:0 — blank on arrival,
+ * dropped mid-flight, pinning the whole page at opacity:0, blank on arrival,
  * and blank forever. The rule that came out of it: the resting state must be
  * visible without JavaScript.
  *

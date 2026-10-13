@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "The Cortex Lab",
   description:
-    "A hidden lab of real cognitive tests — reaction time, Stroop interference, and sequence memory.",
+    "A hidden lab of real cognitive tests: reaction time, Stroop interference, and sequence memory.",
   alternates: { canonical: "/cortex" },
   robots: { index: false, follow: false },
 };

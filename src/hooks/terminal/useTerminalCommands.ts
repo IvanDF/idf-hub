@@ -80,7 +80,7 @@ export function useTerminalCommands({
       let outputs: CommandOutput[] = [];
       let skipHistory = false;
 
-      // Easter eggs — site context only, never platformOnly ones.
+      // Easter eggs, site context only, never platformOnly ones.
       // Match against both the first word (`cmd`) and the full normalised input
       // so that multi-word aliases like "fus ro dah" or "who are you" work too.
       const foundEgg =

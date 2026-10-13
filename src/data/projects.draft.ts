@@ -16,21 +16,21 @@ export const DRAFT_PROJECTS: Project[] = [
   {
     id: "sula-platform",
     featured: 2,
-    title: "Sula — Platform & Design System",
+    title: "Sula · Platform & Design System",
     description:
       "A financial platform rebuilt on a design system written from scratch, and twenty-plus repositories folded into one monorepo.",
     longDescription:
-      "Sula Inversiones ran on a platform assembled from separate repositories, each with its own libraries and its own idea of what a button was. The work was to give it one vocabulary — a design system with no external UI framework underneath it, a brand manual the system answers to, and a single monorepo the pieces live in.",
+      "Sula Inversiones ran on a platform assembled from separate repositories, each with its own libraries and its own idea of what a button was. The work was to give it one vocabulary: a design system with no external UI framework underneath it, a brand manual the system answers to, and a single monorepo the pieces live in.",
     category: "DESIGN",
     // The decision log is what carries this one, so it takes the code template
-    // even though the category is Design — the field exists for exactly this.
+    // even though the category is Design, the field exists for exactly this.
     template: "code",
     platform: "web",
     tags: ["Design System", "Monorepo", "Web Components", "Brand"],
     year: "2026",
     date: "2026-01",
     duration: "Ongoing",
-    role: "IT Manager — frontend & product lead",
+    role: "IT Manager, frontend & product lead",
     status: "live",
     stack: ["Design System", "Web Components", "Monorepo", "Figma"],
     highlights: [
@@ -39,7 +39,7 @@ export const DRAFT_PROJECTS: Project[] = [
       "A brand manual the design system answers to, rather than the other way round",
       "An onboarding guide written into the Figma file, so the system explains itself to whoever opens it next",
     ],
-    // ⚠️ DRAFT — the choices are from Ivan, the reasoning is reconstructed and
+    // ⚠️ DRAFT, the choices are from Ivan, the reasoning is reconstructed and
     // needs his words before this ships anywhere public.
     decisions: [
       {
@@ -62,10 +62,10 @@ export const DRAFT_PROJECTS: Project[] = [
       },
       {
         choice: "A brand manual before the components",
-        why: "A design system without a brand behind it standardises whatever it happened to start with. Writing the brand first — word mark, palette, clear space, tone of voice — gave the components something to answer to.",
+        why: "A design system without a brand behind it standardises whatever it happened to start with. Writing the brand first, covering word mark, palette, clear space and tone of voice, gave the components something to answer to.",
       },
     ],
-    why: "Draft — needs Ivan's words. The facts are his; this sentence is not yet.",
+    why: "Draft, needs Ivan's words. The facts are his; this sentence is not yet.",
     media: {
       // The real assets are out of the tree while this is a draft: the
       // repository is public, so anything under public/ is published whether a

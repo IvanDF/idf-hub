@@ -7,13 +7,13 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./page.module.scss";
 
-/** Loaded client-side only — Three.js requires browser APIs. */
+/** Loaded client-side only, Three.js requires browser APIs. */
 const BusinessCard3D = dynamic(
   () => import("@/components/organisms/business-card-3d").then((m) => m.BusinessCard3D),
   { ssr: false },
 );
 
-/** Duration in milliseconds for the flip haptic pulse — intentionally brief. */
+/** Duration in milliseconds for the flip haptic pulse, intentionally brief. */
 const FLIP_HAPTIC_MS = 10;
 
 // One entry per persona; a variant needs its textures exported to
@@ -36,7 +36,7 @@ function isValidStyle(s: string | null): s is CardStyle {
  * Renders the selected iDF business card variant as an interactive 3D scene.
  *
  * Query params:
- *   type (alias: style) — "normal" | "code" | "design"  (default: "normal")
+ *   type (alias: style), "normal" | "code" | "design"  (default: "normal")
  *
  * Example: /business-card?type=design
  */
@@ -67,9 +67,9 @@ export default function BusinessCardPage() {
 
   return (
     // data-cursor-native: the blob envelope difference-inverts whatever it
-    // adopts — on the 3D card that negated the whole artwork.
+    // adopts, on the 3D card that negated the whole artwork.
     <div className={styles.stage} data-cursor-native="true">
-      {/* 3D Canvas — keyed on style to remount on variant change */}
+      {/* 3D Canvas, keyed on style to remount on variant change */}
       <div className={styles.canvasWrap}>
         <BusinessCard3D
           key={activeStyle}
@@ -80,7 +80,7 @@ export default function BusinessCardPage() {
         />
       </div>
 
-      {/* Tap-to-flip hint — disappears after first flip */}
+      {/* Tap-to-flip hint, disappears after first flip */}
       {hintVisible && (
         <Text as="p" variant="body" className={styles.hint} aria-hidden="true">
           tap to flip

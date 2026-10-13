@@ -5,15 +5,15 @@ import { useEffect } from "react";
 /**
  * Plays the scroll reveal on browsers without `animation-timeline: view()`.
  *
- * The CSS path in globals.scss is the good one — no JavaScript, nothing to
- * miss — but it is Chrome 115+ and Safari 26+ only. Without this, everyone
+ * The CSS path in globals.scss is the good one, no JavaScript, nothing to
+ * miss, but it is Chrome 115+ and Safari 26+ only. Without this, everyone
  * else sees no motion whatsoever, which is precisely what happened: the
  * reveals were verified in Chrome and were invisible in Safari.
  *
  * The safety property that made the *previous* reveals unusable is preserved
  * here, and it rests on one detail: `fill: "none"`. The element's committed
  * style is never touched. Nothing sets opacity to 0 and waits for a callback
- * to undo it — the animation is played over a resting state that is already
+ * to undo it, the animation is played over a resting state that is already
  * visible, so if the observer fires late, fires twice, or never fires at all,
  * the content is simply there. That is the whole difference from the framer
  * `initial={{opacity: 0}}` version that left text invisible forever.
@@ -51,7 +51,7 @@ export function useScrollReveal() {
               // interrupted the animation.
               fill: "none",
               // Named so `getAnimations()` can tell this apart from the CSS
-              // path and from every other animation on the page — otherwise
+              // path and from every other animation on the page, otherwise
               // there is no way to check this branch actually ran.
               id: REVEAL_ID,
             },

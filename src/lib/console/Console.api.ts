@@ -2,7 +2,7 @@
  * The `window.idf` console API.
  *
  * As with the banner, `console.log` is the product here rather than a debug
- * leftover — these functions exist to print.
+ * leftover, these functions exist to print.
  */
 import {
   CONSOLE_COMMANDS,
@@ -20,7 +20,7 @@ import { requestTerminalCommand } from "@/lib/terminal/Terminal.bridge";
 import { socials } from "@/data/nav";
 import type { IdfConsoleApi } from "@/types/console";
 
-/** Same key the Terminal writes to — the two views share one progress store. */
+/** Same key the Terminal writes to, the two views share one progress store. */
 const EGG_STORAGE_KEY = "idf-easter-eggs";
 /** Character width of the printed progress bar. */
 const BAR_WIDTH = 20;
@@ -29,7 +29,7 @@ const CALL_COLUMN = 16;
 
 /**
  * Reads the terminal's discovered-egg set, tolerating absent, unparsable or
- * stale storage — ids of retired eggs are dropped so the counter can never
+ * stale storage, ids of retired eggs are dropped so the counter can never
  * read above the total.
  */
 function readDiscoveredEggs(): Set<string> {
@@ -60,7 +60,7 @@ function heading(label: string): void {
   console.log(`%c⬡ ${label}`, CONSOLE_STYLE.heading);
 }
 
-/** `idf.help()` — the command index, aligned in two columns. */
+/** `idf.help()`, the command index, aligned in two columns. */
 function help(): void {
   heading("CONSOLE");
   for (const { call, does } of CONSOLE_COMMANDS) {
@@ -73,7 +73,7 @@ function help(): void {
   console.log(`%c${CONSOLE_HELP_TAIL}`, CONSOLE_STYLE.muted);
 }
 
-/** `idf.whoami()` — the identity card and the ways to reach it. */
+/** `idf.whoami()`, the identity card and the ways to reach it. */
 function whoami(): void {
   heading("WHOAMI");
   console.log(
@@ -93,13 +93,13 @@ function whoami(): void {
   }
 }
 
-/** `idf.stack()` — what the site runs on, as a devtools table. */
+/** `idf.stack()`, what the site runs on, as a devtools table. */
 function stack(): void {
   heading("STACK");
   console.table([...CONSOLE_STACK]);
 }
 
-/** `idf.eggs()` — progress, then a row per egg with a clue for the missing. */
+/** `idf.eggs()`, progress, then a row per egg with a clue for the missing. */
 function eggs(): void {
   const discovered = readDiscoveredEggs();
   const found = discovered.size;
@@ -115,7 +115,7 @@ function eggs(): void {
         egg: isFound ? egg.name : "???",
         category: egg.category,
         status: isFound ? "✓ found" : "· hidden",
-        clue: isFound ? "—" : egg.hint,
+        clue: isFound ? "·" : egg.hint,
       };
     }),
   );
@@ -131,14 +131,14 @@ function eggs(): void {
   );
 }
 
-/** `idf.hint()` — one random nudge toward an egg that is still hidden. */
+/** `idf.hint()`, one random nudge toward an egg that is still hidden. */
 function hint(): void {
   const discovered = readDiscoveredEggs();
   const hidden = EASTER_EGGS.filter((egg) => !discovered.has(egg.id));
   heading("HINT");
   if (hidden.length === 0) {
     console.log(
-      "%cNothing left to hint — you found them all.",
+      "%cNothing left to hint. You found them all.",
       CONSOLE_STYLE.success,
     );
     return;
@@ -152,7 +152,7 @@ function hint(): void {
 }
 
 /**
- * `idf.run()` — hands a command to the terminal on the page.
+ * `idf.run()`, hands a command to the terminal on the page.
  *
  * No validation here on purpose: the terminal already knows its own commands
  * and answers an unknown one with a "did you mean", so duplicating that list
@@ -172,14 +172,14 @@ function run(command = ""): void {
     return;
   }
   console.log(
-    `%c→ running %c${target}%c in the terminal — click the page to give it the keyboard.`,
+    `%c→ running %c${target}%c in the terminal. Click the page to give it the keyboard.`,
     CONSOLE_STYLE.muted,
     CONSOLE_STYLE.command,
     CONSOLE_STYLE.muted,
   );
 }
 
-/** `idf.snake()` — the one command worth a shortcut of its own. */
+/** `idf.snake()`, the one command worth a shortcut of its own. */
 function snake(): void {
   run("snake");
 }

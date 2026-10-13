@@ -21,8 +21,8 @@ const HOVER_GAP_MS = 90;
  * and wiring them per-component means the next button someone adds is silent
  * for no reason anyone can see.
  *
- * Nothing is audible until the visitor turns audio on — `playSound` returns
- * early while the context is missing or muted — so this is inert by default
+ * Nothing is audible until the visitor turns audio on, `playSound` returns
+ * early while the context is missing or muted, so this is inert by default
  * and costs two listeners.
  *
  * Opt out with `data-no-sound` on an element or any ancestor: the audio
@@ -34,7 +34,7 @@ export function useInterfaceSounds() {
   useEffect(() => {
     // Deliberately not gated on `prefers-reduced-motion`: that setting is
     // about vestibular comfort, not hearing. Someone who asked for less
-    // motion and then turned audio on should still get the notes — the
+    // motion and then turned audio on should still get the notes, the
     // opt-in toggle is the consent here.
 
     const target = (e: Event): HTMLElement | null => {

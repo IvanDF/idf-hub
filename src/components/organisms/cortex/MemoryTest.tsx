@@ -72,7 +72,7 @@ export default function MemoryTest() {
 
       inputPosRef.current += 1;
       if (inputPosRef.current >= sequence.length) {
-        // Round cleared — extend the sequence and replay after a beat.
+        // Round cleared, extend the sequence and replay after a beat.
         const next: Pad[] = [
           ...sequence,
           PADS[Math.floor(Math.random() * PADS.length)],
@@ -116,7 +116,7 @@ export default function MemoryTest() {
         {(phase === "showing" || phase === "input") && (
           <>
             <p className={styles.instruction}>
-              {phase === "showing" ? "Watch…" : `Repeat — level ${level}`}
+              {phase === "showing" ? "Watch…" : `Repeat · level ${level}`}
             </p>
             <div className={styles.memoryGrid}>
               {PADS.map((pad) => (

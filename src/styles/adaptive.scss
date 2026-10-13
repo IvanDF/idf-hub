@@ -1,4 +1,4 @@
-// Carved Brutalism — single global system. Super-squircle edition.
+// Carved Brutalism, single global system. Super-squircle edition.
 @use "variables" as *;
 
 :root {
@@ -23,7 +23,7 @@
   //
   // This has bitten the site three times: the career timeline vanishing on
   // Safari, the project detail pages dropping to 4fps, and the side rails
-  // holding Safari's GPU process at 600% CPU on every page — that last one
+  // holding Safari's GPU process at 600% CPU on every page, that last one
   // fell to 0.9% when this single declaration was removed from the rails.
   //
   // For opt-in use there are `.ink` / `.ink-fine` / `.ink-draft` in
@@ -32,13 +32,13 @@
   --ink-fine: url(#idf-ink-wobble-fine);
   --ink-draft: url(#idf-ink-wobble-draft);
 
-  // ── Shape — super squircle ───────────────────────────────────────────────────
+  // ── Shape, super squircle ───────────────────────────────────────────────────
   --route-card-radius: 16px;
   --route-filter-radius: 12px;
   --route-radius-sm: 8px;
   --route-radius-lg: 24px;
 
-  // ── Stroke — 2px scribed lines (up from 1.5px for legibility) ───────────────
+  // ── Stroke, 2px scribed lines (up from 1.5px for legibility) ───────────────
   --route-stroke: 2px;
   --route-divider-style: solid;
 

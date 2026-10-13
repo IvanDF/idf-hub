@@ -110,16 +110,16 @@ export const Mono: Story = {
 export const TypeScaleShowcase: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-      <Text variant="h1">H1 — Josefin Slab 700 · 49px</Text>
-      <Text variant="h2">H2 — Josefin Sans 600 · 39px</Text>
-      <Text variant="h3">H3 — Josefin Sans 400 · 31px</Text>
-      <Text variant="h4">H4 — Josefin Sans 700 · 25px</Text>
-      <Text variant="h5">H5 — Josefin Sans 500 · 20px</Text>
-      <Text variant="h6">H6 — Josefin Sans 500 · 18px</Text>
-      <Text variant="body">Body — Josefin Sans 400 · 16px / 1.5 · with a nice comfortable line height for long-form reading.</Text>
-      <Text variant="small">Small — Josefin Slab 700 · 14px</Text>
-      <Text variant="label">LABEL — Josefin Sans 700 · 12px · UPPERCASE</Text>
-      <Text variant="mono">Mono — Geist Mono 400 · 14px · code/terminal</Text>
+      <Text variant="h1">H1 · Josefin Slab 700 · 49px</Text>
+      <Text variant="h2">H2 · Josefin Sans 600 · 39px</Text>
+      <Text variant="h3">H3 · Josefin Sans 400 · 31px</Text>
+      <Text variant="h4">H4 · Josefin Sans 700 · 25px</Text>
+      <Text variant="h5">H5 · Josefin Sans 500 · 20px</Text>
+      <Text variant="h6">H6 · Josefin Sans 500 · 18px</Text>
+      <Text variant="body">Body · Josefin Sans 400 · 16px / 1.5 · with a nice comfortable line height for long-form reading.</Text>
+      <Text variant="small">Small · Josefin Slab 700 · 14px</Text>
+      <Text variant="label">LABEL · Josefin Sans 700 · 12px · UPPERCASE</Text>
+      <Text variant="mono">Mono · Geist Mono 400 · 14px · code/terminal</Text>
     </div>
   ),
   name: "Full Type Scale",

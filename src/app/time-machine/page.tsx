@@ -83,7 +83,7 @@ export default function TimeMachinePage() {
               <div className={styles.tvScreenWrap}>
                 <iframe
                   src={LEGACY_URL}
-                  title="Legacy Portfolio — iDF v1"
+                  title="Legacy Portfolio · iDF v1"
                   sandbox="allow-scripts allow-same-origin allow-forms"
                   loading="lazy"
                 />

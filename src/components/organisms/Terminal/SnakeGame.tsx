@@ -76,7 +76,7 @@ export default function SnakeGame({ onExit }: SnakeGameProps) {
                 </tr>
               ))}
               {board.length === 0 && (
-                <tr><td colSpan={3} className={styles.emptyRow}>no scores yet — be the first!</td></tr>
+                <tr><td colSpan={3} className={styles.emptyRow}>no scores yet, be the first!</td></tr>
               )}
             </tbody>
           </table>
@@ -113,7 +113,7 @@ export default function SnakeGame({ onExit }: SnakeGameProps) {
           <button className={styles.dpadBtn} onClick={() => queueDir(UP_DIR)}>▲</button>
         </div>
         <div className={styles.dpadRow}>
-          {/* ︎ keeps these as text glyphs — iOS otherwise swaps ◀ ▶ for emoji */}
+          {/* ︎ keeps these as text glyphs, iOS otherwise swaps ◀ ▶ for emoji */}
           <button className={styles.dpadBtn} onClick={() => queueDir(LEFT_DIR)}>{"◀︎"}</button>
           <button className={styles.dpadBtn} onClick={() => queueDir(DOWN_DIR)}>▼</button>
           <button className={styles.dpadBtn} onClick={() => queueDir(RIGHT_DIR)}>{"▶︎"}</button>

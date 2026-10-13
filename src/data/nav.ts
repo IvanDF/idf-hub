@@ -1,4 +1,4 @@
-// Shared chrome data — single source for nav links and social handles.
+// Shared chrome data, single source for nav links and social handles.
 // Consumed by LeftColumn / RightColumn (desktop rails and their mobile reflow)
 // and by tests, so the lists are never duplicated across components.
 

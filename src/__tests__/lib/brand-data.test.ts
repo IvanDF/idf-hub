@@ -5,7 +5,7 @@ const ART_WIDTH = 20
 describe('brand marks', () => {
   // The columns are built by padding the art to a fixed width. A line that is
   // longer than the rest, or longer than ART_WIDTH, pushes the right-hand
-  // column out on that row only — which reads as a broken layout.
+  // column out on that row only, which reads as a broken layout.
   it('every mark has lines of equal length', () => {
     MARKS.forEach((mark, i) => {
       const widths = new Set(mark.map(l => [...l].length))

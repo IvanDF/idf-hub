@@ -9,7 +9,7 @@ const meta: Meta<typeof Magnetic> = {
     docs: {
       description: {
         component:
-          'Magnetic hover effect wrapper — pulls children toward the cursor using spring physics.',
+          'Magnetic hover effect wrapper · pulls children toward the cursor using spring physics.',
       },
     },
   },

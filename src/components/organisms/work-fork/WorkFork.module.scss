@@ -23,7 +23,7 @@
   display: flex;
   border: $border-base solid var(--color-divider);
   border-radius: var(--route-card-radius, #{$radius-lg});
-  // NOTE: opted out of the global button stamp (data-no-stamp) — its hard
+  // NOTE: opted out of the global button stamp (data-no-stamp), its hard
   // offset shadow reads wrong on cards this size.
   transition:
     flex-grow $duration-reveal $ease-out-expo,
@@ -120,7 +120,7 @@
   line-height: 1.5;
 }
 
-// Extra details — revealed when the card takes the lead
+// Extra details, revealed when the card takes the lead
 .details {
   list-style: none;
   margin: 0;
@@ -138,7 +138,7 @@
   overflow: hidden;
   // The trailing $duration-instant on `opacity` is a delay, not a duration:
   // the copy fades in just after the box has started opening. Same scale on
-  // purpose — a 100ms beat is the same 100ms everywhere.
+  // purpose, a 100ms beat is the same 100ms everywhere.
   transition:
     max-height $duration-reveal $ease-out-expo,
     opacity $duration-slow ease $duration-instant;
@@ -168,7 +168,7 @@
   margin-top: $spacing-xs;
 }
 
-// ── Mobile: no hover — stacked cards, details visible ────────────────────────
+// ── Mobile: no hover, stacked cards, details visible ────────────────────────
 @include mobile {
   .fork {
     flex-direction: column;

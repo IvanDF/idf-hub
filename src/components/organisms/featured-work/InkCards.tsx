@@ -17,7 +17,7 @@ interface InkCardsProps {
  * The middle step of the descent: the same plate, at half the weight.
  *
  * These carry the ink frame and the typography of the full plates above and
- * differ only in scale and density — two to a row instead of one to a screen.
+ * differ only in scale and density, two to a row instead of one to a screen.
  * That is the whole idea: the hierarchy steps down rather than switching to a
  * table, so there is no seam between the curated work and the rest of it.
  */
@@ -36,7 +36,7 @@ export default function InkCards({ projects, startIndex }: InkCardsProps) {
           data-reveal=""
         >
           {/* Five projects still carry an SVG icon or /assets/placeholder.svg
-              where a screenshot should be — they are listed as outstanding in
+              where a screenshot should be, they are listed as outstanding in
               docs/project-assets.md. Rendering those stretched their glyph
               across the frame and read as a broken image, so they get the same
               typographic treatment the Yggdrasil plate gets. */}

@@ -28,8 +28,8 @@ const FILL_OFFSET = 0.45; // fill fades in this many seconds after stroke starts
 interface LogoMorphProps {
   /**
    * Animation mode:
-   * - `assemble` (default) — paths draw themselves stroke-first, then fill
-   * - `static` — no animation, plain logo
+   * - `assemble` (default), paths draw themselves stroke-first, then fill
+   * - `static`, no animation, plain logo
    * @deprecated `mode` is reserved for future use. Currently only "assemble" is implemented.
    */
   mode?: "assemble" | "static";

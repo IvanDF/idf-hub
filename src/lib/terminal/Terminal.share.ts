@@ -1,7 +1,7 @@
 import type { CommandOutput } from "@/types/terminal";
 
 /**
- * `share [command]` — builds a ?cmd= deep link and copies it to the
+ * `share [command]`, builds a ?cmd= deep link and copies it to the
  * clipboard. Returns the output lines for the terminal history.
  */
 export async function buildShareOutput(
@@ -11,7 +11,7 @@ export async function buildShareOutput(
   if (!target) {
     return [
       { type: "system", content: "SHARE USAGE" },
-      { type: "text", content: "share [command] — copy a deep link that runs it" },
+      { type: "text", content: "share [command] · copy a deep link that runs it" },
       {
         type: "text",
         content: "Try: share snake",
@@ -28,7 +28,7 @@ export async function buildShareOutput(
     ];
   } catch {
     return [
-      { type: "error", content: "Clipboard unavailable — here is the link:" },
+      { type: "error", content: "Clipboard unavailable. Here is the link:" },
       { type: "text", content: link },
     ];
   }

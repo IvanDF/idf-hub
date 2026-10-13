@@ -251,7 +251,7 @@
 //
 // Deliberately not animated. It was drawn by page scroll progress, and since
 // the thread spans only this section, the drawing edge sat above the viewport
-// at every point you could actually be — the effect was invisible and wrong at
+// at every point you could actually be, the effect was invisible and wrong at
 // the same time. A line that is simply there does the job.
 .thread {
   position: absolute;

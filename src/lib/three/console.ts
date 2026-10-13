@@ -8,7 +8,7 @@ import { getConsoleFunction, setConsoleFunction } from "three";
  * (`clock: new THREE.Clock()`); 9.7.0, the latest at the time of writing,
  * still does. Nothing in this codebase constructs a Clock.
  *
- * Delete the entry — and this whole module once the list empties — as soon as
+ * Delete the entry, and this whole module once the list empties, as soon as
  * fiber moves to Timer. The match is on the exact wording on purpose: if
  * three rephrases the message, the warning comes back rather than staying
  * quietly swallowed.
@@ -23,7 +23,7 @@ const SILENCED_WARNINGS: readonly string[] = [
 /**
  * Routes three.js logging through its own `setConsoleFunction` hook so the
  * triaged deprecations above stop reaching the console. Everything else is
- * forwarded untouched — this filters a known-noisy line, it does not mute the
+ * forwarded untouched, this filters a known-noisy line, it does not mute the
  * library.
  *
  * Safe to call more than once: the hook is installed only if nothing holds it

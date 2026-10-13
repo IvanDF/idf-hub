@@ -209,7 +209,7 @@
 .projectRow {
   // Targeted anchor reset rather than `all: unset`. `all` also resets
   // `animation-name` and `animation-timeline`, and since this class and the
-  // global `[data-reveal]` rule both score (0,1,0) the module — loading later —
+  // global `[data-reveal]` rule both score (0,1,0) the module, loading later
   // won: every row carries `data-reveal` and none of them animated. Same reason
   // .mediaFrameClickable avoids `all: unset` in ProjectDetail.module.scss.
   color: inherit;
@@ -338,7 +338,7 @@
 }
 
 // Experiments sit in the same list as product work, marked by a small
-// accent diamond and a tinted category label — merged, but distinguishable.
+// accent diamond and a tinted category label, merged, but distinguishable.
 // A project with a page of its own. The existing experiment marker is a small
 // accent diamond, so this stays in the same language rather than inventing a
 // badge: a drawn left edge, and the rune the project already signs itself with.

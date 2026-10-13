@@ -17,7 +17,7 @@ const PARALLAX_X = 14;
 const PARALLAX_Y = 10;
 
 /**
- * Fork entrance for the Work page: two separate cards — The Path (career) and
+ * Fork entrance for the Work page: two separate cards, The Path (career) and
  * The Lab (side projects). Hover/focus grows a card, reveals its extra
  * details, and the content leans magnetically toward the cursor; on touch the
  * cards stack with details always visible.
@@ -63,7 +63,7 @@ export default function WorkFork({ liveCount, archivedCount, onPick }: WorkForkP
         <div className={styles.inner} ref={pathInnerRef}>
           <span className={styles.index}>01</span>
           <span className={styles.title}>The Path</span>
-          <span className={styles.sub}>Career — ten years, no straight line</span>
+          <span className={styles.sub}>Career · ten years, no straight line</span>
           <ul className={styles.details}>
             <li>race control → waiter → IT Manager</li>
             <li>Como → Milano → Madrid</li>
@@ -87,7 +87,7 @@ export default function WorkFork({ liveCount, archivedCount, onPick }: WorkForkP
         <div className={styles.inner} ref={labInnerRef}>
           <span className={styles.index}>02</span>
           <span className={styles.title}>The Lab</span>
-          <span className={styles.sub}>Side projects — after hours</span>
+          <span className={styles.sub}>Side projects · after hours</span>
           <ul className={styles.details}>
             <li>code · design · craft · experiments</li>
             <li>one terminal, several secrets</li>

@@ -35,7 +35,7 @@ export const DESIGN_SYSTEM = {
     twitter:
       "linear-gradient(150deg, #041f38 0%, #0a111b 48%, #132b33 100%)",
   },
-  // Motion — the JS mirror of the scale in _variables.scss.
+  // Motion. The JS mirror of the scale in _variables.scss.
   // Kept in sync by hand because framer-motion and the Web Animations API
   // cannot read SCSS variables. Durations are in seconds (framer's unit) and
   // easings are bezier tuples (framer's format), so both drop straight into a

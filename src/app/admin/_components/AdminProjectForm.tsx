@@ -34,20 +34,20 @@ function Field({ label, hint, wide, children }: {
   return (
     <div className={`${styles.field} ${wide ? styles.wide : ""}`}>
       <label className={styles.label}>
-        {label}{hint && <Text as="span" variant="small" className={styles.hint}> — {hint}</Text>}
+        {label}{hint && <Text as="span" variant="small" className={styles.hint}> · {hint}</Text>}
       </label>
       {children}
     </div>
   );
 }
 
-/** Optional select — renders a "— none —" first option followed by the provided items. */
+/** Optional select, renders a "none" first option followed by the provided items. */
 function OptSelect({ name, value, onChange, items }: {
   name: string; value: string; onChange: ChangeHandler; items: readonly string[];
 }) {
   return (
     <select name={name} value={value} onChange={onChange} className={styles.input}>
-      <option value="">— none —</option>
+      <option value="">none</option>
       {items.map((v) => <option key={v} value={v}>{v}</option>)}
     </select>
   );

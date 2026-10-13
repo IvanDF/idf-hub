@@ -38,8 +38,8 @@ describe('CustomCursor', () => {
 
   // Regression: the magnet writes `translate` inline, which outranks every
   // stylesheet rule, so it must leave the press its own term. Without the
-  // `var(--press-*)` additions the `:active` press offset — the global 1px
-  // baseline and the Button's carved 2px alike — is silently dead on every
+  // `var(--press-*)` additions the `:active` press offset, the global 1px
+  // baseline and the Button's carved 2px alike, is silently dead on every
   // control the magnet adopts, with nothing visible to reveal it.
   it('leaves room for the press offset when magnetising a control', async () => {
     render(<CustomCursor />);

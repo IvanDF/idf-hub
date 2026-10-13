@@ -1,7 +1,7 @@
 import { filterKnownThreeWarnings } from "@/lib/three/console";
 import { error, getConsoleFunction, setConsoleFunction, warn } from "three";
 
-/** three exposes no "unset" — the hook is a module-level slot, so null clears it. */
+/** three exposes no "unset", the hook is a module-level slot, so null clears it. */
 const clearConsoleFunction = () =>
   (setConsoleFunction as unknown as (fn: null) => void)(null);
 

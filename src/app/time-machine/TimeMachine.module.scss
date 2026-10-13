@@ -176,7 +176,7 @@
 }
 
 .artifactTitle {
-  // "LEGACY_SYSTEM" — same unbreakable-mono-word problem as the page title
+  // "LEGACY_SYSTEM", same unbreakable-mono-word problem as the page title
   font-size: clamp(1.25rem, 6.5vw, #{$font-size-2xl});
   font-weight: 700;
   color: $color-silk-light;

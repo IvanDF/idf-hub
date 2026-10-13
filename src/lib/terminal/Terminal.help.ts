@@ -5,7 +5,7 @@ import type { CommandOutput } from "@/types/terminal";
  *
  * There is one source of truth here on purpose. The help text used to be a
  * hand-written list that drifted from the switch statement that actually
- * handles the commands, and every alias took a line of its own — four entries
+ * handles the commands, and every alias took a line of its own, four entries
  * for `lab` / `work` / `projects` / `progetti` is most of why the listing felt
  * crowded. Aliases now travel with their command and only surface when you ask
  * about a category.
@@ -59,7 +59,7 @@ function label(c: HelpEntry): string {
 
 /**
  * The full listing: everything, one line per command, grouped by category.
- * Aliases are held back — they are what made this wall of text.
+ * Aliases are held back, they are what made this wall of text.
  */
 export function buildHelpOutput(commands: HelpEntry[]): CommandOutput[] {
   const out: CommandOutput[] = [];
@@ -120,7 +120,7 @@ export function buildCategoryHelp(
 
 /**
  * The commands that only ever print something. Keeping them together here
- * leaves the command hook to the ones with consequences — routing, auth,
+ * leaves the command hook to the ones with consequences, routing, auth,
  * audio, the game.
  *
  * @param cmd - The command word, already lowercased.

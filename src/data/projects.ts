@@ -1,8 +1,8 @@
 import { Project } from "@/types/project";
 
 // Dates carry a `date` (YYYY-MM) alongside the display `year`. Every date with
-// a verifiable source was taken from it — GitHub repository `created_at` for
-// anything with a repo, image EXIF for the photographic and print work —
+// a verifiable source was taken from it, GitHub repository `created_at` for
+// anything with a repo, image EXIF for the photographic and print work
 // because the hand-written years had drifted by up to three years.
 
 export const PROJECTS: Project[] = [
@@ -49,7 +49,7 @@ export const PROJECTS: Project[] = [
     ],
     why: "Every useful service I relied on was rented. Notes lived in one company's cloud, reminders in another, the house in a third. I wanted to know what a system looks like when it is designed around one person's day rather than around a subscription.",
     problem: "Self-hosting usually fails the same way: a pile of containers nobody remembers configuring, silent backups that stopped months ago, and a phone that cannot reach any of it from outside the house.",
-    solution: "One rule per component, one script per service, and one written record of why anything exists. The host is immutable, services run as rootless containers under systemd, everything is reachable only over a private mesh, and the parts I use daily — notes, training, the house — are exposed through a single Telegram conversation.",
+    solution: "One rule per component, one script per service, and one written record of why anything exists. The host is immutable, services run as rootless containers under systemd, everything is reachable only over a private mesh, and the parts I use daily (notes, training, the house) are exposed through a single Telegram conversation.",
     decisions: [
       {
         choice: "An immutable OS for the host",
@@ -63,7 +63,7 @@ export const PROJECTS: Project[] = [
       },
       {
         choice: "Write down every change",
-        why: "A home server is maintained by the same person months apart. The audit log records what changed, why, and what broke along the way — including my own mistakes — so future me does not have to rediscover them.",
+        why: "A home server is maintained by the same person months apart. The audit log records what changed, why, and what broke along the way, including my own mistakes, so future me does not have to rediscover them.",
         tradeoff: "It adds ceremony to small fixes. In practice that friction is the point: it makes me finish things properly.",
       },
       {
@@ -135,7 +135,7 @@ export const PROJECTS: Project[] = [
     decisions: [
       {
         choice: "Profile variant driven by a URL query param, not a route",
-        why: "A card is handed over by QR code. One deploy, one build, and a different `?card_type=` on each printed code gives a different persona — no rebuild when a new event needs a new variant.",
+        why: "A card is handed over by QR code. One deploy, one build, and a different `?card_type=` on each printed code gives a different persona, with no rebuild when a new event needs a new variant.",
         tradeoff:
           "Variants are invisible to search engines and to anyone who lands on the bare URL, which is fine for something only ever reached by scanning.",
       },
@@ -149,7 +149,7 @@ export const PROJECTS: Project[] = [
         why: "At a convention the goal is to get out of the browser and into the other person's address book in one tap. A form adds a keyboard, a submit, and a failure mode.",
       },
     ],
-    why: "I needed a way to introduce GabberG — a cosplay persona — at events where you meet hundreds of people in minutes. A paper card or plain link dump wasn't going to cut it.",
+    why: "I needed a way to introduce GabberG, a cosplay persona, at events where you meet hundreds of people in minutes. A paper card or plain link dump wasn't going to cut it.",
     problem:
       "Traditional contact sharing is slow and often forgettable at high-traffic events.",
     solution:
@@ -199,7 +199,7 @@ export const PROJECTS: Project[] = [
         choice: "CSS `filter` on the live preview, canvas only on export",
         why: "The browser composites CSS filters on the GPU, so dragging a slider stays at 60fps on an image of any size. Canvas re-reads every pixel on the CPU and stutters the moment the photo is large.",
         tradeoff:
-          "Two code paths to keep in sync — the preview and the exported file have to be verified against each other, because they are produced by different engines.",
+          "Two code paths to keep in sync: the preview and the exported file have to be verified against each other, because they are produced by different engines.",
       },
       {
         choice: "No image-processing library",
@@ -344,18 +344,18 @@ export const PROJECTS: Project[] = [
     highlights: [
       "Pixel-accurate Spotify layout reproduction",
       "Fully responsive with flexbox and grid",
-      "No JavaScript — pure CSS layout challenge",
+      "No JavaScript, pure CSS layout challenge",
     ],
     decisions: [
       {
         choice: "Grid for the page shell, flexbox inside it",
-        why: "The shell is a two-dimensional problem — fixed sidebar, fixed player bar, one scrolling area. The contents of each region are one-dimensional rows. Using each tool for the axis it was built for removed most of the positioning hacks.",
+        why: "The shell is a two-dimensional problem: fixed sidebar, fixed player bar, one scrolling area. The contents of each region are one-dimensional rows. Using each tool for the axis it was built for removed most of the positioning hacks.",
       },
       {
         choice: "Zero JavaScript, on purpose",
         why: "The point of the exercise was to find where CSS actually runs out. Allowing a script would have let me skip past every hard part instead of solving it.",
         tradeoff:
-          "The clone looks complete and is inert — nothing plays, nothing navigates.",
+          "The clone looks complete and is inert: nothing plays, nothing navigates.",
       },
     ],
     links: {
@@ -508,10 +508,10 @@ export const PROJECTS: Project[] = [
       },
       {
         choice: "Every pair checked against WCAG AA",
-        why: "A theme is read for eight hours at a stretch. Contrast is not a detail of the design here — it is the product.",
+        why: "A theme is read for eight hours at a stretch. Contrast is not a detail of the design here. It is the product.",
       },
     ],
-    why: "I spent long sessions inside VS Code with themes that looked great in screenshots but were painful to actually read — bad contrast, inconsistent token mapping, colours fighting for attention. I wanted a theme built for the person coding, not the one showing off.",
+    why: "I spent long sessions inside VS Code with themes that looked great in screenshots but were painful to actually read: bad contrast, inconsistent token mapping, colours fighting for attention. I wanted a theme built for the person coding, not the one showing off.",
     problem:
       "Many novelty themes look cool but fail during long coding sessions due to poor contrast and token consistency.",
     solution:
@@ -566,7 +566,7 @@ export const PROJECTS: Project[] = [
       },
       {
         choice: "Personal access token in VS Code SecretStorage",
-        why: "SecretStorage hands the token to the OS keychain. Settings JSON is world-readable and routinely committed by accident — an Azure DevOps PAT has no business living there.",
+        why: "SecretStorage hands the token to the OS keychain. Settings JSON is world-readable and routinely committed by accident, and an Azure DevOps PAT has no business living there.",
       },
       {
         choice: "Status bar item rather than a sidebar view",
@@ -616,11 +616,11 @@ export const PROJECTS: Project[] = [
     highlights: [
       "Blender model exported for web use",
       "Smooth animation sequences driven by GSAP",
-      "No WebGL — pure CSS 3D transforms and GSAP",
+      "No WebGL, pure CSS 3D transforms and GSAP",
     ],
     why: "Does a Blender model need WebGL on the web, or can a pre-rendered export plus CSS 3D carry the same sense of dimension?",
     solution:
-      "For a fixed camera path it carries it completely, at a fraction of the weight and with no GPU context to lose. The moment the viewer should be able to look around, the illusion is over — this approach buys cinematics, not interactivity.",
+      "For a fixed camera path it carries it completely, at a fraction of the weight and with no GPU context to lose. The moment the viewer should be able to look around, the illusion is over. This approach buys cinematics, not interactivity.",
     links: {
       repo: "https://github.com/IvanDF/3d-blender-animation",
     },
@@ -659,7 +659,7 @@ export const PROJECTS: Project[] = [
     ],
     why: "Snake is a grid game. What happens to it when the grid is given a third dimension and no engine is there to help?",
     solution:
-      "The logic survives the move almost untouched — collision is still integer comparison on cells. The hard part turned out to be the camera: depth makes it genuinely difficult to judge which cell the head is about to enter, which is a design problem, not a rendering one.",
+      "The logic survives the move almost untouched: collision is still integer comparison on cells. The hard part turned out to be the camera: depth makes it genuinely difficult to judge which cell the head is about to enter, which is a design problem, not a rendering one.",
     links: {
       repo: "https://github.com/IvanDF/snake-3d",
     },
@@ -697,7 +697,7 @@ export const PROJECTS: Project[] = [
     ],
     why: "How far can CSS get toward a photograph of an object before you have to reach for an image?",
     solution:
-      "Further than expected. Gradients carry the moulded plastic, layered shadows carry the depth, and the whole console is shapes and borders — no assets at all. What CSS cannot fake is wear: the shell reads as a render because it is too clean.",
+      "Further than expected. Gradients carry the moulded plastic, layered shadows carry the depth, and the whole console is shapes and borders, with no assets at all. What CSS cannot fake is wear: the shell reads as a render because it is too clean.",
     links: {
       demo: "https://codepen.io/IvanDF/pen/OJQyyXO",
       live: "https://codepen.io/IvanDF/full/OJQyyXO",
@@ -733,7 +733,7 @@ export const PROJECTS: Project[] = [
     ],
     why: "At what transition speed does a slider stop feeling responsive and start feeling slow?",
     solution:
-      "The usable band is narrower than it looks: under about 150ms the change is hard to follow, past roughly 350ms every tap feels like waiting. Easing matters more than duration — the same 250ms reads as sharp or sluggish depending on the curve.",
+      "The usable band is narrower than it looks: under about 150ms the change is hard to follow, past roughly 350ms every tap feels like waiting. Easing matters more than duration: the same 250ms reads as sharp or sluggish depending on the curve.",
     links: {
       demo: "https://codepen.io/IvanDF/pen/VwyOqPP",
       live: "https://codepen.io/IvanDF/full/VwyOqPP",
@@ -768,7 +768,7 @@ export const PROJECTS: Project[] = [
     ],
     why: "Can a nav communicate where you are on a page using motion alone, without a highlighted state to point at?",
     solution:
-      "Partly. Movement draws the eye to the change but does not survive it — once the animation settles there is nothing left to read, so a persistent marker still has to do the actual work. Motion announces, state informs.",
+      "Partly. Movement draws the eye to the change but does not survive it. Once the animation settles there is nothing left to read, so a persistent marker still has to do the actual work. Motion announces, state informs.",
     links: {
       demo: "https://codepen.io/IvanDF/pen/OJzYwJy",
       live: "https://codepen.io/IvanDF/full/OJzYwJy",
@@ -1082,13 +1082,13 @@ export const PROJECTS: Project[] = [
       "Designed a clever visual pun combining typography and illustration in Affinity Designer, optimized for garment printing.",
     // `mockup` intentionally absent: the files below are the flat print
     // artwork, not photographs or renders of the finished garment. Add a
-    // `mockup` block once real product images exist — the template already
+    // `mockup` block once real product images exist, the template already
     // renders it above the brief.
     plates: [
       {
         src: "/projects/merchandise/gin-tonic/gin-tonic-front.png",
         label: "Front print",
-        note: "The chest graphic as it goes to the screen — transparent, no background to knock out.",
+        note: "The chest graphic as it goes to the screen: transparent, with no background to knock out.",
       },
       {
         src: "/projects/merchandise/gin-tonic/gin-tonic-back.png",
@@ -1098,7 +1098,7 @@ export const PROJECTS: Project[] = [
       {
         src: "/projects/merchandise/gin-tonic/gin-tonic-illustration.png",
         label: "Filled illustration",
-        note: "The artwork as it prints on dark garments — solid shapes, no hairlines to clog the screen.",
+        note: "The artwork as it prints on dark garments: solid shapes, no hairlines to clog the screen.",
       },
       {
         src: "/projects/merchandise/gin-tonic/gin-tonic-illustration-outline.png",
@@ -1143,11 +1143,11 @@ export const PROJECTS: Project[] = [
       "Create multiple custom phone case designs on commission with commercial production requirements.",
     solution:
       "Developed a collection of diverse graphic designs in Affinity Designer, optimized for phone case printing and client approval workflow.",
-    // `mockup` intentionally absent — see the note on the Gin-Tonic project.
+    // `mockup` intentionally absent, see the note on the Gin-Tonic project.
     plates: [
       {
         src: "/projects/merchandise/phone-covers/stranger-things-final.png",
-        label: "Stranger Things — final",
+        label: "Stranger Things, final",
         note: "The approved artwork, as delivered for printing.",
       },
       {
@@ -1158,7 +1158,7 @@ export const PROJECTS: Project[] = [
       {
         src: "/projects/merchandise/phone-covers/stranger-things-variant-01.png",
         label: "Variant 01",
-        note: "First direction presented to the client — heavier on the title lettering.",
+        note: "First direction presented to the client, heavier on the title lettering.",
       },
       {
         src: "/projects/merchandise/phone-covers/stranger-things-variant-02.png",
@@ -1194,7 +1194,7 @@ export const PROJECTS: Project[] = [
   {
     id: "mirror-archetype-cosplay",
     featured: 5,
-    title: "The Mirror Archetype — Cosplay Compositing",
+    title: "The Mirror Archetype: Cosplay Compositing",
     description:
       "Complex portraiture and digital compositing project featuring a single performer in dual protagonist/antagonist roles through narrative symmetry.",
     longDescription:
@@ -1214,7 +1214,7 @@ export const PROJECTS: Project[] = [
       "Symmetry-based framing to emphasize conflict and balance",
       "Single-subject dual-role technique for narrative cohesion",
     ],
-    why: "I wanted to push cosplay photography beyond the usual 'character standing in a field' format. The Seven Deadly Sins arc has this deep internal conflict — one person carrying both light and dark — and I wanted to show that in a single frame, not a series.",
+    why: "I wanted to push cosplay photography beyond the usual 'character standing in a field' format. The Seven Deadly Sins arc has this deep internal conflict, one person carrying both light and dark, and I wanted to show that in a single frame, not a series.",
     problem:
       "How to visually communicate character rivalry and internal conflict in a static image without losing photographic authenticity.",
     solution:
@@ -1238,7 +1238,7 @@ export const PROJECTS: Project[] = [
       {
         src: "/projects/cosplay/mirror-archetype/mirror-archetype-right.jpeg",
         label: "Right subject",
-        note: "Same performer, same lens, mirrored blocking — the antagonist half of the frame.",
+        note: "Same performer, same lens, mirrored blocking, the antagonist half of the frame.",
       },
     ],
     links: {},

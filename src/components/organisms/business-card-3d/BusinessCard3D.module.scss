@@ -1,7 +1,7 @@
 @use "@/styles/variables" as *;
 
 /**
- * Canvas wrapper — fills its container and acts as the primary click/tap target.
+ * Canvas wrapper, fills its container and acts as the primary click/tap target.
  * The `outline` provides a visible focus ring for keyboard users.
  */
 .canvas {

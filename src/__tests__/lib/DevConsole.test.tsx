@@ -138,7 +138,7 @@ describe("window.idf", () => {
       clue: string;
     }[];
     expect(rows).toHaveLength(TOTAL_EASTER_EGGS);
-    expect(rows[0]).toMatchObject({ egg: found.name, status: "✓ found", clue: "—" });
+    expect(rows[0]).toMatchObject({ egg: found.name, status: "✓ found", clue: "·" });
     expect(rows[1].egg).toBe("???");
     expect(rows[1].clue).toBe(EASTER_EGGS[1].hint);
   });
@@ -166,7 +166,7 @@ describe("window.idf", () => {
 
     window.idf?.hint();
 
-    expect(loggedText(logSpy)).toContain("you found them all");
+    expect(loggedText(logSpy)).toContain("You found them all");
   });
 });
 

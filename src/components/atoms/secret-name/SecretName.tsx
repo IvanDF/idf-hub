@@ -14,8 +14,8 @@ interface SecretNameProps {
 /**
  * Secret gateway on the author's name: three quick clicks fire the
  * `idf:name-secret` event (handled by the terminal, which discovers the egg
- * and opens /secrets). Each click gives visible "knock" feedback — scale bump
- * and accent glow — so the user knows something is building up.
+ * and opens /secrets). Each click gives visible "knock" feedback, scale bump
+ * and accent glow, so the user knows something is building up.
  */
 export default function SecretName({ children, className }: SecretNameProps) {
   const clicksRef = useRef<number[]>([]);
@@ -49,7 +49,7 @@ export default function SecretName({ children, className }: SecretNameProps) {
   };
 
   return (
-    // Deliberately not a button: the name must read as plain text — the
+    // Deliberately not a button: the name must read as plain text, the
     // discovery IS the easter egg. It stays reachable by pointer only.
     <span
       className={`${styles.knockable} ${className ?? ""}`}

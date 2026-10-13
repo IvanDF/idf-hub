@@ -84,7 +84,7 @@ export const SYSTEM_COMMANDS: CommandEntry[] = [
     summary: "repaint the panel in the home-server colours",
     category: "system",
     run: ({ setSkin }) => {
-      // Toggle, so the same word undoes it — nobody should have to guess a
+      // Toggle, so the same word undoes it, nobody should have to guess a
       // second command to get their terminal back.
       let turnedOn = false;
       setSkin((current) => {
@@ -120,7 +120,7 @@ export const SYSTEM_COMMANDS: CommandEntry[] = [
         {
           type: "success",
           content: isDemo
-            ? "Access Level: C-137 (Morty-level — session-only, wubba lubba dub dub)"
+            ? "Access Level: C-137 (Morty-level, session-only, wubba lubba dub dub)"
             : "Access Level: Admin (full access)",
         },
         { type: "text", content: 'Type "admin" to open the dashboard.' },

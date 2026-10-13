@@ -168,7 +168,7 @@
   animation: expandRing 1.4s ease-out forwards;
 }
 
-// Second shockwave ring (accent, delayed) — level 2+
+// Second shockwave ring (accent, delayed), level 2+
 .shockwave2 {
   position: absolute;
   border-radius: 50%;
@@ -185,7 +185,7 @@
   animation: expandRing2 1.4s ease-out 0.25s forwards;
 }
 
-// Wind streaks — level 3 only
+// Wind streaks, level 3 only
 .windStreaks {
   position: absolute;
   inset: 0;
@@ -199,7 +199,7 @@
   animation: windBlast 0.9s ease-out forwards;
 }
 
-// Large shout text — level 3
+// Large shout text, level 3
 .shoutText {
   position: relative;
   z-index: 1;
@@ -216,7 +216,7 @@
   animation: textShout 2.5s ease-out forwards;
 }
 
-// Smaller shout text — levels 1-2
+// Smaller shout text, levels 1-2
 .shoutTextSm {
   position: relative;
   z-index: 1;

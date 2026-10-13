@@ -9,7 +9,7 @@ import styles from "./YggdrasilPage.module.scss";
  * A tmux status line: the Algiz rune, the page's sections as numbered windows,
  * then stats and the clock.
  *
- * The windows are navigation, not decoration — the one you are reading is
+ * The windows are navigation, not decoration, the one you are reading is
  * highlighted the way tmux highlights the current window, and clicking one
  * jumps to that section.
  *
@@ -39,7 +39,7 @@ export default function TmuxBar() {
 
     // Recomputed from all five positions rather than from the entries alone:
     // the observer only reports what crossed, and at the top of the page
-    // nothing is inside the band at all — reading only the crossings left the
+    // nothing is inside the band at all, reading only the crossings left the
     // highlight stuck wherever it had last been.
     const observer = new IntersectionObserver(pick, {
       rootMargin: "0px 0px -70% 0px",

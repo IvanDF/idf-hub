@@ -93,7 +93,7 @@
 }
 
 // Rotation only, deliberately. This animation runs forever, and it sits
-// inside a `mix-blend-mode: difference` parent — which means every frame it
+// inside a `mix-blend-mode: difference` parent, which means every frame it
 // repaints also forces the browser to recomposite the whole viewport
 // underneath the cursor.
 //
@@ -102,7 +102,7 @@
 // is what pinned Safari's GPU process at 900%+ CPU while the page sat still.
 // `transform` is composited on the GPU and costs effectively nothing.
 //
-// The asymmetric radius stays — it is just fixed now instead of morphing, and
+// The asymmetric radius stays, it is just fixed now instead of morphing, and
 // spinning an asymmetric shape still reads as a liquid wobble.
 @keyframes blob-wave {
   from {

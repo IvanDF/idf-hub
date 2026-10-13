@@ -15,7 +15,7 @@ interface AudioNudge {
   visible: boolean;
   /** Whether the control should draw attention to itself. */
   pulsing: boolean;
-  /** Reveal early — the pointer came near the control. */
+  /** Reveal early, because the pointer came near the control. */
   reveal: () => void;
   /** Retire it for good. */
   dismiss: () => void;
@@ -31,7 +31,7 @@ interface AudioNudge {
  *
  * The bubble waits for the page to settle, says its piece near the control it
  * is talking about, and retires on its own. Coming near the control brings it
- * forward early — if you are already looking there, the timer is beside the
+ * forward early, if you are already looking there, the timer is beside the
  * point. Either way it is shown once, ever.
  *
  * @param audioEnabled - Skip the whole thing when sound is already on.

@@ -13,7 +13,7 @@ export const FEATURED: Project[] = PROJECTS.filter((p) => p.featured).sort(
  * Whether a project has a thumbnail worth showing large.
  *
  * Yggdrasil's is a 231-byte 16x16 line glyph standing in for an image that was
- * never made, drawn with `stroke="currentColor"` — loaded through an `img` it
+ * never made, drawn with `stroke="currentColor"`, loaded through an `img` it
  * is cut off from the page's CSS, renders black and disappears in dark mode.
  * Those entries go typographic instead. See docs/project-assets.md.
  */
@@ -25,8 +25,8 @@ export function hasHeroImage(project: Project) {
  * The top of the Work descent: the four projects that carry the portfolio, one
  * screen each.
  *
- * It is the heaviest of three tiers that step down without a break — full
- * plates here, half-weight cards in InkCards, compact rows for the archive —
+ * It is the heaviest of three tiers that step down without a break, full
+ * plates here, half-weight cards in InkCards, compact rows for the archive
  * so the page never switches from an experience to a table.
  *
  * Motion is scrubbed by `animation-timeline: view()` and degrades to the

@@ -55,7 +55,7 @@ export default function RealmTree() {
           {active.myth}
         </p>
         <h3 className={styles.realmName}>
-          {active.name} <span className={styles.realmRole}>— {active.role}</span>
+          {active.name} <span className={styles.realmRole}>· {active.role}</span>
         </h3>
         <p className={styles.realmDetail}>{active.detail}</p>
       </article>

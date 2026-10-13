@@ -20,7 +20,7 @@ export const openCommandPalette = () =>
   );
 
 /**
- * Identity block — audio toggle, name, and the command-palette launcher.
+ * Identity block, audio toggle, name, and the command-palette launcher.
  * Shared by the desktop left rail and the mobile overlay.
  */
 export default function Identity({

@@ -1,5 +1,5 @@
 /**
- * Public shape of the `window.idf` console API — the developer-facing
+ * Public shape of the `window.idf` console API, the developer-facing
  * companion that greets anyone who opens the devtools on the site.
  *
  * Every method prints to the console and returns nothing: the value of a
@@ -21,7 +21,7 @@ export interface IdfConsoleApi {
    * argument it just opens the terminal.
    */
   run(command?: string): void;
-  /** Shortcut for `run("snake")` — the terminal's ASCII snake. */
+  /** Shortcut for `run("snake")`, the terminal's ASCII snake. */
   snake(): void;
 }
 

@@ -44,7 +44,7 @@ export default function ReactionTest() {
         arm();
         break;
       case "waiting":
-        // Jumped the gun — cancel the pending "go" and flag it.
+        // Jumped the gun, cancel the pending "go" and flag it.
         clearTimer();
         setPhase("tooSoon");
         break;
@@ -70,7 +70,7 @@ export default function ReactionTest() {
     idle: "Tap to start",
     waiting: "Wait for green…",
     go: "TAP NOW",
-    tooSoon: "Too soon — tap to retry",
+    tooSoon: "Too soon, tap to retry",
     result: null,
   }[phase];
 
@@ -86,7 +86,7 @@ export default function ReactionTest() {
       <div className={styles.arenaBody}>
         <p className={styles.instruction}>
           When the pad turns green, tap as fast as you can. Simple visuomotor
-          latency — the loop from photons to finger.
+          latency: the loop from photons to finger.
         </p>
 
         <button

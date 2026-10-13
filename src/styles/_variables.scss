@@ -29,7 +29,7 @@ $color-slate-light: #111827;
 $color-slate-dark: #f3f4f6;
 $color-slate-muted: #64748b;
 
-// Yggdrasil page — the tmux palette the whole home-server setup shares
+// Yggdrasil page: the tmux palette the whole home-server setup shares
 $color-ygg-night: #0d1117; // pane background
 $color-ygg-ink: #1a1a2e; // borders, message bar
 $color-ygg-mist: #c4b5fd; // highlighted text
@@ -76,9 +76,9 @@ $terminal-panel-text: #c9d1d9;
 
 // Theme Mapping
 // Warm ivory paper instead of raw silk (#fafafa): near-white light mode read
-// as glare — this keeps the ink-on-paper feel while resting the eyes.
+// as glare, this keeps the ink-on-paper feel while resting the eyes.
 $color-bg-light: #edeae3;
-// Cards sit one shade lighter than the page — paper on the desk.
+// Cards sit one shade lighter than the page: paper on the desk.
 $color-card-light: #f3f1ea;
 $color-text-light: $color-slate-light;
 $color-accent-light: $color-volta-light;
@@ -93,12 +93,12 @@ $color-divider-dark: color.adjust($color-slate-dark, $alpha: -0.9);
 
 $color-destructive-light: #ff6b6b;
 
-// Typography — Font Families
+// Typography: font families
 $font-family-display: var(--font-josefin-slab), serif;
 $font-family-primary: var(--font-josefin-sans), sans-serif;
 $font-family-mono: var(--font-geist-mono), monospace;
 
-// Type Scale — Numeric (terminal/micro/display use; body copy uses the
+// Type Scale: numeric (terminal/micro/display use; body copy uses the
 // semantic scale below). 6px step removed: merged into 2xs.
 $font-size-2xs: 0.5rem;    // 8px
 $font-size-xs: 0.625rem;   // 10px
@@ -111,7 +111,7 @@ $font-size-2xl: 2.5rem;    // 40px
 $font-size-3xl: 3rem;      // 48px
 $font-size-4xl: 4rem;      // 64px
 
-// Type Scale — Semantic (PDF spec: Typefaces Details.pdf)
+// Type Scale: semantic (PDF spec: Typefaces Details.pdf)
 // Headings use Josefin Slab for display (h1) and Josefin Sans (h2–h6)
 $font-size-body: $font-size-md; // 16px
 $font-size-small: $font-size-base; // 14px
@@ -138,7 +138,7 @@ $letter-spacing-h6: 0.014em;
 $letter-spacing-body: 0.016em;
 $letter-spacing-small: 0.036em;
 $letter-spacing-label: 0.042em;
-// Numeric tracking scale — 7 intentional steps (0.06em merged into sm,
+// Numeric tracking scale: 7 intentional steps (0.06em merged into sm,
 // 0.14em merged into xl: the removed values were visually indistinguishable)
 $letter-spacing-tightest: -0.05em;
 $letter-spacing-tighter: -0.02em;
@@ -148,7 +148,7 @@ $letter-spacing-lg: 0.1em;
 $letter-spacing-xl: 0.12em;
 $letter-spacing-wide: 0.2em;
 
-// Fluid Type Scale — responsive clamp() values for headings
+// Fluid Type Scale: responsive clamp() values for headings
 // Scales smoothly between mobile (375px) and desktop (1200px+)
 $font-size-h1-fluid: clamp(2.25rem, 1.25rem + 2.5vw, 3.0625rem);
 $font-size-h2-fluid: clamp(1.75rem, 1rem + 2vw, 2.4375rem);
@@ -157,7 +157,7 @@ $font-size-h4-fluid: clamp(1.125rem, 0.75rem + 1.25vw, 1.5625rem);
 $font-size-h5-fluid: clamp(1rem, 0.75rem + 1vw, 1.25rem);
 $font-size-h6-fluid: clamp(0.875rem, 0.625rem + 1vw, 1.125rem);
 
-// Spacing Scale — 8 steps on a 4px grid (2px hair and 56px removed:
+// Spacing Scale: 8 steps on a 4px grid (2px hair and 56px removed:
 // merged into 4px and 48px to keep one intentional, uniform scale)
 $spacing-2xs: 4px;
 $spacing-xs: 8px;
@@ -171,7 +171,7 @@ $spacing-xxl: 80px;
 // Touch targets (minimum 44px per WCAG)
 $touch-target-min: 44px;
 
-// Fixed element sizes (kept off the spacing scale — these are component sizes)
+// Fixed element sizes (kept off the spacing scale: these are component sizes)
 $size-dot: 10px;          // status / toggle dots
 $size-dot-lg: 12px;       // terminal traffic-light dots
 $size-scrollbar: 6px;     // custom scrollbar thickness
@@ -180,7 +180,7 @@ $size-cursor-ring: 40px;  // custom cursor ring
 $size-control-sm: 36px;   // compact tappable chips (terminal quick commands)
 $size-control-md: 40px;   // comfortable control height below the full touch target
 
-// Container widths — content measures (max-width caps), 8 steps
+// Container widths: content measures (max-width caps), 8 steps
 $container-2xs: 320px;  // scoreboards, tiny panels
 $container-xs: 400px;   // compact modals: prompts, login, error boxes
 $container-sm: 520px;   // hero copy block
@@ -194,12 +194,12 @@ $container-max: 1400px; // page shells
 $border-hairline: 1px;
 $border-base: 2px;
 
-// Backdrop blur scale — 3 intentional steps
+// Backdrop blur scale: 3 intentional steps
 $blur-sm: 8px;
 $blur-md: 16px;
 $blur-lg: 24px;
 
-// Border Radius — 3 steps + full
+// Border Radius: 3 steps + full
 $radius-sm: 4px;
 $radius-md: 8px;
 $radius-lg: 16px;
@@ -211,29 +211,29 @@ $breakpoint-md: 576px;
 $breakpoint-lg: 700px;
 $breakpoint-xl: 768px;
 
-// Motion — Durations
+// Motion: durations
 // =============================================================================
 // Six steps covering the three bands AGENTS.md §10 defines: micro-interactions
 // 80–150ms, transitions 200–350ms, reveals 400–600ms. The values are the ones
-// the codebase already converged on by hand, not fresh inventions — 200ms was
+// the codebase already converged on by hand, not fresh inventions: 200ms was
 // written 56 times and 150ms 41 times before these tokens existed.
 //
 // Merges: 120ms folded into 150ms and 250ms into 300ms (both pairs are
 // indistinguishable in use); the lone 320ms became 300ms. Ambient loops
-// (tickers, drifting backgrounds, 1s–22s) are deliberately NOT tokenised —
+// (tickers, drifting backgrounds, 1s–22s) are deliberately NOT tokenised
 // they are per-effect timing, not a shared scale, and a token would imply
 // they are interchangeable.
-$duration-instant: 100ms; // press/tap feedback — must land inside the tap
+$duration-instant: 100ms; // press/tap feedback, must land inside the tap
 $duration-micro: 150ms; // hover, focus, colour and opacity shifts
 $duration-base: 200ms; // the default: most state changes
 $duration-slow: 300ms; // compound transitions, panels, layout-adjacent moves
 $duration-slower: 400ms; // overlays, modals, route-level changes
 $duration-reveal: 520ms; // scroll reveals and first arrivals
 
-// Motion — Easing
+// Motion: easing
 // =============================================================================
 // Five intentional curves, from the eight written by hand before this scale.
-// cubic-bezier(0.22, 1, 0.36, 1) (outQuint) was folded into $ease-out-expo —
+// cubic-bezier(0.22, 1, 0.36, 1) (outQuint) was folded into $ease-out-expo
 // the two are indistinguishable. cubic-bezier(0.645, 0.045, 0.355, 1) is kept
 // as $ease-in-out because the bare keyword is noticeably lazier in the middle.
 //

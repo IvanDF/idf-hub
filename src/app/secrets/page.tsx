@@ -27,7 +27,7 @@ export default function SecretsPage() {
         <div className={styles.content}>
           <Text as="p" variant="mono">
             If you were looking for the portfolio, I must advise you to look
-            away — a phrase which here means {'"'}go back to the homepage,
+            away, a phrase which here means {'"'}go back to the homepage,
             where everything is reassuringly normal{'"'}. What follows is a
             record of the things I have hidden in this site, kept against my
             better judgement.
@@ -40,7 +40,7 @@ export default function SecretsPage() {
             </summary>
             <div className={styles.details}>
               <Text as="p" variant="mono">
-                <Text as="strong" variant="mono">STATUS:</Text> ACTIVE — you used it to get here
+                <Text as="strong" variant="mono">STATUS:</Text> ACTIVE · you used it to get here
               </Text>
               <Text as="p" variant="mono">
                 <Text as="strong" variant="mono">TRIGGER:</Text> My name, knocked on three times
@@ -84,7 +84,7 @@ export default function SecretsPage() {
             </summary>
             <div className={styles.details}>
               <Text as="p" variant="mono">
-                <Text as="strong" variant="mono">STATUS:</Text> ARMED — the browser will politely ask for your microphone
+                <Text as="strong" variant="mono">STATUS:</Text> ARMED · the browser will politely ask for your microphone
               </Text>
               <Text as="p" variant="mono">
                 <Text as="strong" variant="mono">TRIGGER:</Text> Type {'"'}fus{'"'} in the terminal, then speak

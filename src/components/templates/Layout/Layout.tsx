@@ -10,12 +10,12 @@ import RightColumn from "./RightColumn";
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Business card landing page — fullscreen immersive canvas, no chrome
+  // Business card landing page, fullscreen immersive canvas, no chrome
   if (pathname?.startsWith("/business-card")) {
     return <>{children}</>;
   }
 
-  // Classified archive — fullscreen, no site chrome (the rails' divider drew
+  // Classified archive, fullscreen, no site chrome (the rails' divider drew
   // a stray line over the scene); its own CTA returns to the surface, and the
   // terminal stays reachable via ⌘K.
   if (pathname?.startsWith("/secrets")) {
@@ -27,7 +27,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // Admin routes get terminal with admin context — no sidebar or columns.
+  // Admin routes get terminal with admin context, no sidebar or columns.
   // NOT on the login page though: the always-open terminal used to cover the
   // form, forcing an Esc nobody could guess.
   if (pathname?.startsWith("/admin")) {

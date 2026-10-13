@@ -12,7 +12,7 @@
 }
 
 .card {
-  // Targeted anchor reset, never `all: unset` — that also wipes
+  // Targeted anchor reset, never `all: unset`, that also wipes
   // `animation-name` and would kill the reveal, exactly as it did on
   // .projectRow. See the note above the reveal rule in globals.scss.
   color: inherit;
@@ -32,7 +32,7 @@
   overflow: hidden;
   border-radius: $radius-md;
   background: var(--color-card, var(--color-bg));
-  // The same hand-drawn frame the full plates use, at the finer weight — the
+  // The same hand-drawn frame the full plates use, at the finer weight, the
   // continuity between the tiers is carried by this more than by anything else.
   border: 5px solid transparent;
   border-image: var(--ink-frame-fine) 20 / 5px round;

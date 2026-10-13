@@ -11,12 +11,12 @@ export default function Home() {
     <div className={styles.shell}>
       <ParticleLogo />
 
-      {/* Screen reader heading — always present for SEO/a11y */}
+      {/* Screen reader heading, always present for SEO/a11y */}
       <Text as="h1" variant="h1" className="sr-only">
-        IVAN DEL FATTI — Driven by curiosity, refined through design
+        IVAN DEL FATTI. Driven by curiosity, refined through design
       </Text>
 
-      {/* Hero — tagline + CTAs */}
+      {/* Hero, tagline + CTAs */}
       <div className={styles.hero}>
         <Text as="span" variant="label" className={styles.heroName}>
           IVAN DEL FATTI
@@ -41,7 +41,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Keyboard shortcuts — desktop only */}
+      {/* Keyboard shortcuts, desktop only */}
       <div className={styles.shortcutsHint}>
         <Text variant="label" as="span" className={styles.shortcut}>
           <kbd>CMD</kbd>+<kbd>K</kbd> explore

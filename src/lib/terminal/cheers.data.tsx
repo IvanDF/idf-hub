@@ -2,14 +2,14 @@ import type { CommandOutput } from "@/types/terminal";
 import styles from "@/components/organisms/Terminal/Terminal.module.scss";
 
 /**
- * "Cheers around the world" — a living travel journal of how you say
+ * "Cheers around the world", a living travel journal of how you say
  * *skål / cin cin* in every language iDF has toasted in on the road.
  *
  * TO ADD A NEW TOAST: append one entry to the `CHEERS` array below. No other
- * file needs to change — the terminal `cheers` command renders whatever is here.
+ * file needs to change, the terminal `cheers` command renders whatever is here.
  *
  * TO LINK ONE TO ITS TRIP: put the FindPenguins slug on the *place*, not the
- * toast — `the-fjord-gates`, not the whole URL. The flag becomes the link, so
+ * toast, `the-fjord-gates`, not the whole URL. The flag becomes the link, so
  * a toast shared by several countries keeps one line and still sends each flag
  * to the journey it belongs to. A place with no trip is plain text, so gaps
  * cost nothing.
@@ -32,7 +32,7 @@ export type CheersEntry = {
 
 const FINDPENGUINS = "https://findpenguins.com/idf.travel/trip";
 
-/** New Year in Vienna — where several of these were collected in one night. */
+/** New Year in Vienna, where several of these were collected in one night. */
 const VIENNA = "the-midwinter-run";
 
 /** The Baltic crossing: Estonia and Finland on the same journey. */
@@ -48,7 +48,7 @@ export const CHEERS: CheersEntry[] = [
     language: "German / Austrian",
     phrase: "Prost · Prosit · Pröst",
   },
-  // No UK trip in the journal — stays unlinked rather than pointing somewhere
+  // No UK trip in the journal, stays unlinked rather than pointing somewhere
   // it was not said.
   { places: [{ flag: "🇬🇧" }], language: "English", phrase: "Cheers" },
   {
@@ -91,14 +91,14 @@ export const CHEERS: CheersEntry[] = [
  * that grows as the journal does.
  *
  * The flags are the links. They are given real padding rather than left as bare
- * emoji — an emoji glyph is about 18px, and a tap target that small fails on a
+ * emoji, an emoji glyph is about 18px, and a tap target that small fails on a
  * phone, which is where a travel journal is most likely to be read.
  */
 export function buildCheersOutput(): CommandOutput[] {
   const linked = CHEERS.flatMap((c) => c.places).filter((p) => p.trip).length;
 
   return [
-    { type: "success", content: "🍻 SKÅL! — Cheers around the world" },
+    { type: "success", content: "🍻 SKÅL! · Cheers around the world" },
     { type: "system", content: "Collected on the road · the flag opens the trip" },
     ...CHEERS.map(
       (c, i): CommandOutput => ({
@@ -113,7 +113,7 @@ export function buildCheersOutput(): CommandOutput[] {
                   href={`${FINDPENGUINS}/${p.trip}`}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={`${c.language} — open the trip it was collected on`}
+                  aria-label={`${c.language}, open the trip it was collected on`}
                 >
                   {p.flag}
                 </a>
@@ -123,7 +123,7 @@ export function buildCheersOutput(): CommandOutput[] {
                 </span>
               ),
             )}
-            {` ${c.phrase} — ${c.language}`}
+            {` ${c.phrase} · ${c.language}`}
           </span>
         ),
       }),

@@ -43,7 +43,7 @@ export function useAdminCommands({ router, setIsOpen }: UseAdminCommandsOptions)
               { type: "system", content: `${projects.length} projects in DB` },
               ...projects.slice(0, 15).map((p: { id: string; status?: string; year: string }) => ({
                 type: "text" as const,
-                content: `${p.id.padEnd(28)} ${p.year}  ${p.status ?? "—"}`,
+                content: `${p.id.padEnd(28)} ${p.year}  ${p.status ?? "·"}`,
                 cta: { label: "→ open", cmd: `open ${p.id}` },
               })),
               ...(projects.length > 15

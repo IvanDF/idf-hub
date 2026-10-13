@@ -1,9 +1,9 @@
-/** The dither alphabet of the companion mark — the art uses nothing else. */
+/** The dither alphabet of the companion mark, the art uses nothing else. */
 const GLYPHS = ["{", "}", "=", ">", "<"] as const;
 
 /**
  * Deterministic noise glyph for a cell. A hash rather than `Math.random` so
- * the banner is byte-identical on every load — a face that reshuffles itself
+ * the banner is byte-identical on every load, a face that reshuffles itself
  * between refreshes reads as a rendering bug, not as texture.
  */
 function glyphAt(x: number, y: number): string {
@@ -16,7 +16,7 @@ function glyphAt(x: number, y: number): string {
  * Rescales ASCII art horizontally to a target column count.
  *
  * The art is authored on a square grid, but a console cell is roughly 0.6em
- * wide and a full line-height tall — so drawn as-is the face comes out at
+ * wide and a full line-height tall, so drawn as-is the face comes out at
  * about half its intended width. Columns are resampled nearest-neighbour and
  * every ink cell is re-dithered from the source alphabet, so the wider art
  * reads as noise instead of as doubled-up glyphs.

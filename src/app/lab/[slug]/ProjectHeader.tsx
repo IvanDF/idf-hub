@@ -19,7 +19,7 @@ export default function ProjectHeader({ project, kind }: ProjectHeaderProps) {
   return (
     <header className={styles.header}>
       {/* Plain spans, not <Text>: these chips carry their own type styles, and
-          Text's base class resets padding to 0 at the same specificity — so
+          Text's base class resets padding to 0 at the same specificity, so
           the cascade decided by source order and the chips lost their inset. */}
       <div className={styles.meta}>
         <span className={styles.metaChip}>{kind}</span>

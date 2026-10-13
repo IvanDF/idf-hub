@@ -13,7 +13,7 @@ import type { FormState, ProjectRow } from "./_components/admin.types";
 import { formToRow, rowToForm } from "./_components/admin.utils";
 import styles from "./page.module.scss";
 
-/** Projects admin dashboard — manages state and delegates rendering to sub-components. */
+/** Projects admin dashboard, manages state and delegates rendering to sub-components. */
 export default function AdminPage() {
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
@@ -165,7 +165,7 @@ export default function AdminPage() {
 
       {isDemo && (
         <div className={styles.demoBanner}>
-          [DEMO MODE] Session-only storage — changes exist only in this session and reset on reload
+          [DEMO MODE] Session-only storage: changes exist only in this session and reset on reload
         </div>
       )}
 

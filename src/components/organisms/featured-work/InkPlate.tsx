@@ -30,7 +30,7 @@ function toLines(text: string, perLine = 46) {
  * An opening sets the question, a beat between each plate says why this one
  * follows the last, a thread draws itself down the left as you go, and a
  * closing hands you on. Those four things are what make it a story rather than
- * a list that happens to be vertical — the plates themselves barely changed.
+ * a list that happens to be vertical, the plates themselves barely changed.
  *
  * The copy lives in data/work-story.ts so it can be rewritten without touching
  * this file. It is a draft: the structure is the work, the words are Ivan's.
@@ -43,7 +43,7 @@ function toLines(text: string, perLine = 46) {
 export default function InkPlate() {
   return (
     <div className={styles.showcase} data-featured-work="">
-      {/* The thread. Decorative — the beats carry the sequence in the text. */}
+      {/* The thread. Decorative, the beats carry the sequence in the text. */}
       <span className={styles.thread} aria-hidden="true" />
 
       <section className={styles.opening}>

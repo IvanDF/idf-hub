@@ -5,13 +5,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 export type ShoutLevel = 1 | 2 | 3;
 
 const LISTEN_WINDOW_MS = 12000;
-// it-IT first — Italian speaker gets better phoneme coverage for Dragon Language
+// it-IT first, Italian speaker gets better phoneme coverage for Dragon Language
 const LANGS = ["it-IT", "en-US"] as const;
 
 /**
  * Detects which Skyrim Thu'um level was spoken.
  *
- * "Fus Ro Dah" are Dragon Language words — they don't exist in any real language.
+ * "Fus Ro Dah" are Dragon Language words, they don't exist in any real language.
  * We merge transcripts from TWO simultaneous recognisers (it-IT + en-US).
  *
  * Real-world observations (Italian speaker, Chrome en-US):
@@ -37,7 +37,7 @@ function detectLevel(combined: string): ShoutLevel | null {
     /\brudah\b/.test(t);     // variant
 
   // ── FUS (Force) ───────────────────────────────────────────────────────────────
-  // en-US: force, fuzz, fuse, foose — it-IT: fus, faz, fas, fu, fuso, fai
+  // en-US: force, fuzz, fuse, foose, it-IT: fus, faz, fas, fu, fuso, fai
   const hasFus =
     /\bfus+\b/.test(t)  ||
     /\bfuzz\b/.test(t)  ||
@@ -52,7 +52,7 @@ function detectLevel(combined: string): ShoutLevel | null {
     /\bfu\b/.test(t);
 
   // ── RO (Balance) ─────────────────────────────────────────────────────────────
-  // en-US: row, roe, rho, raw — it-IT: ro, lo, re — OR first half of compound
+  // en-US: row, roe, rho, raw, it-IT: ro, lo, re, OR first half of compound
   const hasRo =
     /\bro\b/.test(t)  ||
     /\brow\b/.test(t) ||
@@ -64,7 +64,7 @@ function detectLevel(combined: string): ShoutLevel | null {
     hasRoDahCompound;
 
   // ── DAH (Push) ───────────────────────────────────────────────────────────────
-  // en-US: dah, da, duh, dot, ta — it-IT: da, fa, ha, ah, là — OR second half of compound
+  // en-US: dah, da, duh, dot, ta, it-IT: da, fa, ha, ah, là, OR second half of compound
   const hasDah =
     /\bdah?\b/.test(t) ||
     /\bduh\b/.test(t)  ||
@@ -92,7 +92,7 @@ export interface UseVoiceShoutReturn {
   shoutLevel: ShoutLevel | null;
   /**
    * Current best level detected so far in this session.
-   * Updates live as the user speaks — use for in-session progress UI.
+   * Updates live as the user speaks, use for in-session progress UI.
    */
   detectedLevel: ShoutLevel | null;
   /**
@@ -116,11 +116,11 @@ export interface UseVoiceShoutReturn {
  *
  * Runs TWO SpeechRecognition instances in parallel (it-IT + en-US) and combines
  * their transcripts before matching. This maximises detection because Dragon Language
- * words have no real-language equivalents — combining multiple language models casts
+ * words have no real-language equivalents, combining multiple language models casts
  * the widest phonetic net possible.
  *
  * Key behaviour:
- * - Does NOT stop on partial matches (level 1/2) — keeps listening for the full shout.
+ * - Does NOT stop on partial matches (level 1/2), keeps listening for the full shout.
  * - Stops immediately on level 3 or after LISTEN_WINDOW_MS.
  * - Fires `shoutLevel` once at session end with the highest level achieved.
  */
@@ -132,7 +132,7 @@ export function useVoiceShout(): UseVoiceShoutReturn {
   const [error, setError]                 = useState<string | null>(null);
   const [transcript, setTranscript]       = useState("");
 
-  // One recognizer per language — indexed by LANGS order
+  // One recognizer per language, indexed by LANGS order
   const recogsRef   = useRef<(SpeechRecognition | null)[]>([null, null]);
   const timerRef    = useRef<ReturnType<typeof setTimeout> | null>(null);
   const maxLevelRef = useRef<ShoutLevel | null>(null);

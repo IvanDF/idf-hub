@@ -21,8 +21,8 @@ describe('terminal command registry', () => {
     expect(new Set(words).size).toBe(words.length)
   })
 
-  // The drift this file was written to catch — a word that runs but is
-  // advertised nowhere, or advertised but runs nothing — is now impossible by
+  // The drift this file was written to catch, a word that runs but is
+  // advertised nowhere, or advertised but runs nothing, is now impossible by
   // construction: one array feeds help, autocomplete, the suggestion pool and
   // execution. These two tests hold that property rather than re-checking two
   // hand-written lists against each other.
@@ -39,7 +39,7 @@ describe('terminal command registry', () => {
   })
 
   // Eggs are matched before commands, so a word owned by a typeable egg can
-  // never reach its command — the alias would be dead on arrival. `cortex` was
+  // never reach its command, the alias would be dead on arrival. `cortex` was
   // exactly that. platformOnly eggs are excluded: they are never matched by
   // typing, so `yoda` and the theme words reach their command normally.
   it('no command word is shadowed by a typeable easter egg', () => {

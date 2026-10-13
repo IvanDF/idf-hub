@@ -5,7 +5,7 @@ import type { CommandOutput } from "@/types/terminal";
  * the left, the facts on the right, one row at a time.
  *
  * TO ADD A NEW MARK: append an array of lines to `MARKS`. Keep every line the
- * same length and no wider than ART_WIDTH — the columns are built by padding,
+ * same length and no wider than ART_WIDTH, the columns are built by padding,
  * so a ragged drawing drags the right-hand column with it. A test checks this.
  */
 
@@ -63,7 +63,7 @@ export const MARKS: string[][] = [
 
 /** The right-hand column. `assets` is gone: it only ever named itself. */
 const FACTS: { text: string; tone: CommandOutput["type"] }[] = [
-  { text: "iDF — BRAND IDENTITY", tone: "success" },
+  { text: "iDF · BRAND IDENTITY", tone: "success" },
   { text: "──────────────────────────────────", tone: "system" },
   { text: "DRIVEN BY CURIOSITY.", tone: "text" },
   { text: "REFINED THROUGH DESIGN.", tone: "text" },

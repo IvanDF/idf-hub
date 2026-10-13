@@ -1,10 +1,10 @@
 /**
  * The thread that runs through the Work page.
  *
- * ⚠️ DRAFT COPY — written from the project records and the tone-of-voice rules,
+ * ⚠️ DRAFT COPY, written from the project records and the tone-of-voice rules,
  * not from Ivan. The structure is the deliverable; the words are a starting
  * point and should be replaced with his own. Nothing here is a fact about a
- * project (those live in projects.ts) — these lines exist only to carry the
+ * project (those live in projects.ts), these lines exist only to carry the
  * reader from one plate to the next.
  *
  * Voice, per ai_rules/Personal Brand Tone of Voice.md: short sentences, every
@@ -27,7 +27,7 @@ export const OPENING = {
 
 /**
  * One beat per featured project, in showcase order. A beat says why this
- * project follows the last one — the job a description cannot do.
+ * project follows the last one, the job a description cannot do.
  */
 export const BEATS: StoryBeat[] = [
   {

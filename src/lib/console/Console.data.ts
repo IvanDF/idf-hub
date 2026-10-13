@@ -8,15 +8,15 @@ export interface ConsoleCommand {
 
 /**
  * The console command index. Adding a method to the API means adding it here
- * too — `idf.help()` renders this list and nothing else.
+ * too, `idf.help()` renders this list and nothing else.
  */
 export const CONSOLE_COMMANDS: readonly ConsoleCommand[] = [
   { call: "idf.whoami()", does: "who built this, and where to find him" },
   { call: "idf.stack()", does: "what this site actually runs on" },
-  { call: "idf.eggs()", does: "easter-egg progress — same store as the terminal" },
+  { call: "idf.eggs()", does: "easter-egg progress, same store as the terminal" },
   { call: "idf.hint()", does: "one nudge toward something still hidden" },
   { call: "idf.run(cmd)", does: "open the site terminal and run a command in it" },
-  { call: "idf.snake()", does: "shortcut for run(\"snake\") — go play" },
+  { call: "idf.snake()", does: "shortcut for run(\"snake\"), go play" },
   { call: "idf.help()", does: "this list" },
 ] as const;
 
@@ -27,7 +27,7 @@ export interface StackEntry {
 }
 
 /**
- * The stack, kept honest against `package.json` — if a dependency leaves the
+ * The stack, kept honest against `package.json`, if a dependency leaves the
  * project it leaves this table too.
  */
 export const CONSOLE_STACK: readonly StackEntry[] = [
@@ -48,7 +48,7 @@ export const CONSOLE_STACK: readonly StackEntry[] = [
  *
  * Deliberately job-title free. The About page puts a creed and three plain
  * facts where a role would go, and AGENTS.md positions Ivan as a curious
- * problem solver rather than a "developer" or a "designer" — so the console
+ * problem solver rather than a "developer" or a "designer", so the console
  * says the same things, in the same words.
  */
 export const CONSOLE_IDENTITY = {
@@ -67,7 +67,7 @@ export const CONSOLE_IDENTITY = {
 export const CONSOLE_INVITE =
   "There is a terminal behind ⌘K / Ctrl+K with a lot more in it.";
 
-/** Closing line of `idf.help()` — the same door, worded for a reader who
+/** Closing line of `idf.help()`, the same door, worded for a reader who
  * has already scrolled past the banner. */
 export const CONSOLE_HELP_TAIL =
   "The terminal (⌘K / Ctrl+K) knows a great deal more than this list does.";

@@ -40,7 +40,7 @@
   }
 
   &:active {
-    // Pressed by exactly the carved border depth. Set on both channels — see
+    // Pressed by exactly the carved border depth. Set on both channels, see
     // the note in globals.scss: the custom property is what reaches a control
     // the cursor's magnetism has adopted, `translate` covers the rest.
     --press-x: #{$border-base};

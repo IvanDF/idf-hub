@@ -49,7 +49,7 @@ export default function ShareCommandButton({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Clipboard API unavailable — silently ignore
+      // Clipboard API unavailable, silently ignore
     }
   };
 

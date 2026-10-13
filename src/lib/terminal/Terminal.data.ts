@@ -5,7 +5,7 @@ import {
 } from "@/lib/terminal/Terminal.constants";
 import type { CommandOutput } from "@/types/terminal";
 
-// Scribed glyphs, not emoji — the terminal speaks in mono type.
+// Scribed glyphs, not emoji, the terminal speaks in mono type.
 const CAT_ICON: Record<string, string> = {
   HIMYM: "◆",
   "R&M": "◇",
@@ -83,7 +83,7 @@ export const EASTER_EGG_RESPONSES: Record<string, CommandOutput[]> = {
     { type: "system", content: "iDF Companion" },
     {
       type: "text",
-      content: "The fusion-4 face — logo interpolated onto itself.",
+      content: "The fusion-4 face: logo interpolated onto itself.",
     },
     {
       type: "text",
@@ -91,7 +91,7 @@ export const EASTER_EGG_RESPONSES: Record<string, CommandOutput[]> = {
     },
   ],
   fus_ro_dah: [
-    { type: "system", content: "FUS RO DAH — Unrelenting Force" },
+    { type: "system", content: "FUS RO DAH · Unrelenting Force" },
     { type: "text", content: "The Greybeards stir in High Hrothgar." },
     {
       type: "text",
@@ -117,23 +117,23 @@ export const GUIDE_OUTPUT: CommandOutput[] = [
   { type: "system", content: "QUICK TOUR" },
   {
     type: "text",
-    content: "1) search [keyword] — find projects",
+    content: "1) search [keyword] · find projects",
     cta: { label: "→ try it", cmd: "search shader" },
   },
-  { type: "text", content: "2) open [id] — jump to a project" },
+  { type: "text", content: "2) open [id] · jump to a project" },
   {
     type: "text",
-    content: "3) lab / home / time — quick nav",
+    content: "3) lab / home / time · quick nav",
     cta: { label: "→ go to lab", cmd: "lab" },
   },
   {
     type: "text",
-    content: "4) theme — toggle dark/light",
+    content: "4) theme · toggle dark/light",
     cta: { label: "→ explore lab", cmd: "lab" },
   },
   {
     type: "text",
-    content: "5) sound — the site has a soundtrack, off by default",
+    content: "5) sound · the site has a soundtrack, off by default",
     cta: { label: "→ turn it on", cmd: "sound" },
   },
 ];
@@ -165,7 +165,7 @@ export function buildSoundOutput(
 
 /**
  * Output for `ygg`. Reskinning the panel is the point, so the lines are short
- * — the change is the message. The link is the reason the command exists:
+ *, the change is the message. The link is the reason the command exists:
  * someone who likes the look should be one keystroke from where it came from.
  *
  * @param on - Whether the skin was just turned on or off.
@@ -175,7 +175,7 @@ export function buildYggOutput(on: boolean): CommandOutput[] {
     return [{ type: "success", content: "Back to the house style." }];
   }
   return [
-    { type: "success", content: "ᛉ  Yggdrasil — the palette my tmux runs on." },
+    { type: "success", content: "ᛉ  Yggdrasil · the palette my tmux runs on." },
     {
       type: "text",
       content: "Violet is what you are on, blue is the active edge, stone is spent.",
@@ -194,48 +194,48 @@ export const ADMIN_HELP_OUTPUT: CommandOutput[] = [
   { type: "system", content: "┌── admin terminal ──" },
   {
     type: "text",
-    content: "list — list projects",
+    content: "list · list projects",
     cta: { label: "→ run", cmd: "list" },
   },
   {
     type: "text",
-    content: "add — add new project",
+    content: "add · add new project",
     cta: { label: "→ open form", cmd: "add" },
   },
   {
     type: "text",
-    content: "status — show project stats",
+    content: "status · show project stats",
     cta: { label: "→ run", cmd: "status" },
   },
   {
     type: "text",
-    content: "logout — sign out",
+    content: "logout · sign out",
     cta: { label: "→ run", cmd: "logout" },
   },
   {
     type: "text",
-    content: "theme — toggle theme",
+    content: "theme · toggle theme",
     cta: { label: "→ run", cmd: "theme" },
   },
   {
     type: "text",
-    content: "whoami — auth status",
+    content: "whoami · auth status",
     cta: { label: "→ run", cmd: "whoami" },
   },
   {
     type: "text",
-    content: "ping — API health check",
+    content: "ping · API health check",
     cta: { label: "→ run", cmd: "ping" },
   },
   {
     type: "text",
-    content: "brand — identity system",
+    content: "brand · identity system",
     cta: { label: "→ open", cmd: "brand" },
   },
   {
     type: "text",
-    content: "site — back to main site",
+    content: "site · back to main site",
     cta: { label: "→ go", cmd: "site" },
   },
-  { type: "text", content: "clear — clear terminal" },
+  { type: "text", content: "clear · clear terminal" },
 ];

@@ -36,7 +36,7 @@
   align-items: center;
 }
 
-// Transform and opacity only — both composited. An earlier animation in this
+// Transform and opacity only, both composited. An earlier animation in this
 // codebase keyframed border-radius inside a blended layer and repainted the
 // viewport every frame for the life of the page.
 @keyframes audio-beckon {

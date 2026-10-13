@@ -6,7 +6,7 @@ export const YGG_REALMS: YggRealm[] = [
     rune: "ᛟ",
     name: "The ground",
     layer: "roots",
-    myth: "Othala — the inherited land",
+    myth: "Othala · the inherited land",
     role: "A 2017 HP Elite x2 running Fedora Silverblue",
     detail:
       "An old 2-in-1 with an i5 and 8 GB of memory. The operating system is read-only and atomic: updates land as a new image, and the previous one is always a reboot away.",
@@ -16,7 +16,7 @@ export const YGG_REALMS: YggRealm[] = [
     rune: "ᛇ",
     name: "The trunk",
     layer: "trunk",
-    myth: "Eihwaz — the yew that connects the worlds",
+    myth: "Eihwaz · the yew that connects the worlds",
     role: "Rootless Podman containers under systemd, reachable over Tailscale",
     detail:
       "Every service is a container started by systemd, never by hand. A private mesh network is the only way in: nothing listens on the open internet.",
@@ -29,7 +29,7 @@ export const YGG_REALMS: YggRealm[] = [
     myth: "The watchman of the gods",
     role: "Home Assistant",
     detail:
-      "Runs the house. The robot vacuum cleans twice a day — on its own if nobody is home, after asking if someone is — and every alert from the system reaches the phone through it.",
+      "Runs the house. The robot vacuum cleans twice a day, on its own if nobody is home and after asking if someone is, and every alert from the system reaches the phone through it.",
   },
   {
     id: "urd",
@@ -49,7 +49,7 @@ export const YGG_REALMS: YggRealm[] = [
     myth: "The Norn of what is becoming",
     role: "A bridge between the vault and the server",
     detail:
-      "Keeps a readable copy of the notes on the server, so scripts and the assistant can read them, log a workout or tidy the inbox — and every change flows back to every device.",
+      "Keeps a readable copy of the notes on the server, so scripts and the assistant can read them, log a workout or tidy the inbox, and every change flows back to every device.",
   },
   {
     id: "ratatoskr",
@@ -171,7 +171,7 @@ export const YGG_FORGE: YggForgeItem[] = [
 /**
  * The page's sections, as tmux windows. The status bar numbers them and
  * highlights the one you are in, so the bar is navigation rather than
- * decoration — and because one list drives both, a window cannot point at a
+ * decoration, and because one list drives both, a window cannot point at a
  * section that does not exist.
  */
 export const YGG_SECTIONS: { n: number; id: string; label: string }[] = [

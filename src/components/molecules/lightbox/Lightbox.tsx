@@ -32,7 +32,7 @@ export default function Lightbox({
   onNavigate,
   onClose,
 }: LightboxProps) {
-  // Frames either side of the current one, deduplicated — a two-image gallery
+  // Frames either side of the current one, deduplicated, a two-image gallery
   // has the same neighbour on both sides, and a one-image gallery has none.
   const neighbours = Array.from(
     new Set([
@@ -232,7 +232,7 @@ export default function Lightbox({
 
         {/* The neighbours, fetched but never shown. Pressing an arrow used to
             be the first time a frame's 100vw variant was ever requested, so
-            the wait was the optimiser generating it plus the download —
+            the wait was the optimiser generating it plus the download
             seconds, on a Retina viewport. Mounting them means the browser has
             already got the next one when the arrow is pressed. Only the two
             adjacent frames: enough for stepping, without fetching a whole

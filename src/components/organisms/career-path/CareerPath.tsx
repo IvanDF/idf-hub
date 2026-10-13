@@ -10,7 +10,7 @@ const TOTAL = String(CAREER.length).padStart(2, "0");
 /**
  * Career timeline: one full-viewport chapter per step. The giant year is the
  * backdrop; highlights carry the concrete work (migrations, systems,
- * challenges) on recent roles. Chapters render statically visible — no
+ * challenges) on recent roles. Chapters render statically visible, no
  * scroll-driven opacity, which on Safari/mobile could leave the
  * IntersectionObserver callback unfired and the text stuck invisible.
  */

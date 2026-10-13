@@ -9,7 +9,7 @@ import { SYSTEM_COMMANDS } from "./commands/system";
  *
  * This is the only list. Help, autocomplete, the "did you mean" pool and
  * execution all read from it, so a word cannot be runnable and undocumented at
- * the same time — which is exactly what ten of them were while a 45-case
+ * the same time, which is exactly what ten of them were while a 45-case
  * switch and a hand-written help list were maintained side by side.
  *
  * The entries are grouped into one file per category only because the catalogue

@@ -78,7 +78,7 @@ function InteractiveParticles() {
     const vels = velocitiesRef.current;
     const time = clock.getElapsedTime();
 
-    // Reduced motion: particles rest in the sculpted logo shape — no
+    // Reduced motion: particles rest in the sculpted logo shape, no
     // breathing, no mouse repulsion, no drift.
     if (reduceMotion) {
       positions.set(targets);

@@ -28,7 +28,7 @@ const FILTERS: { label: string; group: FilterGroup; category?: ProjectCategory }
 
 /**
  * Craft covers several kinds of work, so it is the one group that subdivides.
- * The second row only appears once Craft is chosen — the top level stays at
+ * The second row only appears once Craft is chosen, the top level stays at
  * three, and these can grow without crowding it.
  */
 const KIND_FILTERS: { label: string; kind: ProjectKind }[] = [
@@ -211,7 +211,7 @@ export default function Lab() {
         {view === "career" && (
           // Plain section, no entrance opacity/transform: the timeline must be
           // visible the instant it mounts. A framer initial={opacity:0} here
-          // relied on the mount animation completing — on Safari an interrupted
+          // relied on the mount animation completing, on Safari an interrupted
           // animation could pin the whole section invisible.
           <section key="career" aria-label="Career">
             <CareerPath />
@@ -221,7 +221,7 @@ export default function Lab() {
 
         {/* Outside the filter-keyed wrapper below on purpose. The story is the
             selection, not a view of the collection, so a filter change must not
-            re-mount it — and that wrapper animates from opacity 0, which is the
+            re-mount it, and that wrapper animates from opacity 0, which is the
             one thing the scroll-driven passes must never depend on. */}
         {view === "lab" && <FeaturedWork />}
 
@@ -236,7 +236,7 @@ export default function Lab() {
             {/* No heading between the plates above and the cards below: the
                 weight stepping down is what marks the change, and a title here
                 put a seam back in the page. The filters are a quiet row rather
-                than a block for the same reason — they are a utility, not a
+                than a block for the same reason, they are a utility, not a
                 chapter break.
 
                 They stay above the work they filter even though the rest of the

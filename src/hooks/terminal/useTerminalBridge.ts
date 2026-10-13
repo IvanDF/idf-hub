@@ -7,7 +7,7 @@ import {
 import { useEffect, useRef } from "react";
 
 /**
- * The overlay has to mount before a command can render into it — the same
+ * The overlay has to mount before a command can render into it, the same
  * reason the `?cmd=` deep link waits before executing.
  */
 const COMMAND_EXECUTION_DELAY_MS = 200;

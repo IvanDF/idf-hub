@@ -47,7 +47,7 @@
 
 // ── Header ────────────────────────────────────────────────────────────────────
 // The structural rules on this page are drawn with the baked ink asset rather
-// than a flat border — see @mixin ink-edge in _mixins.scss.
+// than a flat border, see @mixin ink-edge in _mixins.scss.
 .header {
   position: relative;
   padding-bottom: $spacing-xl;
@@ -355,7 +355,7 @@
   max-width: 56ch;
 }
 
-// ── Spec bar — role, duration, status, print specs ──────────────────────────
+// ── Spec bar, role, duration, status, print specs ──────────────────────────
 .specBar {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -533,7 +533,7 @@
   gap: $spacing-sm;
 }
 
-// ── Plates — the artefacts behind a composed piece ──────────────────────────
+// ── Plates, the artefacts behind a composed piece ──────────────────────────
 .plates {
   margin-bottom: $spacing-2xl;
 }
@@ -620,7 +620,7 @@
 
 // Neutral stage for a supplied mockup image. The aspect ratio follows the
 // product so frames line up in the grid; nothing about the product is drawn
-// here — the image already is the mockup.
+// here, the image already is the mockup.
 .mockupStage {
   position: relative;
   width: 100%;
@@ -646,7 +646,7 @@
   opacity: 0.45;
 }
 
-// ── Live embed (CodePen) — the work shown working, not screenshotted ─────────
+// ── Live embed (CodePen), the work shown working, not screenshotted ─────────
 .embed {
   margin: $spacing-xl 0;
 }

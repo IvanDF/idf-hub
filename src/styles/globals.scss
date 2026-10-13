@@ -159,7 +159,7 @@ body {
   color: var(--color-text);
   overflow: hidden;
   // Emoji-capable glyphs (arrows, play triangles) must render as text, never
-  // as color emoji — iOS falls back to Apple Color Emoji when the webfont
+  // as color emoji, iOS falls back to Apple Color Emoji when the webfont
   // lacks a glyph. Belt and braces with the U+FE0E selectors in the markup.
   font-variant-emoji: text;
 
@@ -218,7 +218,7 @@ canvas {
   color: var(--color-secondary);
 }
 
-/* Screen-reader only — visually hidden, accessible to AT */
+/* Screen-reader only, visually hidden, accessible to AT */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -236,11 +236,11 @@ canvas {
    Driven by an attribute, so one rule covers the whole site and the keyframes
    sit in the same file that references them. (A copy in a CSS Module gets its
    animation-name rewritten to a scoped one while a shared keyframe keeps the
-   plain name — it builds, it ships, and nothing animates. That happened.)
+   plain name, it builds, it ships, and nothing animates. That happened.)
 
    Two paths, and the fallback is the point. `animation-timeline` is Chrome
-   115+ and Safari 26+ only, so the native path alone means most visitors —
-   including anyone on Safari 18 — see no motion at all. The JS fallback in
+   115+ and Safari 26+ only, so the native path alone means most visitors
+   including anyone on Safari 18, see no motion at all. The JS fallback in
    useScrollReveal covers the rest.
 
    Whichever path runs, the resting state here is visible: no rule below sets
@@ -249,7 +249,7 @@ canvas {
 
    One way to break this silently: `all: unset` on a revealed element. It resets
    `animation-name` and `animation-timeline` too, and a CSS-module class ties
-   this rule on specificity (0,1,0) while loading later — so the reset wins and
+   this rule on specificity (0,1,0) while loading later, so the reset wins and
    nothing animates, with no error anywhere. That is exactly what happened to
    the Lab project rows. If a component needs to strip UA chrome, reset the
    handful of properties it actually means (see .mediaFrameClickable and
@@ -308,12 +308,12 @@ canvas {
      Two channels, because the custom cursor's magnetism writes `translate`
      inline and an inline style outranks any rule here. `--press-y` is the one
      the magnet reads and adds to its own offset; the `translate` below is the
-     path for everything the magnet never adopts — touch devices, and controls
+     path for everything the magnet never adopts, touch devices, and controls
      past its 480x120 size gate. Both land on the same 1px.
 
      The disabled guards are wrapped in `:where()` so they weigh nothing:
-     `button:not(:disabled):active` scores (0,2,1) — a `:not()` counts as a
-     class — which quietly outranked `.button:active` (0,2,0) and flattened the
+     `button:not(:disabled):active` scores (0,2,1), a `:not()` counts as a
+     class, which quietly outranked `.button:active` (0,2,0) and flattened the
      Button's carved 2px press to this 1px baseline. `:where()` restores what
      the paragraph above claims: a component always wins. */
   a:active,
@@ -325,14 +325,14 @@ canvas {
   }
 }
 
-/* The focus ring is the keyboard's cursor, not decoration — so it lives
+/* The focus ring is the keyboard's cursor, not decoration, so it lives
    outside the reduced-motion guard and never animates in. */
 :focus-visible {
   outline: $border-base solid var(--color-accent);
   outline-offset: 3px;
 }
 
-/* ── Carved Brutalism — Ink ──────────────────────────────────────────────────
+/* ── Carved Brutalism, Ink ──────────────────────────────────────────────────
 
    Two ways to get the hand-cut edge, and they are not interchangeable.
 
@@ -342,7 +342,7 @@ canvas {
 
    The `filter:` utilities that follow are the old runtime route. They are
    feTurbulence + feDisplacementMap, evaluated per pixel, never GPU
-   accelerated, over a region sized in percentages of the element — and WebKit
+   accelerated, over a region sized in percentages of the element, and WebKit
    will not cache the filtered layer of a fixed element over scrolling content.
    Use them ONLY on something small and static. Never on a page root, a
    scrolling container, or anything `position: fixed`. */
@@ -355,7 +355,7 @@ canvas {
   border-image: var(--ink-frame) 20 / 10px round;
 }
 
-/* Same frame at half amplitude, for controls and chips — beside text the full
+/* Same frame at half amplitude, for controls and chips, beside text the full
    wobble competes with the letterforms. The narrower band also keeps the
    drawing off the label. */
 .ink-frame-sm {
@@ -385,7 +385,7 @@ canvas {
   background-size: 12px auto;
 }
 
-/* Runtime filters — small, static elements only. See the note above. */
+/* Runtime filters, small, static elements only. See the note above. */
 .ink {
   filter: var(--ink);
 }
@@ -396,7 +396,7 @@ canvas {
   filter: var(--ink-draft);
 }
 
-/* ── Carved Brutalism — Global stamp shadow on all bordered buttons ──────────
+/* ── Carved Brutalism, Global stamp shadow on all bordered buttons ──────────
    Every button/pill with a border gets the depth-sm stamp by default.
    Hover lifts to depth-md with an offset move. Press snaps back. */
 button:not([data-no-stamp]),
@@ -447,19 +447,19 @@ button:not([data-no-stamp]),
   }
 }
 
-/* ── Fus Ro Dah page shake — scales with shout level ───────────────────────── */
+/* ── Fus Ro Dah page shake, scales with shout level ───────────────────────── */
 @media (prefers-reduced-motion: no-preference) {
-  /* Level 1 — Fus: subtle tremor */
+  /* Level 1, Fus: subtle tremor */
   html[data-fus-level="1"] body {
     animation: fusShake1 0.45s ease-out;
   }
 
-  /* Level 2 — Fus Ro: medium rumble */
+  /* Level 2, Fus Ro: medium rumble */
   html[data-fus-level="2"] body {
     animation: fusShake2 0.75s ease-out;
   }
 
-  /* Level 3 — Fus Ro Dah: full earthquake */
+  /* Level 3, Fus Ro Dah: full earthquake */
   html[data-fus-level="3"] body {
     animation: fusShake3 1.1s ease-out;
   }
@@ -563,7 +563,7 @@ button:not([data-no-stamp]),
 
 /* ── Reduced motion ─────────────────────────────────────────────────────────
    Collapse every decorative CSS animation and transition (ticker, glitch
-   slices, pulses, fades). JS-driven motion — framer, three.js, scramble —
+   slices, pulses, fades). JS-driven motion, framer, three.js, scramble
    is gated per component via useReducedMotion. */
 @media (prefers-reduced-motion: reduce) {
   *,

@@ -17,7 +17,7 @@ const EXIT_QUOTES = [
 
 /**
  * Theme toggle pill with its label/easter-egg logic. Single source for the
- * control — used by the desktop right rail and the mobile overlay.
+ * control, used by the desktop right rail and the mobile overlay.
  */
 export default function ThemeToggle() {
   const { theme, toggleTheme, superDarkMode, clickHint } = useTheme();
