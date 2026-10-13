@@ -5,6 +5,21 @@ import { Project } from "@/types/project";
 // anything with a repo, image EXIF for the photographic and print work
 // because the hand-written years had drifted by up to three years.
 
+/**
+ * THE SHOWCASE, and where it is going.
+ *
+ * `featured` sets the order of the plates on the Work page. The target Ivan
+ * asked for is Sula, then Azimut Marketplace, then Yggdrasil; the three below
+ * it hold their places until those two have content.
+ *
+ * Neither is ready. Sula is written up but not cleared to publish, so it sits
+ * in projects.draft.ts. Azimut Marketplace exists only as a career chapter at
+ * /lab/path/azimut-marketplace and has no project record yet. Reordering now
+ * would leave the showcase with a single plate, so the order changes when the
+ * content lands, not before.
+ *
+ * Both are waiting on the brief: docs/project-brief.md.
+ */
 export const PROJECTS: Project[] = [
   // ----------------------------------------------------------------------
   // INFRASTRUCTURE
@@ -468,7 +483,7 @@ export const PROJECTS: Project[] = [
   // ----------------------------------------------------------------------
   {
     id: "rick-and-morty-theme",
-    featured: 4,
+    featured: 3,
     title: "Rick and Morty Theme",
     description:
       "VS Code theme extension with dual variants, semantic token mapping, and contrast-aware palettes for long coding sessions.",
@@ -785,7 +800,7 @@ export const PROJECTS: Project[] = [
   // ----------------------------------------------------------------------
   {
     id: "figma-icon-builder",
-    featured: 3,
+    featured: 2,
     title: "Icon Builder",
     description:
       "Figma plugin that converts selected design nodes into reusable React icon components, with optional motion-ready output.",
@@ -1193,7 +1208,7 @@ export const PROJECTS: Project[] = [
   // ----------------------------------------------------------------------
   {
     id: "mirror-archetype-cosplay",
-    featured: 5,
+    featured: 4,
     title: "The Mirror Archetype: Cosplay Compositing",
     description:
       "Complex portraiture and digital compositing project featuring a single performer in dual protagonist/antagonist roles through narrative symmetry.",
