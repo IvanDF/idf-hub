@@ -1,0 +1,106 @@
+@use "@/styles/variables" as *;
+
+.wall {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  margin-block: $spacing-xxl;
+}
+
+.title {
+  margin: 0;
+  font-family: $font-family-display;
+  font-size: $font-size-h3-fluid;
+  line-height: $line-height-h3;
+}
+
+.lede {
+  margin: 0;
+  max-width: $container-md;
+  font-size: $font-size-md;
+  line-height: $line-height-body;
+  opacity: $opacity-muted;
+}
+
+.code {
+  font-family: $font-family-mono;
+  font-size: 0.9em;
+  color: var(--color-accent);
+}
+
+.grid {
+  display: grid;
+  gap: $spacing-lg;
+  margin: $spacing-md 0 0;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xs;
+  min-width: 0;
+}
+
+.qrLink {
+  // Targeted reset, never `all: unset`: that also wipes animation-name.
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+// A code is read off its quiet zone, so it keeps a light plate under it in
+// both themes rather than inheriting the page. See the note in the generator:
+// an inverted code scans less reliably, and these are meant to be scanned.
+.qrFrame {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  width: 100%;
+  padding: $spacing-xs;
+  background: $color-white;
+  border-radius: $radius-md;
+  border: 5px solid transparent;
+  border-image: var(--ink-frame-fine) 20 / 5px round;
+  transition: scale $duration-slow $ease-out-expo;
+}
+
+.qrLink:hover .qrFrame,
+.qrLink:focus-visible .qrFrame {
+  scale: 1.03;
+}
+
+.qr {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.label {
+  font-family: $font-family-display;
+  font-size: $font-size-md;
+}
+
+.qrLink:hover .label,
+.qrLink:focus-visible .label {
+  color: var(--color-accent);
+}
+
+.context {
+  margin: 0;
+  font-size: $font-size-base;
+  line-height: $line-height-small;
+  opacity: $opacity-muted;
+}
+
+.type {
+  margin: 0;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  letter-spacing: $letter-spacing-md;
+  opacity: $opacity-muted;
+}

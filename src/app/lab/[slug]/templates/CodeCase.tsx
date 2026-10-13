@@ -1,6 +1,7 @@
 import Text from "@/components/atoms/text";
 import type { Project } from "@/types/project";
 import ProjectMedia from "../ProjectMedia";
+import CardWall from "@/components/molecules/card-wall";
 import styles from "../ProjectDetail.module.scss";
 
 interface CodeCaseProps {
@@ -64,6 +65,9 @@ export default function CodeCase({ project, frames }: CodeCaseProps) {
           ))}
         </section>
       )}
+
+      {/* The one project whose argument is the cards themselves. */}
+      {project.id === "gabberg-icard" && <CardWall />}
 
       {decisions.length > 0 && (
         <section className={styles.decisions} data-reveal="" aria-label="Technical decisions">
