@@ -8,8 +8,14 @@
 $bg: $color-ygg-night;
 $line: $color-ygg-ink;
 $text: $color-slate-dark;
-$muted: $color-slate-muted;
-$accent: $color-volta-light;
+// Lighter than the shared muted token. This page keeps a fixed tmux palette
+// rather than following the theme, and $color-slate-muted on the night
+// background measures 3.98:1, just under the AA floor, while carrying most of
+// the page's secondary copy.
+$muted: #748297; // 4.85:1 on $color-ygg-night
+// The dark-mode violet, because this page is always dark. The light-mode one
+// measures 4.47:1 here, a hair under the floor.
+$accent: $color-volta-dark;
 $accent-soft: $color-volta-dark;
 $mist: $color-ygg-mist;
 $blue: $color-lario-dark;

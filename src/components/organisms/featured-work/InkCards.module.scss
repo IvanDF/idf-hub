@@ -46,6 +46,9 @@
   background: color-mix(in srgb, var(--color-text) 4%, transparent);
 }
 
+// Exempt from the contrast floor on purpose: this sits inside an
+// aria-hidden frame and stands in for an image that does not exist yet. It is
+// a texture, not something to read, and the project's name is set beneath it.
 .plateMark {
   font-family: $font-family-display;
   font-size: clamp(1.5rem, 1rem + 2.5vw, 2.5rem);

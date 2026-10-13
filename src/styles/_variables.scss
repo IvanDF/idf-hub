@@ -81,7 +81,13 @@ $color-bg-light: #edeae3;
 // Cards sit one shade lighter than the page: paper on the desk.
 $color-card-light: #f3f1ea;
 $color-text-light: $color-slate-light;
-$color-accent-light: $color-volta-light;
+// Not the brand violet itself. Volta (#8b5cf6) on the ivory page measures
+// 3.52:1, under the 4.5 AA floor for small text, and the accent carries most
+// of the accented copy: nav, prompts, chips, the active tab. This is the same
+// violet darkened until it clears, at 4.62:1 both as text on the page and as
+// the page colour on a violet pill. The brand swatch above is unchanged, and
+// dark mode keeps Volta's lighter sibling, which already passes.
+$color-accent-light: #764ed1;
 $color-secondary-light: $color-lario-light;
 $color-divider-light: color.adjust($color-slate-light, $alpha: -0.9);
 
@@ -172,6 +178,13 @@ $spacing-lg: 24px;
 $spacing-xl: 32px;
 $spacing-2xl: 48px;
 $spacing-xxl: 80px;
+
+// The faintest a line of text may be and still clear 4.5:1 against the page.
+// Measured, not chosen: on the ivory light background the site's ink reaches
+// the AA floor at 0.61 and fails at everything below, so muted copy that was
+// set at 0.4 or 0.45 was between 2.46:1 and 2.81:1. Dark mode is laxer (0.48),
+// and light is what binds.
+$opacity-muted: 0.62;
 
 // Touch targets (minimum 44px per WCAG)
 $touch-target-min: 44px;

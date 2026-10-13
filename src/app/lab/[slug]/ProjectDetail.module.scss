@@ -33,7 +33,7 @@
   text-transform: uppercase;
   letter-spacing: $letter-spacing-xl;
   color: var(--color-text);
-  opacity: 0.45;
+  opacity: $opacity-muted;
   text-decoration: none;
   // Vertical padding rather than height: the 10px label alone gave a 14px-tall
   // tap target. The margin below is reduced by the same amount so the padding
@@ -89,14 +89,14 @@
   font-family: $font-family-mono;
   font-size: $font-size-xs;
   color: var(--color-text);
-  opacity: 0.3;
+  opacity: $opacity-muted;
 }
 
 .metaYear {
   font-family: $font-family-mono;
   font-size: $font-size-xs;
   color: var(--color-text);
-  opacity: 0.4;
+  opacity: $opacity-muted;
 }
 
 .metaLive {
@@ -105,7 +105,10 @@
   text-transform: uppercase;
   letter-spacing: $letter-spacing-lg;
   background: color-mix(in srgb, var(--color-accent) 15%, transparent);
-  color: var(--color-accent);
+  // Not the accent: the accent already sits at the AA floor against the page,
+  // and its own 15% tint lightens the background under it just enough to drop
+  // it below. The tint carries the signal; the text stays ink.
+  color: var(--color-text);
   border: $border-hairline solid color-mix(in srgb, var(--color-accent) 40%, transparent);
   border-radius: var(--route-filter-radius, #{$radius-full});
   padding: $spacing-2xs $spacing-xs;
@@ -163,7 +166,7 @@
   font-size: $font-size-xs;
   letter-spacing: $letter-spacing-lg;
   color: var(--color-text);
-  opacity: 0.25;
+  opacity: $opacity-muted;
   padding-top: $spacing-2xs;
   flex-shrink: 0;
 }
@@ -181,7 +184,7 @@
   text-transform: uppercase;
   letter-spacing: $letter-spacing-wide;
   color: var(--color-text);
-  opacity: 0.45;
+  opacity: $opacity-muted;
   margin: 0;
 }
 
@@ -279,7 +282,7 @@
   text-transform: uppercase;
   letter-spacing: $letter-spacing-lg;
   color: var(--color-text);
-  opacity: 0.5;
+  opacity: $opacity-muted;
   @include ink-frame-fine(5px);
   padding: $spacing-2xs $spacing-xs;
 }
@@ -326,7 +329,7 @@
   text-transform: uppercase;
   letter-spacing: $letter-spacing-lg;
   color: var(--color-text);
-  opacity: 0.5;
+  opacity: $opacity-muted;
   text-decoration: none;
   padding: $spacing-sm 0;
   transition: opacity $duration-micro ease;
@@ -364,7 +367,7 @@
   font-size: $font-size-sm;
   line-height: 1.6;
   color: var(--color-text);
-  opacity: 0.5;
+  opacity: $opacity-muted;
   margin: 0;
   max-width: 56ch;
 }
@@ -393,7 +396,7 @@
   text-transform: uppercase;
   letter-spacing: $letter-spacing-wide;
   color: var(--color-text);
-  opacity: 0.35;
+  opacity: $opacity-muted;
 }
 
 .specValue {
@@ -435,7 +438,7 @@
     font-size: $font-size-xs;
     letter-spacing: $letter-spacing-lg;
     color: var(--color-accent);
-    opacity: 0.6;
+    opacity: $opacity-muted;
   }
 
   @include mobile {
@@ -473,7 +476,7 @@
   font-size: $font-size-sm;
   line-height: 1.65;
   color: var(--color-text);
-  opacity: 0.55;
+  opacity: $opacity-muted;
   margin: $spacing-md 0 0;
   padding-left: $spacing-md;
   border-left: $border-base solid color-mix(in srgb, var(--color-accent) 35%, transparent);
@@ -591,7 +594,7 @@
   font-size: $font-size-xs;
   letter-spacing: $letter-spacing-lg;
   color: var(--color-accent);
-  opacity: 0.6;
+  opacity: $opacity-muted;
 }
 
 .plateLabel {
@@ -609,7 +612,7 @@
   font-size: $font-size-sm;
   line-height: 1.6;
   color: var(--color-text);
-  opacity: 0.55;
+  opacity: $opacity-muted;
   margin: 0;
 }
 
@@ -657,7 +660,7 @@
   text-transform: uppercase;
   letter-spacing: $letter-spacing-lg;
   color: var(--color-text);
-  opacity: 0.45;
+  opacity: $opacity-muted;
 }
 
 // ── Live embed (CodePen), the work shown working, not screenshotted ─────────

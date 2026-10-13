@@ -31,8 +31,11 @@ interface AudioNudge {
  *
  * The bubble waits for the page to settle, says its piece near the control it
  * is talking about, and retires on its own. Coming near the control brings it
- * forward early, if you are already looking there, the timer is beside the
- * point. Either way it is shown once, ever.
+ * forward early, since if you are already looking there the timer is beside
+ * the point.
+ *
+ * It is only retired for good when the visitor answers it, by dismissing it or
+ * by turning sound on. A bubble that times out unseen comes back next visit.
  *
  * @param audioEnabled - Skip the whole thing when sound is already on.
  */
@@ -40,6 +43,14 @@ export function useAudioNudge(audioEnabled: boolean): AudioNudge {
   const [visible, setVisible] = useState(false);
   const [retired, setRetired] = useState(false);
 
+  /**
+   * Dismissed by the visitor: gone for good.
+   *
+   * Only an actual answer writes the flag. The timer below used to call this
+   * too, which meant a bubble nobody was looking at retired itself permanently
+   * fifteen seconds after it appeared. Being away from the screen is not the
+   * same as saying no.
+   */
   const dismiss = useCallback(() => {
     setVisible(false);
     setRetired(true);
@@ -49,6 +60,9 @@ export function useAudioNudge(audioEnabled: boolean): AudioNudge {
       // Private mode or blocked storage: the nudge just returns next visit.
     }
   }, []);
+
+  /** Timed out unanswered: off the screen, but it may come back another visit. */
+  const retire = useCallback(() => setVisible(false), []);
 
   const reveal = useCallback(() => {
     if (retired || audioEnabled) return;
@@ -71,13 +85,13 @@ export function useAudioNudge(audioEnabled: boolean): AudioNudge {
     // setState inside a timer, not in the effect body: this is a scheduled
     // event, not state derived from a render.
     const appear = setTimeout(() => setVisible(true), APPEAR_AFTER_MS);
-    const retire = setTimeout(dismiss, APPEAR_AFTER_MS + LINGER_MS);
+    const timeout = setTimeout(retire, APPEAR_AFTER_MS + LINGER_MS);
 
     return () => {
       clearTimeout(appear);
-      clearTimeout(retire);
+      clearTimeout(timeout);
     };
-  }, [audioEnabled, retired, dismiss]);
+  }, [audioEnabled, retired, retire]);
 
   return {
     visible: visible && !audioEnabled,

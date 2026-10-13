@@ -197,7 +197,9 @@
 }
 
 .separator {
-  color: color.adjust($color-slate-light, $alpha: -0.65);
+  // Was 35% of the light ink on a dark stage, which measured 1.03:1. The page
+  // keeps a fixed retro palette, so this takes the pale ink the rest of it uses.
+  color: color.adjust($color-slate-dark, $alpha: -0.45);
 }
 
 .artifactDescription {
@@ -394,7 +396,8 @@
 }
 
 .backLink {
-  color: $color-slate-muted;
+  // $color-slate-muted measures 4.16:1 on this stage, just under the floor.
+  color: color.adjust($color-slate-dark, $alpha: -0.3);
   text-transform: uppercase;
   font-size: $font-size-sm;
   letter-spacing: $letter-spacing-wide;

@@ -43,7 +43,6 @@ $test-colors: (
   letter-spacing: $letter-spacing-xl;
   text-transform: uppercase;
   color: var(--color-accent);
-  opacity: 0.9;
 }
 
 .title {
@@ -106,7 +105,9 @@ $test-colors: (
 .pickerIndex {
   font-family: $font-family-mono;
   font-size: $font-size-xs;
-  color: var(--color-accent);
+  // Not the accent: this sits on an accent-tinted tab, and the tint lightens
+  // the page under it just enough to take the accent below the floor.
+  color: var(--color-text);
   letter-spacing: $letter-spacing-lg;
 }
 

@@ -67,7 +67,7 @@
   text-transform: uppercase;
   color: var(--color-text);
   margin: 0;
-  opacity: 0.55;
+  opacity: $opacity-muted;
 }
 
 .heroMeta {
@@ -98,7 +98,7 @@
   font-size: $font-size-xs;
   letter-spacing: $letter-spacing-xl;
   text-transform: uppercase;
-  opacity: 0.4;
+  opacity: $opacity-muted;
   font-weight: 700;
 }
 
@@ -153,11 +153,11 @@
   text-transform: uppercase;
   white-space: nowrap;
   padding: 0 $spacing-lg;
-  opacity: 0.45;
+  opacity: $opacity-muted;
 }
 
 .tickerDot {
-  opacity: 0.6;
+  opacity: $opacity-muted;
   margin-left: $spacing-lg;
 }
 
@@ -216,7 +216,7 @@
 
 .neuroHintText {
   font-size: $font-size-sm;
-  opacity: 0.6;
+  opacity: $opacity-muted;
   line-height: 1.4;
 }
 
@@ -239,7 +239,7 @@
   font-size: $font-size-xs;
   letter-spacing: $letter-spacing-md;
   text-transform: uppercase;
-  opacity: 0.4;
+  opacity: $opacity-muted;
 }
 
 .neuroHintCode {
@@ -282,7 +282,7 @@
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  opacity: 0.4;
+  opacity: $opacity-muted;
   margin-bottom: $spacing-xl;
 }
 
@@ -327,7 +327,7 @@
   font-size: $font-size-xs;
   letter-spacing: $letter-spacing-md;
   text-transform: uppercase;
-  opacity: 0.4;
+  opacity: $opacity-muted;
   text-align: right;
 }
 
@@ -364,7 +364,7 @@
   line-height: 1.4;
   letter-spacing: $letter-spacing-xl;
   text-transform: uppercase;
-  opacity: 0.45;
+  opacity: $opacity-muted;
   text-align: center;
 }
 
@@ -398,7 +398,7 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  opacity: 0.35;
+  opacity: $opacity-muted;
   font-style: normal;
 }
 
@@ -488,7 +488,7 @@
   text-transform: uppercase;
   text-decoration: none;
   color: var(--color-text);
-  opacity: 0.5;
+  opacity: $opacity-muted;
   white-space: nowrap;
   transition:
     opacity $duration-base,
