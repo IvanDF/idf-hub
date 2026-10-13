@@ -65,6 +65,18 @@ export default function InkPlate() {
             data-visual={hero ? "image" : "type"}
             aria-labelledby={`plate-${project.id}`}
           >
+            {/* One link around the whole plate, rather than a link on the title
+                with a stretched hit area over the rest. The stretched version
+                anchored to the title instead of the plate, because the title
+                carries a scroll-driven `translate` and a transformed element
+                becomes the containing block for anything absolute inside it.
+                A reader could see "read the case", click it, and nothing
+                happened. */}
+            <Link
+              href={hrefForProject(project)}
+              className={styles.plateLink}
+              aria-labelledby={`plate-${project.id}`}
+            >
             <div className={styles.copy}>
               <span className={styles.rule} aria-hidden="true" />
 
@@ -73,9 +85,7 @@ export default function InkPlate() {
               </span>
 
               <h3 className={styles.title} id={`plate-${project.id}`}>
-                <Link href={hrefForProject(project)} className={styles.titleLink}>
-                  {project.title}
-                </Link>
+                <span className={styles.titleLink}>{project.title}</span>
               </h3>
 
               <p className={styles.blurb}>
@@ -114,6 +124,7 @@ export default function InkPlate() {
                 />
               </div>
             )}
+            </Link>
           </section>
           </Fragment>
         );

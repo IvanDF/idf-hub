@@ -47,6 +47,11 @@
   background: var(--color-accent);
   color: var(--color-bg);
   opacity: 1;
+  // Bold, because the ratio is not the problem here. Dark mode fills the pill
+  // with the light violet and sets 10px page-colour text on it: that measures
+  // 7.27:1 and still reads badly, because at this size regular-weight strokes
+  // are too thin to hold against a bright ground. Weight is what fixes it.
+  font-weight: 700;
 }
 
 // ── Container ─────────────────────────────────────────────────────────────────

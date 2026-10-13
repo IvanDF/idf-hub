@@ -2,7 +2,11 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-const STORAGE_KEY = "audioNudgeSeen";
+// Version 2. The first key was written by a timer as well as by the visitor,
+// so anyone who was simply looking elsewhere for fifteen seconds had it set
+// permanently without ever reading the bubble. Those people get one more
+// chance under the corrected rule; a new key is the whole migration.
+const STORAGE_KEY = "audioNudgeSeen.v2";
 
 /** How long the page has to be quiet before the nudge appears. */
 const APPEAR_AFTER_MS = 6000;
