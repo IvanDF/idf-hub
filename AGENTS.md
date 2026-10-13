@@ -20,6 +20,18 @@
   size, how dates are sourced, and what the code will not invent on the
   owner's behalf.
 
+- Updating the **Yggdrasil page** (`src/app/yggdrasil/`)? The source of truth is the Yggdrasil documentation on the
+  owner's server. It is mounted **read-only** at `/ref/yggdrasil` when the sandbox is started with
+  `huginn <this repo> --with ~/Documents/yggdrasil`. If `/ref/yggdrasil` does not exist, say so and stop: do not
+  rebuild it from memory.
+  - Read in this order: `docs/system.xml` (structure), `README.md` (manual and rune table), `docs/realms.md`,
+    then the newest entries of `audit.md`.
+  - Copy facts, never files, and never write under `/ref`.
+  - The page prose is handwritten: update what changed (realms, components, counts) and the data tests in
+    `src/__tests__/data/yggdrasil.test.ts`.
+  - When the documents disagree with each other, or with what the site ships, report it to the owner instead of
+    choosing silently.
+
 ---
 
 ## 1. Language

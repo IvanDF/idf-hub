@@ -21,6 +21,16 @@ describe('YGG_REALMS', () => {
     })
   })
 
+  // A rune is the mark that identifies a realm, so two realms sharing one makes
+  // the tree unreadable. Mímir arrived carrying Muninn's ᛗ and both rendered
+  // identically until the naming table moved Muninn to ᛁ.
+  it('no two realms share a rune', () => {
+    const byRune = new Map<string, string[]>()
+    YGG_REALMS.forEach(r => byRune.set(r.rune, [...(byRune.get(r.rune) ?? []), r.name]))
+    const clashes = [...byRune.entries()].filter(([, names]) => names.length > 1)
+    expect(clashes).toEqual([])
+  })
+
   // The tree draws itself from the layers: one ground, one trunk, the rest branches.
   it('has exactly one root layer and one trunk', () => {
     expect(YGG_REALMS.filter(r => r.layer === 'roots')).toHaveLength(1)

@@ -9,8 +9,12 @@ import type { YggForgeItem, YggLaw, YggMoment, YggRealm } from "@/types/yggdrasi
  *
  * Sourced from the server's own documents, which are the thing that is kept
  * current: `docs/system.xml` for what each service is and `docs/realms.md`
- * for where it belongs. Runes come from `system.xml`, not from memory, two of
- * them were wrong here for months.
+ * for where it belongs. Runes come from `system.xml` and the naming table in
+ * `README.md`, not from memory, three of them were wrong here for months.
+ *
+ * Muninn is ᛁ Isa, not ᛗ Mannaz. It held ᛗ until Mímir arrived carrying the
+ * same rune, and the collision was settled by moving Muninn, so that a rune
+ * still identifies exactly one thing. Do not change it back.
  */
 export const YGG_REALMS: YggRealm[] = [
   {
@@ -154,7 +158,7 @@ export const YGG_REALMS: YggRealm[] = [
   },
   {
     id: "muninn",
-    rune: "ᛗ",
+    rune: "ᛁ",
     name: "Muninn",
     layer: "branches",
     myth: "Odin's raven of memory",
@@ -268,7 +272,17 @@ export const YGG_SECTIONS: { n: number; id: string; label: string }[] = [
   { n: 5, id: "ygg-forge", label: "forge" },
 ];
 
-/** Palette shared by every theme in the forge, in the order tmux uses it. */
+/**
+ * Palette shared by every theme in the forge, in the order tmux uses it.
+ *
+ * This is deliberately NOT the palette in the server's `docs/design-system.md`,
+ * which is Nord with amber gold. Two palettes are in use and the document now
+ * says so outright: Nord governs the screens (the Home Assistant dashboard, the
+ * status board, the menu bar), and this violet governs the personal terminal
+ * setup and the themes this page hands out. They were never reconciled, by
+ * choice. The files in `public/yggdrasil/forge/` really are violet, so leave
+ * both alone rather than making one match the other.
+ */
 export const YGG_PALETTE: { name: string; hex: string }[] = [
   { name: "volta", hex: "#8b5cf6" },
   { name: "volta light", hex: "#a78bfa" },
