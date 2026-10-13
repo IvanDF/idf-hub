@@ -1,4 +1,5 @@
 @use "@/styles/variables" as *;
+@use "@/styles/mixins" as *;
 
 .showcase {
   display: flex;
@@ -80,6 +81,13 @@
   &:hover,
   &:focus-visible {
     background-size: 100% $border-base;
+  }
+
+  // A thumb needs the full target; the compact size is a desktop affordance.
+  @include mobile {
+    min-height: $touch-target-min;
+    display: inline-flex;
+    align-items: center;
   }
 }
 

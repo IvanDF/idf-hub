@@ -43,6 +43,13 @@
   transition: opacity $duration-micro ease;
 
   &:hover { opacity: 1; }
+
+  // A thumb needs the full target; the compact size is a desktop affordance.
+  @include mobile {
+    min-height: $touch-target-min;
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
 // ── Header ────────────────────────────────────────────────────────────────────
@@ -325,6 +332,13 @@
   transition: opacity $duration-micro ease;
 
   &:hover { opacity: 1; }
+
+  // A thumb needs the full target; the compact size is a desktop affordance.
+  @include mobile {
+    min-height: $touch-target-min;
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
 // ── Section furniture, shared by every template ──────────────────────────────

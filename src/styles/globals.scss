@@ -38,6 +38,11 @@ body.glitch-active {
 }
 
 :root {
+  /* The two smallest type steps. Declared here rather than in _variables.scss
+     because they change with the viewport, which a Sass variable cannot do. */
+  --font-size-2xs: 0.5rem; /* 8px */
+  --font-size-xs: 0.625rem; /* 10px */
+
   /* LIGHT MODE (DEFAULT) */
   --color-bg: #{$color-bg-light};
   --color-text: #{$color-text-light};
@@ -573,5 +578,15 @@ button:not([data-no-stamp]),
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Small type on a small screen. 8px and 10px carry the labels, chips and meta
+   rows, and at arm's length on a phone they are not readable. Stepping only
+   these two leaves the rest of the scale, and all of desktop, untouched. */
+@media (max-width: 768px) {
+  :root {
+    --font-size-2xs: 0.6875rem; /* 11px */
+    --font-size-xs: 0.75rem; /* 12px */
   }
 }

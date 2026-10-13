@@ -34,10 +34,16 @@ $swatches: (
   display: flex;
   flex-direction: column;
   // Clear the chrome rails. The page is full-bleed and the status line ran the
-  // whole width, so both vertical ink rules cut straight across it. The rails
-  // collapse to a $chrome-rail-peek sliver on this route, which is what has to
-  // be stepped over, not their full width.
+  // whole width, so both vertical ink rules cut straight across it. Only the
+  // rails' visible sliver has to be stepped over, not their full width.
   padding-inline: calc(var(--chrome-rail-peek, 32px) + #{$spacing-sm});
+
+  // The rails are display:none under $breakpoint-xl, where the burger replaces
+  // them, so there is nothing to step over. Keeping the 44px gutter there spent
+  // 23% of a 390px screen clearing something that is not on it.
+  @include mobile {
+    padding-inline: $spacing-md;
+  }
 }
 
 // ── Status line ──
@@ -63,9 +69,33 @@ $swatches: (
   align-items: center;
   gap: $spacing-sm;
   color: $accent;
+  // Without this the windows strip inside can never scroll: a flex item
+  // defaults to min-width:auto, so this box grows to fit its content and the
+  // child's `overflow-x: auto` never has anything to scroll. On a 390px screen
+  // the bar's contents measured 500px wide inside a 302px bar.
+  min-width: 0;
+}
+
+// The windows are the navigation and must keep their room; the stats are
+// ambient and give theirs up first.
+.tmuxLeft {
+  flex: 1 1 auto;
+}
+
+.tmuxRight {
+  flex: 0 1 auto;
+  overflow: hidden;
 }
 .tmuxRune {
   font-size: $font-size-md;
+}
+
+// A phone has room for the windows or for the counters, not both. The windows
+// are how the page is navigated, so the counters stand down.
+@include mobile {
+  .tmuxStat {
+    display: none;
+  }
 }
 // The windows scroll sideways on a narrow screen rather than wrapping, which
 // is what a real status line does when it runs out of room.

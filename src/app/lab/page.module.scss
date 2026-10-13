@@ -16,6 +16,11 @@
   cursor: pointer;
   padding: $spacing-2xs $spacing-md;
   min-height: calc(#{$touch-target-min} - 2 * #{$spacing-2xs});
+
+  // The compact height is a desktop affordance; a thumb needs the full target.
+  @include mobile {
+    min-height: $touch-target-min;
+  }
   display: inline-flex;
   align-items: center;
   border-radius: $radius-full;
@@ -185,6 +190,13 @@
     background: var(--color-text);
     color: var(--color-bg);
     border-color: var(--color-text);
+  }
+
+  // A thumb needs the full target; the compact size is a desktop affordance.
+  @include mobile {
+    min-height: $touch-target-min;
+    display: inline-flex;
+    align-items: center;
   }
 }
 
@@ -472,6 +484,13 @@
   border-radius: $radius-full;
 
   &:hover { opacity: 1; }
+
+  // A thumb needs the full target; the compact size is a desktop affordance.
+  @include mobile {
+    min-height: $touch-target-min;
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
 .archiveCount {

@@ -139,6 +139,13 @@
     background: var(--color-accent);
     color: var(--color-bg);
   }
+
+  // A thumb needs the full target; the compact size is a desktop affordance.
+  @include mobile {
+    min-height: $touch-target-min;
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
 @include mobile {

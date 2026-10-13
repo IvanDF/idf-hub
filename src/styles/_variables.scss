@@ -100,8 +100,13 @@ $font-family-mono: var(--font-geist-mono), monospace;
 
 // Type Scale: numeric (terminal/micro/display use; body copy uses the
 // semantic scale below). 6px step removed: merged into 2xs.
-$font-size-2xs: 0.5rem;    // 8px
-$font-size-xs: 0.625rem;   // 10px
+// The two smallest steps are runtime values, not compile-time ones: at 8px and
+// 10px they are below the documented scale and genuinely hard to read on a
+// phone, where they carry labels, chips and meta rows. They step up under
+// $breakpoint-xl (see globals.scss) and keep desktop density unchanged. Never
+// used in arithmetic, so a var() is safe here.
+$font-size-2xs: var(--font-size-2xs); // 8px desktop, 11px mobile
+$font-size-xs: var(--font-size-xs);   // 10px desktop, 12px mobile
 $font-size-sm: 0.75rem;    // 12px
 $font-size-base: 0.875rem; // 14px
 $font-size-md: 1rem;       // 16px
