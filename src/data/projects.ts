@@ -108,7 +108,7 @@ export const PROJECTS: Project[] = [
       },
       {
         label: "Audit entries",
-        value: "99+",
+        value: "154",
       },
     ],
     links: {

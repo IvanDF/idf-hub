@@ -38,8 +38,9 @@ export default function YggdrasilPage() {
           <p className={styles.lede}>A home server designed around one person&apos;s day.</p>
           <p className={styles.intro}>
             One laptop from 2017. No port open to the internet. Every service named after a being
-            from Norse myth, every change written down. It runs the house, keeps my notes, sends
-            the day&apos;s training and speaks to me every morning, on hardware I own.
+            from Norse myth, every change written down. It runs the house, keeps my notes and my
+            passwords, holds what I watch and what I read, sends the day&apos;s training and
+            speaks to me every morning, on hardware I own.
           </p>
         </section>
 
