@@ -231,6 +231,43 @@ $swatches: (
   color: $text;
 }
 
+// ── Companion cover ──
+// A raster painting rather than the page's usual drawn lines: the one place
+// this page shows a scene instead of describing one. `image-rendering` keeps
+// its pixel-art edges crisp rather than letting the browser soften them.
+.cover {
+  margin-top: $spacing-xl;
+  max-width: 640px;
+}
+.coverImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid $line;
+  border-radius: $radius-md;
+  image-rendering: pixelated;
+}
+.coverCaption {
+  margin-top: $spacing-xs;
+  color: $muted;
+  font-size: $font-size-sm;
+}
+.coverLink {
+  color: $blue;
+
+  &:hover {
+    color: $mist;
+  }
+}
+
+.inlineCode {
+  padding: 0 $spacing-2xs;
+  border: 1px solid $line;
+  border-radius: $radius-sm;
+  color: $mist;
+  font-size: 0.9em;
+}
+
 // ── Sections ──
 .section {
   padding: $spacing-2xl 0;

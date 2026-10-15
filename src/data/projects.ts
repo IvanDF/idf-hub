@@ -114,11 +114,12 @@ export const PROJECTS: Project[] = [
     links: {
       repo: "https://github.com/IvanDF/yggdrasil",
           },
-    // Placeholder: the entry pointed at /projects/yggdrasil/thumb.svg,
-    // which is not in public/. Swap it for a real image when there is one.
+    // The server's own companion: a pixel-art scene the terminal dashboard
+    // draws, rendered once from the real source (assets/companion/ on
+    // Yggdrasil itself, Python + Pillow) rather than redrawn for the web.
+    // See /yggdrasil for what each part of the scene is standing in for.
     media: {
-      thumbnail: "/projects/yggdrasil/thumb.svg",
-      fit: "contain",
+      thumbnail: "/projects/yggdrasil/thumb.png",
     },
     interaction: "spotlight",
   },

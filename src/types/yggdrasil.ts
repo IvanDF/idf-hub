@@ -29,6 +29,12 @@ export interface YggMoment {
   body: string;
 }
 
+/** One thing the companion scene draws, and the real state it stands for. */
+export interface YggCompanionFact {
+  title: string;
+  body: string;
+}
+
 /** A theme or config published from the setup. */
 export interface YggForgeItem {
   id: string;

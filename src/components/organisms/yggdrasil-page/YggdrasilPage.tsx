@@ -1,5 +1,6 @@
 import { PROJECTS } from "@/data/projects";
-import { YGG_LAWS } from "@/data/yggdrasil";
+import { YGG_COMPANION_FACTS, YGG_LAWS } from "@/data/yggdrasil";
+import Image from "next/image";
 import Link from "next/link";
 import DayTimeline from "./DayTimeline";
 import Decisions from "./Decisions";
@@ -42,6 +43,23 @@ export default function YggdrasilPage() {
             passwords, holds what I watch and what I read, sends the day&apos;s training and
             speaks to me every morning, on hardware I own.
           </p>
+          <figure className={styles.cover}>
+            <Image
+              src="/projects/yggdrasil/cover.png"
+              alt="The home server drawn as a pixel-art world tree: Ratatoskr the squirrel at its roots, the nine realms as landmarks around it, a river carrying a longship when the torrent client is running."
+              width={600}
+              height={344}
+              className={styles.coverImage}
+              priority
+            />
+            <figcaption className={styles.coverCaption}>
+              One saved frame of the companion. It runs live, in the real terminal —{" "}
+              <a href="#ygg-companion" className={styles.coverLink}>
+                what it draws
+              </a>
+              .
+            </figcaption>
+          </figure>
         </section>
 
         <section id="ygg-tree" data-reveal="" className={styles.section} aria-labelledby="ygg-tree-h">
@@ -83,6 +101,31 @@ export default function YggdrasilPage() {
             <span aria-hidden="true">#</span> a day in the tree
           </h2>
           <DayTimeline />
+        </section>
+
+        <section id="ygg-companion" data-reveal="" className={styles.section} aria-labelledby="ygg-companion-h">
+          <h2 id="ygg-companion-h" className={styles.heading}>
+            <span aria-hidden="true">#</span> the companion
+          </h2>
+          <p className={styles.sectionLede}>
+            Not a feature of this page. Type <code className={styles.inlineCode}>yggdrasil</code> in
+            the real terminal and the system draws itself, redrawn every few seconds from whatever
+            is actually happening. The image above is one frame of it, saved.
+          </p>
+          <ol className={styles.laws}>
+            {YGG_COMPANION_FACTS.map((fact, i) => (
+              <li key={fact.title} className={styles.law}>
+                <span className={styles.lawIndex}>{String(i + 1).padStart(2, "0")}</span>
+                <h3 className={styles.lawTitle}>{fact.title}</h3>
+                <p className={styles.lawBody}>{fact.body}</p>
+              </li>
+            ))}
+          </ol>
+          <p className={styles.sectionLede}>
+            Four drawing modes trade resolution for what the terminal font can actually render:
+            block, solid, braille and sextant. It needs a truecolor terminal — iTerm2, Ghostty,
+            kitty, WezTerm — not the stock macOS Terminal app.
+          </p>
         </section>
 
         <section id="ygg-forge" data-reveal="" className={styles.section} aria-labelledby="ygg-forge-h">

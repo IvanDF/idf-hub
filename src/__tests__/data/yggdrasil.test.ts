@@ -1,6 +1,6 @@
-import { existsSync } from 'fs'
+import { existsSync, readFileSync } from 'fs'
 import { join } from 'path'
-import { YGG_DAY, YGG_FORGE, YGG_LAWS, YGG_PALETTE, YGG_REALMS, YGG_STATS } from '@/data/yggdrasil'
+import { YGG_COMPANION_FACTS, YGG_DAY, YGG_FORGE, YGG_LAWS, YGG_PALETTE, YGG_REALMS, YGG_SECTIONS, YGG_STATS } from '@/data/yggdrasil'
 
 const PUBLIC_DIR = join(process.cwd(), 'public')
 
@@ -90,5 +90,34 @@ describe('YGG_LAWS, YGG_DAY and the status line', () => {
   it('the service count matches the branches', () => {
     const services = YGG_STATS.find(s => s.label === 'services')
     expect(services?.value).toBe(String(YGG_REALMS.filter(r => r.layer === 'branches').length))
+  })
+})
+
+describe('YGG_COMPANION_FACTS', () => {
+  it('every fact states what is drawn and what it stands for', () => {
+    expect(YGG_COMPANION_FACTS.length).toBeGreaterThan(0)
+    YGG_COMPANION_FACTS.forEach(f => {
+      expect(f.title).toBeTruthy()
+      expect(f.body).toBeTruthy()
+    })
+  })
+})
+
+describe('YGG_SECTIONS', () => {
+  const page = readFileSync(
+    join(process.cwd(), 'src/components/organisms/yggdrasil-page/YggdrasilPage.tsx'),
+    'utf-8',
+  )
+
+  it('numbers sections 1..n with no gap or repeat', () => {
+    expect(YGG_SECTIONS.map(s => s.n)).toEqual(YGG_SECTIONS.map((_, i) => i + 1))
+  })
+
+  // The status line is navigation: a window that points at an id the page
+  // never renders clicks and goes nowhere.
+  it('every window has a matching section on the page', () => {
+    YGG_SECTIONS.forEach(s => {
+      expect(page).toContain(`id="${s.id}"`)
+    })
   })
 })

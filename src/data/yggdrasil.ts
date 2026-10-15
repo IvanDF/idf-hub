@@ -1,4 +1,4 @@
-import type { YggForgeItem, YggLaw, YggMoment, YggRealm } from "@/types/yggdrasil";
+import type { YggCompanionFact, YggForgeItem, YggLaw, YggMoment, YggRealm } from "@/types/yggdrasil";
 
 /**
  * The services, in the reading order of the Nine Realms map: the seat of rule
@@ -259,6 +259,32 @@ export const YGG_FORGE: YggForgeItem[] = [
 ];
 
 /**
+ * What the companion scene draws, and the real state behind each part of it.
+ * Source: the server's own audit log, §155 onward (`assets/companion/` on
+ * Yggdrasil itself, Python + Pillow). It is not on this website: this is one
+ * saved frame of a thing that runs in the actual terminal, redrawn every few
+ * seconds from whatever the system is actually doing.
+ */
+export const YGG_COMPANION_FACTS: YggCompanionFact[] = [
+  {
+    title: "The canopy is the seven services",
+    body: "Each of the seven clusters turns autumn gold and drops its leaves the moment that service goes down, and Ratatoskr climbs to the branch and points at it.",
+  },
+  {
+    title: "The sky is the real clock and the real weather",
+    body: "Dawn, day, dusk and night follow the hour; clouds, rain, snow and storms follow the forecast. The moon and stars come out when the sky itself calls for it.",
+  },
+  {
+    title: "Three shields are the three backups",
+    body: "Muninn, the encrypted off-site copy and the state snapshot each get a shield at the tree's foot. One cracks and greys out the moment its copy is more than thirty hours old.",
+  },
+  {
+    title: "A longship sails the river only when the torrent client is up",
+    body: "Njord's container is the only thing that puts a boat on the water. An eagle sits in the canopy for exactly as long as the private network is reachable.",
+  },
+];
+
+/**
  * The page's sections, as tmux windows. The status bar numbers them and
  * highlights the one you are in, so the bar is navigation rather than
  * decoration, and because one list drives both, a window cannot point at a
@@ -269,7 +295,8 @@ export const YGG_SECTIONS: { n: number; id: string; label: string }[] = [
   { n: 2, id: "ygg-laws", label: "laws" },
   { n: 3, id: "ygg-decisions", label: "decisions" },
   { n: 4, id: "ygg-day", label: "day" },
-  { n: 5, id: "ygg-forge", label: "forge" },
+  { n: 5, id: "ygg-companion", label: "companion" },
+  { n: 6, id: "ygg-forge", label: "forge" },
 ];
 
 /**
