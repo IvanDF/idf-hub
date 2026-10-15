@@ -327,6 +327,7 @@ export default function Terminal({
   const [skin, setSkin] = useState<"default" | "yggdrasil">("default");
 
   const { executeCommand } = useTerminalCommands({
+    skin,
     setSkin,
     router,
     toggleTheme,

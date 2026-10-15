@@ -56,6 +56,13 @@ export type CommandContext = {
   setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setGameActive: React.Dispatch<React.SetStateAction<boolean>>;
+  /**
+   * The skin worn right now. Read this to decide what to do, rather than
+   * mutating a variable from inside the `setSkin` updater: that function
+   * runs on React's schedule, not the line after the call, so a value it
+   * sets is not there yet when `run` reads it back.
+   */
+  skin: TerminalSkin;
   setSkin: React.Dispatch<React.SetStateAction<TerminalSkin>>;
 };
 

@@ -664,6 +664,75 @@
       border-color: var(--ygg-lario);
     }
   }
+
+  // The boot log YggBootLog draws: one line per branch, dots filling the gap
+  // the way `systemctl status` does. Lives inside the skin block because
+  // these colours are the home server's, not this site's.
+  .bootLog {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: $spacing-2xs 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .bootLine {
+    display: flex;
+    align-items: baseline;
+    gap: $spacing-2xs;
+    min-width: 0; // let .bootDots shrink instead of pushing the line wide
+  }
+
+  .bootOk {
+    color: var(--ygg-mist);
+    font-weight: 600;
+  }
+
+  .bootRune {
+    color: var(--ygg-volta);
+  }
+
+  .bootName {
+    white-space: nowrap;
+  }
+
+  .bootDots {
+    flex: 1 1 auto;
+    min-width: $spacing-sm;
+    overflow: hidden;
+    white-space: nowrap;
+    letter-spacing: 2px;
+    color: var(--ygg-stone);
+    opacity: 0.6;
+  }
+
+  .bootStatus {
+    white-space: nowrap;
+    color: var(--ygg-lario);
+  }
+
+  .bootSummary {
+    margin-top: $spacing-2xs;
+    color: var(--ygg-volta);
+    font-weight: 600;
+    list-style: none;
+  }
+
+  .bootCursor {
+    display: inline-block;
+    animation: bootBlink 1s steps(2, jump-none) infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+}
+
+@keyframes bootBlink {
+  50% {
+    opacity: 0;
+  }
 }
 
 // A flag that opens the trip it was collected on. A bare emoji is about 18px

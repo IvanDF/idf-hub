@@ -4,6 +4,8 @@ import { GUIDE_OUTPUT, buildSoundOutput, buildYggOutput } from "@/lib/terminal/T
 import { SHORTCUTS_INFO } from "@/lib/terminal/Terminal.constants";
 import { buildCategoryHelp, buildHelpOutput, isHelpCategory } from "@/lib/terminal/Terminal.help";
 import { buildShareOutput } from "@/lib/terminal/Terminal.share";
+import YggBootLog from "@/components/organisms/Terminal/YggBootLog";
+import { createElement } from "react";
 
 /** The terminal itself, and the session you are in. */
 export const SYSTEM_COMMANDS: CommandEntry[] = [
@@ -83,15 +85,21 @@ export const SYSTEM_COMMANDS: CommandEntry[] = [
     aliases: ["yggdrasil", "tmux"],
     summary: "repaint the panel in the home-server colours",
     category: "system",
-    run: ({ setSkin }) => {
+    run: ({ skin, setSkin }) => {
       // Toggle, so the same word undoes it, nobody should have to guess a
-      // second command to get their terminal back.
-      let turnedOn = false;
-      setSkin((current) => {
-        turnedOn = current === "default";
-        return turnedOn ? "yggdrasil" : "default";
-      });
-      return say(buildYggOutput(turnedOn));
+      // second command to get their terminal back. Decided from `skin`, the
+      // value this render actually has, not from inside the `setSkin`
+      // updater: that runs on React's own schedule, so reading its result
+      // back on the next line reads the state from before the toggle.
+      const turnedOn = skin === "default";
+      setSkin(turnedOn ? "yggdrasil" : "default");
+      // The boot log plays on the way in, not the way out: turning the skin
+      // off is a cleanup, not an event, and a second log turning off would
+      // read as the server stopping, which it is not.
+      const boot: CommandOutput[] = turnedOn
+        ? [{ type: "text", content: createElement(YggBootLog), pre: true }]
+        : [];
+      return say([...boot, ...buildYggOutput(turnedOn)]);
     },
   },
   {

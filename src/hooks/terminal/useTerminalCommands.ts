@@ -25,6 +25,7 @@ type UseTerminalCommandsOptions = {
   getAuthUser: () => Promise<{ email?: string | null } | null>;
   signOut: () => Promise<void>;
   setGameActive: React.Dispatch<React.SetStateAction<boolean>>;
+  skin: TerminalSkin;
   setSkin: React.Dispatch<React.SetStateAction<TerminalSkin>>;
   context?: "site" | "admin";
 };
@@ -50,6 +51,7 @@ export function useTerminalCommands({
   getAuthUser,
   signOut,
   setGameActive,
+  skin,
   setSkin,
   context = "site",
 }: UseTerminalCommandsOptions): {
@@ -57,6 +59,7 @@ export function useTerminalCommands({
 } {
   const { handleAdminCommand } = useAdminCommands({ router, setIsOpen });
   const { handleSiteCommand } = useSiteCommands({
+    skin,
     setSkin,
     router,
     toggleTheme,

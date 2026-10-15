@@ -33,6 +33,7 @@ type UseSiteCommandsOptions = {
   setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setGameActive: React.Dispatch<React.SetStateAction<boolean>>;
+  skin: TerminalSkin;
   setSkin: React.Dispatch<React.SetStateAction<TerminalSkin>>;
   getAuthUser: () => Promise<{ email?: string | null } | null>;
   signOut: () => Promise<void>;
@@ -61,6 +62,7 @@ export function useSiteCommands({
   setHistory,
   setIsOpen,
   setGameActive,
+  skin,
   setSkin,
   getAuthUser,
   signOut,
@@ -126,6 +128,7 @@ export function useSiteCommands({
         setHistory,
         setIsOpen,
         setGameActive,
+        skin,
         setSkin,
       };
 
@@ -141,6 +144,7 @@ export function useSiteCommands({
       setHistory,
       setIsOpen,
       setGameActive,
+      skin,
       setSkin,
       getAuthUser,
       signOut,

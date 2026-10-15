@@ -114,3 +114,37 @@ describe('help as a command', () => {
     expect(findCommand('-h')).toBe(findCommand('help'))
   })
 })
+
+// Regression: `run` used to decide what to print from inside the `setSkin`
+// updater, mutating a `let` the updater closed over. React calls that
+// updater on its own schedule, not the next line, so the variable was still
+// its initial value when `run` read it back, every single time. The command
+// toggled the skin correctly but always printed the "off" message, and the
+// boot log could never appear. Fixed by reading `ctx.skin`, the value this
+// call actually has, instead of the setter's eventual result.
+describe('ygg as a command', () => {
+  const ctx = {
+    args: [] as string[],
+    commands: COMMANDS,
+    discoveredEggs: new Set<string>(),
+  }
+
+  it('turns the skin on and shows the boot log, from default', async () => {
+    const ygg = findCommand('ygg')!
+    const setSkin = jest.fn()
+    const result = await ygg.run({ ...ctx, skin: 'default', setSkin } as never)
+
+    expect(setSkin).toHaveBeenCalledWith('yggdrasil')
+    expect(result.outputs.length).toBeGreaterThan(1)
+    expect(result.outputs[0].content).not.toBe('Back to the house style.')
+  })
+
+  it('turns the skin off, from yggdrasil, with no boot log', async () => {
+    const ygg = findCommand('ygg')!
+    const setSkin = jest.fn()
+    const result = await ygg.run({ ...ctx, skin: 'yggdrasil', setSkin } as never)
+
+    expect(setSkin).toHaveBeenCalledWith('default')
+    expect(result.outputs).toEqual([{ type: 'success', content: 'Back to the house style.' }])
+  })
+})
