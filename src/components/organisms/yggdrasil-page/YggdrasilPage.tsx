@@ -1,6 +1,5 @@
 import { PROJECTS } from "@/data/projects";
 import { YGG_COMPANION_FACTS, YGG_LAWS } from "@/data/yggdrasil";
-import Image from "next/image";
 import Link from "next/link";
 import DayTimeline from "./DayTimeline";
 import Decisions from "./Decisions";
@@ -44,16 +43,25 @@ export default function YggdrasilPage() {
             speaks to me every morning, on hardware I own.
           </p>
           <figure className={styles.cover}>
-            <Image
-              src="/projects/yggdrasil/cover.png"
-              alt="The home server drawn as a pixel-art world tree: Ratatoskr the squirrel at its roots, the nine realms as landmarks around it, a river carrying a longship when the torrent client is running."
-              width={600}
-              height={344}
-              className={styles.coverImage}
-              priority
-            />
+            {/* A real loop, not a still: 72 frames of the same renderer that
+                draws the companion, composited at increasing tick. next/image
+                would re-encode this through its optimizer and lose the
+                animation, so this is a plain <picture>; the PNG branch is
+                what prefers-reduced-motion gets instead of 72 frames looping
+                forever. */}
+            <picture>
+              <source media="(prefers-reduced-motion: reduce)" srcSet="/projects/yggdrasil/cover.png" />
+              <img
+                src="/projects/yggdrasil/cover-loop.gif"
+                alt="The home server drawn as a pixel-art world tree: Ratatoskr the squirrel at its roots, the nine realms as landmarks around it, birds and butterflies drifting past."
+                width={600}
+                height={344}
+                className={styles.coverImage}
+                fetchPriority="high"
+              />
+            </picture>
             <figcaption className={styles.coverCaption}>
-              One saved frame of the companion. It runs live, in the real terminal —{" "}
+              The companion, looping. It runs live, in the real terminal —{" "}
               <a href="#ygg-companion" className={styles.coverLink}>
                 what it draws
               </a>
